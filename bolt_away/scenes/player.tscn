@@ -70,9 +70,22 @@ metadata/_edit_vertical_guides_ = [-7.0, 6.0]
 position = Vector2(-2, -11)
 scale = Vector2(1, 1.375)
 sprite_frames = SubResource("SpriteFrames_81gkq")
-animation = &"idle"
+animation = &"jump"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -9)
 shape = SubResource("RectangleShape2D_d7nfa")
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+
+[node name="JumpBufferTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="timeout" from="CoyoteTimer" to="." method="coyote_timeout"]
+[connection signal="timeout" from="JumpBufferTimer" to="." method="jump_buffer_timeout"]
+[connection signal="timeout" from="DashTimer" to="." method="dash_timeout"]

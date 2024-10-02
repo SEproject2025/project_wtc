@@ -119,4 +119,16 @@ autoplay = "idle"
 position = Vector2(-0.5, -9)
 shape = SubResource("RectangleShape2D_ti4r0")
 
+[node name="CoyoteTimer" type="Timer" parent="."]
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="RespawnTimer" to="." method="_respawn"]
+[connection signal="timeout" from="CoyoteTimer" to="." method="coyote_timeout"]
+[connection signal="timeout" from="DashTimer" to="." method="dash_timeout"]
+[connection signal="timeout" from="JumpBufferTimer" to="." method="jump_buffer_timeout"]
