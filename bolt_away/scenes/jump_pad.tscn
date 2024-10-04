@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bac2msumk5krk"]
+
+[ext_resource type="Texture2D" uid="uid://cai7m62asbbj1" path="res://assets/sprites/Jump_pad.png" id="1_cxgbj"]
+[ext_resource type="PackedScene" uid="uid://d1h8q4rqdmnpc" path="res://scenes/jump.tscn" id="2_n5uwt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ntbr"]
+size = Vector2(28, 5)
+
+[node name="Jump_pad" type="Node2D"]
+
+[node name="JumpPad" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("1_cxgbj")
+
+[node name="Jump_pad" parent="." instance=ExtResource("2_n5uwt")]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Jump_pad"]
+position = Vector2(0, -16.5)
+shape = SubResource("RectangleShape2D_0ntbr")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]

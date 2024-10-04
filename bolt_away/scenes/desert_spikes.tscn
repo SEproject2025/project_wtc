@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bf1cwlaflxa5e"]
+
+[ext_resource type="Texture2D" uid="uid://cfkrvthggukxj" path="res://assets/sprites/Desert_Spikes.png" id="1_h23qp"]
+[ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="2_f0ujk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ywxm"]
+size = Vector2(20, 11.4286)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13cxr"]
+size = Vector2(26, 3.625)
+
+[node name="desert_spikes" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -5)
+scale = Vector2(1.6, 0.7)
+shape = SubResource("RectangleShape2D_1ywxm")
+
+[node name="DesertSpikes" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(0, -17)
+texture = ExtResource("1_h23qp")
+
+[node name="Killzone" parent="." instance=ExtResource("2_f0ujk")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, -11.1875)
+shape = SubResource("RectangleShape2D_13cxr")
+debug_color = Color(0.94902, 0.172549, 0.298039, 0.368627)
