@@ -1,7 +1,9 @@
-class_name PlayerInput extends Node
+class_name PlayerInput 
+extends Node
 
-var input_direction = 0
-var input_jump = 0
+var input_direction: float = 0
+var input_jump: float = 0
+var input_dash: float = 0
 
 func _ready():
 	
@@ -23,3 +25,4 @@ func _process(delta):
 		return
 		
 	input_jump = Input.get_action_strength("jump")
+	input_dash = Input.get_action_strength("dash")
