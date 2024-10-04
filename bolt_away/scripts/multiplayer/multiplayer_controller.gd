@@ -4,33 +4,32 @@ const SPEED = 150.0
 const DECELERATION = 0.1
 const ACCELERATION = 0.1
 const JUMP_VELOCITY = -260.0
-const WALL_JUMP_PUSHBACK = 200
+const WALL_JUMP_PUSHBACK = 250
 const WALL_SLIDE_GRAVITY = 100
 const DECELERATE_ON_JUMP_RELEASE = 0.8
-const FALL_GRAVITY = 1300
+const FALL_GRAVITY = 1050
 const COYOTE_TIMER_LENGTH = 0.1
 const JUMP_BUFFER_TIME_LENGTH = 0.15
 const DASH_SPEED = 2.4
+const JUMP_DASHTIMER = 0.1
 
-var canJump: bool = true
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var coyoteJump: bool = true
 var isDashing: bool = false
+var canDash: bool = true
 var jumpBuffered: bool = false
 var wallJumping: bool = false
+var jumpReleased: bool = false
+var _is_on_floor: bool = true
+var alive: bool = true
 
-@onready var animated_sprite = $AnimatedSprite2D
-@onready var coyoteTimer: Timer = $CoyoteTimer
-@onready var player: AnimatedSprite2D = $AnimatedSprite2D
-@onready var dashTimer: Timer = $DashTimer
-@onready var jumpBufferTimer: Timer = $JumpBufferTimer
-
-# Syncs the project settings' gravity with the RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
-var _is_on_floor = true
-var alive = true
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var coyoteTimer: Timer = $Timers/CoyoteTimer
+@onready var dashTimer: Timer = $Timers/DashTimer
+@onready var jumpBufferTimer: Timer = $Timers/JumpBufferTimer
+@onready var dashCooldown: Timer = $"Timers/DashCooldown"
 
 @export var player_input: PlayerInput
-
 @export var player_id := 1:
 	set(id):
 		player_id = id
@@ -64,18 +63,24 @@ func _apply_animations(delta):
 
 func _apply_movement_from_input(delta):
 	if not is_on_floor():
-		if canJump or coyoteTimer.is_stopped():
+		if coyoteJump or coyoteTimer.is_stopped():
 			coyoteTimer.start(COYOTE_TIMER_LENGTH)
 		velocity.y += gravity * delta
 	else:
-		canJump = true
+		coyoteJump = true
 		coyoteTimer.stop()
-	
+		
 	if player_input.input_jump:
-		jump()
+		if jumpReleased:
+			jump()
+			jumpReleased = false
+		if !is_on_floor():
+			coyoteJump = false
 	
-	if !player_input.input_jump and velocity.y < 0:
-		velocity.y *= DECELERATE_ON_JUMP_RELEASE
+	if !player_input.input_jump:
+		if velocity.y < 0:
+			velocity.y *= DECELERATE_ON_JUMP_RELEASE
+		jumpReleased = true
 	
 	if is_on_wall_only() and player_input.input_direction:
 		wall_slide()
@@ -92,14 +97,14 @@ func _apply_movement_from_input(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED * DECELERATION)
 
-	if player_input.input_dash:
+	if player_input.input_dash and canDash:
 		if !isDashing and direction:
 			start_dash()
 	
 	var wasOnFloor = is_on_floor()
 	move_and_slide()
 	
-	if !wasOnFloor && is_on_floor():
+	if !wasOnFloor and is_on_floor():
 		if jumpBuffered:
 			jumpBuffered = false
 			jump()
@@ -119,7 +124,7 @@ func _process(delta):
 func set_dead():
 	alive = false
 	$CollisionShape2D.set_deferred("disabled", true)
-	$RespawnTimer.start()
+	$Timers/RespawnTimer.start()
 
 func _respawn():
 	position = MultiplayerManager.respawn_point
@@ -130,15 +135,15 @@ func _set_alive():
 	Engine.time_scale = 1.0
 	
 func jump():
-	if is_on_floor() or canJump:
+	if is_on_floor() or coyoteJump:
 		velocity.y = JUMP_VELOCITY
-		canJump = false
+		coyoteJump = false
 	else:
 		if !jumpBuffered:
 			jumpBuffered = true
 			jumpBufferTimer.start(JUMP_BUFFER_TIME_LENGTH)
 	
-	if is_on_wall_only() and player_input.input_direction:
+	if is_on_wall_only() and velocity.y > 0 and player_input.input_direction:
 		wall_jump()
 
 func wall_jump():
@@ -149,13 +154,21 @@ func wall_slide():
 	
 func start_dash():
 	isDashing = true
+	canDash = false
 	dashTimer.start()
+	dashCooldown.start()
 
 func dash_timeout():
 	isDashing = false
 
 func coyote_timeout():
-	canJump = false
+	coyoteJump = false
 
 func jump_buffer_timeout():
 	jumpBuffered = false
+
+func return_gravity():
+	return gravity if velocity.y < 0 else FALL_GRAVITY
+
+func dash_cooldown_timeout():
+	canDash = true

@@ -12,23 +12,25 @@ const COYOTE_TIMER_LENGTH = 0.1
 const JUMP_BUFFER_TIME_LENGTH = 0.15
 const DASH_SPEED = 2.4
 
-var canJump: bool = true
+var coyoteJump: bool = true
 var isDashing: bool = false
 var jumpBuffered: bool = false
 var wallJumping: bool = false
+var canDash: bool = true
 
-@onready var coyoteTimer: Timer = $CoyoteTimer
+@onready var coyoteTimer: Timer = $Timers/CoyoteTimer
 @onready var player: AnimatedSprite2D = $AnimatedSprite2D
-@onready var dashTimer: Timer = $DashTimer
-@onready var jumpBufferTimer: Timer = $JumpBufferTimer
+@onready var dashTimer: Timer = $Timers/DashTimer
+@onready var jumpBufferTimer: Timer = $Timers/JumpBufferTimer
+@onready var dashCooldown: Timer = $"Timers/DashCooldown"
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
-		if canJump and coyoteTimer.is_stopped():
+		if coyoteJump and coyoteTimer.is_stopped():
 			coyoteTimer.start(COYOTE_TIMER_LENGTH)
 		velocity.y += return_gravity() * delta
 	else:
-		canJump = true
+		coyoteJump = true
 		coyoteTimer.stop()
 	
 	if Input.is_action_just_pressed("jump"):
@@ -48,11 +50,11 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, direction * SPEED * DASH_SPEED, SPEED * ACCELERATION)
 		else:
 			velocity.x = move_toward(velocity.x, direction * SPEED, SPEED * ACCELERATION)
-		player.flip_h = direction > 0
+		player.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED * DECELERATION)
 	
-	if Input.is_action_just_pressed("dash"):
+	if Input.is_action_just_pressed("dash") and canDash:
 		if !isDashing and direction:
 			start_dash()
 
@@ -66,9 +68,9 @@ func _physics_process(delta: float) -> void:
 			jump()
 			
 func jump():
-	if is_on_floor() or canJump:
+	if is_on_floor() or coyoteJump:
 		velocity.y = JUMP_VELOCITY
-		canJump = false
+		coyoteJump = false
 	else:
 		if !jumpBuffered:
 			jumpBuffered = true
@@ -86,13 +88,15 @@ func wall_slide():
 
 func start_dash():
 	isDashing = true
+	canDash = false
 	dashTimer.start()
+	dashCooldown.start()
 
 func return_gravity():
 	return get_gravity().y if velocity.y < 0 else FALL_GRAVITY
 	
 func coyote_timeout():
-	canJump = false
+	coyoteJump = false
 
 func jump_buffer_timeout():
 	jumpBuffered = false
@@ -100,3 +104,5 @@ func jump_buffer_timeout():
 func dash_timeout():
 	isDashing = false
 	
+func dash_cooldown_timeout():
+	canDash = true
