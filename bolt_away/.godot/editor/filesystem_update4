@@ -1,0 +1,6 @@
+res://scenes/game.tscn
+res://chunks/chunk1.tscn
+res://scripts/level.gd
+res://chunks/chunk2.tscn
+res://chunks/chunk3.tscn
+res://scripts/chunk.gd
