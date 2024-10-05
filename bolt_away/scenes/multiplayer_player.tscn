@@ -25,6 +25,9 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:input_jump")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("Input:input_dash")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vep0e"]
 atlas = ExtResource("3_3rsml")
@@ -94,7 +97,6 @@ replication_config = SubResource("SceneReplicationConfig_bcfu3")
 script = ExtResource("2_75sn2")
 
 [node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="Input"]
-unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_kgm8b")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -103,10 +105,6 @@ zoom = Vector2(4, 4)
 limit_bottom = 120
 limit_smoothed = true
 position_smoothing_enabled = true
-
-[node name="RespawnTimer" type="Timer" parent="."]
-wait_time = 0.6
-one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-2, -11)
@@ -119,4 +117,27 @@ autoplay = "idle"
 position = Vector2(-0.5, -9)
 shape = SubResource("RectangleShape2D_ti4r0")
 
-[connection signal="timeout" from="RespawnTimer" to="." method="_respawn"]
+[node name="Timers" type="Node" parent="."]
+
+[node name="DashTimer" type="Timer" parent="Timers"]
+wait_time = 0.4
+one_shot = true
+
+[node name="DashCooldown" type="Timer" parent="Timers"]
+wait_time = 3.0
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="Timers"]
+
+[node name="RespawnTimer" type="Timer" parent="Timers"]
+wait_time = 0.6
+one_shot = true
+
+[connection signal="timeout" from="Timers/DashTimer" to="." method="dash_timeout"]
+[connection signal="timeout" from="Timers/DashCooldown" to="." method="dash_cooldown_timeout"]
+[connection signal="timeout" from="Timers/JumpBufferTimer" to="." method="jump_buffer_timeout"]
+[connection signal="timeout" from="Timers/CoyoteTimer" to="." method="coyote_timeout"]
+[connection signal="timeout" from="Timers/RespawnTimer" to="." method="_respawn"]
