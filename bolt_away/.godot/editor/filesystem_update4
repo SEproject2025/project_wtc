@@ -1,6 +1,14 @@
+res://scripts/game_manager.gd
+res://scripts/mouse.gd
+res://scripts/chunk.gd
 res://scenes/game.tscn
-res://chunks/chunk1.tscn
 res://scripts/level.gd
+res://scripts/player.gd
+res://scripts/multiplayer/multiplayer_manager.gd
+res://chunks/chunk1.tscn
 res://chunks/chunk2.tscn
 res://chunks/chunk3.tscn
-res://scripts/chunk.gd
+res://scenes/multiplayer_player.tscn
+res://scripts/multiplayer/multiplayer_input.gd
+res://scripts/multiplayer/multiplayer_controller.gd
+res://scripts/killzone.gd
