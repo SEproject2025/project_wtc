@@ -1,0 +1,143 @@
+[gd_scene load_steps=13 format=3 uid="uid://d226nufmlvivj"]
+
+[ext_resource type="Script" path="res://scripts/multiplayer/multiplayer_controller.gd" id="1_ij7lf"]
+[ext_resource type="Script" path="res://scripts/multiplayer/multiplayer_input.gd" id="2_75sn2"]
+[ext_resource type="Texture2D" uid="uid://2p2ttcpmrpij" path="res://assets/sprites/player.png" id="3_3rsml"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bcfu3"]
+properties/0/path = NodePath(".:player_id")
+properties/0/spawn = true
+properties/0/replication_mode = 0
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:_is_on_floor")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:velocity")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kgm8b"]
+properties/0/path = NodePath(".:input_direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:input_jump")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Input:input_dash")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vep0e"]
+atlas = ExtResource("3_3rsml")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ekmiu"]
+atlas = ExtResource("3_3rsml")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61eur"]
+atlas = ExtResource("3_3rsml")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrdfx"]
+atlas = ExtResource("3_3rsml")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bqk2"]
+atlas = ExtResource("3_3rsml")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6y472"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vep0e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ekmiu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61eur")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrdfx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0bqk2")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ti4r0"]
+size = Vector2(13, 18)
+
+[node name="MultiplayerPlayer" type="CharacterBody2D" node_paths=PackedStringArray("player_input")]
+collision_layer = 2
+script = ExtResource("1_ij7lf")
+player_input = NodePath("Input")
+
+[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_bcfu3")
+
+[node name="Input" type="Node" parent="."]
+script = ExtResource("2_75sn2")
+
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="Input"]
+replication_config = SubResource("SceneReplicationConfig_kgm8b")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -7)
+zoom = Vector2(4, 4)
+limit_bottom = 120
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2, -11)
+scale = Vector2(1, 1.375)
+sprite_frames = SubResource("SpriteFrames_6y472")
+animation = &"jump"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -9)
+shape = SubResource("RectangleShape2D_ti4r0")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="DashTimer" type="Timer" parent="Timers"]
+wait_time = 0.4
+one_shot = true
+
+[node name="DashCooldown" type="Timer" parent="Timers"]
+wait_time = 3.0
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="Timers"]
+
+[node name="RespawnTimer" type="Timer" parent="Timers"]
+wait_time = 0.6
+one_shot = true
+
+[connection signal="timeout" from="Timers/DashTimer" to="." method="dash_timeout"]
+[connection signal="timeout" from="Timers/DashCooldown" to="." method="dash_cooldown_timeout"]
+[connection signal="timeout" from="Timers/JumpBufferTimer" to="." method="jump_buffer_timeout"]
+[connection signal="timeout" from="Timers/CoyoteTimer" to="." method="coyote_timeout"]
+[connection signal="timeout" from="Timers/RespawnTimer" to="." method="_respawn"]
