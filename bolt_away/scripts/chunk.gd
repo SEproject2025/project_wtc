@@ -1,25 +1,25 @@
 extends Node2D
 
 @onready var level = $"../"
-@onready var player = get_parent().get_parent().get_node("Player")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if !MultiplayerManager.multiplayer_mode_enabled:
-		singleplayer_algoritm()
+		singleplayer_algorithm()
 	else:
-		multiplayer_algoritm()
+		multiplayer_algorithm()
 
-func singleplayer_algoritm():
+func singleplayer_algorithm():
+	var player = get_parent().get_parent().get_node("Player")
 	if global_position.distance_to(player.global_position) > 300 and player.global_position.x > global_position.x:
-			level.spawnChunk(position.x+(level.amnt*level.offset))
+			level.singleplayer_algorithm(position.x+(level.amnt*level.offset))
 			queue_free()
 
-func multiplayer_algoritm():
+func multiplayer_algorithm():
 	var playersNode = get_tree().get_current_scene().get_node("Players").get_children()
-	
-	for multiplayer in playersNode:
-		if global_position.distance_to(multiplayer.global_position) > 300 and multiplayer.global_position.x > global_position.x:
-			level.spawnChunk(position.x+(level.amnt*level.offset))
+
+	for playerNode in playersNode:
+		if global_position.distance_to(playerNode.global_position) > 300 and playerNode.global_position.x > global_position.x:
+			level.multiplayer_algorithm(position.x+(level.amnt*level.offset))
 			queue_free()
 			break

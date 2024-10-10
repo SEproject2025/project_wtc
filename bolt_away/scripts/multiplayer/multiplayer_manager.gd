@@ -9,10 +9,10 @@ var _players_spawn_node
 var host_mode_enabled = false	
 var multiplayer_mode_enabled = false
 var respawn_point = Vector2(30, 20)
-var map_seed: int = 10
-var seedGenerated: bool = false
-signal multiplayer_mode_changed(multiplayer_mode_enabled: bool)
-signal player_joined(multiplayer_mode_enabled: bool)
+var map_seed = 0
+
+signal multiplayer_mode_changed(_multiplayer_mode_enabled: bool)
+signal player_joined(_multiplayer_mode_enabled: bool)
 
 func host():
 	print("hosting")
@@ -33,8 +33,6 @@ func host():
 	_end_singleplayer()
 
 	map_seed = RandomNumberGenerator.new().randi()
-	print("server seed" + str(map_seed))
-	sync_map_seed(map_seed)
 	emit_signal("multiplayer_mode_changed", multiplayer_mode_enabled)
 	
 	if not OS.has_feature("dedicated_server"):
