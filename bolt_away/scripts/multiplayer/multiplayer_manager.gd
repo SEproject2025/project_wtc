@@ -4,12 +4,15 @@ const SERVER_PORT = 8080
 const SERVER_IP = "127.0.0.1"
 
 var multiplayer_scene = preload("res://scenes/multiplayer_player.tscn")
+var font = preload("res://assets/fonts/monogram.ttf")
+
 
 var _players_spawn_node
 var host_mode_enabled = false	
 var multiplayer_mode_enabled = false
 var respawn_point = Vector2(30, 20)
 var map_seed = 0
+var dead_player_id
 
 signal multiplayer_mode_changed(_multiplayer_mode_enabled: bool)
 signal player_joined(_multiplayer_mode_enabled: bool)
@@ -70,6 +73,45 @@ func _end_singleplayer():
 	print("ending singleplayer")
 	var player_to_remove = get_tree().get_current_scene().get_node("Player")
 	player_to_remove.queue_free()
+	
+func _end_game(losing_player_id):
+	sync_losing_player_id(losing_player_id)
+	_game_ended(losing_player_id)
+
+@rpc
+func sync_losing_player_id(losing_player_id: int):
+	dead_player_id = losing_player_id
+	if multiplayer.is_server():
+		print("Server's player died:" + str(dead_player_id))
+	else:
+		print("Client's player died:" + str(dead_player_id))
+
+func _game_ended(losing_player_id: int):
+	if multiplayer.get_unique_id() == losing_player_id:
+		print("You lost!")
+		_show_winning_message("You lost!")
+	else:
+		print("You won!")
+		_show_winning_message("You won!") 
+
+	get_tree().paused = true
+
+func _show_winning_message(message: String):
+	var canvas_layer = CanvasLayer.new()
+
+	get_tree().get_root().add_child(canvas_layer)
+
+	var message_label = Label.new()
+	message_label.text = message
+	message_label.add_theme_color_override("font_color", Color.RED)
+	message_label.add_theme_font_override("font", font)
+	message_label.add_theme_font_size_override("font_size", 50)	
+
+	message_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	message_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	message_label.set_anchors_preset(Control.PRESET_CENTER)
+	
+	canvas_layer.add_child(message_label)
 
 @rpc
 func sync_map_seed(mySeed: int):

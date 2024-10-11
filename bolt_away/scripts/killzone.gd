@@ -3,6 +3,7 @@ extends Area2D
 @onready var timer = $Timer
 
 func _on_body_entered(body):
+	print(str(body.player_id) + " entered script")
 	if not MultiplayerManager.multiplayer_mode_enabled:
 		print("player died")
 		Engine.time_scale = 0.5
@@ -14,7 +15,11 @@ func _on_body_entered(body):
 func _dead_multiplayer(body):
 	if body.alive:
 		body.set_dead()
+		MultiplayerManager._end_game(body.player_id)
 
 func _on_timer_timeout():
 	Engine.time_scale = 1.0
 	get_tree().reload_current_scene()
+
+
+	
