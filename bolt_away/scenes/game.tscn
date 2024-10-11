@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://kjhh6jp8711k" path="res://chunks/chunk1.tscn" id="6_xxir6"]
 [ext_resource type="PackedScene" uid="uid://8sv84xrsny2w" path="res://chunks/chunk2.tscn" id="7_0yfv7"]
 [ext_resource type="PackedScene" uid="uid://c8wtlv7s0jxwr" path="res://chunks/chunk3.tscn" id="8_theye"]
+[ext_resource type="PackedScene" uid="uid://bac2msumk5krk" path="res://scenes/jump_pad.tscn" id="10_yn3rf"]
+[ext_resource type="PackedScene" uid="uid://bf1cwlaflxa5e" path="res://scenes/desert_spikes.tscn" id="11_xxcg0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ashvg"]
 texture = ExtResource("3_en8fe")
@@ -193,6 +195,12 @@ spawn_limit = 10
 
 [node name="Players" type="Node2D" parent="."]
 position = Vector2(-8, -15)
+
+[node name="Jump_pad" parent="." instance=ExtResource("10_yn3rf")]
+position = Vector2(96, -28)
+
+[node name="desert_spikes" parent="." instance=ExtResource("11_xxcg0")]
+position = Vector2(239, 82)
 
 [node name="level" type="Node2D" parent="."]
 position = Vector2(3, 0)

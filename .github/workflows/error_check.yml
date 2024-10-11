@@ -1,0 +1,63 @@
+name: Godot CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+     # Cache Godot 4.3 Editor version to avoid repeated downloads
+    - name: Cache Godot 4.3 Editor
+      uses: actions/cache@v2
+      with:
+        path: godot-editor/  # Folder where Godot is downloaded
+        key: godot-editor-4.3-${{ runner.os }}-cache
+
+    # Download Godot Editor only if it's not in the cache
+    - name: Download Godot 4.3 Editor
+      run: |
+        if [ ! -f godot-editor/Godot_v4.3-stable_linux.x86_64 ]; then
+          echo "Downloading Godot 4.3..."
+          wget https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
+          unzip Godot_v4.3-stable_linux.x86_64.zip -d godot-editor/
+          chmod +x godot-editor/Godot_v4.3-stable_linux.x86_64  
+          echo "Godot 4.3 already exists in cache."
+        fi
+
+    # Run the game in headless mode to check for fatal errors
+    - name: Run Godot in Headless Mode and Check for Fatal Errors
+      run: |
+        set -e  # Fail the job if any command fails
+        ./godot-editor/Godot_v4.3-stable_linux.x86_64 --headless --no-window --path bolt_away/ --quit > stdout.log 2>&1 || (cat stdout.log && exit 1)
+      continue-on-error: false  # Stop the workflow if any error occurs
+
+    - name: Show Godot Logs
+      run: |
+        if [ -f stdout.log ]; then
+          echo "Showing Godot output log:"
+          cat stdout.log
+        else
+          echo "stdout.log does not exist."
+          exit 1  # Fail the job if the log file is not created
+        fi
+
+    - name: Verify Logs for Fatal Errors
+      run: |
+        if grep -E 'SCRIPT ERROR:|Error:|Parse Error:|Exception:' stdout.log; then
+          echo "Fatal error detected, failing the job."
+          exit 1
+        else
+          echo "No fatal errors detected."
+        fi
