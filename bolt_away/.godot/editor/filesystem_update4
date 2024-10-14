@@ -1,7 +1,0 @@
-res://scripts/multiplayer/multiplayer_input.gd
-res://scripts/level.gd
-res://scripts/player.gd
-res://scripts/platform.gd
-res://scripts/point.gd
-res://scripts/multiplayer/multiplayer_manager.gd
-res://scripts/chunk.gd
