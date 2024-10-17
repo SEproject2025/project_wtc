@@ -1,9 +1,9 @@
-name: Godot CI Workflow
+name: Check For Fatal Errors
 
 on:
   push:
     branches:
-      - main
+      - test_workflow
   pull_request:
     branches:
       - main
@@ -16,11 +16,11 @@ jobs:
 
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4.2.1
 
      # Cache Godot 4.3 Editor version to avoid repeated downloads
     - name: Cache Godot 4.3 Editor
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: godot-editor/  # Folder where Godot is downloaded
         key: godot-editor-4.3-${{ runner.os }}-cache
@@ -35,6 +35,12 @@ jobs:
           chmod +x godot-editor/Godot_v4.3-stable_linux.x86_64  
           echo "Godot 4.3 already exists in cache."
         fi
+        
+    # Import resources before running in headless mode
+    - name: Import Resources
+      run: |
+       ./godot-editor/Godot_v4.3-stable_linux.x86_64 --headless --no-window --editor --path bolt_away/ --quit
+
 
     # Run the game in headless mode to check for fatal errors
     - name: Run Godot in Headless Mode and Check for Fatal Errors
