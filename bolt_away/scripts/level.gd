@@ -2,6 +2,7 @@ extends Node2D
 
 @export var chunks: Array[PackedScene] = []
 var startingChunk: PackedScene = preload("res://chunks/starting_chunk.tscn")
+var deathWall: PackedScene = preload("res://scenes/death_wall.tscn")
 
 var amnt = 3
 var offset = 256
@@ -38,4 +39,5 @@ func _on_multiplayer_mode_changed(_multiplayer_enabled: bool):
 func player_joined(_multiplayer_enabled: bool):
 	if !multiplayer.is_server():
 		rng.seed = MultiplayerManager.map_seed
+
 

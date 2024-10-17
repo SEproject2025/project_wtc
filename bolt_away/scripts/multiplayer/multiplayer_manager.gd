@@ -12,6 +12,7 @@ var multiplayer_mode_enabled = false
 var respawn_point = Vector2(30, 20)
 var map_seed = 0
 var dead_player_id = 0
+var start_wall  = false
 
 signal multiplayer_mode_changed(_multiplayer_mode_enabled: bool)
 signal player_joined(_multiplayer_mode_enabled: bool)
@@ -112,8 +113,9 @@ func _show_winning_message(message: String):
 @rpc("any_peer")
 func sync_map_seed(mySeed: int):
 	map_seed = mySeed
-	if !multiplayer.is_server():
-		emit_signal("player_joined", multiplayer_mode_enabled)
+	emit_signal("player_joined", multiplayer_mode_enabled)
+	if multiplayer.is_server():
+		print("server is here")
 
 func _server_disconnected():
 	clean_multiplayer_state()
@@ -139,3 +141,7 @@ func clean_multiplayer_state():
 	map_seed = 0
 	dead_player_id = 0
 
+
+@rpc("any_peer")
+func start_death_wall():
+	start_wall = true
