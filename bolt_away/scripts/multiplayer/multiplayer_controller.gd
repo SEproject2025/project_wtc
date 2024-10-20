@@ -143,7 +143,7 @@ func jump():
 			jumpBuffered = true
 			jumpBufferTimer.start(JUMP_BUFFER_TIME_LENGTH)
 	
-	if is_on_wall_only() and velocity.y > 0 and player_input.input_direction:
+	if is_on_wall_only() and velocity.y > 0:
 		wall_jump()
 
 func wall_jump():
