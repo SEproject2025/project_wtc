@@ -43,7 +43,7 @@ func _ready():
 	else:
 		$Camera2D.enabled = false
 
-func _apply_animations(delta):
+func _apply_animations(_delta):
 	var direction = player_input.input_direction
 	
 	# flip player
