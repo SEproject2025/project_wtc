@@ -26,7 +26,9 @@ func join():
 	MultiplayerManager.join()
 
 func play_again():
-	if multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
-		MultiplayerManager._disconnect_player(multiplayer.get_unique_id())
+	if MultiplayerManager.multiplayer_mode_enabled:
+		if multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
+			MultiplayerManager._disconnect_player(multiplayer.get_unique_id())
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+	Engine.time_scale = 1.0

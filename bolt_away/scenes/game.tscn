@@ -227,8 +227,6 @@ position = Vector2(141, 92)
 
 [node name="Enemies" type="Node" parent="."]
 
-[node name="Labels" type="Node" parent="."]
-
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/multiplayer_player.tscn")
 spawn_path = NodePath("../Players")
@@ -238,7 +236,7 @@ spawn_limit = 10
 position = Vector2(-8, -15)
 
 [node name="Jump_pad" parent="." instance=ExtResource("10_yn3rf")]
-position = Vector2(96, -28)
+position = Vector2(97, -28)
 
 [node name="desert_spikes" parent="." instance=ExtResource("11_xxcg0")]
 position = Vector2(239, 82)

@@ -2,11 +2,10 @@ extends Node
 
 const SERVER_PORT = 8080
 const SERVER_IP = "127.0.0.1"
+const PLAYERS_TO_START_GAME = 2
 
 var multiplayer_scene = preload("res://scenes/multiplayer_player.tscn")
 var _players_spawn_node 
-
-
 var host_mode_enabled = false	
 var multiplayer_mode_enabled = false
 var respawn_point = Vector2(30, 20)
@@ -14,8 +13,8 @@ var map_seed = 0
 var dead_player_id = 0
 var start_wall  = false
 
-signal multiplayer_mode_changed(_multiplayer_mode_enabled: bool)
-signal player_joined(_multiplayer_mode_enabled: bool)
+signal host_joined
+signal client_joined
 
 func host():
 	print("hosting")
@@ -35,7 +34,7 @@ func host():
 	_end_singleplayer()
 
 	map_seed = RandomNumberGenerator.new().randi()
-	emit_signal("multiplayer_mode_changed", multiplayer_mode_enabled)
+	emit_signal("host_joined")
 	
 	if not OS.has_feature("dedicated_server"):
 		_connect_player(1)
@@ -49,7 +48,7 @@ func join():
 	var client_peer = ENetMultiplayerPeer.new()
 	client_peer.create_client(SERVER_IP, SERVER_PORT)
 	
-	multiplayer.server_disconnected.connect(_server_disconnected)
+	multiplayer.server_disconnected.connect(_clean_multiplayer_state)
 
 	multiplayer.multiplayer_peer = client_peer
 	_end_singleplayer()
@@ -67,6 +66,9 @@ func _connect_player(id: int):
 	_players_spawn_node.add_child(player_to_add, true)
 	rpc("sync_map_seed", map_seed)
 
+	if _players_spawn_node.get_child_count() == PLAYERS_TO_START_GAME: 
+		rpc("start_death_wall")
+		start_wall = true
 
 func _disconnect_player(id: int):
 	print("Player %s left the game." % id)
@@ -75,8 +77,7 @@ func _disconnect_player(id: int):
 		return
 	_players_spawn_node.get_node(str(id)).queue_free()
 
-	clean_multiplayer_state()
-	
+	_clean_multiplayer_state()
 	
 func _end_singleplayer():
 	print("ending singleplayer")
@@ -87,49 +88,29 @@ func _end_game(losing_player_id):
 	if multiplayer.is_server():
 		dead_player_id = losing_player_id
 		rpc("sync_losing_player_id", dead_player_id)
-		_game_ended(dead_player_id)
+		_show_end_message(dead_player_id)
 
-
-@rpc("any_peer")
-func sync_losing_player_id(losing_player_id: int):
-	dead_player_id = losing_player_id
-	_game_ended(dead_player_id)
-
-func _game_ended(losing_player_id: int):
+func _show_end_message(losing_player_id: int):
+	var end_screen = get_tree().get_current_scene().get_node("EndGameScreen")
+	var label = end_screen.get_node("Message")
 	if multiplayer.get_unique_id() == losing_player_id:
-		_show_winning_message("You lost!")
+		label.text = "You lost!"
 	else:
-		_show_winning_message("You won!") 
+		label.text = "You won!"
+	end_screen.show()
 
 	get_tree().paused = true
 
-func _show_winning_message(message: String):
-	var end_screen = get_tree().get_current_scene().get_node("EndGameScreen")
-	var label = end_screen.get_node("Message")
-	label.text = message
-	end_screen.show()
-
-
-@rpc("any_peer")
-func sync_map_seed(mySeed: int):
-	map_seed = mySeed
-	emit_signal("player_joined", multiplayer_mode_enabled)
-	if multiplayer.is_server():
-		print("server is here")
-
-func _server_disconnected():
-	clean_multiplayer_state()
-
-func clean_multiplayer_state():
-	#Disconnect signals
+func _clean_multiplayer_state():
+	# Disconnect signals
 	if multiplayer.peer_connected.is_connected(_connect_player):
 		multiplayer.peer_connected.disconnect(_connect_player)
 
 	if multiplayer.peer_disconnected.is_connected(_disconnect_player):
 		multiplayer.peer_disconnected.disconnect(_disconnect_player)
 
-	if multiplayer.server_disconnected.is_connected(_server_disconnected):
-		multiplayer.server_disconnected.disconnect(_server_disconnected)
+	if multiplayer.server_disconnected.is_connected(_clean_multiplayer_state):
+		multiplayer.server_disconnected.disconnect(_clean_multiplayer_state)
 
 	# Close connection
 	if multiplayer.multiplayer_peer:
@@ -140,7 +121,18 @@ func clean_multiplayer_state():
 	host_mode_enabled = false
 	map_seed = 0
 	dead_player_id = 0
+	start_wall = false
 
+
+@rpc("any_peer")
+func sync_map_seed(mySeed: int):
+	map_seed = mySeed
+	emit_signal("client_joined")
+
+@rpc("any_peer")
+func sync_losing_player_id(losing_player_id: int):
+	dead_player_id = losing_player_id
+	_show_end_message(dead_player_id)
 
 @rpc("any_peer")
 func start_death_wall():
