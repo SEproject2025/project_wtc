@@ -7,7 +7,7 @@ const JUMP_VELOCITY = -260.0
 const WALL_JUMP_PUSHBACK = 200
 const WALL_SLIDE_GRAVITY = 100
 const DECELERATE_ON_JUMP_RELEASE = 0.8
-const FALL_GRAVITY = 1300
+const FALL_GRAVITY = 1300.0
 const COYOTE_TIMER_LENGTH = 0.1
 const JUMP_BUFFER_TIME_LENGTH = 0.15
 const DASH_SPEED = 2.4
@@ -76,7 +76,7 @@ func jump():
 			jumpBuffered = true
 			jumpBufferTimer.start(JUMP_BUFFER_TIME_LENGTH)
 			
-	if is_on_wall_only() and Input.get_axis("move_left", "move_right"):
+	if is_on_wall_only():
 		wall_jump()
 		
 func wall_jump():
