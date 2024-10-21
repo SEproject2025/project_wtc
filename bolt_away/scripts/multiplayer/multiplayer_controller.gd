@@ -43,7 +43,7 @@ func _ready():
 	else:
 		$Camera2D.enabled = false
 
-func _apply_animations(delta):
+func _apply_animations(_delta):
 	var direction = player_input.input_direction
 	
 	# flip player
@@ -143,7 +143,7 @@ func jump():
 			jumpBuffered = true
 			jumpBufferTimer.start(JUMP_BUFFER_TIME_LENGTH)
 	
-	if is_on_wall_only() and velocity.y > 0 and player_input.input_direction:
+	if is_on_wall_only() and velocity.y > 0:
 		wall_jump()
 
 func wall_jump():
