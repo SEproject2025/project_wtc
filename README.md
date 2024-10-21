@@ -1,2 +1,3 @@
-# template-repository
-Copy this repository, and you will get lots of cool issue templates for free: which will make planning super easy.
+This project's branch has functional online multiplayer.
+You can test local multiplayer by concurrently running a host instance and a client instance.
+Enable multiple instances from Godot's Debug menu's Customize Run Instances option.
