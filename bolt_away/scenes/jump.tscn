@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1h8q4rqdmnpc"]
-
-[ext_resource type="Script" path="res://scripts/jump_pad.gd" id="1_f0ih0"]
-
-[node name="Jump_pad" type="Area2D"]
-script = ExtResource("1_f0ih0")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
