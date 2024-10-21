@@ -12,14 +12,14 @@ func _ready():
 	
 	input_direction = Input.get_axis("move_left", "move_right")
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	
 	if not is_multiplayer_authority():
 		return
 		
 	input_direction = Input.get_axis("move_left", "move_right")
 
-func _process(_delta):
+func _process(delta):
 	
 	if not is_multiplayer_authority():
 		return

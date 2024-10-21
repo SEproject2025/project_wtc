@@ -76,7 +76,7 @@ func jump():
 			jumpBuffered = true
 			jumpBufferTimer.start(JUMP_BUFFER_TIME_LENGTH)
 			
-	if is_on_wall_only():
+	if is_on_wall_only() and Input.get_axis("move_left", "move_right"):
 		wall_jump()
 		
 func wall_jump():

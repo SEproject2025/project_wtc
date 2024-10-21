@@ -3,7 +3,7 @@ extends Node2D
 @onready var level = $"../"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(_delta):
+func _physics_process(delta):
 	if !MultiplayerManager.multiplayer_mode_enabled:
 		singleplayer_algorithm()
 	else:
