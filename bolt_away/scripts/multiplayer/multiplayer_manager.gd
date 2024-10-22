@@ -48,6 +48,7 @@ func join():
 	var client_peer = ENetMultiplayerPeer.new()
 	client_peer.create_client(SERVER_IP, SERVER_PORT)
 	
+	
 	multiplayer.server_disconnected.connect(_clean_multiplayer_state)
 
 	multiplayer.multiplayer_peer = client_peer
@@ -77,7 +78,10 @@ func _disconnect_player(id: int):
 		return
 	_players_spawn_node.get_node(str(id)).queue_free()
 
-	_clean_multiplayer_state()
+	if !OS.has_feature("dedicated_server"):
+		_clean_multiplayer_state()
+
+	## TODO: handle players disconnecting on dedicated server
 	
 func _end_singleplayer():
 	print("ending singleplayer")
