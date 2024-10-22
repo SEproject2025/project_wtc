@@ -12,9 +12,11 @@ var respawn_point = Vector2(30, 20)
 var map_seed = 0
 var dead_player_id = 0
 var start_wall  = false
+var players_play_again = 0
 
 signal host_joined
 signal client_joined
+signal play_again
 
 func host():
 	print("hosting")
@@ -30,14 +32,17 @@ func host():
 	
 	multiplayer.peer_connected.connect(_connect_player)
 	multiplayer.peer_disconnected.connect(_disconnect_player)
+
+	play_again.connect(_play_again)
 	
 	_end_singleplayer()
 
 	map_seed = RandomNumberGenerator.new().randi()
 	emit_signal("host_joined")
 	
-	if not OS.has_feature("dedicated_server"):
-		_connect_player(1)
+	# if not OS.has_feature("dedicated_server"):
+	# 	_connect_player(1)
+
 	
 func join():
 	print("joining")
@@ -47,9 +52,6 @@ func join():
 	
 	var client_peer = ENetMultiplayerPeer.new()
 	client_peer.create_client(SERVER_IP, SERVER_PORT)
-	
-	
-	multiplayer.server_disconnected.connect(_clean_multiplayer_state)
 
 	multiplayer.multiplayer_peer = client_peer
 	_end_singleplayer()
@@ -78,10 +80,11 @@ func _disconnect_player(id: int):
 		return
 	_players_spawn_node.get_node(str(id)).queue_free()
 
-	if !OS.has_feature("dedicated_server"):
+	if !multiplayer.is_server():
 		_clean_multiplayer_state()
+		print("cleaned peer state")
 
-	## TODO: handle players disconnecting on dedicated server
+
 	
 func _end_singleplayer():
 	print("ending singleplayer")
@@ -92,7 +95,7 @@ func _end_game(losing_player_id):
 	if multiplayer.is_server():
 		dead_player_id = losing_player_id
 		rpc("sync_losing_player_id", dead_player_id)
-		_show_end_message(dead_player_id)
+		reset_server_state()
 
 func _show_end_message(losing_player_id: int):
 	var end_screen = get_tree().get_current_scene().get_node("EndGameScreen")
@@ -104,6 +107,7 @@ func _show_end_message(losing_player_id: int):
 	end_screen.show()
 
 	get_tree().paused = true
+
 
 func _clean_multiplayer_state():
 	# Disconnect signals
@@ -127,6 +131,32 @@ func _clean_multiplayer_state():
 	dead_player_id = 0
 	start_wall = false
 
+func reset_server_state():
+	var deathWall = get_tree().get_current_scene().get_node("DeathWallNode")
+	map_seed = 0
+	dead_player_id = 0
+	start_wall = false
+	deathWall.position.x = -270
+	deathWall.wall_velocity = 25
+
+func _on_play_again():
+	players_play_again += 1
+	rpc("pressed_play_again")
+	
+
+@rpc("any_peer")
+func pressed_play_again():
+	players_play_again += 1
+	if players_play_again == PLAYERS_TO_START_GAME:
+		emit_signal("play_again")
+
+func _play_again():
+	var end_game_screen = get_tree().get_current_scene().get_node("EndGameScreen")
+	if multiplayer.is_server():
+		rpc("reset_for_play_again")
+		reset_for_play_again()
+	get_tree().paused = false
+	end_game_screen.hide()
 
 @rpc("any_peer")
 func sync_map_seed(mySeed: int):
@@ -141,3 +171,11 @@ func sync_losing_player_id(losing_player_id: int):
 @rpc("any_peer")
 func start_death_wall():
 	start_wall = true
+
+@rpc("any_peer")
+func reset_for_play_again():
+	var players = get_tree().get_current_scene().get_node("Players")
+	players_play_again = 0
+	for player in players.get_children():
+		player.position = respawn_point
+	reset_server_state()

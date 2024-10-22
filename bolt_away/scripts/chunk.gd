@@ -4,7 +4,7 @@ extends Node2D
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta):
-	if !MultiplayerManager.multiplayer_mode_enabled:
+	if !MultiplayerManager.multiplayer_mode_enabled and !multiplayer.is_server():
 		singleplayer_algorithm()
 	else:
 		multiplayer_algorithm()
