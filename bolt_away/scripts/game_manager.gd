@@ -28,14 +28,8 @@ func join():
 func exit():
 	if MultiplayerManager.multiplayer_mode_enabled:
 		if multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
-			if !multiplayer.is_server():
+			if !multiplayer.is_server() or !OS.has_feature("dedicated_server"):
 				MultiplayerManager._disconnect_player(multiplayer.get_unique_id())
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 	Engine.time_scale = 1.0
-
-
-func play_again():
-	var button = get_tree().get_current_scene().get_node("EndGameScreen").get_node("PlayAgain")
-	button.disabled = true
-	MultiplayerManager._on_play_again()
