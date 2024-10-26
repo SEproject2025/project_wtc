@@ -1,0 +1,10 @@
+res://scenes/main_menu.tscn
+res://scripts/powerup_manager.gd
+res://scenes/player.tscn
+res://scripts/mouse.gd
+res://scripts/killzone.gd
+res://scripts/powerups/powerup.gd
+res://scenes/powerups/dash.tscn
+res://scenes/game.tscn
+res://scenes/mouse.tscn
+res://scripts/player.gd

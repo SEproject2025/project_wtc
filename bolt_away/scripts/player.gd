@@ -23,6 +23,11 @@ var canDash: bool = true
 @onready var dashTimer: Timer = $Timers/DashTimer
 @onready var jumpBufferTimer: Timer = $Timers/JumpBufferTimer
 @onready var dashCooldown: Timer = $"Timers/DashCooldown"
+@onready var powerupManager = $PowerUpManager
+
+func _process(delta):
+	if Input.is_action_just_pressed("use_powerup"):
+		powerupManager.use_powerup()
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
