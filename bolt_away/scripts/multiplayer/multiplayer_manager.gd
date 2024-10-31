@@ -5,6 +5,7 @@ const SERVER_IP = "127.0.0.1"
 const PLAYERS_TO_START_GAME = 2
 
 var multiplayer_scene = preload("res://scenes/multiplayer_player.tscn")
+var oilspill_scene = preload("res://scenes/powerups/oilspill.tscn")
 var _players_spawn_node 
 var host_mode_enabled = false	
 var multiplayer_mode_enabled = false
@@ -12,6 +13,8 @@ var respawn_point = Vector2(30, 20)
 var map_seed = 0
 var dead_player_id = 0
 var start_wall  = false
+var isBeingPulled = false
+var pull_target_position = Vector2(0, 0)
 
 signal host_joined
 signal client_joined
@@ -66,9 +69,9 @@ func _connect_player(id: int):
 	_players_spawn_node.add_child(player_to_add, true)
 	rpc("sync_map_seed", map_seed)
 
-	if _players_spawn_node.get_child_count() == PLAYERS_TO_START_GAME: 
-		rpc("start_death_wall")
-		start_wall = true
+	# if _players_spawn_node.get_child_count() == PLAYERS_TO_START_GAME: 
+	# 	rpc("start_death_wall")
+	# 	start_wall = true
 
 func _disconnect_player(id: int):
 	print("Player %s left the game." % id)
@@ -137,3 +140,14 @@ func sync_losing_player_id(losing_player_id: int):
 @rpc("any_peer")
 func start_death_wall():
 	start_wall = true
+
+@rpc("any_peer")
+func spawn_oilspill(position: Vector2):
+	var oilspill = oilspill_scene.instantiate()
+	oilspill.position = position
+	get_tree().get_root().add_child(oilspill)
+
+@rpc("any_peer")
+func pull_to_target(targetPosition: Vector2):
+	isBeingPulled = true
+	pull_target_position = targetPosition

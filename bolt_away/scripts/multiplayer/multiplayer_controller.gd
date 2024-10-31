@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name MultiplayerPlayer
 
 const SPEED = 150.0
 const DECELERATION = 0.1
@@ -12,6 +13,8 @@ const COYOTE_TIMER_LENGTH = 0.1
 const JUMP_BUFFER_TIME_LENGTH = 0.15
 const DASH_SPEED = 2.4
 const JUMP_DASHTIMER = 0.1
+const JETPACK_VELOCITY = -200
+const JETPACK_FUEL_CONSUMPTION = 25
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var coyoteJump: bool = true
@@ -22,12 +25,15 @@ var wallJumping: bool = false
 var jumpReleased: bool = false
 var _is_on_floor: bool = true
 var alive: bool = true
+var is_being_pulled: bool = false
+var pull_target_position: Vector2
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
 @onready var dashTimer: Timer = $Timers/DashTimer
 @onready var jumpBufferTimer: Timer = $Timers/JumpBufferTimer
 @onready var dashCooldown: Timer = $"Timers/DashCooldown"
+@onready var powerupManager = $PowerUpManager
 
 @export var player_input: PlayerInput
 @export var player_id := 1:
@@ -100,7 +106,17 @@ func _apply_movement_from_input(delta):
 	if player_input.input_dash and canDash:
 		if !isDashing and direction:
 			start_dash()
+
+	if player_input.input_use_powerup and !powerupManager.is_jetpack_active:
+		powerupManager.use_powerup()
 	
+	if powerupManager.is_jetpack_active:
+		if player_input.input_use_powerup and powerupManager.jetpack_fuel > 0:
+			velocity.y = JETPACK_VELOCITY
+			powerupManager.jetpack_fuel -= JETPACK_FUEL_CONSUMPTION * delta
+		if powerupManager.jetpack_fuel <= 0:
+			powerupManager.deactivate_jetpack()
+
 	var wasOnFloor = is_on_floor()
 	move_and_slide()
 	
@@ -115,7 +131,10 @@ func _physics_process(delta):
 			_set_alive()
 		
 		_is_on_floor = is_on_floor()
-		_apply_movement_from_input(delta)
+		if MultiplayerManager.isBeingPulled:
+			pull_to_target(MultiplayerManager.pull_target_position)
+		else:
+			_apply_movement_from_input(delta)
 
 func _process(delta):
 	if not multiplayer.is_server() || MultiplayerManager.host_mode_enabled:
@@ -172,3 +191,18 @@ func return_gravity():
 
 func dash_cooldown_timeout():
 	canDash = true
+
+func oil_slip():
+	velocity.x *= .2
+
+func pull_to_target(targetPosition: Vector2):
+	if !MultiplayerManager.isBeingPulled:
+		MultiplayerManager.isBeingPulled = true
+
+	if abs(position.x - targetPosition.x) < 5:
+		MultiplayerManager.isBeingPulled = false
+		return 
+	
+	var direction = Vector2((targetPosition.x - position.x), 0).normalized()
+	velocity.x = direction.x * SPEED
+	move_and_slide()

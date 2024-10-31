@@ -11,12 +11,15 @@ const FALL_GRAVITY = 1300.0
 const COYOTE_TIMER_LENGTH = 0.1
 const JUMP_BUFFER_TIME_LENGTH = 0.15
 const DASH_SPEED = 2.4
+const JETPACK_VELOCITY = -200
+const JETPACK_FUEL_CONSUMPTION = 25
 
 var coyoteJump: bool = true
 var isDashing: bool = false
 var jumpBuffered: bool = false
 var wallJumping: bool = false
 var canDash: bool = true
+
 
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
 @onready var player: AnimatedSprite2D = $AnimatedSprite2D
@@ -26,7 +29,8 @@ var canDash: bool = true
 @onready var powerupManager = $PowerUpManager
 
 func _process(delta):
-	if Input.is_action_just_pressed("use_powerup"):
+	#Use powerup (Don't call if jetpack is active)
+	if Input.is_action_just_pressed("use_powerup") and !powerupManager.is_jetpack_active:
 		powerupManager.use_powerup()
 
 func _physics_process(delta: float) -> void:
@@ -37,6 +41,13 @@ func _physics_process(delta: float) -> void:
 	else:
 		coyoteJump = true
 		coyoteTimer.stop()
+
+	if powerupManager.is_jetpack_active:
+		if Input.is_action_pressed("use_powerup") and powerupManager.jetpack_fuel > 0:
+			velocity.y = JETPACK_VELOCITY
+			powerupManager.jetpack_fuel -= JETPACK_FUEL_CONSUMPTION * delta
+		if powerupManager.jetpack_fuel <= 0:
+			powerupManager.deactivate_jetpack()
 	
 	if Input.is_action_just_pressed("jump"):
 		jump()
@@ -111,3 +122,6 @@ func dash_timeout():
 	
 func dash_cooldown_timeout():
 	canDash = true
+
+func oil_slip():
+	velocity.x *= .2

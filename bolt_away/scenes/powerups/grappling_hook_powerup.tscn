@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcqbk6dle3bp5"]
+
+[ext_resource type="Texture2D" uid="uid://d2my070feorjg" path="res://assets/powerups (placeholders)/1bit 16px icons part-2.png" id="1_4chk1"]
+[ext_resource type="Script" path="res://scripts/powerups/powerup.gd" id="1_vrkiy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ify4"]
+size = Vector2(8, 6)
+
+[node name="GrapplingHookPowerup" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_vrkiy")
+powerup_type = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7ify4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.78814e-07, 1)
+scale = Vector2(0.484014, 0.365807)
+texture = ExtResource("1_4chk1")
+hframes = 21
+vframes = 19
+frame = 218
+
+[connection signal="body_entered" from="." to="." method="on_entered"]

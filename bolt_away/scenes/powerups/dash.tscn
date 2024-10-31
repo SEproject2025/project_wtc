@@ -1,27 +1,25 @@
 [gd_scene load_steps=4 format=3 uid="uid://ckk4uunp7vcrd"]
 
-[ext_resource type="Texture2D" uid="uid://d2my070feorjg" path="res://assets/icons (placeholders)/1bit 16px icons part-2.png" id="1_r0g56"]
+[ext_resource type="Texture2D" uid="uid://d2my070feorjg" path="res://assets/powerups (placeholders)/1bit 16px icons part-2.png" id="1_r0g56"]
 [ext_resource type="Script" path="res://scripts/powerups/powerup.gd" id="2_hh5r1"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8gaqo"]
-radius = 8.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_h06ye"]
+radius = 6.0
 
-[node name="Node2D" type="Node2D"]
+[node name="DashPowerup" type="Area2D"]
+collision_mask = 2
+script = ExtResource("2_hh5r1")
+powerup_type = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_h06ye")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(2, 1)
+position = Vector2(0, 1)
 scale = Vector2(1.01939, 0.863472)
 texture = ExtResource("1_r0g56")
 hframes = 21
 vframes = 17
 frame = 354
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_mask = 2
-script = ExtResource("2_hh5r1")
-powerup_type = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_8gaqo")
-
-[connection signal="body_entered" from="Area2D" to="Area2D" method="on_entered"]
+[connection signal="body_entered" from="." to="." method="on_entered"]

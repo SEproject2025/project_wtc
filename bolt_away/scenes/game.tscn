@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://bac2msumk5krk" path="res://scenes/jump_pad.tscn" id="10_yn3rf"]
 [ext_resource type="PackedScene" uid="uid://bf1cwlaflxa5e" path="res://scenes/desert_spikes.tscn" id="11_xxcg0"]
 [ext_resource type="PackedScene" uid="uid://b0mrrm7qidtv0" path="res://scenes/death_wall.tscn" id="15_3acr7"]
-[ext_resource type="PackedScene" uid="uid://ckk4uunp7vcrd" path="res://scenes/powerups/dash.tscn" id="16_mxkq5"]
+[ext_resource type="PackedScene" uid="uid://bcqbk6dle3bp5" path="res://scenes/powerups/grappling_hook_powerup.tscn" id="16_p8b58"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ashvg"]
 texture = ExtResource("3_en8fe")
@@ -250,8 +250,8 @@ chunks = Array[PackedScene]([ExtResource("6_xxir6"), ExtResource("7_0yfv7"), Ext
 [node name="DeathWallNode" parent="." instance=ExtResource("15_3acr7")]
 position = Vector2(-277, 94)
 
-[node name="Dash" parent="." instance=ExtResource("16_mxkq5")]
-position = Vector2(125, -9)
+[node name="GrapplingHookPowerup" parent="." instance=ExtResource("16_p8b58")]
+position = Vector2(58, -15)
 
 [connection signal="pressed" from="EndGameScreen/PlayAgain" to="GameManager" method="play_again"]
 [connection signal="pressed" from="Player/Camera2D/MultiplayerHUD/VBoxContainer/host" to="GameManager" method="host"]
