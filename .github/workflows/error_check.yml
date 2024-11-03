@@ -61,7 +61,7 @@ jobs:
 
     - name: Verify Logs for Fatal Errors
       run: |
-        if grep -E 'SCRIPT ERROR:|Error:|Parse Error:|Exception:' stdout.log; then
+        if grep -E 'SCRIPT ERROR:|ERROR:|Parse Error:|Exception:' stdout.log; then
           echo "Fatal error detected, failing the job."
           exit 1
         else

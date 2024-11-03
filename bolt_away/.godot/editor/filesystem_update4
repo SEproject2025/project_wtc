@@ -1,0 +1,12 @@
+res://scenes/game.tscn
+res://chunks/chunk1.tscn
+res://chunks/chunk2.tscn
+res://chunks/chunk3.tscn
+res://chunks/starting_chunk.tscn
+res://scenes/multiplayer_player.tscn
+res://scenes/desert_spikes.tscn
+res://scenes/main_menu.tscn
+res://scripts/killzone.gd
+res://scripts/multiplayer/multiplayer_manager.gd
+res://scripts/game_manager.gd
+res://scripts/main_menu.gd
