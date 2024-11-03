@@ -196,6 +196,7 @@ func oil_slip():
 	velocity.x *= .2
 
 func pull_to_target(targetPosition: Vector2):
+
 	if !MultiplayerManager.isBeingPulled:
 		MultiplayerManager.isBeingPulled = true
 

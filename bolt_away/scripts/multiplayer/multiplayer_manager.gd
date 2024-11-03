@@ -6,6 +6,8 @@ const PLAYERS_TO_START_GAME = 2
 
 var multiplayer_scene = preload("res://scenes/multiplayer_player.tscn")
 var oilspill_scene = preload("res://scenes/powerups/oilspill.tscn")
+var grapplinghook_scene = preload("res://scenes/powerups/grapplingHook.tscn")
+
 var _players_spawn_node 
 var host_mode_enabled = false	
 var multiplayer_mode_enabled = false
@@ -151,3 +153,12 @@ func spawn_oilspill(position: Vector2):
 func pull_to_target(targetPosition: Vector2):
 	isBeingPulled = true
 	pull_target_position = targetPosition
+
+@rpc("any_peer")
+func spawn_grapplinghook(grapplingHookData: Dictionary):
+	var grapplingHook = grapplinghook_scene.instantiate()
+	grapplingHook.position = grapplingHookData["initialPosition"]
+	grapplingHook.direction = grapplingHookData["direction"]
+	grapplingHook.flip_h = grapplingHookData["flip_h"]
+	grapplingHook.throwerName = grapplingHookData["throwerName"]
+	get_tree().get_root().add_child(grapplingHook)

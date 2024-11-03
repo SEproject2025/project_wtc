@@ -58,6 +58,14 @@ func throw_oil() -> void:
 
 func throw_grappling_hook() -> void:
 	var grapplingHook = grapplinghook_scene.instantiate()
-	grapplingHook.thrower = get_parent()
+	grapplingHook.throwerName = parent.name
 	grapplingHook.position = parent.global_position
+	if parent.animated_sprite.flip_h:
+		grapplingHook.direction = Vector2.LEFT
+		grapplingHook.flip_h = true
+	else:
+		grapplingHook.direction = Vector2.RIGHT
+		grapplingHook.flip_h = false
 	get_tree().get_root().add_child(grapplingHook)
+	if MultiplayerManager.multiplayer_mode_enabled:
+		MultiplayerManager.rpc("spawn_grapplinghook", inst_to_dict(grapplingHook))

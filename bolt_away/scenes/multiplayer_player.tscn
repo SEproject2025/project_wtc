@@ -93,6 +93,7 @@ size = Vector2(13, 18)
 collision_layer = 2
 script = ExtResource("1_ij7lf")
 player_input = NodePath("Input")
+player_id = null
 
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_bcfu3")

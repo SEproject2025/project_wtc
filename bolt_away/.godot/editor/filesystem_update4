@@ -6,12 +6,11 @@ res://scenes/point.tscn
 res://scenes/powerups/grapplingHook.tscn
 res://scenes/powerups/dash.tscn
 res://scenes/powerups/grappling_hook_powerup.tscn
-res://scripts/main_menu.gd
-res://scripts/powerups/grapplinghook.gd
-res://scripts/player.gd
 res://scripts/powerup_manager.gd
-res://scripts/powerups/oilspill.gd
+res://scripts/chunk.gd
+res://scripts/multiplayer/multiplayer_manager.gd
+res://scripts/powerups/grapplinghook.gd
+res://scripts/main_menu.gd
 res://scripts/multiplayer/multiplayer_controller.gd
 res://scripts/multiplayer/multiplayer_input.gd
-res://scripts/multiplayer/multiplayer_manager.gd
-res://scripts/powerups/powerup.gd
+res://scripts/level.gd

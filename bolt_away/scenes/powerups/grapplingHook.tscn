@@ -7,16 +7,17 @@
 size = Vector2(38.0236, 9.99908)
 
 [node name="Grapple" type="Area2D"]
-position = Vector2(-24, 6)
+position = Vector2(-25, 6)
 rotation = 0.807493
 collision_mask = 2
 script = ExtResource("1_2c8e7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(12.9787, -20.7979)
-rotation = -0.0401321
-scale = Vector2(0.885824, 0.849414)
+position = Vector2(12.2874, -20.0754)
+rotation = -0.0267224
+scale = Vector2(0.847329, 0.850982)
 texture = ExtResource("2_wweju")
+offset = Vector2(-0.555308, -0.873168)
 hframes = 16
 vframes = 10
 frame = 16
