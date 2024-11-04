@@ -59,7 +59,8 @@ func throw_oil() -> void:
 func throw_grappling_hook() -> void:
 	var grapplingHook = grapplinghook_scene.instantiate()
 	grapplingHook.throwerName = parent.name
-	grapplingHook.position = parent.global_position
+	grapplingHook.throwerPosition = get_parent().global_position
+	grapplingHook.thrower = get_parent()
 	if parent.animated_sprite.flip_h:
 		grapplingHook.direction = Vector2.LEFT
 		grapplingHook.flip_h = true

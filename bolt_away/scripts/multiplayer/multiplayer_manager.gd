@@ -157,7 +157,7 @@ func pull_to_target(targetPosition: Vector2):
 @rpc("any_peer")
 func spawn_grapplinghook(grapplingHookData: Dictionary):
 	var grapplingHook = grapplinghook_scene.instantiate()
-	grapplingHook.position = grapplingHookData["initialPosition"]
+	grapplingHook.throwerPosition = grapplingHookData["throwerPosition"]
 	grapplingHook.direction = grapplingHookData["direction"]
 	grapplingHook.flip_h = grapplingHookData["flip_h"]
 	grapplingHook.throwerName = grapplingHookData["throwerName"]

@@ -27,4 +27,17 @@ position = Vector2(12.2969, -20.085)
 rotation = -0.801223
 shape = SubResource("RectangleShape2D_xwxwa")
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 5.0
+target_desired_distance = 5.0
+path_postprocessing = 1
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(1, 0, 0, 1)
+
+[node name="NavAgentTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="NavAgentTimer" to="." method="updatePath"]

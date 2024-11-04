@@ -40,6 +40,8 @@ var pull_target_position: Vector2
 	set(id):
 		player_id = id
 
+
+
 func _enter_tree():
 	$".".set_multiplayer_authority(str(name).to_int())
 
@@ -48,6 +50,8 @@ func _ready():
 		$Camera2D.make_current()
 	else:
 		$Camera2D.enabled = false
+
+	print("player global position" + str(global_position))
 
 func _apply_animations(_delta):
 	var direction = player_input.input_direction
@@ -196,14 +200,16 @@ func oil_slip():
 	velocity.x *= .2
 
 func pull_to_target(targetPosition: Vector2):
-
 	if !MultiplayerManager.isBeingPulled:
 		MultiplayerManager.isBeingPulled = true
+
+	if MultiplayerManager.pull_target_position == Vector2(0, 0):
+		MultiplayerManager.pull_target_position = targetPosition
 
 	if abs(position.x - targetPosition.x) < 5:
 		MultiplayerManager.isBeingPulled = false
 		return 
 	
-	var direction = Vector2((targetPosition.x - position.x), 0).normalized()
-	velocity.x = direction.x * SPEED
+	var direction = (targetPosition - position).normalized()
+	velocity = direction * SPEED
 	move_and_slide()
