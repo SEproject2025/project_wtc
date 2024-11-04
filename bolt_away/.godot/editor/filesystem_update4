@@ -12,3 +12,5 @@ res://scenes/powerups/dash.tscn
 res://scenes/powerups/grappling_hook_powerup.tscn
 res://scripts/player.gd
 res://scripts/multiplayer/multiplayer_manager.gd
+res://scenes/jump_pad.tscn
+res://chunks/chunk1.tscn

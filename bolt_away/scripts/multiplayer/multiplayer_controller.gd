@@ -27,6 +27,7 @@ var _is_on_floor: bool = true
 var alive: bool = true
 var is_being_pulled: bool = false
 var pull_target_position: Vector2
+var has_set_target_position: bool = false
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
@@ -34,6 +35,7 @@ var pull_target_position: Vector2
 @onready var jumpBufferTimer: Timer = $Timers/JumpBufferTimer
 @onready var dashCooldown: Timer = $"Timers/DashCooldown"
 @onready var powerupManager = $PowerUpManager
+@onready var navAgent = $NavigationAgent2D
 
 @export var player_input: PlayerInput
 @export var player_id := 1:
@@ -49,9 +51,7 @@ func _ready():
 	if multiplayer.get_unique_id() == str(name).to_int():
 		$Camera2D.make_current()
 	else:
-		$Camera2D.enabled = false
-
-	print("player global position" + str(global_position))
+		$Camera2D.enabled = false 
 
 func _apply_animations(_delta):
 	var direction = player_input.input_direction
@@ -203,13 +203,22 @@ func pull_to_target(targetPosition: Vector2):
 	if !MultiplayerManager.isBeingPulled:
 		MultiplayerManager.isBeingPulled = true
 
-	if MultiplayerManager.pull_target_position == Vector2(0, 0):
+	if MultiplayerManager.pull_target_position == Vector2.ZERO:
 		MultiplayerManager.pull_target_position = targetPosition
+		
+	if !has_set_target_position:
+		navAgent.set_target_position(targetPosition)
+		has_set_target_position = true
 
-	if abs(position.x - targetPosition.x) < 5:
+	if navAgent.is_navigation_finished():
 		MultiplayerManager.isBeingPulled = false
-		return 
+		MultiplayerManager.pull_target_position = Vector2.ZERO
+		has_set_target_position = false
+		print("reached final position")
+		return
 	
-	var direction = (targetPosition - position).normalized()
-	velocity = direction * SPEED
+	var next_position = navAgent.get_next_path_position()
+	velocity = global_position.direction_to(next_position) * SPEED
 	move_and_slide()
+
+	

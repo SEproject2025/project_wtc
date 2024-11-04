@@ -91,6 +91,7 @@ size = Vector2(13, 18)
 
 [node name="MultiplayerPlayer" type="CharacterBody2D" node_paths=PackedStringArray("player_input")]
 collision_layer = 2
+wall_min_slide_angle = 0.0
 script = ExtResource("1_ij7lf")
 player_input = NodePath("Input")
 player_id = null
@@ -145,8 +146,18 @@ one_shot = true
 unique_name_in_owner = true
 script = ExtResource("4_4s3vh")
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 5.0
+target_desired_distance = 5.0
+path_postprocessing = 1
+avoidance_enabled = true
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.466667, 0, 1, 1)
+
 [connection signal="timeout" from="Timers/DashTimer" to="." method="dash_timeout"]
 [connection signal="timeout" from="Timers/DashCooldown" to="." method="dash_cooldown_timeout"]
 [connection signal="timeout" from="Timers/JumpBufferTimer" to="." method="jump_buffer_timeout"]
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="coyote_timeout"]
 [connection signal="timeout" from="Timers/RespawnTimer" to="." method="_respawn"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
