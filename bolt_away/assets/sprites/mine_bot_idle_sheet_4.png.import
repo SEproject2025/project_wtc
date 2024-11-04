@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djddss3eyy7ma"
-path="res://.godot/imported/mine_bot_idle_sheet_3.png-0108e5c7baf794d3aa46b2fa0565ef08.ctex"
+uid="uid://ns3yo3xcmqji"
+path="res://.godot/imported/mine_bot_idle_sheet_4.png-d724f3759fdae1bf673ea2c52026bf35.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/mine_bot_idle_sheet_3.png"
-dest_files=["res://.godot/imported/mine_bot_idle_sheet_3.png-0108e5c7baf794d3aa46b2fa0565ef08.ctex"]
+source_file="res://assets/sprites/mine_bot_idle_sheet_4.png"
+dest_files=["res://.godot/imported/mine_bot_idle_sheet_4.png-d724f3759fdae1bf673ea2c52026bf35.ctex"]
 
 [params]
 

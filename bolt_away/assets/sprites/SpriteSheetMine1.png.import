@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jdw0j36xtak8"
-path="res://.godot/imported/SilverBotSheet3.png-c6f8ecb4f4b122e0669f677c32e69d63.ctex"
+uid="uid://b4bugdpsnk7nr"
+path="res://.godot/imported/SpriteSheetMine1.png-04241284adfc92b826001fa203337674.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/SilverBotSheet3.png"
-dest_files=["res://.godot/imported/SilverBotSheet3.png-c6f8ecb4f4b122e0669f677c32e69d63.ctex"]
+source_file="res://assets/sprites/SpriteSheetMine1.png"
+dest_files=["res://.godot/imported/SpriteSheetMine1.png-04241284adfc92b826001fa203337674.ctex"]
 
 [params]
 
