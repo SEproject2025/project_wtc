@@ -1,21 +1,22 @@
-[gd_scene load_steps=8 format=4 uid="uid://c8wtlv7s0jxwr"]
+[gd_scene load_steps=9 format=4 uid="uid://c72y3gr62dnyy"]
 
-[ext_resource type="Script" path="res://scripts/chunk.gd" id="1_bemx6"]
-[ext_resource type="Texture2D" uid="uid://dbxmhmrik75ch" path="res://assets/sprites/platform.png" id="2_68via"]
-[ext_resource type="Texture2D" uid="uid://csahsmv1kbrpx" path="res://assets/sprites/SpriteSheetWasteland2.png" id="3_4n8no"]
+[ext_resource type="Script" path="res://scripts/chunk.gd" id="1_2myfu"]
+[ext_resource type="Texture2D" uid="uid://dbxmhmrik75ch" path="res://assets/sprites/platform.png" id="1_uscnv"]
+[ext_resource type="Texture2D" uid="uid://csahsmv1kbrpx" path="res://assets/sprites/SpriteSheetWasteland2.png" id="2_qhhsd"]
+[ext_resource type="PackedScene" uid="uid://bf1cwlaflxa5e" path="res://scenes/desert_spikes.tscn" id="3_imno1"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5gddb"]
-texture = ExtResource("2_68via")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c1ykf"]
+texture = ExtResource("1_uscnv")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ad2qm"]
-texture = ExtResource("2_68via")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rdyk4"]
+texture = ExtResource("1_uscnv")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_380gc"]
-texture = ExtResource("3_4n8no")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4bybp"]
+texture = ExtResource("2_qhhsd")
 texture_region_size = Vector2i(32, 32)
 1:0/0 = 0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, 16, 16, 16, -16, 16)
@@ -92,18 +93,29 @@ texture_region_size = Vector2i(32, 32)
 0:2/0 = 0
 0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, 0.353554, 16, 16, -16, 16)
 
-[sub_resource type="TileSet" id="TileSet_ago5b"]
+[sub_resource type="TileSet" id="TileSet_o2k4n"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_5gddb")
-sources/1 = SubResource("TileSetAtlasSource_ad2qm")
-sources/4 = SubResource("TileSetAtlasSource_380gc")
+sources/0 = SubResource("TileSetAtlasSource_c1ykf")
+sources/1 = SubResource("TileSetAtlasSource_rdyk4")
+sources/4 = SubResource("TileSetAtlasSource_4bybp")
 
 [node name="Node2D" type="Node2D"]
-position = Vector2(9, 0)
-script = ExtResource("1_bemx6")
+script = ExtResource("1_2myfu")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 visibility_layer = 7
-tile_map_data = PackedByteArray("AAD//wAABAADAAEAAAAAAAAABAADAAEAAAABAAAABAADAAEAAAD+/wAABAADAAEAAAD8/wAABAADAAEAAAD9/wAABAACAAIAAAACAAAABAACAAIAAAADAAAABAADAAEAAAD7/wAABAADAAEAAAD6/wAABAACAAIAAAAEAAAABAADAAEAAAAFAAAABAADAAEAAAAGAAAABAACAAIAAAD5/wAABAADAAEAAAD4/wAABAADAAEAAAAHAAAABAADAAEAAAD5////BAACAAIAAAD6////BAADAAEAAAD7////BAACAAIAAAAEAP//BAACAAIAAAAFAP//BAADAAEAAAAGAP//BAADAAEAAAD+//3/BAACAAAAAAD///3/BAACAAAAAAAAAP3/BAACAAAAAAABAP3/BAACAAAAAAAHAPn/BAADAAEAAAAGAPn/BAADAAEAAAAFAPn/BAACAAIAAAAEAPn/BAADAAEAAAADAPn/BAACAAIAAAACAPn/BAADAAEAAAABAPn/BAACAAIAAAAAAPn/BAADAAEAAAD///n/BAACAAIAAAD+//n/BAADAAEAAAD9//n/BAADAAEAAAD8//n/BAACAAIAAAD7//n/BAADAAEAAAD6//n/BAACAAIAAAD5//n/BAADAAEAAAD4//n/BAADAAEAAAD4//j/BAACAAIAAAD5//j/BAADAAEAAAD6//j/BAADAAEAAAD7//j/BAADAAEAAAD8//j/BAADAAEAAAD9//j/BAACAAIAAAD+//j/BAADAAEAAAD///j/BAACAAIAAAAAAPj/BAADAAEAAAABAPj/BAACAAIAAAACAPj/BAACAAIAAAADAPj/BAADAAEAAAAEAPj/BAADAAEAAAAFAPj/BAACAAIAAAAGAPj/BAADAAEAAAAHAPj/BAADAAEAAAA=")
-tile_set = SubResource("TileSet_ago5b")
+tile_map_data = PackedByteArray("AAD//wAABAACAAIAAAAAAAAABAADAAEAAAABAAAABAADAAEAAAD+/wAABAADAAEAAAD8/wAABAACAAIAAAD9/wAABAADAAEAAAACAAAABAADAAEAAAADAAAABAACAAIAAAD7/wAABAACAAIAAAD6/wAABAADAAEAAAAEAAAABAADAAEAAAAFAAAABAADAAEAAAAGAAAABAADAAEAAAD5/wAABAADAAEAAAD4/wAABAADAAEAAAAHAAAABAADAAEAAAD7////BAACAAIAAAD7//7/BAADAAEAAAD7//3/BAACAAIAAAD7//z/BAADAAEAAAD8//z/BAADAAEAAAD8//3/BAACAAIAAAD8//7/BAACAAIAAAD8////BAADAAEAAAD4//n/BAADAAEAAAD5//n/BAADAAEAAAD6//n/BAACAAIAAAD7//n/BAADAAEAAAD8//n/BAACAAIAAAD9//n/BAACAAIAAAD+//n/BAADAAEAAAD///n/BAACAAIAAAAAAPn/BAADAAEAAAABAPn/BAADAAEAAAACAPn/BAADAAEAAAADAPn/BAACAAIAAAAEAPn/BAADAAEAAAAFAPn/BAADAAEAAAAGAPn/BAACAAIAAAAHAPn/BAADAAEAAAD4//r/BAACAAIAAAD4//v/BAADAAEAAAD4//z/BAADAAEAAAD5//r/BAAAAAAAADD4//j/BAACAAIAAAD5//j/BAADAAEAAAD6//j/BAADAAEAAAD7//j/BAACAAIAAAD8//j/BAACAAIAAAD9//j/BAADAAEAAAD+//j/BAADAAEAAAD///j/BAADAAEAAAAAAPj/BAACAAIAAAABAPj/BAADAAEAAAACAPj/BAADAAEAAAADAPj/BAACAAIAAAAEAPj/BAADAAEAAAAFAPj/BAACAAIAAAAGAPj/BAADAAEAAAAHAPj/BAADAAEAAAA=")
+tile_set = SubResource("TileSet_o2k4n")
+
+[node name="desert_spikes" parent="TileMapLayer" instance=ExtResource("3_imno1")]
+position = Vector2(-159, -16)
+rotation = -1.5708
+
+[node name="desert_spikes2" parent="TileMapLayer" instance=ExtResource("3_imno1")]
+position = Vector2(-80, 1)
+rotation = -6.28319
+
+[node name="desert_spikes3" parent="TileMapLayer" instance=ExtResource("3_imno1")]
+position = Vector2(-48, 1)
+rotation = -6.28319
