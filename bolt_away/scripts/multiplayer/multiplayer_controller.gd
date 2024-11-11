@@ -16,6 +16,9 @@ const JUMP_DASHTIMER = 0.1
 const JETPACK_VELOCITY = -200
 const JETPACK_FUEL_CONSUMPTION = 25
 const GRAPPLING_HOOK_SPEED = 1000.0
+const CENTER_OF_SPRITE = Vector2(3,-8) #Change if sprite changes
+const GRAPPLING_HOOK_WIDTH = 1.5
+const GRAPPLING_HOOK_STOP_DISTANCE = 10
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var coyoteJump: bool = true
@@ -45,7 +48,6 @@ var isGrappling: bool = false
 @export var player_id := 1:
 	set(id):
 		player_id = id
-
 
 
 func _enter_tree():
@@ -138,10 +140,7 @@ func _apply_movement_from_input(delta):
 		MultiplayerManager.redraw_queue = false
 		queue_redraw()
 		
-
-
 	var wasOnFloor = is_on_floor()
-
 
 	move_and_slide()
 	
@@ -225,22 +224,22 @@ func pull_to_target(targetPosition: Vector2, delta: float):
 	var directionBackToTarget = (targetPosition - global_position).normalized()
 	velocity += directionBackToTarget * GRAPPLING_HOOK_SPEED * delta
 
-	if global_position.distance_to(targetPosition) < 10 or rayCastLeft.is_colliding():
+	if global_position.distance_to(targetPosition) < GRAPPLING_HOOK_STOP_DISTANCE or rayCastLeft.is_colliding():
 		MultiplayerManager.isBeingPulled = false
 
 	move_and_slide()
 
 func _draw() -> void:
 	if isGrappling:
-		draw_line(Vector2(3, -8), to_local(grappleToPosition), Color.BLACK, 1.5)
+		draw_line(CENTER_OF_SPRITE, to_local(grappleToPosition), Color.BLACK, GRAPPLING_HOOK_WIDTH)
 	if MultiplayerManager.drawGrapplingHook:
-		draw_line(to_local(MultiplayerManager.grappleThrowerPosition), to_local(MultiplayerManager.grappleTargetPosition), Color.BLACK, 1.5)
+		draw_line(to_local(MultiplayerManager.grappleThrowerPosition), to_local(MultiplayerManager.grappleTargetPosition), Color.BLACK, GRAPPLING_HOOK_WIDTH)
 
 
 func fire_grappling_hook():
-	targetPlayer = find_closest_player()
+	targetPlayer = get_leading_player()
 	if targetPlayer:
-		grappleToPosition = targetPlayer.global_position + Vector2(3, -8)
+		grappleToPosition = targetPlayer.global_position + CENTER_OF_SPRITE
 		rayCastRight.look_at(grappleToPosition)
 		isGrappling = true
 		MultiplayerManager.rpc_id(targetPlayer.name.to_int(), "pull_to_target", global_position)
@@ -254,10 +253,10 @@ func stop_grappling_hook():
 	isGrappling = false
 	targetPlayer = null
 	grappleToPosition = Vector2.ZERO
+	MultiplayerManager.rpc("stop_grappling_hook")
 
 
-
-func find_closest_player() -> Node2D:
+func get_leading_player() -> Node2D:
 	var closestPlayer = null
 	var closestDistance = null
 

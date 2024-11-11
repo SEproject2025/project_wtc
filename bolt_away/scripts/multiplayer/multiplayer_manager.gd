@@ -3,24 +3,24 @@ extends Node
 const SERVER_PORT = 8080
 const SERVER_IP = "127.0.0.1"
 const PLAYERS_TO_START_GAME = 2
+const CENTER_OF_SPRITE = Vector2(3, -8) #Change if sprite changes
 
 var multiplayer_scene = preload("res://scenes/multiplayer_player.tscn")
 var oilspill_scene = preload("res://scenes/powerups/oilspill.tscn")
-var grapplinghook_scene = preload("res://scenes/powerups/grapplingHook.tscn")
 
 var _players_spawn_node 
-var host_mode_enabled = false	
-var multiplayer_mode_enabled = false
+var host_mode_enabled:  = false	
+var multiplayer_mode_enabled: bool = false
 var respawn_point = Vector2(30, 20)
 var map_seed = 0
 var dead_player_id = 0
-var start_wall  = false
-var isBeingPulled = false
+var start_wall: bool = false
+var isBeingPulled: bool = false
 var pull_target_position = Vector2(0, 0)
 var grappleTargetPosition: Vector2
 var grappleThrowerPosition: Vector2
 var drawGrapplingHook: bool = false
-var redraw_queue = false
+var redraw_queue: bool = false
 
 signal host_joined
 signal client_joined
@@ -75,9 +75,9 @@ func _connect_player(id: int):
 	_players_spawn_node.add_child(player_to_add, true)
 	rpc("sync_map_seed", map_seed)
 
-	# if _players_spawn_node.get_child_count() == PLAYERS_TO_START_GAME: 
-	# 	rpc("start_death_wall")
-	# 	start_wall = true
+	if _players_spawn_node.get_child_count() == PLAYERS_TO_START_GAME: 
+		rpc("start_death_wall")
+		start_wall = true
 
 func _disconnect_player(id: int):
 	print("Player %s left the game." % id)
@@ -156,17 +156,17 @@ func spawn_oilspill(position: Vector2):
 @rpc("any_peer")
 func pull_to_target(targetPosition: Vector2):
 	isBeingPulled = true
-	pull_target_position = targetPosition + Vector2(3, -8)
+	pull_target_position = targetPosition + CENTER_OF_SPRITE
 
 @rpc("any_peer")
 func draw_grappling_hook(throwerPosition: Vector2, targetPosition: Vector2):
 	drawGrapplingHook = true
-	grappleThrowerPosition = throwerPosition + Vector2(3, -8)
+	grappleThrowerPosition = throwerPosition + CENTER_OF_SPRITE
 	grappleTargetPosition = targetPosition
 
 @rpc("any_peer")
 func update_grappling_hook(throwerPosition: Vector2, targetPosition: Vector2):
-	grappleThrowerPosition = throwerPosition + Vector2(3, -8)
+	grappleThrowerPosition = throwerPosition + CENTER_OF_SPRITE
 	grappleTargetPosition = targetPosition
 
 @rpc("any_peer")
@@ -174,4 +174,4 @@ func stop_grappling_hook():
 	drawGrapplingHook = false
 	redraw_queue = true
 	grappleTargetPosition = Vector2.ZERO
-	grappleThrowerPosition = Vector2.ZERO + Vector2(3, -8)
+	grappleThrowerPosition = Vector2.ZERO + CENTER_OF_SPRITE

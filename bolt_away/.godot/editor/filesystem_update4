@@ -1,10 +1,5 @@
-res://scripts/multiplayer/multiplayer_controller.gd
-res://scripts/player.gd
-res://scripts/chunk.gd
-res://scripts/main_menu.gd
 res://scenes/main_menu.tscn
 res://scenes/game.tscn
 res://scenes/multiplayer_player.tscn
 res://scenes/player.tscn
 res://scenes/powerups/grapplingHook.tscn
-res://scripts/multiplayer/multiplayer_manager.gd

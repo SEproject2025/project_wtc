@@ -1,5 +1,5 @@
 fc8a56933c4b1c8d796fdb8f7a9f9475
-::res://::1731303499
+::res://::1731367347
 ::res://assets/::1730424398
 ::res://assets/fonts/::1729966779
 monogram-extended-italic.ttf::FontFile::2387249278354819397::1728083607::1729966779::1::::<><>::
@@ -29,27 +29,27 @@ chunk1.tscn::PackedScene::720906998527574678::1731105880::0::1::::<><>::res://sc
 chunk2.tscn::PackedScene::2354726187179753588::1731105880::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png
 chunk3.tscn::PackedScene::7135663937901823985::1731105880::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://bac2msumk5krk::::res://scenes/jump_pad.tscn
 starting_chunk.tscn::PackedScene::871079542997444666::1731105880::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png
-::res://scenes/::1731297558
+::res://scenes/::1731366917
 death_wall.tscn::PackedScene::4166977535517782215::1729554948::0::1::::<><>::res://scripts/death_wall.gd<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn
 desert_spikes.tscn::PackedScene::2791200022939891208::1729715217::0::1::::<><>::uid://bu1huoithdvgs::::res://assets/sprites/Desert_Spikes.png<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn
-game.tscn::PackedScene::6221769105244979977::1731297558::0::1::::<><>::res://scripts/game_manager.gd<>uid://dqnaqj8yb6hwd::::res://scenes/player.tscn<>uid://c265s82scq482::::res://assets/sprites/background.png<>uid://bgv5v2fxqlswe::::res://scenes/platform.tscn<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://pqp5qaw561fr::::res://scenes/point.tscn<>uid://cp5kpkkmrmdob::::res://assets/fonts/monogram.ttf<>res://scripts/level.gd<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn<>uid://kjhh6jp8711k::::res://chunks/chunk1.tscn<>uid://8sv84xrsny2w::::res://chunks/chunk2.tscn<>uid://c8wtlv7s0jxwr::::res://chunks/chunk3.tscn<>uid://bac2msumk5krk::::res://scenes/jump_pad.tscn<>uid://bf1cwlaflxa5e::::res://scenes/desert_spikes.tscn<>uid://b0mrrm7qidtv0::::res://scenes/death_wall.tscn<>uid://bcqbk6dle3bp5::::res://scenes/powerups/grappling_hook_powerup.tscn
+game.tscn::PackedScene::6221769105244979977::1731366917::0::1::::<><>::res://scripts/game_manager.gd<>uid://dqnaqj8yb6hwd::::res://scenes/player.tscn<>uid://c265s82scq482::::res://assets/sprites/background.png<>uid://bgv5v2fxqlswe::::res://scenes/platform.tscn<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://pqp5qaw561fr::::res://scenes/point.tscn<>uid://cp5kpkkmrmdob::::res://assets/fonts/monogram.ttf<>res://scripts/level.gd<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn<>uid://kjhh6jp8711k::::res://chunks/chunk1.tscn<>uid://8sv84xrsny2w::::res://chunks/chunk2.tscn<>uid://c8wtlv7s0jxwr::::res://chunks/chunk3.tscn<>uid://bac2msumk5krk::::res://scenes/jump_pad.tscn<>uid://bf1cwlaflxa5e::::res://scenes/desert_spikes.tscn<>uid://b0mrrm7qidtv0::::res://scenes/death_wall.tscn<>uid://bcqbk6dle3bp5::::res://scenes/powerups/grappling_hook_powerup.tscn
 game_manager.tscn::PackedScene::6461845027608184949::1729527719::0::1::::<><>::res://scripts/game_manager.gd<>uid://cp5kpkkmrmdob::::res://assets/fonts/monogram.ttf
 go_button.tscn::PackedScene::5677798081294473915::1729527719::0::1::::<><>::res://scripts/go_button_basic.gd
 jump.tscn::PackedScene::9000656413580627460::1728674776::0::1::::<><>::res://scripts/jump_pad.gd
 jump_pad.tscn::PackedScene::2392211204408944516::1731105880::0::1::::<><>::uid://chbbpb1lov2eu::::res://assets/sprites/Jump_pad.png<>uid://d1h8q4rqdmnpc::::res://scenes/jump.tscn
 killzone.tscn::PackedScene::8528023117307378280::1728083607::0::1::::<><>::res://scripts/killzone.gd
-main_menu.tscn::PackedScene::5438708010918430765::1731297558::0::1::::<><>::uid://cp5kpkkmrmdob::::res://assets/fonts/monogram.ttf<>res://scripts/main_menu.gd<>uid://c265s82scq482::::res://assets/sprites/background.png<>uid://d4jqcnkqbiw78::::res://assets/fonts/monogram-extended.ttf
+main_menu.tscn::PackedScene::5438708010918430765::1731366917::0::1::::<><>::uid://cp5kpkkmrmdob::::res://assets/fonts/monogram.ttf<>res://scripts/main_menu.gd<>uid://c265s82scq482::::res://assets/sprites/background.png<>uid://d4jqcnkqbiw78::::res://assets/fonts/monogram-extended.ttf
 mouse.tscn::PackedScene::9101432372716425337::1731105880::0::1::::<><>::res://scripts/mouse.gd<>uid://c53gwexdr3hmb::::res://assets/sprites/mouse.png<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn
-multiplayer_player.tscn::PackedScene::9112005529514100619::1731297558::0::1::::<><>::res://scripts/multiplayer/multiplayer_controller.gd<>res://scripts/multiplayer/multiplayer_input.gd<>uid://2p2ttcpmrpij::::res://assets/sprites/player.png<>res://scripts/powerup_manager.gd
+multiplayer_player.tscn::PackedScene::9112005529514100619::1731366917::0::1::::<><>::res://scripts/multiplayer/multiplayer_controller.gd<>res://scripts/multiplayer/multiplayer_input.gd<>uid://2p2ttcpmrpij::::res://assets/sprites/player.png<>res://scripts/powerup_manager.gd
 music.tscn::PackedScene::9006222053998901985::1728083607::0::1::::<><>::
 platform.tscn::PackedScene::2852766116732873392::1728083607::0::1::::<><>::res://scripts/platform.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png
-player.tscn::PackedScene::8309149557574787539::1731297558::0::1::::<><>::res://scripts/player.gd<>uid://2p2ttcpmrpij::::res://assets/sprites/player.png<>res://scripts/powerup_manager.gd
+player.tscn::PackedScene::8309149557574787539::1731366917::0::1::::<><>::res://scripts/player.gd<>uid://2p2ttcpmrpij::::res://assets/sprites/player.png<>res://scripts/powerup_manager.gd
 point.tscn::PackedScene::1086827868758606395::1730700367::0::1::::<><>::res://scripts/point.gd<>uid://f6ersscix0b4::::res://assets/sprites/chip.png<>uid://beltksfhblbsn::::res://assets/sounds/chip.wav
 practice_game.tscn::PackedScene::7728878433922252852::1729539380::0::1::::<><>::res://practice_game.gd<>uid://c2f6awcyvqsqw::::res://Assets/welded_plates.png<>res://level.gd<>uid://kjhh6jp8711k::::res://chunks/chunk1.tscn<>uid://8sv84xrsny2w::::res://chunks/chunk2.tscn<>uid://c8wtlv7s0jxwr::::res://chunks/chunk3.tscn<>uid://cmmrhqyyslomb::::res://Assets/pixilart-drawing (2).png<>uid://c55flv2kuqdt6::::res://Scenes/Player.tscn<>uid://bj5ne8ipt6vrq::::res://Scenes/platts.tscn<>uid://6m3n8k35mf66::::res://Scenes/chip.tscn<>uid://cviwwaplmvfy3::::res://Scenes/killzob.tscn
 wasteland_tile_set.tscn::PackedScene::915175965817082343::1729115658::0::1::::<><>::uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png
-::res://scenes/powerups/::1731297558
+::res://scenes/powerups/::1731366917
 dash.tscn::PackedScene::5497171161250031765::1730935957::0::1::::<><>::uid://d2my070feorjg::::res://assets/powerups (placeholders)/1bit 16px icons part-2.png<>res://scripts/powerups/powerup.gd
-grapplingHook.tscn::PackedScene::7841672543507076866::1731297558::0::1::::<><>::uid://7d8scc8wcvm1::::res://assets/powerups (placeholders)/SPEARS.png
+grapplingHook.tscn::PackedScene::7841672543507076866::1731366917::0::1::::<><>::uid://7d8scc8wcvm1::::res://assets/powerups (placeholders)/SPEARS.png
 grappling_hook_powerup.tscn::PackedScene::2559908623330442592::1730935957::0::1::::<><>::uid://d2my070feorjg::::res://assets/powerups (placeholders)/1bit 16px icons part-2.png<>res://scripts/powerups/powerup.gd
 jetpack.tscn::PackedScene::1246860600118092604::1730236138::0::1::::<><>::uid://d2my070feorjg::::res://assets/powerups (placeholders)/1bit 16px icons part-2.png<>res://scripts/powerups/powerup.gd
 oilspill.tscn::PackedScene::4395049795639104184::1730236138::0::1::::<><>::uid://ckxaqj3asbyu2::::res://assets/powerups (placeholders)/oil_side_view.png<>res://scripts/powerups/oilspill.gd
@@ -69,10 +69,10 @@ platform.gd::GDScript::-1::1728677687::0::1::::<>AnimatableBody2D<>::
 player.gd::GDScript::-1::1731296916::0::1::::<>CharacterBody2D<>::
 point.gd::GDScript::-1::1728677687::0::1::::<>Area2D<>::
 powerup_manager.gd::GDScript::-1::1731295910::0::1::::<>Node<>::
-::res://scripts/multiplayer/::1730956757
-multiplayer_controller.gd::GDScript::-1::1731296961::0::1::::MultiplayerPlayer<>CharacterBody2D<>::
+::res://scripts/multiplayer/::1731305159
+multiplayer_controller.gd::GDScript::-1::1731367326::0::1::::MultiplayerPlayer<>CharacterBody2D<>::
 multiplayer_input.gd::GDScript::-1::1730956757::0::1::::PlayerInput<>Node<>::
-multiplayer_manager.gd::GDScript::-1::1731295914::0::1::::<>Node<>::
+multiplayer_manager.gd::GDScript::-1::1731367163::0::1::::<>Node<>::
 ::res://scripts/powerups/::1731296955
 oilspill.gd::GDScript::-1::1730240655::0::1::::<>Area2D<>::
 powerup.gd::GDScript::-1::1730324471::0::1::::<>Node<>::
