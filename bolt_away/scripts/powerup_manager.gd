@@ -14,7 +14,6 @@ var is_jetpack_active = false
 @onready var oilspill_scene = preload("res://scenes/powerups/oilspill.tscn")
 @onready var grapplinghook_scene = preload("res://scenes/powerups/grapplingHook.tscn")
 @onready var parent = get_parent()
-var is_multiplayer
 
 func collect_powerup(powerup: PowerUpType) -> void:
 	if current_powerup == PowerUpType.NONE:
@@ -36,7 +35,7 @@ func use_powerup() -> void:
 			throw_oil()
 		PowerUpType.GRAPPLINGHOOK:
 			print("Grappling hook!")
-			throw_grappling_hook()
+			parent.fire_grappling_hook()
 		PowerUpType.NONE:
 			print("No powerup!")
 	current_powerup = PowerUpType.NONE
@@ -55,18 +54,3 @@ func throw_oil() -> void:
 	get_tree().get_root().add_child(oilspill)
 	if MultiplayerManager.multiplayer_mode_enabled:
 		MultiplayerManager.rpc("spawn_oilspill", oilspill.position)
-
-func throw_grappling_hook() -> void:
-	var grapplingHook = grapplinghook_scene.instantiate()
-	grapplingHook.throwerName = parent.name
-	grapplingHook.throwerPosition = get_parent().global_position
-	grapplingHook.thrower = get_parent()
-	if parent.animated_sprite.flip_h:
-		grapplingHook.direction = Vector2.LEFT
-		grapplingHook.flip_h = true
-	else:
-		grapplingHook.direction = Vector2.RIGHT
-		grapplingHook.flip_h = false
-	get_tree().get_root().add_child(grapplingHook)
-	if MultiplayerManager.multiplayer_mode_enabled:
-		MultiplayerManager.rpc("spawn_grapplinghook", inst_to_dict(grapplingHook))

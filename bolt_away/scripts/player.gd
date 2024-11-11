@@ -13,25 +13,35 @@ const JUMP_BUFFER_TIME_LENGTH = 0.15
 const DASH_SPEED = 2.4
 const JETPACK_VELOCITY = -200
 const JETPACK_FUEL_CONSUMPTION = 25
+const GRAPPLING_HOOK_SPEED = 1200.0
 
 var coyoteJump: bool = true
 var isDashing: bool = false
 var jumpBuffered: bool = false
 var wallJumping: bool = false
 var canDash: bool = true
+var isGrappling: bool = false
+var grappleToPosition: Vector2
 
 
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
-@onready var player: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var dashTimer: Timer = $Timers/DashTimer
 @onready var jumpBufferTimer: Timer = $Timers/JumpBufferTimer
 @onready var dashCooldown: Timer = $"Timers/DashCooldown"
 @onready var powerupManager = $PowerUpManager
+@onready var raycastToObstacle = $"RayCastToObstacle"
 
-func _process(delta):
+
+func _process(_delta):
 	#Use powerup (Don't call if jetpack is active)
 	if Input.is_action_just_pressed("use_powerup") and !powerupManager.is_jetpack_active:
 		powerupManager.use_powerup()
+
+
+func _draw() -> void:
+	if isGrappling:
+		draw_line(Vector2(3, -8), to_local(grappleToPosition), Color.BLACK, 1.5)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -66,13 +76,21 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, direction * SPEED * DASH_SPEED, SPEED * ACCELERATION)
 		else:
 			velocity.x = move_toward(velocity.x, direction * SPEED, SPEED * ACCELERATION)
-		player.flip_h = direction < 0
+		animated_sprite.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED * DECELERATION)
 	
 	if Input.is_action_just_pressed("dash") and canDash:
 		if !isDashing and direction:
 			start_dash()
+
+	if isGrappling:
+		queue_redraw()
+		var directionToTarget = (grappleToPosition - global_position).normalized()
+		velocity += directionToTarget * GRAPPLING_HOOK_SPEED * delta
+
+		if global_position.distance_to(grappleToPosition) < 10 or global_position > grappleToPosition:
+			stop_grappling_hook()
 
 	var wasOnFloor = is_on_floor()
 	move_and_slide()
@@ -97,7 +115,7 @@ func jump():
 		
 func wall_jump():
 	velocity = Vector2(get_wall_normal().x * WALL_JUMP_PUSHBACK, JUMP_VELOCITY)
-	player.flip_h = true
+	animated_sprite.flip_h = true
 	
 func wall_slide():
 	velocity.y = min(velocity.y, WALL_SLIDE_GRAVITY)
@@ -125,3 +143,13 @@ func dash_cooldown_timeout():
 
 func oil_slip():
 	velocity.x *= .2
+
+func fire_grappling_hook():
+	if raycastToObstacle.is_colliding():
+		grappleToPosition = raycastToObstacle.get_collision_point()
+		isGrappling = true
+
+func stop_grappling_hook():
+	isGrappling = false
+	grappleToPosition = Vector2.ZERO
+

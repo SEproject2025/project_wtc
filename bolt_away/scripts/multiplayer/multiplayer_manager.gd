@@ -17,6 +17,10 @@ var dead_player_id = 0
 var start_wall  = false
 var isBeingPulled = false
 var pull_target_position = Vector2(0, 0)
+var grappleTargetPosition: Vector2
+var grappleThrowerPosition: Vector2
+var drawGrapplingHook: bool = false
+var redraw_queue = false
 
 signal host_joined
 signal client_joined
@@ -152,13 +156,22 @@ func spawn_oilspill(position: Vector2):
 @rpc("any_peer")
 func pull_to_target(targetPosition: Vector2):
 	isBeingPulled = true
-	pull_target_position = targetPosition
+	pull_target_position = targetPosition + Vector2(3, -8)
 
 @rpc("any_peer")
-func spawn_grapplinghook(grapplingHookData: Dictionary):
-	var grapplingHook = grapplinghook_scene.instantiate()
-	grapplingHook.throwerPosition = grapplingHookData["throwerPosition"]
-	grapplingHook.direction = grapplingHookData["direction"]
-	grapplingHook.flip_h = grapplingHookData["flip_h"]
-	grapplingHook.throwerName = grapplingHookData["throwerName"]
-	get_tree().get_root().add_child(grapplingHook)
+func draw_grappling_hook(throwerPosition: Vector2, targetPosition: Vector2):
+	drawGrapplingHook = true
+	grappleThrowerPosition = throwerPosition + Vector2(3, -8)
+	grappleTargetPosition = targetPosition
+
+@rpc("any_peer")
+func update_grappling_hook(throwerPosition: Vector2, targetPosition: Vector2):
+	grappleThrowerPosition = throwerPosition + Vector2(3, -8)
+	grappleTargetPosition = targetPosition
+
+@rpc("any_peer")
+func stop_grappling_hook():
+	drawGrapplingHook = false
+	redraw_queue = true
+	grappleTargetPosition = Vector2.ZERO
+	grappleThrowerPosition = Vector2.ZERO + Vector2(3, -8)

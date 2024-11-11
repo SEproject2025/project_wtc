@@ -15,6 +15,7 @@ const DASH_SPEED = 2.4
 const JUMP_DASHTIMER = 0.1
 const JETPACK_VELOCITY = -200
 const JETPACK_FUEL_CONSUMPTION = 25
+const GRAPPLING_HOOK_SPEED = 1000.0
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var coyoteJump: bool = true
@@ -25,9 +26,9 @@ var wallJumping: bool = false
 var jumpReleased: bool = false
 var _is_on_floor: bool = true
 var alive: bool = true
-var is_being_pulled: bool = false
-var pull_target_position: Vector2
-var has_set_target_position: bool = false
+var grappleToPosition: Vector2
+var targetPlayer
+var isGrappling: bool = false
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
@@ -36,6 +37,9 @@ var has_set_target_position: bool = false
 @onready var dashCooldown: Timer = $"Timers/DashCooldown"
 @onready var powerupManager = $PowerUpManager
 @onready var navAgent = $NavigationAgent2D
+@onready var rayCastRight = $GrapplingHookRayCasts/RayCastRight
+@onready var rayCastLeft = $GrapplingHookRayCasts/RayCastLeft
+@onready var raycastToObstacle = $GrapplingHookRayCasts/RayCastToObstacle
 
 @export var player_input: PlayerInput
 @export var player_id := 1:
@@ -121,7 +125,24 @@ func _apply_movement_from_input(delta):
 		if powerupManager.jetpack_fuel <= 0:
 			powerupManager.deactivate_jetpack()
 
+	if isGrappling:
+		queue_redraw()
+		var directionToTarget = (grappleToPosition - global_position).normalized()
+		velocity += directionToTarget * GRAPPLING_HOOK_SPEED * delta
+		MultiplayerManager.rpc("update_grappling_hook", global_position, grappleToPosition)
+
+		if global_position.distance_to(grappleToPosition) < 10 or global_position > grappleToPosition or rayCastRight.is_colliding():
+			stop_grappling_hook()
+
+	if MultiplayerManager.drawGrapplingHook or MultiplayerManager.redraw_queue:
+		MultiplayerManager.redraw_queue = false
+		queue_redraw()
+		
+
+
 	var wasOnFloor = is_on_floor()
+
+
 	move_and_slide()
 	
 	if !wasOnFloor and is_on_floor():
@@ -136,7 +157,8 @@ func _physics_process(delta):
 		
 		_is_on_floor = is_on_floor()
 		if MultiplayerManager.isBeingPulled:
-			pull_to_target(MultiplayerManager.pull_target_position)
+			pull_to_target(MultiplayerManager.pull_target_position, delta)
+			queue_redraw()
 		else:
 			_apply_movement_from_input(delta)
 
@@ -199,26 +221,53 @@ func dash_cooldown_timeout():
 func oil_slip():
 	velocity.x *= .2
 
-func pull_to_target(targetPosition: Vector2):
-	if !MultiplayerManager.isBeingPulled:
-		MultiplayerManager.isBeingPulled = true
+func pull_to_target(targetPosition: Vector2, delta: float):
+	var directionBackToTarget = (targetPosition - global_position).normalized()
+	velocity += directionBackToTarget * GRAPPLING_HOOK_SPEED * delta
 
-	if MultiplayerManager.pull_target_position == Vector2.ZERO:
-		MultiplayerManager.pull_target_position = targetPosition
-		
-	if !has_set_target_position:
-		navAgent.set_target_position(targetPosition)
-		has_set_target_position = true
-
-	if navAgent.is_navigation_finished():
+	if global_position.distance_to(targetPosition) < 10 or rayCastLeft.is_colliding():
 		MultiplayerManager.isBeingPulled = false
-		MultiplayerManager.pull_target_position = Vector2.ZERO
-		has_set_target_position = false
-		print("reached final position")
-		return
-	
-	var next_position = navAgent.get_next_path_position()
-	velocity = global_position.direction_to(next_position) * SPEED
+
 	move_and_slide()
+
+func _draw() -> void:
+	if isGrappling:
+		draw_line(Vector2(3, -8), to_local(grappleToPosition), Color.BLACK, 1.5)
+	if MultiplayerManager.drawGrapplingHook:
+		draw_line(to_local(MultiplayerManager.grappleThrowerPosition), to_local(MultiplayerManager.grappleTargetPosition), Color.BLACK, 1.5)
+
+
+func fire_grappling_hook():
+	targetPlayer = find_closest_player()
+	if targetPlayer:
+		grappleToPosition = targetPlayer.global_position + Vector2(3, -8)
+		rayCastRight.look_at(grappleToPosition)
+		isGrappling = true
+		MultiplayerManager.rpc_id(targetPlayer.name.to_int(), "pull_to_target", global_position)
+	else:
+		if raycastToObstacle.is_colliding():
+			grappleToPosition = raycastToObstacle.get_collision_point()
+			isGrappling = true
+	MultiplayerManager.rpc("draw_grappling_hook", global_position, grappleToPosition)
+
+func stop_grappling_hook():
+	isGrappling = false
+	targetPlayer = null
+	grappleToPosition = Vector2.ZERO
+
+
+
+func find_closest_player() -> Node2D:
+	var closestPlayer = null
+	var closestDistance = null
+
+	for player in get_tree().get_current_scene().get_node("Players").get_children():
+		if player.name != self.name and player.global_position.x > global_position.x:
+			var distance = global_position.distance_to(player.global_position)
+			if !closestDistance or distance < closestDistance:
+				closestDistance = distance
+				closestPlayer = player
+
+	return closestPlayer
 
 	

@@ -150,10 +150,24 @@ script = ExtResource("4_4s3vh")
 path_desired_distance = 5.0
 target_desired_distance = 5.0
 path_postprocessing = 1
-avoidance_enabled = true
+avoidance_mask = 17
 debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.466667, 0, 1, 1)
+
+[node name="GrapplingHookRayCasts" type="Node2D" parent="."]
+
+[node name="RayCastRight" type="RayCast2D" parent="GrapplingHookRayCasts"]
+position = Vector2(3, -8)
+target_position = Vector2(10, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="GrapplingHookRayCasts"]
+position = Vector2(-2, -8)
+target_position = Vector2(-10, 0)
+
+[node name="RayCastToObstacle" type="RayCast2D" parent="GrapplingHookRayCasts"]
+position = Vector2(3, -8)
+target_position = Vector2(500, 0)
 
 [connection signal="timeout" from="Timers/DashTimer" to="." method="dash_timeout"]
 [connection signal="timeout" from="Timers/DashCooldown" to="." method="dash_cooldown_timeout"]

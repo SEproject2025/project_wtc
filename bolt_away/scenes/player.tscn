@@ -97,6 +97,10 @@ one_shot = true
 unique_name_in_owner = true
 script = ExtResource("3_uodo8")
 
+[node name="RayCastToObstacle" type="RayCast2D" parent="."]
+position = Vector2(3, -8)
+target_position = Vector2(500, 0)
+
 [connection signal="timeout" from="Timers/DashCooldown" to="." method="dash_cooldown_timeout"]
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="coyote_timeout"]
 [connection signal="timeout" from="Timers/JumpBufferTimer" to="." method="jump_buffer_timeout"]

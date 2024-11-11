@@ -19,7 +19,9 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_jx7bm")
 sources/1 = SubResource("TileSetAtlasSource_85dis")
 
-[node name="Node2D" type="Node2D"]
+[node name="Chunk3" type="Node2D" groups=["Chunks"]]
+editor_description = "test
+"
 position = Vector2(9, 0)
 script = ExtResource("1_bemx6")
 

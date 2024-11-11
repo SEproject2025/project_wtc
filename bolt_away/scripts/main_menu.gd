@@ -2,10 +2,9 @@ extends Control
 
 
 func _ready() -> void:
-	#Skip main menu if debugging
-	if OS.is_debug_build():
+	#Skip main menu if debugging or dedicated server
+	if OS.is_debug_build() or OS.has_feature("dedicated_server"):
 		get_tree().change_scene_to_file("res://scenes/game.tscn")
-	pass
 
 func _on_host_pressed():
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
