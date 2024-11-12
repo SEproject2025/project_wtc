@@ -146,6 +146,7 @@ func oil_slip():
 
 func fire_grappling_hook():
 	if raycastToObstacle.is_colliding():
+		print("here")
 		grappleToPosition = raycastToObstacle.get_collision_point()
 		isGrappling = true
 

@@ -262,6 +262,5 @@ position = Vector2(-277, 94)
 [node name="GrapplingHookPowerup" parent="." instance=ExtResource("16_p8b58")]
 position = Vector2(58, -15)
 
-[connection signal="pressed" from="EndGameScreen/PlayAgain" to="GameManager" method="play_again"]
 [connection signal="pressed" from="Player/Camera2D/MultiplayerHUD/VBoxContainer/host" to="GameManager" method="host"]
 [connection signal="pressed" from="Player/Camera2D/MultiplayerHUD/VBoxContainer/join" to="GameManager" method="join"]

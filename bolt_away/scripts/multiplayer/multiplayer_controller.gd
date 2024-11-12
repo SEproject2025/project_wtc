@@ -16,7 +16,7 @@ const JUMP_DASHTIMER = 0.1
 const JETPACK_VELOCITY = -200
 const JETPACK_FUEL_CONSUMPTION = 25
 const GRAPPLING_HOOK_SPEED = 1000.0
-const CENTER_OF_SPRITE = Vector2(3,-8) #Change if sprite changes
+const CENTER_OF_SPRITE = Vector2(3,-10) #Change if sprite changes
 const GRAPPLING_HOOK_WIDTH = 1.5
 const GRAPPLING_HOOK_STOP_DISTANCE = 10
 

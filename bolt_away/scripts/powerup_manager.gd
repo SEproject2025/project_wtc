@@ -12,7 +12,6 @@ var current_powerup: PowerUpType = PowerUpType.NONE
 var jetpack_fuel = 100
 var is_jetpack_active = false
 @onready var oilspill_scene = preload("res://scenes/powerups/oilspill.tscn")
-@onready var grapplinghook_scene = preload("res://scenes/powerups/grapplingHook.tscn")
 @onready var parent = get_parent()
 
 func collect_powerup(powerup: PowerUpType) -> void:

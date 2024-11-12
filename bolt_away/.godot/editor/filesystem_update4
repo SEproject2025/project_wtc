@@ -1,0 +1,10 @@
+res://scenes/main_menu.tscn
+res://scenes/game.tscn
+res://scenes/multiplayer_player.tscn
+res://scenes/player.tscn
+res://scenes/powerups/grapplingHook.tscn
+res://scripts/player.gd
+res://scenes/powerups/grappling_hook_powerup.tscn
+res://scripts/powerup_manager.gd
+res://scripts/multiplayer/multiplayer_manager.gd
+res://scripts/multiplayer/multiplayer_controller.gd
