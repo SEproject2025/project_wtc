@@ -25,6 +25,7 @@ var redraw_queue: bool = false
 signal host_joined
 signal client_joined
 
+
 func host():
 	print("hosting")
 	
@@ -47,6 +48,7 @@ func host():
 	
 	if not OS.has_feature("dedicated_server"):
 		_connect_player(1)
+
 	
 func join():
 	print("joining")
@@ -56,11 +58,13 @@ func join():
 	
 	var client_peer = ENetMultiplayerPeer.new()
 	client_peer.create_client(SERVER_IP, SERVER_PORT)
-	
+
 	multiplayer.server_disconnected.connect(_clean_multiplayer_state)
 
 	multiplayer.multiplayer_peer = client_peer
 	_end_singleplayer()
+
+
 
 func _connect_player(id: int):
 	print("Player %s joined the game." % id)
@@ -86,7 +90,9 @@ func _disconnect_player(id: int):
 		return
 	_players_spawn_node.get_node(str(id)).queue_free()
 
-	_clean_multiplayer_state()
+	if !multiplayer.is_server() or !OS.has_feature("dedicated_server"):
+		_clean_multiplayer_state()
+
 	
 func _end_singleplayer():
 	print("ending singleplayer")
@@ -97,7 +103,10 @@ func _end_game(losing_player_id):
 	if multiplayer.is_server():
 		dead_player_id = losing_player_id
 		rpc("sync_losing_player_id", dead_player_id)
-		_show_end_message(dead_player_id)
+		if !OS.has_feature("dedicated_server"):
+			_show_end_message(losing_player_id)
+		else:
+			reset_dedicated_server_state()
 
 func _show_end_message(losing_player_id: int):
 	var end_screen = get_tree().get_current_scene().get_node("EndGameScreen")
@@ -109,6 +118,7 @@ func _show_end_message(losing_player_id: int):
 	end_screen.show()
 
 	get_tree().paused = true
+
 
 func _clean_multiplayer_state():
 	# Disconnect signals
@@ -132,6 +142,13 @@ func _clean_multiplayer_state():
 	dead_player_id = 0
 	start_wall = false
 
+func reset_dedicated_server_state():
+	var deathWall = get_tree().get_current_scene().get_node("DeathWallNode")
+	map_seed = 0
+	dead_player_id = 0
+	start_wall = false
+	deathWall.position.x = -270 
+	deathWall.wall_velocity = 25
 
 @rpc("any_peer")
 func sync_map_seed(mySeed: int):
