@@ -12,10 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://kjhh6jp8711k" path="res://chunks/chunk1.tscn" id="6_xxir6"]
 [ext_resource type="PackedScene" uid="uid://8sv84xrsny2w" path="res://chunks/chunk2.tscn" id="7_0yfv7"]
 [ext_resource type="PackedScene" uid="uid://c8wtlv7s0jxwr" path="res://chunks/chunk3.tscn" id="8_theye"]
-[ext_resource type="PackedScene" uid="uid://bac2msumk5krk" path="res://scenes/jump_pad.tscn" id="10_yn3rf"]
-[ext_resource type="PackedScene" uid="uid://bf1cwlaflxa5e" path="res://scenes/desert_spikes.tscn" id="11_xxcg0"]
 [ext_resource type="PackedScene" uid="uid://b0mrrm7qidtv0" path="res://scenes/death_wall.tscn" id="15_3acr7"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="16_0jhck"]
+[ext_resource type="PackedScene" uid="uid://bhu24tgmbqicb" path="res://scenes/mushroom_bumper.tscn" id="15_wwe6g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ashvg"]
 texture = ExtResource("3_en8fe")
@@ -250,12 +249,6 @@ spawn_limit = 10
 [node name="Players" type="Node2D" parent="."]
 position = Vector2(-8, -15)
 
-[node name="Jump_pad" parent="." instance=ExtResource("10_yn3rf")]
-position = Vector2(97, -28)
-
-[node name="desert_spikes" parent="." instance=ExtResource("11_xxcg0")]
-position = Vector2(239, 82)
-
 [node name="level" type="Node2D" parent="."]
 position = Vector2(3, 0)
 script = ExtResource("5_odm52")
@@ -268,6 +261,10 @@ position = Vector2(-277, 94)
 position = Vector2(186, -32)
 powerups = Array[int]([1, 2, 3])
 powerupProbabilities = Array[float]([0.2, 0.6, 0.2])
+
+[node name="Mushroom Bumper" parent="." instance=ExtResource("15_wwe6g")]
+position = Vector2(247, 17)
+rotation = -0.570383
 
 [connection signal="pressed" from="EndGameScreen/Exit" to="GameManager" method="exit"]
 [connection signal="pressed" from="Player/Camera2D/MultiplayerHUD/VBoxContainer/host" to="GameManager" method="host"]

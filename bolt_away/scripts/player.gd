@@ -10,12 +10,14 @@ const DECELERATE_ON_JUMP_RELEASE = 0.8
 const FALL_GRAVITY = 1300.0
 const COYOTE_TIMER_LENGTH = 0.1
 const JUMP_BUFFER_TIME_LENGTH = 0.15
-const DASH_SPEED = 3.0
+const DASH_SPEED = 2.4
 const JETPACK_VELOCITY = -200
 const JETPACK_FUEL_CONSUMPTION = 25
 const GRAPPLING_HOOK_SPEED = 1200.0
 const CENTER_OF_SPRITE = Vector2(3,-10)
 
+var fall_rate = DECELERATE_ON_JUMP_RELEASE
+var bumped: bool = false
 var coyoteJump: bool = true
 var isDashing: bool = false
 var jumpBuffered: bool = false
@@ -67,7 +69,7 @@ func _physics_process(delta: float) -> void:
 
 	# Variable Jump Height
 	if !Input.is_action_pressed("jump") and velocity.y < 0:
-		velocity.y *= DECELERATE_ON_JUMP_RELEASE
+		velocity.y *= fall_rate
 	
 	if is_on_wall_only() and Input.get_axis("move_left", "move_right"):
 		wall_slide()
@@ -113,6 +115,7 @@ func jump():
 	if is_on_floor() or coyoteJump:
 		velocity.y = JUMP_VELOCITY
 		coyoteJump = false
+
 	else:
 		if !jumpBuffered:
 			jumpBuffered = true
@@ -136,7 +139,14 @@ func start_dash():
 	dashEffectTimer.start()
 
 func return_gravity():
-	return get_gravity().y if velocity.y < 0 else FALL_GRAVITY
+	var gravity = get_gravity().y
+	if velocity.y <= 0 and bumped == true:
+		gravity /= 1.25
+		fall_rate = 1
+	elif velocity.y >= 0 and bumped == true:
+		bumped = false
+		fall_rate = DECELERATE_ON_JUMP_RELEASE
+	return gravity
 	
 func coyote_timeout():
 	coyoteJump = false
@@ -178,3 +188,5 @@ func _on_dash_effect_timer_timeou():
 	await get_tree().create_timer(effectTime).timeout
 	playerCopy.queue_free()
 
+
+	

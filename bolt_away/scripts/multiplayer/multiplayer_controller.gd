@@ -20,6 +20,8 @@ const CENTER_OF_SPRITE = Vector2(3,-10) #Change if sprite changes
 const GRAPPLING_HOOK_WIDTH = 1.5
 const GRAPPLING_HOOK_STOP_DISTANCE = 10
 
+var fall_rate = DECELERATE_ON_JUMP_RELEASE
+var bumped: bool = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var coyoteJump: bool = true
 var isDashing: bool = false
@@ -83,7 +85,7 @@ func _apply_movement_from_input(delta):
 		if coyoteJump or coyoteTimer.is_stopped():
 			coyoteTimer.start(COYOTE_TIMER_LENGTH)
 		if not isDashing:
-			velocity.y += gravity * delta
+			velocity.y += return_gravity() * delta
 	else:
 		coyoteJump = true
 		coyoteTimer.stop()
@@ -97,7 +99,7 @@ func _apply_movement_from_input(delta):
 	
 	if !player_input.input_jump:
 		if velocity.y < 0:
-			velocity.y *= DECELERATE_ON_JUMP_RELEASE
+			velocity.y *= fall_rate
 		jumpReleased = true
 	
 	if is_on_wall_only() and player_input.input_direction:
@@ -221,7 +223,14 @@ func jump_buffer_timeout():
 	jumpBuffered = false
 
 func return_gravity():
-	return gravity if velocity.y < 0 else FALL_GRAVITY
+	var gravity = get_gravity().y
+	if velocity.y <= 0 and bumped == true:
+		gravity /= 1.25
+		fall_rate = 1
+	elif velocity.y >= 0 and bumped == true:
+		bumped = false
+		fall_rate = DECELERATE_ON_JUMP_RELEASE
+	return gravity
 
 func dash_cooldown_timeout():
 	canDash = true
