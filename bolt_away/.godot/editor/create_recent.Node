@@ -1,3 +1,5 @@
+Button
+Timer
 TextureRect
 Control
 Sprite2D
@@ -5,7 +7,6 @@ CollisionShape2D
 Area2D
 RayCast2D
 Node2D
-Timer
 NavigationRegion2D
 NavigationObstacle2D
 Node

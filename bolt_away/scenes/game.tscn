@@ -185,6 +185,11 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("5_f1ggy")
 text = "join"
 
+[node name="SinglePlayer" type="Button" parent="Player/Camera2D/MultiplayerHUD/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_f1ggy")
+text = "solo"
+
 [node name="Killzone" parent="." instance=ExtResource("5_x8euu")]
 position = Vector2(74, 141)
 
@@ -267,3 +272,4 @@ powerupProbabilities = Array[float]([0.2, 0.6, 0.2])
 [connection signal="pressed" from="EndGameScreen/Exit" to="GameManager" method="exit"]
 [connection signal="pressed" from="Player/Camera2D/MultiplayerHUD/VBoxContainer/host" to="GameManager" method="host"]
 [connection signal="pressed" from="Player/Camera2D/MultiplayerHUD/VBoxContainer/join" to="GameManager" method="join"]
+[connection signal="pressed" from="Player/Camera2D/MultiplayerHUD/VBoxContainer/SinglePlayer" to="GameManager" method="_on_single_player_pressed"]

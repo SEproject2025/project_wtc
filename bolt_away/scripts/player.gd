@@ -10,10 +10,11 @@ const DECELERATE_ON_JUMP_RELEASE = 0.8
 const FALL_GRAVITY = 1300.0
 const COYOTE_TIMER_LENGTH = 0.1
 const JUMP_BUFFER_TIME_LENGTH = 0.15
-const DASH_SPEED = 2.4
+const DASH_SPEED = 3.0
 const JETPACK_VELOCITY = -200
 const JETPACK_FUEL_CONSUMPTION = 25
 const GRAPPLING_HOOK_SPEED = 1200.0
+const CENTER_OF_SPRITE = Vector2(3,-10)
 
 var coyoteJump: bool = true
 var isDashing: bool = false
@@ -31,6 +32,7 @@ var grappleToPosition: Vector2
 @onready var dashCooldown: Timer = $"Timers/DashCooldown"
 @onready var powerupManager = $PowerUpManager
 @onready var raycastToObstacle = $"RayCastToObstacle"
+@onready var dashEffectTimer = $Timers/DashEffectTimer
 
 
 func _process(_delta):
@@ -47,7 +49,8 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		if coyoteJump and coyoteTimer.is_stopped():
 			coyoteTimer.start(COYOTE_TIMER_LENGTH)
-		velocity.y += return_gravity() * delta
+		if not isDashing:
+			velocity.y += return_gravity() * delta
 	else:
 		coyoteJump = true
 		coyoteTimer.stop()
@@ -71,17 +74,22 @@ func _physics_process(delta: float) -> void:
 	
 
 	var direction := Input.get_axis("move_left", "move_right")
-	if direction:
-		if isDashing:
-			velocity.x = move_toward(velocity.x, direction * SPEED * DASH_SPEED, SPEED * ACCELERATION)
+
+	if isDashing:
+		#Dash in direction player is facing
+		if not direction:
+			var dashDirection = -1 if animated_sprite.flip_h else 1
+			velocity.x = move_toward(velocity.x, dashDirection * SPEED * DASH_SPEED, SPEED * ACCELERATION * DASH_SPEED)
 		else:
-			velocity.x = move_toward(velocity.x, direction * SPEED, SPEED * ACCELERATION)
+			velocity.x = move_toward(velocity.x, direction * SPEED * DASH_SPEED, SPEED * ACCELERATION * DASH_SPEED)
+	elif direction:
+		velocity.x = move_toward(velocity.x, direction * SPEED, SPEED * ACCELERATION)
 		animated_sprite.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED * DECELERATION)
 	
 	if Input.is_action_just_pressed("dash") and canDash:
-		if !isDashing and direction:
+		if !isDashing:
 			start_dash()
 
 	if isGrappling:
@@ -125,6 +133,7 @@ func start_dash():
 	canDash = false
 	dashTimer.start()
 	dashCooldown.start()
+	dashEffectTimer.start()
 
 func return_gravity():
 	return get_gravity().y if velocity.y < 0 else FALL_GRAVITY
@@ -137,6 +146,7 @@ func jump_buffer_timeout():
   	
 func dash_timeout():
 	isDashing = false
+	dashEffectTimer.stop()
 	
 func dash_cooldown_timeout():
 	canDash = true
@@ -146,11 +156,25 @@ func oil_slip():
 
 func fire_grappling_hook():
 	if raycastToObstacle.is_colliding():
-		print("here")
 		grappleToPosition = raycastToObstacle.get_collision_point()
 		isGrappling = true
 
 func stop_grappling_hook():
 	isGrappling = false
 	grappleToPosition = Vector2.ZERO
+
+func _on_dash_effect_timer_timeou():
+	var playerCopy = animated_sprite.duplicate()
+	get_parent().add_child(playerCopy)
+	playerCopy.global_position = global_position + CENTER_OF_SPRITE
+	
+	var effectTime = dashTimer.wait_time / 3
+	await get_tree().create_timer(effectTime).timeout
+	playerCopy.modulate.a = 0.4
+
+	await get_tree().create_timer(effectTime).timeout
+	playerCopy.modulate.a = 0.2
+
+	await get_tree().create_timer(effectTime).timeout
+	playerCopy.queue_free()
 

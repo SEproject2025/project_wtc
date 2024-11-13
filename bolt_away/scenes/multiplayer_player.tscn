@@ -186,6 +186,9 @@ one_shot = true
 wait_time = 0.6
 one_shot = true
 
+[node name="DashEffectTimer" type="Timer" parent="Timers"]
+wait_time = 0.1
+
 [node name="PowerUpManager" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_4s3vh")
@@ -225,3 +228,4 @@ offset_bottom = -26.0
 [connection signal="timeout" from="Timers/JumpBufferTimer" to="." method="jump_buffer_timeout"]
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="coyote_timeout"]
 [connection signal="timeout" from="Timers/RespawnTimer" to="." method="_respawn"]
+[connection signal="timeout" from="Timers/DashEffectTimer" to="." method="_on_dash_effect_timer_timeout"]

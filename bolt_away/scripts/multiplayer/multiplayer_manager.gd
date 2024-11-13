@@ -161,7 +161,11 @@ func sync_losing_player_id(losing_player_id: int):
 
 @rpc("any_peer")
 func start_death_wall():
+	var deathWall = get_tree().get_current_scene().get_node("DeathWallNode")
 	start_wall = true
+	#Start wall from beginning
+	deathWall.position.x = -270
+	deathWall.wall_velocity = 25
 
 @rpc("any_peer")
 func spawn_oilspill(position: Vector2):

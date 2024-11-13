@@ -39,10 +39,11 @@ var isGrappling: bool = false
 @onready var jumpBufferTimer: Timer = $Timers/JumpBufferTimer
 @onready var dashCooldown: Timer = $"Timers/DashCooldown"
 @onready var powerupManager = $PowerUpManager
-@onready var navAgent = $NavigationAgent2D
 @onready var rayCastRight = $GrapplingHookRayCasts/RayCastRight
 @onready var rayCastLeft = $GrapplingHookRayCasts/RayCastLeft
 @onready var raycastToObstacle = $GrapplingHookRayCasts/RayCastToObstacle
+@onready var dashEffectTimer = $Timers/DashEffectTimer
+
 
 @export var player_input: PlayerInput
 @export var player_id := 1:
@@ -81,7 +82,8 @@ func _apply_movement_from_input(delta):
 	if not is_on_floor():
 		if coyoteJump or coyoteTimer.is_stopped():
 			coyoteTimer.start(COYOTE_TIMER_LENGTH)
-		velocity.y += gravity * delta
+		if not isDashing:
+			velocity.y += gravity * delta
 	else:
 		coyoteJump = true
 		coyoteTimer.stop()
@@ -105,16 +107,21 @@ func _apply_movement_from_input(delta):
 	var direction = player_input.input_direction
 	
 	# player movement
-	if direction:
-		if isDashing:
-			velocity.x = move_toward(velocity.x, direction * SPEED * DASH_SPEED, SPEED * ACCELERATION)
+	if isDashing:
+		print("hered")
+		if not direction:
+			var dashDirection = -1 if animated_sprite.flip_h else 1
+			velocity.x = move_toward(velocity.x, dashDirection * SPEED * DASH_SPEED, SPEED * ACCELERATION * DASH_SPEED)
 		else:
-			velocity.x = move_toward(velocity.x, direction * SPEED, SPEED * ACCELERATION)
+			velocity.x = move_toward(velocity.x, direction * SPEED * DASH_SPEED, SPEED * ACCELERATION * DASH_SPEED)
+	elif direction:
+		velocity.x = move_toward(velocity.x, direction * SPEED, SPEED * ACCELERATION)
+		animated_sprite.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED * DECELERATION)
 
 	if player_input.input_dash and canDash:
-		if !isDashing and direction:
+		if !isDashing:
 			start_dash()
 
 	if player_input.input_use_powerup and !powerupManager.is_jetpack_active:
@@ -201,9 +208,11 @@ func start_dash():
 	canDash = false
 	dashTimer.start()
 	dashCooldown.start()
+	dashEffectTimer.start()
 
 func dash_timeout():
 	isDashing = false
+	dashEffectTimer.stop()
 
 func coyote_timeout():
 	coyoteJump = false
@@ -269,4 +278,17 @@ func get_leading_player() -> Node2D:
 
 	return closestPlayer
 
+func _on_dash_effect_timer_timeout():
+	var playerCopy = animated_sprite.duplicate()
+	get_parent().add_child(playerCopy)
+	playerCopy.global_position = global_position + CENTER_OF_SPRITE
 	
+	var effectTime = dashTimer.wait_time / 3
+	await get_tree().create_timer(effectTime).timeout
+	playerCopy.modulate.a = 0.4
+
+	await get_tree().create_timer(effectTime).timeout
+	playerCopy.modulate.a = 0.2
+
+	await get_tree().create_timer(effectTime).timeout
+	playerCopy.queue_free()
