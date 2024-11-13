@@ -12,6 +12,8 @@ const COYOTE_TIMER_LENGTH = 0.1
 const JUMP_BUFFER_TIME_LENGTH = 0.15
 const DASH_SPEED = 2.4
 
+var fall_rate = DECELERATE_ON_JUMP_RELEASE
+var bumped: bool = false
 var coyoteJump: bool = true
 var isDashing: bool = false
 var jumpBuffered: bool = false
@@ -38,7 +40,7 @@ func _physics_process(delta: float) -> void:
 
 	# Variable Jump Height
 	if !Input.is_action_pressed("jump") and velocity.y < 0:
-		velocity.y *= DECELERATE_ON_JUMP_RELEASE
+		velocity.y *= fall_rate
 	
 	if is_on_wall_only() and Input.get_axis("move_left", "move_right"):
 		wall_slide()
@@ -71,6 +73,7 @@ func jump():
 	if is_on_floor() or coyoteJump:
 		velocity.y = JUMP_VELOCITY
 		coyoteJump = false
+
 	else:
 		if !jumpBuffered:
 			jumpBuffered = true
@@ -93,7 +96,14 @@ func start_dash():
 	dashCooldown.start()
 
 func return_gravity():
-	return get_gravity().y if velocity.y < 0 else FALL_GRAVITY
+	var gravity = get_gravity().y
+	if velocity.y <= 0 and bumped == true:
+		gravity /= 1.25
+		fall_rate = 1
+	elif velocity.y >= 0 and bumped == true:
+		bumped = false
+		fall_rate = DECELERATE_ON_JUMP_RELEASE
+	return gravity
 	
 func coyote_timeout():
 	coyoteJump = false
@@ -106,3 +116,5 @@ func dash_timeout():
 	
 func dash_cooldown_timeout():
 	canDash = true
+
+	
