@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2my070feorjg"
-path="res://.godot/imported/1bit 16px icons part-2.png-949aa9b9a3b84b5ba4617bca38f508aa.ctex"
+uid="uid://jaj1o7ps4ce2"
+path="res://.godot/imported/powerup_icons.png-64a1231c02fdfaa0fc72d2196fb4e1ed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/powerups (placeholders)/1bit 16px icons part-2.png"
-dest_files=["res://.godot/imported/1bit 16px icons part-2.png-949aa9b9a3b84b5ba4617bca38f508aa.ctex"]
+source_file="res://assets/powerups (placeholders)/powerup_icons.png"
+dest_files=["res://.godot/imported/powerup_icons.png-64a1231c02fdfaa0fc72d2196fb4e1ed.ctex"]
 
 [params]
 

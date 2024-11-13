@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://d226nufmlvivj"]
+[gd_scene load_steps=21 format=3 uid="uid://d226nufmlvivj"]
 
 [ext_resource type="Script" path="res://scripts/multiplayer/multiplayer_controller.gd" id="1_ij7lf"]
 [ext_resource type="Script" path="res://scripts/multiplayer/multiplayer_input.gd" id="2_75sn2"]
 [ext_resource type="Texture2D" uid="uid://bls1g11tx37i3" path="res://assets/sprites/mine_bot_idle_sheet_5.png" id="2_iawno"]
 [ext_resource type="Script" path="res://scripts/powerup_manager.gd" id="4_4s3vh"]
+[ext_resource type="Script" path="res://scripts/powerups/powerup_hud.gd" id="5_scvm3"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bcfu3"]
 properties/0/path = NodePath(".:player_id")
@@ -189,15 +190,6 @@ one_shot = true
 unique_name_in_owner = true
 script = ExtResource("4_4s3vh")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 5.0
-target_desired_distance = 5.0
-path_postprocessing = 1
-avoidance_mask = 17
-debug_enabled = true
-debug_use_custom = true
-debug_path_custom_color = Color(0.466667, 0, 1, 1)
-
 [node name="GrapplingHookRayCasts" type="Node2D" parent="."]
 
 [node name="RayCastRight" type="RayCast2D" parent="GrapplingHookRayCasts"]
@@ -212,9 +204,24 @@ target_position = Vector2(-10, 0)
 position = Vector2(3, -10)
 target_position = Vector2(500, 0)
 
+[node name="PowerUpHUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -5.0
+offset_top = -40.0
+offset_right = 5.0
+offset_bottom = -31.0
+script = ExtResource("5_scvm3")
+
+[node name="PowerupIcon" type="TextureRect" parent="PowerUpHUD"]
+layout_mode = 0
+offset_left = -11.0
+offset_top = -48.0
+offset_right = 12.0
+offset_bottom = -26.0
+
 [connection signal="timeout" from="Timers/DashTimer" to="." method="dash_timeout"]
 [connection signal="timeout" from="Timers/DashCooldown" to="." method="dash_cooldown_timeout"]
 [connection signal="timeout" from="Timers/JumpBufferTimer" to="." method="jump_buffer_timeout"]
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="coyote_timeout"]
 [connection signal="timeout" from="Timers/RespawnTimer" to="." method="_respawn"]
-[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

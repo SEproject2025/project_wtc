@@ -13,13 +13,12 @@ var jetpack_fuel = 100
 var is_jetpack_active = false
 @onready var oilspill_scene = preload("res://scenes/powerups/oilspill.tscn")
 @onready var parent = get_parent()
+@onready var PowerUpHUD = parent.get_node("PowerUpHUD")
 
 func collect_powerup(powerup: PowerUpType) -> void:
 	if current_powerup == PowerUpType.NONE:
 		current_powerup = powerup
-		print("Collected powerup!")
-	else:
-		print("Already have a powerup!")
+	PowerUpHUD.update_powerup_icon(powerup)
 
 func use_powerup() -> void:
 	match current_powerup:
@@ -38,6 +37,8 @@ func use_powerup() -> void:
 		PowerUpType.NONE:
 			print("No powerup!")
 	current_powerup = PowerUpType.NONE
+	if not is_jetpack_active:
+		PowerUpHUD.update_powerup_icon(PowerUpType.NONE)
 
 
 func activate_jetpack() -> void:
@@ -46,6 +47,7 @@ func activate_jetpack() -> void:
 
 func deactivate_jetpack() -> void:
 	is_jetpack_active = false
+	PowerUpHUD.update_powerup_icon(PowerUpType.NONE)
 
 func throw_oil() -> void:
 	var oilspill = oilspill_scene.instantiate()

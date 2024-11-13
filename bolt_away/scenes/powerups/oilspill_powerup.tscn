@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dkj73q8agniui"]
 
-[ext_resource type="Texture2D" uid="uid://d2my070feorjg" path="res://assets/powerups (placeholders)/1bit 16px icons part-2.png" id="1_cr4df"]
+[ext_resource type="Texture2D" uid="uid://jaj1o7ps4ce2" path="res://assets/powerups (placeholders)/powerup_icons.png" id="2_gfth7"]
 [ext_resource type="Script" path="res://scripts/powerups/powerup.gd" id="2_tm8g6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8holw"]
@@ -18,7 +18,7 @@ shape = SubResource("CircleShape2D_8holw")
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
 position = Vector2(1.1802, 0.586581)
 scale = Vector2(0.785584, 0.52953)
-texture = ExtResource("1_cr4df")
+texture = ExtResource("2_gfth7")
 hframes = 20
 vframes = 18
 frame = 23
