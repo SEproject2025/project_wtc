@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhu24tgmbqicb"]
+
+[ext_resource type="Script" path="res://scripts/mushroom_bumper.gd" id="1_7xaff"]
+[ext_resource type="Texture2D" uid="uid://ch6lsv34ikpcl" path="res://assets/sprites/mushroom_bumper.png" id="1_mshrr"]
+
+[node name="Mushroom Bumper" type="Node2D"]
+script = ExtResource("1_7xaff")
+LAUNCH_POWER = 600
+
+[node name="MushroomBumper" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("1_mshrr")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+build_mode = 1
+polygon = PackedVector2Array(7, 0, 5, -6, 11, -9, 14, -11, 15, -12, 15, -15, 9, -18, 3, -19, -4, -19, -10, -18, -16, -15, -16, -12, -15, -11, -12, -9, -6, -6, -8, 0)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
