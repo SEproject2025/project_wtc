@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm5mrfvdt40ip"]
+
+[ext_resource type="Script" path="res://scripts/go_button_basic.gd" id="1_0gqo7"]
+
+[node name="go_button" type="Node2D"]
+
+[node name="Button" type="Button" parent="."]
+offset_right = 16.0
+offset_bottom = 8.0
+text = "Ready?"
+script = ExtResource("1_0gqo7")
+
+[node name="game_start_timer" type="Timer" parent="."]
+
+[node name="countdown_display" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+text = "READY!"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
+[connection signal="timeout" from="game_start_timer" to="Button" method="_on_game_start_timer_timeout"]
