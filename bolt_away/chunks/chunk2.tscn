@@ -18,7 +18,8 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_8nmas")
 sources/1 = SubResource("TileSetAtlasSource_n8n86")
 
-[node name="Node2D" type="Node2D"]
+[node name="Chunk2" type="Node2D" groups=["Chunks"]]
+editor_description = "chunk 2"
 position = Vector2(8, 0)
 script = ExtResource("1_wt8xq")
 

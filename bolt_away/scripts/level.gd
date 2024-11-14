@@ -1,5 +1,6 @@
 extends Node2D
 
+
 @export var chunks: Array[PackedScene] = []
 var startingChunk: PackedScene = preload("res://chunks/starting_chunk.tscn")
 var deathWall: PackedScene = preload("res://scenes/death_wall.tscn")
@@ -35,4 +36,3 @@ func add_chunk(num, chunkPosition):
 
 func set_map_seed():
 	rng.seed = MultiplayerManager.map_seed
-

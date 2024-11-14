@@ -1,6 +1,7 @@
 extends Node
 
 var score = 0
+var singlePlayerEnabled = false
 
 @onready var score_label = $ScoreLabel
 @onready var end_game_screen = get_parent().get_node("EndGameScreen")
@@ -33,3 +34,8 @@ func exit():
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 	Engine.time_scale = 1.0
+
+func _on_single_player_pressed() -> void:
+	%MultiplayerHUD.hide()
+	singlePlayerEnabled = true
+	

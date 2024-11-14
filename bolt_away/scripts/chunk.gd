@@ -1,10 +1,12 @@
 extends Node2D
 
 @onready var level = $"../"
+@onready var background = get_tree().get_current_scene().get_node("TileMapLayer/Background")
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta):
-	if !MultiplayerManager.multiplayer_mode_enabled and !multiplayer.is_server():
+	if !MultiplayerManager.multiplayer_mode_enabled:
 		singleplayer_algorithm()
 	else:
 		multiplayer_algorithm()
