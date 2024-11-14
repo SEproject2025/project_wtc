@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://cuv4vme4rwno0"]
+[gd_scene load_steps=21 format=4 uid="uid://cuv4vme4rwno0"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_l4ihi"]
 [ext_resource type="PackedScene" uid="uid://dqnaqj8yb6hwd" path="res://scenes/player.tscn" id="1_rbmkf"]
@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://8sv84xrsny2w" path="res://chunks/chunk2.tscn" id="7_0yfv7"]
 [ext_resource type="PackedScene" uid="uid://c8wtlv7s0jxwr" path="res://chunks/chunk3.tscn" id="8_theye"]
 [ext_resource type="PackedScene" uid="uid://b0mrrm7qidtv0" path="res://scenes/death_wall.tscn" id="15_3acr7"]
-[ext_resource type="PackedScene" uid="uid://bhu24tgmbqicb" path="res://scenes/mushroom_bumper.tscn" id="15_wwe6g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ashvg"]
 texture = ExtResource("3_en8fe")
@@ -242,10 +241,6 @@ chunks = Array[PackedScene]([ExtResource("6_xxir6"), ExtResource("7_0yfv7"), Ext
 
 [node name="DeathWallNode" parent="." instance=ExtResource("15_3acr7")]
 position = Vector2(-277, 94)
-
-[node name="Mushroom Bumper" parent="." instance=ExtResource("15_wwe6g")]
-position = Vector2(247, 17)
-rotation = -0.570383
 
 [connection signal="pressed" from="EndGameScreen/Exit" to="GameManager" method="exit"]
 [connection signal="pressed" from="Player/Camera2D/MultiplayerHUD/VBoxContainer/host" to="GameManager" method="host"]
