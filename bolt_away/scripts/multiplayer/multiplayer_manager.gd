@@ -3,16 +3,24 @@ extends Node
 const SERVER_PORT = 8080
 const SERVER_IP = "127.0.0.1"
 const PLAYERS_TO_START_GAME = 2
+const CENTER_OF_SPRITE = Vector2(3, -10) #Change if sprite changes
 
 var multiplayer_scene = preload("res://scenes/multiplayer_player.tscn")
+var oilspill_scene = preload("res://scenes/powerups/oilspill.tscn")
+
 var _players_spawn_node 
-var host_mode_enabled = false	
-var multiplayer_mode_enabled = false
+var host_mode_enabled:  = false	
+var multiplayer_mode_enabled: bool = false
 var respawn_point = Vector2(30, 20)
 var map_seed = 0
 var dead_player_id = 0
-var start_wall  = false
-var players_play_again = 0
+var start_wall: bool = false
+var isBeingPulled: bool = false
+var pull_target_position = Vector2(0, 0)
+var grappleTargetPosition: Vector2
+var grappleThrowerPosition: Vector2
+var drawGrapplingHook: bool = false
+var redraw_queue: bool = false
 
 signal host_joined
 signal client_joined
@@ -20,7 +28,6 @@ signal client_joined
 
 func host():
 	print("hosting")
-	
 	_players_spawn_node = get_tree().get_current_scene().get_node("Players")
 	multiplayer_mode_enabled = true
 	host_mode_enabled = true
@@ -154,4 +161,37 @@ func sync_losing_player_id(losing_player_id: int):
 
 @rpc("any_peer")
 func start_death_wall():
+	var deathWall = get_tree().get_current_scene().get_node("DeathWallNode")
 	start_wall = true
+	#Start wall from beginning
+	deathWall.position.x = -270
+	deathWall.wall_velocity = 25
+
+@rpc("any_peer")
+func spawn_oilspill(position: Vector2):
+	var oilspill = oilspill_scene.instantiate()
+	oilspill.position = position
+	get_tree().get_root().add_child(oilspill)
+
+@rpc("any_peer")
+func pull_to_target(targetPosition: Vector2):
+	isBeingPulled = true
+	pull_target_position = targetPosition + CENTER_OF_SPRITE
+
+@rpc("any_peer")
+func draw_grappling_hook(throwerPosition: Vector2, targetPosition: Vector2):
+	drawGrapplingHook = true
+	grappleThrowerPosition = throwerPosition + CENTER_OF_SPRITE
+	grappleTargetPosition = targetPosition
+
+@rpc("any_peer")
+func update_grappling_hook(throwerPosition: Vector2, targetPosition: Vector2):
+	grappleThrowerPosition = throwerPosition + CENTER_OF_SPRITE
+	grappleTargetPosition = targetPosition
+
+@rpc("any_peer")
+func stop_grappling_hook():
+	drawGrapplingHook = false
+	redraw_queue = true
+	grappleTargetPosition = Vector2.ZERO
+	grappleThrowerPosition = Vector2.ZERO + CENTER_OF_SPRITE

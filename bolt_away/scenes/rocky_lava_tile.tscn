@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://et2sf64en3fr"]
 
-[ext_resource type="Texture2D" uid="uid://csb1e51ai1wkd" path="res://assets/sprites/RockyLavaSpritesheet.png" id="1_ybbxc"]
+[ext_resource type="Texture2D" uid="uid://bu0tses23ddb" path="res://assets/sprites/RockyLavaSpritesheet.png" id="1_ybbxc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f0u84"]
 atlas = ExtResource("1_ybbxc")
@@ -154,6 +154,7 @@ animations = [{
 size = Vector2(32, 32)
 
 [node name="LavaArea" type="Area2D"]
+position = Vector2(16, 16)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1k1w5")
