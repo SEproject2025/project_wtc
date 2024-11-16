@@ -150,7 +150,7 @@ replication_config = SubResource("SceneReplicationConfig_kgm8b")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -7)
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 limit_bottom = 120
 limit_smoothed = true
 position_smoothing_enabled = true

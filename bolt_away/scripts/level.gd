@@ -1,12 +1,11 @@
 extends Node2D
 
-
 @export var chunks: Array[PackedScene] = []
 var startingChunk: PackedScene = preload("res://chunks/starting_chunk.tscn")
 var deathWall: PackedScene = preload("res://scenes/death_wall.tscn")
 
-var amnt = 3
-var offset = 256
+var amnt = 5
+var offset = 512
 var start_offset = -200
 var rng = RandomNumberGenerator.new()
 

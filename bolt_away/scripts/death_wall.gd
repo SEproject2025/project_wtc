@@ -1,19 +1,22 @@
 extends Node2D
 
 const WALL_TERMINAL_VELOCITY := 150.0
-const WALL_INITIAL_VELOCITY  := 25.0
-const WALL_ACCELERATION      := 0.02
+const WALL_INITIAL_VELOCITY  := 70.0
+const WALL_ACCELERATION      := 0.002
 
 var   wall_velocity          = WALL_INITIAL_VELOCITY
-@onready var gameManager = get_tree().get_current_scene().get_node("GameManager")
 
 func _process(delta: float) -> void:
 	if MultiplayerManager.multiplayer_mode_enabled and MultiplayerManager.start_wall:
-		position.x += (wall_velocity * delta)
-		if(wall_velocity <= WALL_TERMINAL_VELOCITY):
-			wall_velocity += WALL_ACCELERATION
-
-	if gameManager.singlePlayerEnabled:
-		position.x += (wall_velocity * delta)
-		if(wall_velocity <= WALL_TERMINAL_VELOCITY):
-			wall_velocity += WALL_ACCELERATION
+		var playersNode = get_tree().get_current_scene().get_node("Players").get_children()
+		var distance = 100000
+		for playerNode in playersNode:
+			if (playerNode.position.x < distance):
+				distance = playerNode.position.x
+		if(distance - position.x ) > 400 :
+			position.x += (distance - position.x) - 400
+		else:
+			position.x += (wall_velocity * delta)
+			if (wall_velocity <= WALL_TERMINAL_VELOCITY):
+				wall_velocity += WALL_ACCELERATION
+				print(wall_velocity)

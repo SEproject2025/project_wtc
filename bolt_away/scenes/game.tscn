@@ -1,7 +1,4 @@
-
-[gd_scene load_steps=25 format=4 uid="uid://cuv4vme4rwno0"]
-
-
+[gd_scene load_steps=32 format=4 uid="uid://cuv4vme4rwno0"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_l4ihi"]
 [ext_resource type="PackedScene" uid="uid://dqnaqj8yb6hwd" path="res://scenes/player.tscn" id="1_rbmkf"]
@@ -15,10 +12,17 @@
 [ext_resource type="PackedScene" uid="uid://kjhh6jp8711k" path="res://chunks/chunk1.tscn" id="6_xxir6"]
 [ext_resource type="PackedScene" uid="uid://8sv84xrsny2w" path="res://chunks/chunk2.tscn" id="7_0yfv7"]
 [ext_resource type="PackedScene" uid="uid://c8wtlv7s0jxwr" path="res://chunks/chunk3.tscn" id="8_theye"]
+[ext_resource type="PackedScene" uid="uid://bto5gwjteh2gd" path="res://chunks/chunk4.tscn" id="13_1s56m"]
+[ext_resource type="PackedScene" uid="uid://cit33ltgf5f1u" path="res://chunks/chunk5.tscn" id="14_2aa5c"]
 [ext_resource type="PackedScene" uid="uid://b0mrrm7qidtv0" path="res://scenes/death_wall.tscn" id="15_3acr7"]
-[ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="16_0jhck"]
+[ext_resource type="PackedScene" uid="uid://c2pk3tlcvoiuv" path="res://chunks/chunk6.tscn" id="15_nsp4m"]
 [ext_resource type="PackedScene" uid="uid://bhu24tgmbqicb" path="res://scenes/mushroom_bumper.tscn" id="15_wwe6g"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="16_0jhck"]
+[ext_resource type="PackedScene" uid="uid://nq2hvo4jxr3a" path="res://chunks/chunk7.tscn" id="16_5kxn1"]
+[ext_resource type="PackedScene" uid="uid://d2b31f522ib4b" path="res://chunks/chunk8.tscn" id="17_xg82u"]
+[ext_resource type="PackedScene" uid="uid://dhoqbwyfgpdij" path="res://chunks/chunk9.tscn" id="18_7tut1"]
+[ext_resource type="PackedScene" uid="uid://txkmi1fes2fw" path="res://chunks/chunk10.tscn" id="19_7yr6v"]
+[ext_resource type="PackedScene" uid="uid://qdrwrn6obfjs" path="res://chunks/chunk_11.tscn" id="20_rxufs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ashvg"]
 texture = ExtResource("3_en8fe")
@@ -256,10 +260,13 @@ position = Vector2(-8, -15)
 [node name="level" type="Node2D" parent="."]
 position = Vector2(3, 0)
 script = ExtResource("5_odm52")
-chunks = Array[PackedScene]([ExtResource("6_xxir6"), ExtResource("7_0yfv7"), ExtResource("8_theye")])
+chunks = Array[PackedScene]([ExtResource("6_xxir6"), ExtResource("7_0yfv7"), ExtResource("8_theye"), ExtResource("13_1s56m"), ExtResource("14_2aa5c"), ExtResource("15_nsp4m"), ExtResource("16_5kxn1"), ExtResource("17_xg82u"), ExtResource("18_7tut1"), ExtResource("19_7yr6v"), ExtResource("20_rxufs")])
 
 [node name="DeathWallNode" parent="." instance=ExtResource("15_3acr7")]
+z_index = 0
 position = Vector2(-277, 94)
+rotation = -0.0872665
+scale = Vector2(0.1, 0.1)
 
 [node name="PowerUpSpawner" parent="." instance=ExtResource("16_0jhck")]
 position = Vector2(186, -32)
