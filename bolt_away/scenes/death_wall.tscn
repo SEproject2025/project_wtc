@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0mrrm7qidtv0"]
+
+[ext_resource type="Script" path="res://scripts/death_wall.gd" id="1_40ev3"]
+[ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="2_opb25"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rf35e"]
+normal = Vector2(1, 0)
+
+[sub_resource type="Gradient" id="Gradient_xjoux"]
+offsets = PackedFloat32Array(0.0324675, 0.532468, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qtlu1"]
+gradient = SubResource("Gradient_xjoux")
+width = 128
+height = 128
+fill_to = Vector2(0.990826, 0.642202)
+
+[node name="DeathWallNode" type="Node2D"]
+z_index = 5
+script = ExtResource("1_40ev3")
+
+[node name="Killzone" parent="." instance=ExtResource("2_opb25")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+shape = SubResource("WorldBoundaryShape2D_rf35e")
+
+[node name="Sprite2D" type="Sprite2D" parent="Killzone/CollisionShape2D"]
+position = Vector2(-1600, 107)
+scale = Vector2(25, 50)
+texture = SubResource("GradientTexture2D_qtlu1")
