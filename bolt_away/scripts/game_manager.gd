@@ -1,7 +1,6 @@
 extends Node
 
 var score = 0
-var singlePlayerEnabled = false
 
 @onready var score_label = $ScoreLabel
 @onready var end_game_screen = get_parent().get_node("EndGameScreen")
@@ -26,16 +25,8 @@ func join():
 	%MultiplayerHUD.hide()
 	MultiplayerManager.join()
 
-func exit():
-	if MultiplayerManager.multiplayer_mode_enabled:
-		if multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
-			if !multiplayer.is_server() or !OS.has_feature("dedicated_server"):
-				MultiplayerManager._disconnect_player(multiplayer.get_unique_id())
+func play_again():
+	if multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
+		MultiplayerManager._disconnect_player(multiplayer.get_unique_id())
 	get_tree().paused = false
 	get_tree().reload_current_scene()
-	Engine.time_scale = 1.0
-
-func _on_single_player_pressed() -> void:
-	%MultiplayerHUD.hide()
-	singlePlayerEnabled = true
-	
