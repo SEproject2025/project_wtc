@@ -26,6 +26,8 @@ func spawn_starting_chunks():
 	for n in amnt:
 		var instance = startingChunk.instantiate()
 		instance.position.x = n*offset + start_offset
+		print("position y: " + str(instance.position.y))
+		print("position x: " + str(instance.position.x))
 		add_child(instance)
 
 func add_chunk(num, chunkPosition):
