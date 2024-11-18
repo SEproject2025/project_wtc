@@ -1,0 +1,11 @@
+res://scenes/player.tscn
+res://scripts/powerups/powerup_spawner.gd
+res://scenes/multiplayer_player.tscn
+res://scenes/powerups/power_up_spawner.tscn
+res://scenes/powerups/oilspill_powerup.tscn
+res://scenes/powerups/oilspill.tscn
+res://scenes/main_menu.tscn
+res://chunks/chunk_11.tscn
+res://chunks/starting_chunk.tscn
+res://scenes/game.tscn
+res://scenes/death_wall.tscn
