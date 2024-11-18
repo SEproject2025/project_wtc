@@ -1,7 +1,7 @@
 extends Node
 
 const SERVER_PORT = 8080
-const SERVER_IP = "127.0.0.1"
+const SERVER_IP = "10.100.74.78"
 const PLAYERS_TO_START_GAME = 2
 const CENTER_OF_SPRITE = Vector2(3, -10) #Change if sprite changes
 

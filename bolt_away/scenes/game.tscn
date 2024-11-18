@@ -1,7 +1,4 @@
-
-[gd_scene load_steps=25 format=4 uid="uid://cuv4vme4rwno0"]
-
-
+[gd_scene load_steps=24 format=4 uid="uid://cuv4vme4rwno0"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_l4ihi"]
 [ext_resource type="PackedScene" uid="uid://dqnaqj8yb6hwd" path="res://scenes/player.tscn" id="1_rbmkf"]
@@ -16,8 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://8sv84xrsny2w" path="res://chunks/chunk2.tscn" id="7_0yfv7"]
 [ext_resource type="PackedScene" uid="uid://c8wtlv7s0jxwr" path="res://chunks/chunk3.tscn" id="8_theye"]
 [ext_resource type="PackedScene" uid="uid://b0mrrm7qidtv0" path="res://scenes/death_wall.tscn" id="15_3acr7"]
-[ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="16_0jhck"]
-[ext_resource type="PackedScene" uid="uid://bhu24tgmbqicb" path="res://scenes/mushroom_bumper.tscn" id="15_wwe6g"]
+[ext_resource type="PackedScene" path="res://scenes/mushroom_bumper.tscn" id="15_wwe6g"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="16_0jhck"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ashvg"]
