@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bgv5v2fxqlswe"]
 
 [ext_resource type="Script" path="res://scripts/platform.gd" id="1_bwx77"]
-[ext_resource type="Texture2D" uid="uid://dbxmhmrik75ch" path="res://assets/sprites/platform.png" id="2_tbcef"]
+[ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="2_4m1xb"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ijbck"]
 properties/0/path = NodePath(".:position")
@@ -18,9 +18,9 @@ script = ExtResource("1_bwx77")
 replication_config = SubResource("SceneReplicationConfig_ijbck")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_tbcef")
+texture = ExtResource("2_4m1xb")
 region_enabled = true
-region_rect = Rect2(16, 0, 32, 9)
+region_rect = Rect2(0, 0, 32, 6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_13ihi")

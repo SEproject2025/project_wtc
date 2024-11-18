@@ -1,14 +1,14 @@
 extends CharacterBody2D
 class_name MultiplayerPlayer
 
-const SPEED = 150.0
+const SPEED = 200.0
 const DECELERATION = 0.1
 const ACCELERATION = 0.1
-const JUMP_VELOCITY = -260.0
-const WALL_JUMP_PUSHBACK = 250
+const JUMP_VELOCITY = -350.0
+const WALL_JUMP_PUSHBACK = 360
 const WALL_SLIDE_GRAVITY = 100
 const DECELERATE_ON_JUMP_RELEASE = 0.8
-const FALL_GRAVITY = 1050
+const FALL_GRAVITY = 1300.0
 const COYOTE_TIMER_LENGTH = 0.1
 const JUMP_BUFFER_TIME_LENGTH = 0.15
 const DASH_SPEED = 2.4
@@ -196,7 +196,7 @@ func jump():
 			jumpBuffered = true
 			jumpBufferTimer.start(JUMP_BUFFER_TIME_LENGTH)
 	
-	if is_on_wall_only() and velocity.y > 0:
+	if is_on_wall_only():
 		wall_jump()
 
 func wall_jump():
