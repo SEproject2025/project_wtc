@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cit33ltgf5f1u" path="res://chunks/chunk5.tscn" id="14_2aa5c"]
 [ext_resource type="PackedScene" uid="uid://b0mrrm7qidtv0" path="res://scenes/death_wall.tscn" id="15_3acr7"]
 [ext_resource type="PackedScene" uid="uid://c2pk3tlcvoiuv" path="res://chunks/chunk6.tscn" id="15_nsp4m"]
-[ext_resource type="PackedScene" uid="uid://bhu24tgmbqicb" path="res://scenes/mushroom_bumper.tscn" id="15_wwe6g"]
+[ext_resource type="PackedScene" path="res://scenes/mushroom_bumper.tscn" id="15_wwe6g"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="16_0jhck"]
 [ext_resource type="PackedScene" uid="uid://nq2hvo4jxr3a" path="res://chunks/chunk7.tscn" id="16_5kxn1"]
 [ext_resource type="PackedScene" uid="uid://d2b31f522ib4b" path="res://chunks/chunk8.tscn" id="17_xg82u"]
