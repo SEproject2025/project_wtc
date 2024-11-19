@@ -1,5 +1,14 @@
-Parallax2D
 Sprite2D
-ParallaxBackground
 ParallaxLayer
-TileMapLayer
+Parallax2D
+ParallaxBackground
+Button
+Timer
+TextureRect
+Control
+CollisionShape2D
+Area2D
+RayCast2D
+Node2D
+NavigationRegion2D
+NavigationObstacle2D
