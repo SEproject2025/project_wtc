@@ -110,7 +110,6 @@ func _apply_movement_from_input(delta):
 	
 	# player movement
 	if isDashing:
-		print("hered")
 		if not direction:
 			var dashDirection = -1 if animated_sprite.flip_h else 1
 			velocity.x = move_toward(velocity.x, dashDirection * SPEED * DASH_SPEED, SPEED * ACCELERATION * DASH_SPEED)
@@ -289,7 +288,7 @@ func get_leading_player() -> Node2D:
 
 func _on_dash_effect_timer_timeout():
 	var playerCopy = animated_sprite.duplicate()
-	get_parent().add_child(playerCopy)
+	get_tree().get_root().add_child(playerCopy)
 	playerCopy.global_position = global_position + CENTER_OF_SPRITE
 	
 	var effectTime = dashTimer.wait_time / 3

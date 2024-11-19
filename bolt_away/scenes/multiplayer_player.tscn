@@ -138,6 +138,7 @@ collision_layer = 2
 wall_min_slide_angle = 0.0
 script = ExtResource("1_ij7lf")
 player_input = NodePath("Input")
+player_id = null
 
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_bcfu3")
@@ -150,7 +151,7 @@ replication_config = SubResource("SceneReplicationConfig_kgm8b")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -7)
-zoom = Vector2(3, 3)
+zoom = Vector2(4, 4)
 limit_bottom = 120
 limit_smoothed = true
 position_smoothing_enabled = true
@@ -189,9 +190,11 @@ one_shot = true
 [node name="DashEffectTimer" type="Timer" parent="Timers"]
 wait_time = 0.1
 
-[node name="PowerUpManager" type="Node" parent="."]
+[node name="PowerUpManager" type="Node" parent="." node_paths=PackedStringArray("parent", "PowerUpHUD")]
 unique_name_in_owner = true
 script = ExtResource("4_4s3vh")
+parent = NodePath("..")
+PowerUpHUD = NodePath("../PowerUpHUD")
 
 [node name="GrapplingHookRayCasts" type="Node2D" parent="."]
 

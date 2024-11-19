@@ -4,7 +4,7 @@ var score = 0
 var singlePlayerEnabled = false
 
 @onready var score_label = $ScoreLabel
-@onready var end_game_screen = get_parent().get_node("EndGameScreen")
+@export var end_game_screen: CanvasLayer
 
 func _ready():
 	if OS.has_feature("dedicated_server"):

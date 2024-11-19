@@ -140,9 +140,11 @@ one_shot = true
 [node name="DashEffectTimer" type="Timer" parent="Timers"]
 wait_time = 0.1
 
-[node name="PowerUpManager" type="Node" parent="."]
+[node name="PowerUpManager" type="Node" parent="." node_paths=PackedStringArray("parent", "PowerUpHUD")]
 unique_name_in_owner = true
 script = ExtResource("3_uodo8")
+parent = NodePath("..")
+PowerUpHUD = NodePath("../PowerUpHUD")
 
 [node name="RayCastToObstacle" type="RayCast2D" parent="."]
 position = Vector2(3, -10)

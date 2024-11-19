@@ -192,9 +192,10 @@ text = "Play Again
 "
 icon_alignment = 1
 
-[node name="GameManager" type="Node" parent="."]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("end_game_screen")]
 unique_name_in_owner = true
 script = ExtResource("1_l4ihi")
+end_game_screen = NodePath("../EndGameScreen")
 
 [node name="ScoreLabel" type="Label" parent="GameManager"]
 offset_left = -98.0
@@ -209,7 +210,7 @@ autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_rbmkf")]
-position = Vector2(13, -1)
+position = Vector2(14, -1)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -7)
@@ -323,8 +324,8 @@ scale = Vector2(0.1, 0.1)
 
 [node name="PowerUpSpawner" parent="." instance=ExtResource("16_0jhck")]
 position = Vector2(186, -32)
-powerups = Array[int]([1, 2, 3])
-powerupProbabilities = Array[float]([0.2, 0.6, 0.2])
+powerups = Array[int]([4])
+powerupProbabilities = Array[float]([1.0])
 
 [node name="Mushroom Bumper" parent="." instance=ExtResource("15_wwe6g")]
 position = Vector2(247, 17)

@@ -175,7 +175,7 @@ func stop_grappling_hook():
 
 func _on_dash_effect_timer_timeou():
 	var playerCopy = animated_sprite.duplicate()
-	get_parent().add_child(playerCopy)
+	get_tree().get_root().add_child(playerCopy)
 	playerCopy.global_position = global_position + CENTER_OF_SPRITE
 	
 	var effectTime = dashTimer.wait_time / 3
