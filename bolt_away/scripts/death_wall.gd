@@ -12,12 +12,12 @@ func _process(delta: float) -> void:
 	if MultiplayerManager.multiplayer_mode_enabled and MultiplayerManager.start_wall:
 		multiplayer_algorithm()
 		position.x += (wall_velocity * delta)
-		print("yeet", wall_velocity)
+		#print("yeet", wall_velocity)
 	else:
 		if death_wall_start:
 			singleplayer_algorithm()
 			position.x += (wall_velocity * delta)
-			print("yote", wall_velocity)
+			#print("yote", wall_velocity)
 		
 		
 func singleplayer_algorithm():
