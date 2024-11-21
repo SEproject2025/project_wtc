@@ -10,7 +10,6 @@ var   playersNode
 func _ready() -> void:
 	MultiplayerManager.connect("client_joined", get_player_node)
 
-
 func _process(delta: float) -> void:
 	if MultiplayerManager.multiplayer_mode_enabled and MultiplayerManager.start_wall:
 		if !playersNode:

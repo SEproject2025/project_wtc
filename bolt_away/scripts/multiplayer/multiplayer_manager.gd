@@ -162,7 +162,6 @@ func sync_losing_player_id(losing_player_id: int):
 func start_death_wall():
 	var deathWall = get_tree().get_current_scene().get_node("DeathWallNode")
 	start_wall = true
-	#Start wall from beginning
 	deathWall.position.x = Constants.DeathWall.START_X
 	deathWall.wall_velocity = Constants.DeathWall.WALL_INITIAL_VELOCITY
 

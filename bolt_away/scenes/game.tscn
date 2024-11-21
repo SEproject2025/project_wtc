@@ -324,8 +324,13 @@ scale = Vector2(0.1, 0.1)
 
 [node name="PowerUpSpawner" parent="." instance=ExtResource("16_0jhck")]
 position = Vector2(186, -32)
-powerups = Array[int]([4])
-powerupProbabilities = Array[float]([1.0])
+powerups = Array[int]([2, 1])
+powerupProbabilities = Array[float]([0.9, 0.1])
+
+[node name="PowerUpSpawner2" parent="." instance=ExtResource("16_0jhck")]
+position = Vector2(293, -32)
+powerups = Array[int]([2, 1])
+powerupProbabilities = Array[float]([0.2, 0.8])
 
 [node name="Mushroom Bumper" parent="." instance=ExtResource("15_wwe6g")]
 position = Vector2(247, 17)

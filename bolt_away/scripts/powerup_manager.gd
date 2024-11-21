@@ -13,7 +13,7 @@ var is_jetpack_active = false
 func collect_powerup(powerup: Constants.PowerUpType) -> void:
 	if current_powerup == Constants.PowerUpType.NONE:
 		current_powerup = powerup
-	PowerUpHUD.update_powerup_icon(powerup)
+		PowerUpHUD.update_powerup_icon(powerup)
 
 func use_powerup() -> void:
 	match current_powerup:
@@ -31,11 +31,10 @@ func use_powerup() -> void:
 			parent.fire_grappling_hook()
 		Constants.PowerUpType.NONE:
 			print("No powerup!")
-	current_powerup = Constants.PowerUpType.NONE
 	if not is_jetpack_active:
 		PowerUpHUD.update_powerup_icon(Constants.PowerUpType.NONE)
+		current_powerup = Constants.PowerUpType.NONE
 
-#TODO: Can pick up another powerup while jetpack is active
 func activate_jetpack() -> void:
 	jetpack_fuel = 100
 	is_jetpack_active = true
@@ -43,6 +42,7 @@ func activate_jetpack() -> void:
 func deactivate_jetpack() -> void:
 	is_jetpack_active = false
 	PowerUpHUD.update_powerup_icon(Constants.PowerUpType.NONE)
+	current_powerup = Constants.PowerUpType.NONE
 
 func throw_oil() -> void:
 	var oilspill = oilspill_scene.instantiate()
