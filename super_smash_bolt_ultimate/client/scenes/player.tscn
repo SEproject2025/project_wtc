@@ -1,0 +1,148 @@
+[gd_scene load_steps=17 format=3 uid="uid://dqnaqj8yb6hwd"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_ofpvf"]
+[ext_resource type="Texture2D" uid="uid://c3ldrxkyptxuq" path="res://assets/sprites/mine_bot_idle_sheet_4.png" id="2_w6y4y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hq1gh"]
+atlas = ExtResource("2_w6y4y")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7scv"]
+atlas = ExtResource("2_w6y4y")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjdac"]
+atlas = ExtResource("2_w6y4y")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yc7si"]
+atlas = ExtResource("2_w6y4y")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l78s3"]
+atlas = ExtResource("2_w6y4y")
+region = Rect2(48, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7va4"]
+atlas = ExtResource("2_w6y4y")
+region = Rect2(32, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnxnt"]
+atlas = ExtResource("2_w6y4y")
+region = Rect2(16, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3w33f"]
+atlas = ExtResource("2_w6y4y")
+region = Rect2(0, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scdkv"]
+atlas = ExtResource("2_w6y4y")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_553wf"]
+atlas = ExtResource("2_w6y4y")
+region = Rect2(16, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmb4a"]
+atlas = ExtResource("2_w6y4y")
+region = Rect2(32, 32, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ci82u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hq1gh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7scv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjdac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yc7si")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l78s3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7va4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tnxnt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3w33f")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scdkv")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_553wf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cmb4a")
+}],
+"loop": true,
+"name": &"run",
+"speed": 6.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o7ta8"]
+radius = 6.0
+height = 20.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_w2u8d"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 5
+collision_layer = 2
+script = ExtResource("1_ofpvf")
+metadata/_edit_horizontal_guides_ = [-19.0, 0.0]
+metadata/_edit_vertical_guides_ = [-7.0, 6.0]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_ci82u")
+animation = &"run"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("CapsuleShape2D_o7ta8")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="DashCooldown" type="Timer" parent="Timers"]
+wait_time = 3.0
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="Timers"]
+
+[node name="JumpBufferTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="DashTimer" type="Timer" parent="Timers"]
+wait_time = 0.4
+one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_w2u8d")
+
+[connection signal="timeout" from="Timers/DashCooldown" to="." method="dash_cooldown_timeout"]
+[connection signal="timeout" from="Timers/CoyoteTimer" to="." method="coyote_timeout"]
+[connection signal="timeout" from="Timers/JumpBufferTimer" to="." method="jump_buffer_timeout"]
+[connection signal="timeout" from="Timers/DashTimer" to="." method="dash_timeout"]
