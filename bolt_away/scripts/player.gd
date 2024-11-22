@@ -13,7 +13,7 @@ const JUMP_BUFFER_TIME_LENGTH = 0.15
 const DASH_SPEED = 2.4
 const JETPACK_VELOCITY = -200
 const JETPACK_FUEL_CONSUMPTION = 25
-const GRAPPLING_HOOK_SPEED = 1200.0
+const GRAPPLING_HOOK_SPEED = 800.0
 const CENTER_OF_SPRITE = Vector2(3,-10)
 const OIL_SLIP_SPEED = 0.2
 
@@ -91,6 +91,9 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, dashDirection * SPEED * DASH_SPEED, SPEED * ACCELERATION * DASH_SPEED)
 		else:
 			velocity.x = move_toward(velocity.x, direction * SPEED * DASH_SPEED, SPEED * ACCELERATION * DASH_SPEED)
+	elif isGrappling:
+		var directionToTarget = (grappleToPosition - global_position).normalized()
+		velocity += directionToTarget * GRAPPLING_HOOK_SPEED * delta
 	elif direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, SPEED * ACCELERATION)
 		animated_sprite.flip_h = direction < 0
@@ -103,8 +106,8 @@ func _physics_process(delta: float) -> void:
 
 	if isGrappling:
 		queue_redraw()
-		var directionToTarget = (grappleToPosition - global_position).normalized()
-		velocity += directionToTarget * GRAPPLING_HOOK_SPEED * delta
+		#var directionToTarget = (grappleToPosition - global_position).normalized()
+		#velocity += directionToTarget * GRAPPLING_HOOK_SPEED * delta
 
 		if global_position.distance_to(grappleToPosition) < 10 or global_position > grappleToPosition:
 			stop_grappling_hook()

@@ -174,17 +174,17 @@ func spawn_oilspill(position: Vector2):
 @rpc("any_peer")
 func pull_to_target(targetPosition: Vector2):
 	isBeingPulled = true
-	pull_target_position = targetPosition + Constants.CENTER_OF_SPRITE
+	pull_target_position = targetPosition + Constants.Player.CENTER_OF_SPRITE
 
 @rpc("any_peer")
 func draw_grappling_hook(throwerPosition: Vector2, targetPosition: Vector2):
 	drawGrapplingHook = true
-	grappleThrowerPosition = throwerPosition + Constants.CENTER_OF_SPRITE
+	grappleThrowerPosition = throwerPosition + Constants.Player.CENTER_OF_SPRITE
 	grappleTargetPosition = targetPosition
 
 @rpc("any_peer")
 func update_grappling_hook(throwerPosition: Vector2, targetPosition: Vector2):
-	grappleThrowerPosition = throwerPosition + Constants.CENTER_OF_SPRITE
+	grappleThrowerPosition = throwerPosition + Constants.Player.CENTER_OF_SPRITE
 	grappleTargetPosition = targetPosition
 
 @rpc("any_peer")
@@ -192,4 +192,4 @@ func stop_grappling_hook():
 	drawGrapplingHook = false
 	redraw_queue = true
 	grappleTargetPosition = Vector2.ZERO
-	grappleThrowerPosition = Vector2.ZERO + Constants.CENTER_OF_SPRITE
+	grappleThrowerPosition = Vector2.ZERO + Constants.Player.CENTER_OF_SPRITE

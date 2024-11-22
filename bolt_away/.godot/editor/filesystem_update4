@@ -16,3 +16,4 @@ res://scripts/multiplayer/multiplayer_controller.gd
 res://scripts/multiplayer/multiplayer_manager.gd
 res://scripts/player.gd
 res://scripts/multiplayer/multiplayer_input.gd
+res://scripts/chunk.gd

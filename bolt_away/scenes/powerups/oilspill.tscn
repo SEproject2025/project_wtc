@@ -31,7 +31,7 @@ position = Vector2(-1, 0.5)
 shape = SubResource("RectangleShape2D_hagtc")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 20.0
 one_shot = true
 autostart = true
 

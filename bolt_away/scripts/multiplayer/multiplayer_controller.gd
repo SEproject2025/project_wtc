@@ -15,7 +15,7 @@ const DASH_SPEED = 2.4
 const JUMP_DASHTIMER = 0.1
 const JETPACK_VELOCITY = -200
 const JETPACK_FUEL_CONSUMPTION = 25
-const GRAPPLING_HOOK_SPEED = 1000.0
+const GRAPPLING_HOOK_SPEED = 800.0
 const CENTER_OF_SPRITE = Vector2(3,-10) #Change if sprite changes
 const GRAPPLING_HOOK_WIDTH = 1.5
 const GRAPPLING_HOOK_STOP_DISTANCE = 10
@@ -123,6 +123,9 @@ func _apply_movement_from_input(delta):
 			velocity.x = move_toward(velocity.x, dashDirection * SPEED * DASH_SPEED, SPEED * ACCELERATION * DASH_SPEED)
 		else:
 			velocity.x = move_toward(velocity.x, direction * SPEED * DASH_SPEED, SPEED * ACCELERATION * DASH_SPEED)
+	elif isGrappling:
+		var directionToTarget = (grappleToPosition - global_position).normalized()
+		velocity += directionToTarget * GRAPPLING_HOOK_SPEED * delta
 	elif direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, SPEED * ACCELERATION)
 		animated_sprite.flip_h = direction < 0
@@ -150,7 +153,7 @@ func _apply_movement_from_input(delta):
 		velocity += directionToTarget * GRAPPLING_HOOK_SPEED * delta
 		MultiplayerManager.rpc("update_grappling_hook", global_position, grappleToPosition)
 
-		if global_position.distance_to(grappleToPosition) < 10 or global_position > grappleToPosition or rayCastRight.is_colliding():
+		if global_position.distance_to(grappleToPosition) < 10 or global_position > grappleToPosition:
 			stop_grappling_hook()
 
 	if MultiplayerManager.drawGrapplingHook or MultiplayerManager.redraw_queue:
