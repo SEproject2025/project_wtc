@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 150.0
+const SPEED = 200.0
 const DECELERATION = 0.1
 const ACCELERATION = 0.1
 const JUMP_VELOCITY = -260.0
@@ -15,6 +15,7 @@ const JETPACK_VELOCITY = -200
 const JETPACK_FUEL_CONSUMPTION = 25
 const GRAPPLING_HOOK_SPEED = 1200.0
 const CENTER_OF_SPRITE = Vector2(3,-10)
+const OIL_SLIP_SPEED = 0.2
 
 var fall_rate = DECELERATE_ON_JUMP_RELEASE
 var bumped: bool = false
@@ -24,6 +25,7 @@ var jumpBuffered: bool = false
 var wallJumping: bool = false
 var canDash: bool = true
 var isGrappling: bool = false
+var isSlipping: bool = false
 var grappleToPosition: Vector2
 
 
@@ -35,6 +37,7 @@ var grappleToPosition: Vector2
 @onready var powerupManager = $PowerUpManager
 @onready var raycastToObstacle = $"RayCastToObstacle"
 @onready var dashEffectTimer = $Timers/DashEffectTimer
+@onready var oilSpillTimer = $Timers/OilSpillTimer
 
 
 func _process(_delta):
@@ -77,8 +80,12 @@ func _physics_process(delta: float) -> void:
 
 	var direction := Input.get_axis("move_left", "move_right")
 
-	if isDashing:
-		#Dash in direction player is facing
+	if isSlipping:
+			if isDashing or abs(velocity.x) > SPEED:
+				velocity.x = lerp(velocity.x, velocity.x * OIL_SLIP_SPEED, OIL_SLIP_SPEED)
+			else:
+				velocity.x = move_toward(velocity.x, direction * SPEED * OIL_SLIP_SPEED, SPEED * ACCELERATION * OIL_SLIP_SPEED)
+	elif isDashing:
 		if not direction:
 			var dashDirection = -1 if animated_sprite.flip_h else 1
 			velocity.x = move_toward(velocity.x, dashDirection * SPEED * DASH_SPEED, SPEED * ACCELERATION * DASH_SPEED)
@@ -162,7 +169,12 @@ func dash_cooldown_timeout():
 	canDash = true
 
 func oil_slip():
-	velocity.x *= .2
+	if !isSlipping:
+		isSlipping = true
+		oilSpillTimer.start()
+
+func oilspill_timer_timeout():
+	isSlipping = false
 
 func fire_grappling_hook():
 	if raycastToObstacle.is_colliding():

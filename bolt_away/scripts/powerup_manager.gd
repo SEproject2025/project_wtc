@@ -46,7 +46,7 @@ func deactivate_jetpack() -> void:
 
 func throw_oil() -> void:
 	var oilspill = oilspill_scene.instantiate()
-	oilspill.position = parent.global_position + Vector2(64, 0)
+	oilspill.position = parent.global_position + Vector2(67, -10)
 	get_tree().get_root().add_child(oilspill)
 	if MultiplayerManager.multiplayer_mode_enabled:
 		MultiplayerManager.rpc("spawn_oilspill", oilspill.position)

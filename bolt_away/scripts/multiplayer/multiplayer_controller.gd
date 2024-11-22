@@ -19,6 +19,7 @@ const GRAPPLING_HOOK_SPEED = 1000.0
 const CENTER_OF_SPRITE = Vector2(3,-10) #Change if sprite changes
 const GRAPPLING_HOOK_WIDTH = 1.5
 const GRAPPLING_HOOK_STOP_DISTANCE = 10
+const OIL_SLIP_SPEED = 0.2
 
 var fall_rate = DECELERATE_ON_JUMP_RELEASE
 var bumped: bool = false
@@ -34,6 +35,7 @@ var alive: bool = true
 var grappleToPosition: Vector2
 var targetPlayer
 var isGrappling: bool = false
+var isSlipping: bool = false
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
@@ -45,6 +47,7 @@ var isGrappling: bool = false
 @onready var rayCastLeft = $GrapplingHookRayCasts/RayCastLeft
 @onready var raycastToObstacle = $GrapplingHookRayCasts/RayCastToObstacle
 @onready var dashEffectTimer = $Timers/DashEffectTimer
+@onready var oilSpillTimer = $Timers/OilSpillTimer
 
 
 @export var player_input: PlayerInput
@@ -109,7 +112,12 @@ func _apply_movement_from_input(delta):
 	var direction = player_input.input_direction
 	
 	# player movement
-	if isDashing:
+	if isSlipping:
+			if isDashing or abs(velocity.x) > SPEED:
+				velocity.x = lerp(velocity.x, velocity.x * OIL_SLIP_SPEED, OIL_SLIP_SPEED)
+			else:
+				velocity.x = move_toward(velocity.x, direction * SPEED * OIL_SLIP_SPEED, SPEED * ACCELERATION * OIL_SLIP_SPEED)
+	elif isDashing:
 		if not direction:
 			var dashDirection = -1 if animated_sprite.flip_h else 1
 			velocity.x = move_toward(velocity.x, dashDirection * SPEED * DASH_SPEED, SPEED * ACCELERATION * DASH_SPEED)
@@ -120,6 +128,7 @@ func _apply_movement_from_input(delta):
 		animated_sprite.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED * DECELERATION)
+	
 
 	if player_input.input_dash and canDash:
 		if !isDashing:
@@ -235,7 +244,13 @@ func dash_cooldown_timeout():
 	canDash = true
 
 func oil_slip():
-	velocity.x *= .2
+	if !isSlipping:
+		isSlipping = true
+		oilSpillTimer.start()
+
+func oilspill_timer_timeout():
+	isSlipping = false
+
 
 func pull_to_target(targetPosition: Vector2, delta: float):
 	var directionBackToTarget = (targetPosition - global_position).normalized()
