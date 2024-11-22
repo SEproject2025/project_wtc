@@ -4,8 +4,10 @@ extends RigidBody2D
 @onready var timer = $Timer
 
 
-func _physics_process(delta):
-	linear_velocity.x = 200
+func _ready() -> void:
+	apply_central_impulse(Vector2(200, 0))
+
+func _physics_process(_delta):
 	if rayCast.is_colliding():
 		freeze = true
 

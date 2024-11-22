@@ -7,7 +7,7 @@
 size = Vector2(20, 11)
 
 [node name="Oilspill" type="RigidBody2D"]
-collision_layer = 4
+collision_layer = 32768
 gravity_scale = 0.25
 script = ExtResource("2_a117i")
 
