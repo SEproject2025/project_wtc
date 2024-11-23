@@ -25,6 +25,7 @@ class DeathWall:
 	const WALL_TERMINAL_VELOCITY := 150.0
 	const WALL_INITIAL_VELOCITY  := 70.0
 	const WALL_ACCELERATION      := 0.002
+	const WALL_MAX_DISTANCE      := 400
 	const START_X := -270
 
 enum PowerUpType {

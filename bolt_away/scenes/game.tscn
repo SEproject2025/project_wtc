@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cuv4vme4rwno0"]
+[gd_scene load_steps=31 format=3 uid="uid://cuv4vme4rwno0"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_l4ihi"]
 [ext_resource type="PackedScene" uid="uid://dqnaqj8yb6hwd" path="res://scenes/player.tscn" id="1_rbmkf"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cit33ltgf5f1u" path="res://chunks/chunk5.tscn" id="14_2aa5c"]
 [ext_resource type="PackedScene" uid="uid://b0mrrm7qidtv0" path="res://scenes/death_wall.tscn" id="15_3acr7"]
 [ext_resource type="PackedScene" uid="uid://c2pk3tlcvoiuv" path="res://chunks/chunk6.tscn" id="15_nsp4m"]
+[ext_resource type="PackedScene" uid="uid://bhu24tgmbqicb" path="res://scenes/mushroom_bumper.tscn" id="15_wwe6g"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="16_0jhck"]
 [ext_resource type="PackedScene" uid="uid://nq2hvo4jxr3a" path="res://chunks/chunk7.tscn" id="16_5kxn1"]
 [ext_resource type="PackedScene" uid="uid://d2b31f522ib4b" path="res://chunks/chunk8.tscn" id="17_xg82u"]
@@ -71,11 +72,12 @@ metadata/_edit_vertical_guides_ = [97.0, 58.0]
 metadata/_edit_horizontal_guides_ = [-41.0, -76.0]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-offset = Vector2(0, -370)
-transform = Transform2D(1, 0, 0, 1, 0, -370)
+offset = Vector2(0, -275.625)
+transform = Transform2D(1, 0, 0, 1, 0, -275.625)
 follow_viewport_scale = 4.0
 
 [node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(0, 5.83)
 motion_mirroring = Vector2(768, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Sky"]
@@ -209,11 +211,11 @@ autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_rbmkf")]
-position = Vector2(14, -1)
+position = Vector2(13, -1)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -7)
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 limit_bottom = 120
 limit_smoothed = true
 position_smoothing_enabled = true
@@ -323,8 +325,22 @@ scale = Vector2(0.1, 0.1)
 
 [node name="PowerUpSpawner" parent="." instance=ExtResource("16_0jhck")]
 position = Vector2(186, -32)
-powerups = Array[int]([1, 2, 3, 4])
-powerupProbabilities = Array[float]([0.25, 0.25, 0.25, 0.25])
+powerups = Array[int]([1, 2, 3])
+powerupProbabilities = Array[float]([0.2, 0.6, 0.2])
+
+[node name="PowerUpSpawner3" parent="." instance=ExtResource("16_0jhck")]
+position = Vector2(232, -33)
+powerups = Array[int]([1, 2, 3])
+powerupProbabilities = Array[float]([0.2, 0.6, 0.2])
+
+[node name="PowerUpSpawner2" parent="." instance=ExtResource("16_0jhck")]
+position = Vector2(142, -32)
+powerups = Array[int]([1, 2, 3])
+powerupProbabilities = Array[float]([0.2, 0.6, 0.2])
+
+[node name="Mushroom Bumper" parent="." instance=ExtResource("15_wwe6g")]
+position = Vector2(247, 17)
+rotation = -0.570383
 
 [connection signal="pressed" from="EndGameScreen/Exit" to="GameManager" method="exit"]
 [connection signal="pressed" from="Player/Camera2D/MultiplayerHUD/VBoxContainer/host" to="GameManager" method="host"]

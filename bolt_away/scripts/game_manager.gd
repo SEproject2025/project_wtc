@@ -1,7 +1,6 @@
 extends Node
 
 var score = 0
-var singlePlayerEnabled = false
 
 @onready var score_label = $ScoreLabel
 @export var end_game_screen: CanvasLayer
@@ -37,5 +36,8 @@ func exit():
 
 func _on_single_player_pressed() -> void:
 	%MultiplayerHUD.hide()
-	singlePlayerEnabled = true
+	var deathWall = get_tree().get_current_scene().get_node("DeathWallNode")
+	deathWall.death_wall_start = true
+	deathWall.position.x = -270 
+	deathWall.wall_velocity = 25
 	
