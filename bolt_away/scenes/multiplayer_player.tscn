@@ -138,7 +138,6 @@ collision_layer = 2
 wall_min_slide_angle = 0.0
 script = ExtResource("1_ij7lf")
 player_input = NodePath("Input")
-player_id = null
 
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_bcfu3")
@@ -217,10 +216,10 @@ target_position = Vector2(500, 0)
 [node name="PowerUpHUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -5.0
-offset_top = -40.0
-offset_right = 5.0
-offset_bottom = -31.0
+offset_left = 3.0
+offset_top = -4.0
+offset_right = 13.0
+offset_bottom = 5.0
 script = ExtResource("5_scvm3")
 
 [node name="PowerupIcon" type="TextureRect" parent="PowerUpHUD"]

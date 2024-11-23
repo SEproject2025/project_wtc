@@ -77,9 +77,9 @@ func _connect_player(id: int):
 	_players_spawn_node.add_child(player_to_add, true)
 	rpc("sync_map_seed", map_seed)
 
-	# if _players_spawn_node.get_child_count() == PLAYERS_TO_START_GAME: 
-	# 	rpc("start_death_wall")
-	# 	start_wall = true
+	if _players_spawn_node.get_child_count() == PLAYERS_TO_START_GAME: 
+		rpc("start_death_wall")
+		start_wall = true
 
 func _disconnect_player(id: int):
 	print("Player %s left the game." % id)

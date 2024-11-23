@@ -323,8 +323,8 @@ scale = Vector2(0.1, 0.1)
 
 [node name="PowerUpSpawner" parent="." instance=ExtResource("16_0jhck")]
 position = Vector2(186, -32)
-powerups = Array[int]([3])
-powerupProbabilities = Array[float]([1.0])
+powerups = Array[int]([1, 2, 3, 4])
+powerupProbabilities = Array[float]([0.25, 0.25, 0.25, 0.25])
 
 [connection signal="pressed" from="EndGameScreen/Exit" to="GameManager" method="exit"]
 [connection signal="pressed" from="Player/Camera2D/MultiplayerHUD/VBoxContainer/host" to="GameManager" method="host"]

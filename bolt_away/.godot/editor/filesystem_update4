@@ -1,4 +1,3 @@
-res://scripts/multiplayer/multiplayer_controller.gd
 res://scenes/multiplayer_player.tscn
 res://scripts/powerups/powerup_spawner.gd
 res://scenes/player.tscn
@@ -7,6 +6,8 @@ res://scenes/main_menu.tscn
 res://chunks/chunk_11.tscn
 res://scenes/game.tscn
 res://scenes/powerups/dash.tscn
-res://scripts/player.gd
-res://scripts/powerup_manager.gd
 res://scripts/powerups/oilspill.gd
+res://scripts/multiplayer/multiplayer_controller.gd
+res://scripts/player.gd
+res://scripts/level.gd
+res://scripts/multiplayer/multiplayer_manager.gd
