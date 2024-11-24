@@ -273,7 +273,7 @@ properties/2/path = NodePath(".:input_dash")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="Player Character" type="CharacterBody2D" node_paths=PackedStringArray("player_input")]
+[node name="Player Character" type="CharacterBody2D" node_paths=PackedStringArray("player_input") groups=["Players"]]
 script = ExtResource("1_y2p1t")
 player_input = NodePath("Input")
 

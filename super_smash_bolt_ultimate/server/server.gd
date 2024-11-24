@@ -226,6 +226,14 @@ func parse_msg(peer : Peer) -> bool:
 				for j in i.peers:
 					j.send_msg(Message.LOBBY_MESSAGE, 0, data)
 				return true
+
+	if type == Message.MAP_SEED:
+		for i in lobbies:
+			if i.peers.has(peer):
+				for j in i.peers:
+						j.send_msg(Message.MAP_SEED, 0, data)
+				return true
+
 	
 	
 	return false;

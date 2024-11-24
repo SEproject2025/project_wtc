@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=4 uid="uid://mn7s2brx2fws"]
 
-[ext_resource type="Script" path="res://scripts/chunk.gd" id="1_6xa0p"]
-[ext_resource type="Texture2D" uid="uid://dbxmhmrik75ch" path="res://assets/sprites/platform.png" id="1_u3b1e"]
+[ext_resource type="Script" path="res://scripts/chunk.gd" id="1_6ckqk"]
+[ext_resource type="Texture2D" uid="uid://de2r2c2fj2xu3" path="res://assets/sprites/platform.png" id="1_u3b1e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qhmcl"]
 texture = ExtResource("1_u3b1e")
@@ -19,7 +19,7 @@ sources/0 = SubResource("TileSetAtlasSource_qhmcl")
 sources/1 = SubResource("TileSetAtlasSource_a2aya")
 
 [node name="StartingChunk" type="Node2D"]
-script = ExtResource("1_6xa0p")
+script = ExtResource("1_6ckqk")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 visibility_layer = 7

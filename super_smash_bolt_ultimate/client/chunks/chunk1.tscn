@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=4 uid="uid://kjhh6jp8711k"]
 
-[ext_resource type="Script" path="res://scripts/chunk.gd" id="1_uoo8r"]
-[ext_resource type="Texture2D" uid="uid://dbxmhmrik75ch" path="res://assets/sprites/platform.png" id="2_5lv77"]
+[ext_resource type="Script" path="res://scripts/chunk.gd" id="1_54dts"]
+[ext_resource type="Texture2D" uid="uid://de2r2c2fj2xu3" path="res://assets/sprites/platform.png" id="2_5lv77"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8nmas"]
 texture = ExtResource("2_5lv77")
@@ -20,7 +20,7 @@ sources/1 = SubResource("TileSetAtlasSource_n8n86")
 
 [node name="Node2D" type="Node2D"]
 position = Vector2(8, 0)
-script = ExtResource("1_uoo8r")
+script = ExtResource("1_54dts")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 visibility_layer = 7

@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=4 uid="uid://c8wtlv7s0jxwr"]
+[gd_scene load_steps=6 format=4 uid="uid://c8wtlv7s0jxwr"]
 
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_bemx6"]
-[ext_resource type="Texture2D" uid="uid://dbxmhmrik75ch" path="res://assets/sprites/platform.png" id="2_68via"]
-[ext_resource type="PackedScene" uid="uid://bac2msumk5krk" path="res://scenes/jump_pad.tscn" id="3_cqpwx"]
+[ext_resource type="Texture2D" uid="uid://de2r2c2fj2xu3" path="res://assets/sprites/platform.png" id="2_68via"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jx7bm"]
 texture = ExtResource("2_68via")
@@ -28,6 +27,3 @@ visibility_layer = 7
 position = Vector2(-8, 13)
 tile_map_data = PackedByteArray("AAD//wAAAQAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAQAAAAAAAAD+/wAAAQAAAAAAAAD8/wAAAQAAAAAAAAD9/wAAAQAAAAAAAAACAAAAAQAAAAAAAAADAAAAAAAAAAAAAAD7/wAAAQAAAAAAAAD6/wAAAAAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAD5/wAAAAAAAAAAAAD5////AAAAAAAAAAD6////AAAAAAAAAAD7////AAAAAAAAAAD8////AAAAAAAAAAD+//3/AAAAAAAAAAD///3/AAAAAAAAAAAAAP3/AAAAAAAAAAABAP3/AAAAAAAAAAADAP//AAAAAAAAAAAEAP//AAAAAAAAAAAFAP//AAAAAAAAAAAGAP//AAAAAAAAAAD4/wAAAAAAAAAAAAAHAAAAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_ago5b")
-
-[node name="Jump_pad" parent="." instance=ExtResource("3_cqpwx")]
-position = Vector2(96, -28)

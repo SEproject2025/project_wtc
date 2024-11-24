@@ -10,6 +10,8 @@ func _ready():
 	pop_up.set_msg("5")
 	pop_up.is_button_visible(false)
 	add_child(pop_up)
+	if User.is_host:
+		User.client.send_map_seed(RandomNumberGenerator.new().randi())
 
 
 func _process(delta):

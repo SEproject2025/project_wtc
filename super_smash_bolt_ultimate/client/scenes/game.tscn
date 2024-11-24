@@ -6,10 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://dc270sjwe8kuc" path="res://scenes/point.tscn" id="4_28cek"]
 [ext_resource type="FontFile" uid="uid://b6g0oju3qagi0" path="res://assets/fonts/monogram.ttf" id="5_f1ggy"]
 [ext_resource type="Script" path="res://scripts/level.gd" id="5_odm52"]
-[ext_resource type="PackedScene" path="res://scenes/killzone.tscn" id="5_x8euu"]
-[ext_resource type="PackedScene" path="res://chunks/chunk1.tscn" id="6_xxir6"]
-[ext_resource type="PackedScene" path="res://chunks/chunk2.tscn" id="7_0yfv7"]
-[ext_resource type="PackedScene" path="res://chunks/chunk3.tscn" id="8_theye"]
+[ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="5_x8euu"]
+[ext_resource type="PackedScene" uid="uid://kjhh6jp8711k" path="res://chunks/chunk1.tscn" id="6_xxir6"]
+[ext_resource type="PackedScene" uid="uid://8sv84xrsny2w" path="res://chunks/chunk2.tscn" id="7_0yfv7"]
+[ext_resource type="PackedScene" uid="uid://c8wtlv7s0jxwr" path="res://chunks/chunk3.tscn" id="8_theye"]
 [ext_resource type="PackedScene" uid="uid://c3pfve3y737tc" path="res://scenes/death_wall.tscn" id="15_3acr7"]
 [ext_resource type="PackedScene" uid="uid://dmh84ndrox66e" path="res://scenes/mushroom_bumper.tscn" id="15_wwe6g"]
 
@@ -171,9 +171,9 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("5_f1ggy")
 text = "join"
 
-[node name="Killzone" type="Area2D" parent="." instance=ExtResource("5_x8euu")]
+[node name="Killzone" parent="." instance=ExtResource("5_x8euu")]
 position = Vector2(74, 141)
-collision_mask = 2
+script = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("WorldBoundaryShape2D_cn5tm")

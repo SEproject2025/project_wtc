@@ -3,7 +3,7 @@ class_name Client
 
 # Enum representing the types of messages exchanged between client and server
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
-START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST}
+START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED}
 
 var rtc_mp = WebRTCMultiplayerPeer.new()
 var ws = WebSocketPeer.new()
@@ -27,6 +27,7 @@ signal game_start_received(arr : String)
 signal server_changed_host()
 signal user_name_feedback_received
 signal reset_connection
+signal map_seed_received(seed: int)
 
 # Attempt to connect to the WebSocket server
 func _init():
@@ -194,6 +195,11 @@ func parse_msg():
 		if not string == "":
 			game_start_received.emit(string)
 		return
+	
+	if type == Message.MAP_SEED:
+		map_seed_received.emit(data.to_int())
+		return false
+
 	return false
 
 func is_client_connected() -> bool:
@@ -235,3 +241,6 @@ func send_ice(media: String, index: int, _name: String, id):
 
 func send_game_starting():
 	send_msg(Message.GAME_STARTING, User.ID, "")
+
+func send_map_seed(map_seed: int):
+	send_msg(Message.MAP_SEED, 0, str(map_seed))	

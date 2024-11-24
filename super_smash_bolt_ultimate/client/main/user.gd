@@ -7,7 +7,6 @@ var current_lobby_name : String = ""
 var current_lobby_list : String = ""
 var is_host : bool = false
 var ID = -1
-var map_seed : int = 0
 var peers : Dictionary
 var game_scene_template = preload("res://scenes/game_scene.tscn")
 var player_character_template = preload("res://scenes/player_character.tscn")

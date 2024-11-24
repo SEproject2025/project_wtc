@@ -28,6 +28,10 @@ window/size/viewport_height=700
 
 script/search_in_file_extensions=PackedStringArray("gd", "gdshader", "tscn")
 
+[global_group]
+
+Players=""
+
 [input]
 
 move_left={
