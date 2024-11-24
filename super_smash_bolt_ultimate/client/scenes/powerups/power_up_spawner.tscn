@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ssnxjecv0xkf"]
+
+[ext_resource type="Script" path="res://scripts/powerups/powerup_spawner.gd" id="1_pl8qu"]
+[ext_resource type="Texture2D" uid="uid://c644jhkdq338h" path="res://assets/powerups (placeholders)/Question.png" id="4_chijt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a6lfy"]
+radius = 3.0
+
+[node name="PowerUpSpawner" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_pl8qu")
+powerups = null
+powerupProbabilities = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_a6lfy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.38419e-07, -5.96046e-08)
+scale = Vector2(0.130022, 0.112723)
+texture = ExtResource("4_chijt")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

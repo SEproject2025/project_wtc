@@ -1,8 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://c5rkwg5eys0i7"]
+[gd_scene load_steps=13 format=3 uid="uid://c5rkwg5eys0i7"]
 
 [ext_resource type="Script" path="res://scripts/in_lobby_menu.gd" id="1_1jabt"]
-[ext_resource type="Texture2D" uid="uid://bim8djyce1qbx" path="res://assets/sprites/host.png" id="1_dgld7"]
-[ext_resource type="Texture2D" uid="uid://c351p80b4fgt" path="res://assets/sprites/pawn.png" id="2_gtvi6"]
+[ext_resource type="Texture2D" uid="uid://bls1g11tx37i3" path="res://assets/sprites/mine_bot_idle_sheet_5.png" id="2_20vhh"]
+[ext_resource type="Texture2D" uid="uid://ns3yo3xcmqji" path="res://assets/sprites/mine_bot_idle_sheet_4.png" id="3_co20k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1e8h8"]
 bg_color = Color(0.905882, 0.117647, 0.137255, 1)
@@ -16,8 +16,16 @@ bg_color = Color(0.905882, 0.117647, 0.137255, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_50adl"]
 bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_54f62"]
+atlas = ExtResource("2_20vhh")
+region = Rect2(0, 32, 16, 32)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r4331"]
 bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33c4x"]
+atlas = ExtResource("3_co20k")
+region = Rect2(0, 32, 16, 32)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cix6r"]
 bg_color = Color(0, 0, 0, 1)
@@ -140,7 +148,7 @@ vertical_alignment = 1
 [node name="Icon" type="TextureRect" parent="Host_template"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("1_dgld7")
+texture = SubResource("AtlasTexture_54f62")
 expand_mode = 1
 stretch_mode = 5
 
@@ -165,7 +173,7 @@ vertical_alignment = 1
 [node name="Icon" type="TextureRect" parent="Player_template"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("2_gtvi6")
+texture = SubResource("AtlasTexture_33c4x")
 expand_mode = 1
 stretch_mode = 5
 

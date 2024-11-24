@@ -34,6 +34,8 @@ var alive: bool = true
 @onready var jumpBufferTimer: Timer = $Timers/JumpBufferTimer
 @onready var dashCooldown: Timer = $"Timers/DashCooldown"
 
+var hostSprite = preload("res://assets/sprites/mine_bot_idle_sheet_5.png")
+
 @export var player_input: PlayerInput
 @export var player_id := 1:
 	set(id):
@@ -77,7 +79,9 @@ func reset():
 		set_process_input(true)
 		set_process(true)
 		set_player_name.rpc(User.user_name)
-		global_position = Vector2(randi_range(-200, 200), randi_range(0, 75))
+		global_position = Vector2(0, 0)
+		if User.is_host:
+			set_sprite.rpc()
 	else:
 		character_name.text = "Other player"
 		set_physics_process(false)
@@ -90,6 +94,11 @@ func reset():
 func set_player_name(_name : String):
 	await get_tree().create_timer(2).timeout
 	character_name.text = _name
+
+@rpc("any_peer","call_local","reliable")
+func set_sprite():
+	await get_tree().create_timer(2).timeout
+	animated_sprite.texture = hostSprite
 
 func check_health():
 	if health.value <= 0:

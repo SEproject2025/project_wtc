@@ -5,14 +5,13 @@ var startingChunk: PackedScene = preload("res://chunks/starting_chunk.tscn")
 var deathWall: PackedScene = preload("res://scenes/death_wall.tscn")
 
 var amnt = 3
-var offset = 256
+var offset = 512 
 var start_offset = -200
 var rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
 	User.client.map_seed_received.connect(set_map_seed)
 	spawn_starting_chunks()
-	print(chunks.size())
 
 func algorithm(n):
 	var num = rng.randi_range(0, chunks.size()-1)

@@ -1,9 +1,6 @@
 [gd_scene load_steps=40 format=3 uid="uid://bbkqm75x5qo4d"]
 
 [ext_resource type="Script" path="res://scripts/player_character.gd" id="1_y2p1t"]
-[ext_resource type="Texture2D" uid="uid://c5k8ke5jp74xs" path="res://assets/sprites/red.png" id="3_x35ng"]
-[ext_resource type="Texture2D" uid="uid://t1456wjlk30w" path="res://assets/sprites/green.png" id="4_bj0hi"]
-[ext_resource type="Texture2D" uid="uid://c3ldrxkyptxuq" path="res://assets/sprites/mine_bot_idle_sheet_4.png" id="4_xl0vy"]
 [ext_resource type="Script" path="res://scripts/multiplayer_input.gd" id="5_82x6r"]
 
 [sub_resource type="Animation" id="Animation_bvmwo"]
@@ -17,7 +14,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [0]
 }
 
@@ -34,7 +31,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [1]
 }
 
@@ -51,7 +48,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [0]
 }
 
@@ -69,7 +66,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [4]
 }
 
@@ -86,7 +83,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [1]
 }
 
@@ -104,7 +101,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [0, 2, 3, 4, 5, 6, 7]
 }
 
@@ -120,7 +117,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
+"update": 0,
 "values": [4, 4]
 }
 
@@ -138,7 +135,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.0833333, 0.166667),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [0, 0, 0]
 }
 
@@ -239,10 +236,16 @@ states/jump/position = Vector2(306, 33.4166)
 states/run/node = SubResource("AnimationNodeAnimation_31qxw")
 states/run/position = Vector2(524, 182)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_bqjit"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ginhq"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_daml0"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_qeowp"), "jump", "fall_start", SubResource("AnimationNodeStateMachineTransition_q8hrg"), "fall_start", "fall_end", SubResource("AnimationNodeStateMachineTransition_5ufo7"), "fall_end", "idle", SubResource("AnimationNodeStateMachineTransition_p2aqo"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_n353o"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_x2t58"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_r66ul"), "hurt", "dead", SubResource("AnimationNodeStateMachineTransition_mdvj4"), "idle", "dead", SubResource("AnimationNodeStateMachineTransition_6akl4")]
-graph_offset = Vector2(-169.926, -118.35)
+graph_offset = Vector2(-128.549, 29.74)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sist4"]
 size = Vector2(9.61861, 23.1357)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8vt3m"]
+load_path = "res://.godot/imported/red.png-42432e989feef4cdfa07511ade50ab7a.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5ggrr"]
+load_path = "res://.godot/imported/green.png-314c33de04b335649345ea7d7aad302b.ctex"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wboyi"]
 radius = 6.0
@@ -272,6 +275,9 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:input_dash")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f80uk"]
+load_path = "res://.godot/imported/mine_bot_idle_sheet_4.png-d724f3759fdae1bf673ea2c52026bf35.ctex"
 
 [node name="Player Character" type="CharacterBody2D" node_paths=PackedStringArray("player_input") groups=["Players"]]
 script = ExtResource("1_y2p1t")
@@ -357,8 +363,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 value = 100.0
-texture_under = ExtResource("3_x35ng")
-texture_progress = ExtResource("4_bj0hi")
+texture_under = SubResource("CompressedTexture2D_8vt3m")
+texture_progress = SubResource("CompressedTexture2D_5ggrr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
@@ -394,8 +400,7 @@ replication_config = SubResource("SceneReplicationConfig_8e02d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -12)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("4_xl0vy")
+texture = SubResource("CompressedTexture2D_f80uk")
 hframes = 4
 vframes = 2
 

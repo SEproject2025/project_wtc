@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmh84ndrox66e"]
+[gd_scene load_steps=3 format=3 uid="uid://dmh84ndrox66e"]
 
 [ext_resource type="Script" path="res://scripts/mushroom_bumper.gd" id="1_7xaff"]
+[ext_resource type="Texture2D" uid="uid://ch6lsv34ikpcl" path="res://assets/sprites/mushroom_bumper.png" id="1_mshrr"]
 
 [node name="Mushroom Bumper" type="Node2D"]
 script = ExtResource("1_7xaff")
@@ -8,6 +9,7 @@ LAUNCH_POWER = 600
 
 [node name="MushroomBumper" type="Sprite2D" parent="."]
 position = Vector2(0, -16)
+texture = ExtResource("1_mshrr")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 2
