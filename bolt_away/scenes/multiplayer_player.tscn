@@ -150,7 +150,7 @@ replication_config = SubResource("SceneReplicationConfig_kgm8b")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -7)
-zoom = Vector2(3, 3)
+zoom = Vector2(4, 4)
 limit_bottom = 120
 limit_smoothed = true
 position_smoothing_enabled = true
@@ -189,9 +189,15 @@ one_shot = true
 [node name="DashEffectTimer" type="Timer" parent="Timers"]
 wait_time = 0.1
 
-[node name="PowerUpManager" type="Node" parent="."]
+[node name="OilSpillTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+one_shot = true
+
+[node name="PowerUpManager" type="Node" parent="." node_paths=PackedStringArray("parent", "PowerUpHUD")]
 unique_name_in_owner = true
 script = ExtResource("4_4s3vh")
+parent = NodePath("..")
+PowerUpHUD = NodePath("../PowerUpHUD")
 
 [node name="GrapplingHookRayCasts" type="Node2D" parent="."]
 
@@ -210,10 +216,10 @@ target_position = Vector2(500, 0)
 [node name="PowerUpHUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -5.0
-offset_top = -40.0
-offset_right = 5.0
-offset_bottom = -31.0
+offset_left = 3.0
+offset_top = -4.0
+offset_right = 13.0
+offset_bottom = 5.0
 script = ExtResource("5_scvm3")
 
 [node name="PowerupIcon" type="TextureRect" parent="PowerUpHUD"]
@@ -229,3 +235,4 @@ offset_bottom = -26.0
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="coyote_timeout"]
 [connection signal="timeout" from="Timers/RespawnTimer" to="." method="_respawn"]
 [connection signal="timeout" from="Timers/DashEffectTimer" to="." method="_on_dash_effect_timer_timeout"]
+[connection signal="timeout" from="Timers/OilSpillTimer" to="." method="oilspill_timer_timeout"]

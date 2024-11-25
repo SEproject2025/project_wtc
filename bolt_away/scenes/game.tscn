@@ -193,9 +193,10 @@ text = "Play Again
 "
 icon_alignment = 1
 
-[node name="GameManager" type="Node" parent="."]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("end_game_screen")]
 unique_name_in_owner = true
 script = ExtResource("1_l4ihi")
+end_game_screen = NodePath("../EndGameScreen")
 
 [node name="ScoreLabel" type="Label" parent="GameManager"]
 offset_left = -98.0

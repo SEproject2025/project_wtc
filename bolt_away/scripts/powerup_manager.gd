@@ -1,45 +1,39 @@
 extends Node
 
-enum PowerUpType {
-	NONE,
-	DASH,
-	JETPACK,
-	OILSPILL,
-	GRAPPLINGHOOK,
-}
 
-var current_powerup: PowerUpType = PowerUpType.NONE
+var current_powerup: Constants.PowerUpType = Constants.PowerUpType.NONE
 var jetpack_fuel = 100
 var is_jetpack_active = false
-@onready var oilspill_scene = preload("res://scenes/powerups/oilspill.tscn")
-@onready var parent = get_parent()
-@onready var PowerUpHUD = parent.get_node("PowerUpHUD")
 
-func collect_powerup(powerup: PowerUpType) -> void:
-	if current_powerup == PowerUpType.NONE:
+@onready var oilspill_scene = preload("res://scenes/powerups/oilspill.tscn")
+
+@export var parent: CharacterBody2D
+@export var PowerUpHUD: Control
+
+func collect_powerup(powerup: Constants.PowerUpType) -> void:
+	if current_powerup == Constants.PowerUpType.NONE:
 		current_powerup = powerup
-	PowerUpHUD.update_powerup_icon(powerup)
+		PowerUpHUD.update_powerup_icon(powerup)
 
 func use_powerup() -> void:
 	match current_powerup:
-		PowerUpType.DASH:
+		Constants.PowerUpType.DASH:
 			print("Dash!")
 			parent.start_dash()
-		PowerUpType.JETPACK:
+		Constants.PowerUpType.JETPACK:
 			print("Jetpack!")
 			activate_jetpack()
-		PowerUpType.OILSPILL:
+		Constants.PowerUpType.OILSPILL:
 			print("Oil spill!")
 			throw_oil()
-		PowerUpType.GRAPPLINGHOOK:
+		Constants.PowerUpType.GRAPPLINGHOOK:
 			print("Grappling hook!")
 			parent.fire_grappling_hook()
-		PowerUpType.NONE:
+		Constants.PowerUpType.NONE:
 			print("No powerup!")
-	current_powerup = PowerUpType.NONE
 	if not is_jetpack_active:
-		PowerUpHUD.update_powerup_icon(PowerUpType.NONE)
-
+		PowerUpHUD.update_powerup_icon(Constants.PowerUpType.NONE)
+		current_powerup = Constants.PowerUpType.NONE
 
 func activate_jetpack() -> void:
 	jetpack_fuel = 100
@@ -47,11 +41,12 @@ func activate_jetpack() -> void:
 
 func deactivate_jetpack() -> void:
 	is_jetpack_active = false
-	PowerUpHUD.update_powerup_icon(PowerUpType.NONE)
+	PowerUpHUD.update_powerup_icon(Constants.PowerUpType.NONE)
+	current_powerup = Constants.PowerUpType.NONE
 
 func throw_oil() -> void:
 	var oilspill = oilspill_scene.instantiate()
-	oilspill.position = parent.global_position + Vector2(64, 0)
+	oilspill.position = parent.global_position + Vector2(67, -10)
 	get_tree().get_root().add_child(oilspill)
 	if MultiplayerManager.multiplayer_mode_enabled:
 		MultiplayerManager.rpc("spawn_oilspill", oilspill.position)

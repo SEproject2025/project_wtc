@@ -140,9 +140,15 @@ one_shot = true
 [node name="DashEffectTimer" type="Timer" parent="Timers"]
 wait_time = 0.1
 
-[node name="PowerUpManager" type="Node" parent="."]
+[node name="OilSpillTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+one_shot = true
+
+[node name="PowerUpManager" type="Node" parent="." node_paths=PackedStringArray("parent", "PowerUpHUD")]
 unique_name_in_owner = true
 script = ExtResource("3_uodo8")
+parent = NodePath("..")
+PowerUpHUD = NodePath("../PowerUpHUD")
 
 [node name="RayCastToObstacle" type="RayCast2D" parent="."]
 position = Vector2(3, -10)
@@ -171,3 +177,4 @@ stretch_mode = 3
 [connection signal="timeout" from="Timers/JumpBufferTimer" to="." method="jump_buffer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="dash_timeout"]
 [connection signal="timeout" from="Timers/DashEffectTimer" to="." method="_on_dash_effect_timer_timeou"]
+[connection signal="timeout" from="Timers/OilSpillTimer" to="." method="oilspill_timer_timeout"]
