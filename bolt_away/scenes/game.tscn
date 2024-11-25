@@ -72,11 +72,12 @@ metadata/_edit_vertical_guides_ = [97.0, 58.0]
 metadata/_edit_horizontal_guides_ = [-41.0, -76.0]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-offset = Vector2(0, -370)
-transform = Transform2D(1, 0, 0, 1, 0, -370)
+offset = Vector2(0, -275.625)
+transform = Transform2D(1, 0, 0, 1, 0, -275.625)
 follow_viewport_scale = 4.0
 
 [node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(0, 5.83)
 motion_mirroring = Vector2(768, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Sky"]
@@ -213,7 +214,7 @@ position = Vector2(13, -1)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -7)
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 limit_bottom = 120
 limit_smoothed = true
 position_smoothing_enabled = true
@@ -323,6 +324,16 @@ scale = Vector2(0.1, 0.1)
 
 [node name="PowerUpSpawner" parent="." instance=ExtResource("16_0jhck")]
 position = Vector2(186, -32)
+powerups = Array[int]([1, 2, 3])
+powerupProbabilities = Array[float]([0.2, 0.6, 0.2])
+
+[node name="PowerUpSpawner3" parent="." instance=ExtResource("16_0jhck")]
+position = Vector2(232, -33)
+powerups = Array[int]([1, 2, 3])
+powerupProbabilities = Array[float]([0.2, 0.6, 0.2])
+
+[node name="PowerUpSpawner2" parent="." instance=ExtResource("16_0jhck")]
+position = Vector2(142, -32)
 powerups = Array[int]([1, 2, 3])
 powerupProbabilities = Array[float]([0.2, 0.6, 0.2])
 
