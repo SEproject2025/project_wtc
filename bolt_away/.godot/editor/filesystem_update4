@@ -1,2 +1,16 @@
 res://scenes/game.tscn
 res://scripts/powerups/powerup_spawner.gd
+res://scenes/wobbly_transient_platform.tscn
+res://scenes/transient_platform.tscn
+res://chunks/starting_chunk.tscn
+res://chunks/chunk1.tscn
+res://chunks/chunk2.tscn
+res://chunks/chunk3.tscn
+res://chunks/chunk5.tscn
+res://chunks/chunk4.tscn
+res://chunks/chunk7.tscn
+res://chunks/chunk6.tscn
+res://chunks/chunk8.tscn
+res://chunks/chunk9.tscn
+res://chunks/chunk10.tscn
+res://chunks/chunk_11.tscn
