@@ -1,9 +1,7 @@
-[gd_scene load_steps=31 format=3 uid="uid://cuv4vme4rwno0"]
+[gd_scene load_steps=25 format=3 uid="uid://cuv4vme4rwno0"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_l4ihi"]
 [ext_resource type="PackedScene" uid="uid://dqnaqj8yb6hwd" path="res://scenes/player.tscn" id="1_rbmkf"]
-[ext_resource type="PackedScene" uid="uid://bgv5v2fxqlswe" path="res://scenes/platform.tscn" id="3_cmfc3"]
-[ext_resource type="PackedScene" uid="uid://pqp5qaw561fr" path="res://scenes/point.tscn" id="4_28cek"]
 [ext_resource type="FontFile" uid="uid://cp5kpkkmrmdob" path="res://assets/fonts/monogram.ttf" id="5_f1ggy"]
 [ext_resource type="Script" path="res://scripts/level.gd" id="5_odm52"]
 [ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="5_x8euu"]
@@ -14,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://cit33ltgf5f1u" path="res://chunks/chunk5.tscn" id="14_2aa5c"]
 [ext_resource type="PackedScene" uid="uid://b0mrrm7qidtv0" path="res://scenes/death_wall.tscn" id="15_3acr7"]
 [ext_resource type="PackedScene" uid="uid://c2pk3tlcvoiuv" path="res://chunks/chunk6.tscn" id="15_nsp4m"]
-[ext_resource type="PackedScene" uid="uid://bhu24tgmbqicb" path="res://scenes/mushroom_bumper.tscn" id="15_wwe6g"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="16_0jhck"]
 [ext_resource type="PackedScene" uid="uid://nq2hvo4jxr3a" path="res://chunks/chunk7.tscn" id="16_5kxn1"]
 [ext_resource type="PackedScene" uid="uid://d2b31f522ib4b" path="res://chunks/chunk8.tscn" id="17_xg82u"]
@@ -28,44 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://did7xed6152vw" path="res://assets/ParallaxBackground/TopLayer.png" id="28_qcs81"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cn5tm"]
-
-[sub_resource type="Animation" id="Animation_apgth"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(370, 52)]
-}
-
-[sub_resource type="Animation" id="Animation_bm7kf"]
-resource_name = "move"
-length = 1.5
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(370, 52), Vector2(462, 52)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xuk5v"]
-_data = {
-"RESET": SubResource("Animation_apgth"),
-"move": SubResource("Animation_bm7kf")
-}
 
 [node name="Game" type="Node2D"]
 metadata/_edit_vertical_guides_ = [97.0, 58.0]
@@ -197,18 +156,6 @@ icon_alignment = 1
 unique_name_in_owner = true
 script = ExtResource("1_l4ihi")
 
-[node name="ScoreLabel" type="Label" parent="GameManager"]
-offset_left = -98.0
-offset_top = 40.0
-offset_right = 7.0
-offset_bottom = 59.0
-theme_override_colors/font_color = Color(0.0980392, 0.313726, 0.752941, 1)
-theme_override_fonts/font = ExtResource("5_f1ggy")
-text = "score: "
-horizontal_alignment = 1
-autowrap_mode = 2
-metadata/_edit_use_anchors_ = true
-
 [node name="Player" parent="." instance=ExtResource("1_rbmkf")]
 position = Vector2(13, -1)
 
@@ -257,52 +204,6 @@ position = Vector2(74, 141)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("WorldBoundaryShape2D_cn5tm")
 
-[node name="Points" type="Node" parent="."]
-
-[node name="Point" parent="Points" instance=ExtResource("4_28cek")]
-position = Vector2(183, -9)
-
-[node name="Point2" parent="Points" instance=ExtResource("4_28cek")]
-position = Vector2(217, 69)
-
-[node name="Point3" parent="Points" instance=ExtResource("4_28cek")]
-position = Vector2(471, 38)
-
-[node name="Point4" parent="Points" instance=ExtResource("4_28cek")]
-position = Vector2(-168, 25)
-
-[node name="Point5" parent="Points" instance=ExtResource("4_28cek")]
-position = Vector2(330, 40)
-
-[node name="Point6" parent="Points" instance=ExtResource("4_28cek")]
-position = Vector2(610, 70)
-
-[node name="Point7" parent="Points" instance=ExtResource("4_28cek")]
-position = Vector2(633, 70)
-
-[node name="Point8" parent="Points" instance=ExtResource("4_28cek")]
-position = Vector2(-296, 57)
-
-[node name="Platforms" type="Node" parent="."]
-
-[node name="Platform" parent="Platforms" instance=ExtResource("3_cmfc3")]
-position = Vector2(90, 27)
-
-[node name="Platform2" parent="Platforms" node_paths=PackedStringArray("animation_player_optional") instance=ExtResource("3_cmfc3")]
-position = Vector2(370, 52)
-animation_player_optional = NodePath("AnimationPlayer")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/Platform2"]
-libraries = {
-"": SubResource("AnimationLibrary_xuk5v")
-}
-autoplay = "move"
-
-[node name="Platform3" parent="Platforms" instance=ExtResource("3_cmfc3")]
-position = Vector2(141, 92)
-
-[node name="Enemies" type="Node" parent="."]
-
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/multiplayer_player.tscn")
 spawn_path = NodePath("../Players")
@@ -336,10 +237,6 @@ powerupProbabilities = Array[float]([0.2, 0.6, 0.2])
 position = Vector2(142, -32)
 powerups = Array[int]([1, 2, 3])
 powerupProbabilities = Array[float]([0.2, 0.6, 0.2])
-
-[node name="Mushroom Bumper" parent="." instance=ExtResource("15_wwe6g")]
-position = Vector2(247, 17)
-rotation = -0.570383
 
 [connection signal="pressed" from="EndGameScreen/Exit" to="GameManager" method="exit"]
 [connection signal="pressed" from="Player/Camera2D/MultiplayerHUD/VBoxContainer/host" to="GameManager" method="host"]
