@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_uoo8r"]
 [ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="2_2jm3j"]
 [ext_resource type="Texture2D" uid="uid://csahsmv1kbrpx" path="res://assets/sprites/SpriteSheetWasteland2.png" id="3_60ssx"]
-[ext_resource type="Texture2D" uid="uid://b2rxale46puq1" path="res://assets/sprites/SpriteSheetCave.png" id="3_sswap"]
+[ext_resource type="Texture2D" uid="uid://cbk4cctceadd2" path="res://assets/sprites/SpriteSheetCave.png" id="3_sswap"]
 [ext_resource type="PackedScene" uid="uid://bgv5v2fxqlswe" path="res://scenes/platform.tscn" id="4_8jy2i"]
-[ext_resource type="PackedScene" path="res://scenes/powerups/power_up_spawner.tscn" id="6_aqds7"]
+[ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="6_aqds7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jqdff"]
 texture = ExtResource("2_2jm3j")

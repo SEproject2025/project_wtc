@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://et2sf64en3fr"]
 
-[ext_resource type="Texture2D" uid="uid://bu0tses23ddb" path="res://assets/sprites/RockyLavaSpritesheet.png" id="1_ybbxc"]
+[ext_resource type="Texture2D" uid="uid://dplsa0w1r35uc" path="res://assets/sprites/RockyLavaSpritesheet.png" id="1_ybbxc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f0u84"]
 atlas = ExtResource("1_ybbxc")
@@ -158,7 +158,7 @@ position = Vector2(16, 16)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1k1w5")
-frame_progress = 0.0145561
+frame_progress = 0.869235
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_rj6gv")
