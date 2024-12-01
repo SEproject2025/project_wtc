@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm2gb0jre5tl6"]
+
+[ext_resource type="Script" path="res://scripts/end_game_pop_up.gd" id="1_jneo6"]
+
+[node name="EndPopUp" type="CanvasLayer"]
+script = ExtResource("1_jneo6")
+
+[node name="Message" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.0
+offset_top = -84.0
+offset_right = 105.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "You lost!
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -15.5
+offset_right = 44.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play Again"
+icon_alignment = 1

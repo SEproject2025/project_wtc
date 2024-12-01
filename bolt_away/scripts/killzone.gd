@@ -29,5 +29,6 @@ func end_singleplayer():
 	get_tree().paused = true
 
 
-
+func _process(delta: float) -> void:
+	print("Ffff")
 	

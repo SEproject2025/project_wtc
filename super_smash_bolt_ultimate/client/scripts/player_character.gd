@@ -26,6 +26,7 @@ var wallJumping: bool = false
 var jumpReleased: bool = false
 var _is_on_floor: bool = true
 var alive: bool = true
+var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 
 @onready var animated_sprite: Sprite2D = $Sprite2D
 @onready var player: Sprite2D = $Sprite2D
@@ -177,8 +178,11 @@ func die():
 	anim_player.play("Dead")
 	set_physics_process(false)
 	set_process(false)
+	if get_multiplayer_authority() == (User.ID):
+		var lost_pop_up = lost_pop_up_template.instantiate()
+		add_child(lost_pop_up)
 	
-	reset()
+	# reset()
 
 @rpc("any_peer","call_remote","reliable")
 func sync_animation(anim_name: StringName):

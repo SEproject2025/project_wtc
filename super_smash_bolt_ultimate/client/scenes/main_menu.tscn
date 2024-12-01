@@ -48,6 +48,7 @@ offset_bottom = 700.0
 color = Color(0, 0, 0, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="Background"]
+layout_mode = 0
 offset_right = 1301.0
 offset_bottom = 40.0
 color = Color(0, 0, 0, 1)

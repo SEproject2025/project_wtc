@@ -280,6 +280,7 @@ properties/2/replication_mode = 1
 load_path = "res://.godot/imported/mine_bot_idle_sheet_4.png-d724f3759fdae1bf673ea2c52026bf35.ctex"
 
 [node name="Player Character" type="CharacterBody2D" node_paths=PackedStringArray("player_input") groups=["Players"]]
+collision_layer = 2
 script = ExtResource("1_y2p1t")
 player_input = NodePath("Input")
 
@@ -367,7 +368,7 @@ texture_under = SubResource("CompressedTexture2D_8vt3m")
 texture_progress = SubResource("CompressedTexture2D_5ggrr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_wboyi")
 
 [node name="Timers" type="Node" parent="."]

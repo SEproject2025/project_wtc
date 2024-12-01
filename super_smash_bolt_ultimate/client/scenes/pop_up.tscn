@@ -30,12 +30,14 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="ColorRect" type="ColorRect" parent="Background"]
+layout_mode = 0
 offset_top = 505.0
 offset_right = 1299.0
 offset_bottom = 700.0
-color = Color(0, 0, 0, 1)
+color = Color(0, 0, 0, 0)
 
 [node name="ColorRect2" type="ColorRect" parent="Background"]
+layout_mode = 0
 offset_right = 1301.0
 offset_bottom = 40.0
 color = Color(0, 0, 0, 1)

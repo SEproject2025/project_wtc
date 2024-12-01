@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://chvj808e8555p"]
+[gd_scene load_steps=19 format=3 uid="uid://chvj808e8555p"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_e2uyo"]
 [ext_resource type="PackedScene" uid="uid://dlrwjh05484qr" path="res://scenes/parallax_background.tscn" id="2_poitg"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dhoqbwyfgpdij" path="res://chunks/chunk9.tscn" id="11_tc2vt"]
 [ext_resource type="PackedScene" uid="uid://txkmi1fes2fw" path="res://chunks/chunk10.tscn" id="12_n8afa"]
 [ext_resource type="PackedScene" uid="uid://qdrwrn6obfjs" path="res://chunks/chunk_11.tscn" id="13_gjbj5"]
+[ext_resource type="PackedScene" uid="uid://c3pfve3y737tc" path="res://scenes/death_wall.tscn" id="15_5ci7t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ih6ro"]
 bg_color = Color(0.905882, 0.117647, 0.137255, 1)
@@ -65,5 +66,9 @@ text = "Return to Main Menu"
 position = Vector2(3, 0)
 script = ExtResource("4_wgcnf")
 chunks = Array[PackedScene]([ExtResource("5_nycr6"), ExtResource("6_iiat1"), ExtResource("7_ki8jc"), ExtResource("6_bwhrc"), ExtResource("7_1hrp0"), ExtResource("8_f2tdy"), ExtResource("9_nmqnn"), ExtResource("10_81in4"), ExtResource("11_tc2vt"), ExtResource("12_n8afa"), ExtResource("13_gjbj5")])
+
+[node name="DeathWallNode" parent="." instance=ExtResource("15_5ci7t")]
+position = Vector2(-277, 94)
+rotation = -0.0872665
 
 [connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]
