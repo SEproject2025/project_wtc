@@ -8,7 +8,7 @@ var start_time : float = 5.0
 var pop_up
 
 func _ready():
-
+	User.client.some_one_left_game.connect(player_left)
 	pop_up = pop_up_template.instantiate()
 	pop_up.name = "pop_up"
 	pop_up.set_msg("5")
@@ -37,3 +37,6 @@ func _on_button_pressed():
 	
 	for child in get_children():
 		child.queue_free()
+
+func player_left(other_player_id : int):
+	User.rtc_peer.peer_disconnected.emit(other_player_id)

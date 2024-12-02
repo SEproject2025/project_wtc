@@ -3,7 +3,7 @@ class_name Client
 
 # Enum representing the types of messages exchanged between client and server
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
-START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED}
+START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME}
 
 var rtc_mp = WebRTCMultiplayerPeer.new()
 var ws = WebSocketPeer.new()
@@ -28,6 +28,7 @@ signal server_changed_host()
 signal user_name_feedback_received
 signal reset_connection
 signal map_seed_received(seed: int)
+signal some_one_left_game(id : int)
 
 # Attempt to connect to the WebSocket server
 func _init():
@@ -175,7 +176,6 @@ func parse_msg():
 			return
 	
 	if type == Message.LEFT_LOBBY:
-		
 		if User.peers.has(id):
 			User.peers.erase(id)
 			some_one_left_lobby.emit(data)
@@ -199,6 +199,14 @@ func parse_msg():
 	if type == Message.MAP_SEED:
 		map_seed_received.emit(data.to_int())
 		return false
+	
+	if type == Message.LEFT_GAME:
+		print("HEREEE")
+		if User.peers.has(id):
+			User.peers.erase(id)
+			some_one_left_game.emit(id)
+			print("Peer name: %s with ID # %s left the game" %[data, id])
+		return
 
 	return false
 
@@ -244,3 +252,6 @@ func send_game_starting():
 
 func send_map_seed(map_seed: int):
 	send_msg(Message.MAP_SEED, 0, str(map_seed))	
+
+func send_left_game(lobby_name: String):
+	send_msg(Message.LEFT_GAME, 0, lobby_name)

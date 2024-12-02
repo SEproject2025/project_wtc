@@ -1,7 +1,7 @@
 extends Node
 
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
-START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED}
+START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME}
 
 var server = TCPServer.new()
 var hard_coded_port = 9999
@@ -145,7 +145,7 @@ func parse_msg(peer : Peer) -> bool:
 			print("ERROR: ICE received but ID do not match with any peer!")
 			return false
 	
-	if type == Message.LEFT_LOBBY:
+	if type == Message.LEFT_LOBBY or type == Message.LEFT_GAME:
 		var lobby = find_lobby_by_name(data)
 		if lobby:
 			if lobby.peers.size() == 1:
@@ -156,7 +156,10 @@ func parse_msg(peer : Peer) -> bool:
 					for lobby_peer in lobby.peers:
 							lobby_peer.is_host = false
 							if lobby_peer.user_name != peer.user_name:
-								lobby_peer.send_msg(Message.LEFT_LOBBY, peer.id, peer.user_name)
+								if type == Message.LEFT_LOBBY:
+									lobby_peer.send_msg(Message.LEFT_LOBBY, peer.id, peer.user_name)
+								elif type == Message.LEFT_GAME:
+									lobby_peer.send_msg(Message.LEFT_GAME, peer.id, str(peer.id))
 							if lobby_peer.user_name == peer.user_name:
 								delete_after = lobby_peer
 					
@@ -165,7 +168,7 @@ func parse_msg(peer : Peer) -> bool:
 					
 					for player in lobby.peers:
 						player.send_msg(Message.HOST, lobby.peers[0].id, lobby.peers[0].user_name)
-			return true
+		return true
 	
 	if type == Message.USER_INFO:
 		peer.send_msg(Message.USER_INFO, peer.id, data)
@@ -234,7 +237,6 @@ func parse_msg(peer : Peer) -> bool:
 						j.send_msg(Message.MAP_SEED, 0, data)
 				return true
 
-	
 	
 	return false;
 

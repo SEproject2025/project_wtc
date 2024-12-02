@@ -37,3 +37,5 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Play Again"
 icon_alignment = 1
+
+[connection signal="pressed" from="Button" to="." method="_on_play_again_pressed"]
