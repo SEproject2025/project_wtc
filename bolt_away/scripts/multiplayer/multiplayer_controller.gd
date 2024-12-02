@@ -1,26 +1,11 @@
 extends CharacterBody2D
 class_name MultiplayerPlayer
 
-const SPEED = 150.0
-const DECELERATION = 0.1
-const ACCELERATION = 0.1
-const JUMP_VELOCITY = -260.0
-const WALL_JUMP_PUSHBACK = 250
-const WALL_SLIDE_GRAVITY = 100
-const DECELERATE_ON_JUMP_RELEASE = 0.8
-const FALL_GRAVITY = 1050
-const COYOTE_TIMER_LENGTH = 0.1
-const JUMP_BUFFER_TIME_LENGTH = 0.15
-const DASH_SPEED = 2.4
-const JUMP_DASHTIMER = 0.1
-const JETPACK_VELOCITY = -200
-const JETPACK_FUEL_CONSUMPTION = 25
-const GRAPPLING_HOOK_SPEED = 1000.0
-const CENTER_OF_SPRITE = Vector2(3,-10) #Change if sprite changes
-const GRAPPLING_HOOK_WIDTH = 1.5
-const GRAPPLING_HOOK_STOP_DISTANCE = 10
+const PLAYER = Constants.Player
 
-var fall_rate = DECELERATE_ON_JUMP_RELEASE
+
+
+var fall_rate = PLAYER.DECELERATE_ON_JUMP_RELEASE
 var bumped: bool = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var coyoteJump: bool = true
@@ -34,6 +19,7 @@ var alive: bool = true
 var grappleToPosition: Vector2
 var targetPlayer
 var isGrappling: bool = false
+var isSlipping: bool = false
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
@@ -45,6 +31,7 @@ var isGrappling: bool = false
 @onready var rayCastLeft = $GrapplingHookRayCasts/RayCastLeft
 @onready var raycastToObstacle = $GrapplingHookRayCasts/RayCastToObstacle
 @onready var dashEffectTimer = $Timers/DashEffectTimer
+@onready var oilSpillTimer = $Timers/OilSpillTimer
 
 
 @export var player_input: PlayerInput
@@ -83,7 +70,7 @@ func _apply_animations(_delta):
 func _apply_movement_from_input(delta):
 	if not is_on_floor():
 		if coyoteJump or coyoteTimer.is_stopped():
-			coyoteTimer.start(COYOTE_TIMER_LENGTH)
+			coyoteTimer.start(PLAYER.COYOTE_TIMER_LENGTH)
 		if not isDashing:
 			velocity.y += return_gravity() * delta
 	else:
@@ -109,18 +96,26 @@ func _apply_movement_from_input(delta):
 	var direction = player_input.input_direction
 	
 	# player movement
-	if isDashing:
-		print("hered")
+	if isSlipping:
+			if isDashing or abs(velocity.x) > PLAYER.SPEED:
+				velocity.x = lerp(velocity.x, velocity.x * PLAYER.OIL_SLIP_SPEED, PLAYER.OIL_SLIP_SPEED)
+			else:
+				velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED * PLAYER.OIL_SLIP_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.OIL_SLIP_SPEED)
+	elif isDashing:
 		if not direction:
 			var dashDirection = -1 if animated_sprite.flip_h else 1
-			velocity.x = move_toward(velocity.x, dashDirection * SPEED * DASH_SPEED, SPEED * ACCELERATION * DASH_SPEED)
+			velocity.x = move_toward(velocity.x, dashDirection * PLAYER.SPEED * PLAYER.DASH_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.DASH_SPEED)
 		else:
-			velocity.x = move_toward(velocity.x, direction * SPEED * DASH_SPEED, SPEED * ACCELERATION * DASH_SPEED)
+			velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED * PLAYER.DASH_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.DASH_SPEED)
+	elif isGrappling:
+		var directionToTarget = (grappleToPosition - global_position).normalized()
+		velocity += directionToTarget * PLAYER.GRAPPLING_HOOK_SPEED * delta
 	elif direction:
-		velocity.x = move_toward(velocity.x, direction * SPEED, SPEED * ACCELERATION)
+		velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED, PLAYER.SPEED * PLAYER.ACCELERATION)
 		animated_sprite.flip_h = direction < 0
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED * DECELERATION)
+		velocity.x = move_toward(velocity.x, 0, PLAYER.SPEED * PLAYER.DECELERATION)
+	
 
 	if player_input.input_dash and canDash:
 		if !isDashing:
@@ -131,18 +126,19 @@ func _apply_movement_from_input(delta):
 	
 	if powerupManager.is_jetpack_active:
 		if player_input.input_use_powerup and powerupManager.jetpack_fuel > 0:
-			velocity.y = JETPACK_VELOCITY
-			powerupManager.jetpack_fuel -= JETPACK_FUEL_CONSUMPTION * delta
+			velocity.y = PLAYER.JETPACK_VELOCITY
+			powerupManager.jetpack_fuel -= PLAYER.JETPACK_FUEL_CONSUMPTION * delta
 		if powerupManager.jetpack_fuel <= 0:
 			powerupManager.deactivate_jetpack()
+
 
 	if isGrappling:
 		queue_redraw()
 		var directionToTarget = (grappleToPosition - global_position).normalized()
-		velocity += directionToTarget * GRAPPLING_HOOK_SPEED * delta
+		velocity += directionToTarget * PLAYER.GRAPPLING_HOOK_SPEED * delta
 		MultiplayerManager.rpc("update_grappling_hook", global_position, grappleToPosition)
 
-		if global_position.distance_to(grappleToPosition) < 10 or global_position > grappleToPosition or rayCastRight.is_colliding():
+		if global_position.distance_to(grappleToPosition) < 10 or global_position > grappleToPosition:
 			stop_grappling_hook()
 
 	if MultiplayerManager.drawGrapplingHook or MultiplayerManager.redraw_queue:
@@ -189,21 +185,21 @@ func _set_alive():
 	
 func jump():
 	if is_on_floor() or coyoteJump:
-		velocity.y = JUMP_VELOCITY
+		velocity.y = PLAYER.JUMP_VELOCITY
 		coyoteJump = false
 	else:
 		if !jumpBuffered:
 			jumpBuffered = true
-			jumpBufferTimer.start(JUMP_BUFFER_TIME_LENGTH)
+			jumpBufferTimer.start(PLAYER.JUMP_BUFFER_TIME_LENGTH)
 	
-	if is_on_wall_only() and velocity.y > 0:
+	if is_on_wall_only():
 		wall_jump()
 
 func wall_jump():
-	velocity = Vector2(get_wall_normal().x * WALL_JUMP_PUSHBACK, JUMP_VELOCITY)
+	velocity = Vector2(get_wall_normal().x * PLAYER.WALL_JUMP_PUSHBACK, PLAYER.JUMP_VELOCITY)
 
 func wall_slide():
-	velocity.y = min(velocity.y, WALL_SLIDE_GRAVITY)
+	velocity.y = min(velocity.y, PLAYER.WALL_SLIDE_GRAVITY)
 	
 func start_dash():
 	isDashing = true
@@ -229,35 +225,41 @@ func return_gravity():
 		fall_rate = 1
 	elif velocity.y >= 0 and bumped == true:
 		bumped = false
-		fall_rate = DECELERATE_ON_JUMP_RELEASE
+		fall_rate = PLAYER.DECELERATE_ON_JUMP_RELEASE
 	return gravity
 
 func dash_cooldown_timeout():
 	canDash = true
 
 func oil_slip():
-	velocity.x *= .2
+	if !isSlipping:
+		isSlipping = true
+		oilSpillTimer.start()
+
+func oilspill_timer_timeout():
+	isSlipping = false
+
 
 func pull_to_target(targetPosition: Vector2, delta: float):
 	var directionBackToTarget = (targetPosition - global_position).normalized()
-	velocity += directionBackToTarget * GRAPPLING_HOOK_SPEED * delta
+	velocity += directionBackToTarget * PLAYER.GRAPPLING_HOOK_SPEED * delta
 
-	if global_position.distance_to(targetPosition) < GRAPPLING_HOOK_STOP_DISTANCE or rayCastLeft.is_colliding():
+	if global_position.distance_to(targetPosition) < PLAYER.GRAPPLING_HOOK_STOP_DISTANCE or rayCastLeft.is_colliding():
 		MultiplayerManager.isBeingPulled = false
 
 	move_and_slide()
 
 func _draw() -> void:
 	if isGrappling:
-		draw_line(CENTER_OF_SPRITE, to_local(grappleToPosition), Color.BLACK, GRAPPLING_HOOK_WIDTH)
+		draw_line(PLAYER.CENTER_OF_SPRITE, to_local(grappleToPosition), Color.BLACK, PLAYER.GRAPPLING_HOOK_WIDTH)
 	if MultiplayerManager.drawGrapplingHook:
-		draw_line(to_local(MultiplayerManager.grappleThrowerPosition), to_local(MultiplayerManager.grappleTargetPosition), Color.BLACK, GRAPPLING_HOOK_WIDTH)
+		draw_line(to_local(MultiplayerManager.grappleThrowerPosition), to_local(MultiplayerManager.grappleTargetPosition), Color.BLACK, PLAYER.GRAPPLING_HOOK_WIDTH)
 
 
 func fire_grappling_hook():
 	targetPlayer = get_leading_player()
 	if targetPlayer:
-		grappleToPosition = targetPlayer.global_position + CENTER_OF_SPRITE
+		grappleToPosition = targetPlayer.global_position + PLAYER.CENTER_OF_SPRITE
 		rayCastRight.look_at(grappleToPosition)
 		isGrappling = true
 		MultiplayerManager.rpc_id(targetPlayer.name.to_int(), "pull_to_target", global_position)
@@ -289,8 +291,8 @@ func get_leading_player() -> Node2D:
 
 func _on_dash_effect_timer_timeout():
 	var playerCopy = animated_sprite.duplicate()
-	get_parent().add_child(playerCopy)
-	playerCopy.global_position = global_position + CENTER_OF_SPRITE
+	get_tree().get_root().add_child(playerCopy)
+	playerCopy.global_position = global_position + PLAYER.CENTER_OF_SPRITE
 	
 	var effectTime = dashTimer.wait_time / 3
 	await get_tree().create_timer(effectTime).timeout

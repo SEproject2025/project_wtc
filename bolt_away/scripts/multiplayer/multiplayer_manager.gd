@@ -1,9 +1,8 @@
 extends Node
 
 const SERVER_PORT = 8080
-const SERVER_IP = "127.0.0.1"
+const SERVER_IP = "10.100.74.78"
 const PLAYERS_TO_START_GAME = 2
-const CENTER_OF_SPRITE = Vector2(3, -10) #Change if sprite changes
 
 var multiplayer_scene = preload("res://scenes/multiplayer_player.tscn")
 var oilspill_scene = preload("res://scenes/powerups/oilspill.tscn")
@@ -146,8 +145,8 @@ func reset_dedicated_server_state():
 	map_seed = 0
 	dead_player_id = 0
 	start_wall = false
-	deathWall.position.x = -270 
-	deathWall.wall_velocity = 25
+	deathWall.position.x = Constants.DeathWall.START_X 
+	deathWall.wall_velocity = Constants.DeathWall.WALL_INITIAL_VELOCITY
 
 @rpc("any_peer")
 func sync_map_seed(mySeed: int):
@@ -163,9 +162,8 @@ func sync_losing_player_id(losing_player_id: int):
 func start_death_wall():
 	var deathWall = get_tree().get_current_scene().get_node("DeathWallNode")
 	start_wall = true
-	#Start wall from beginning
-	deathWall.position.x = -270
-	deathWall.wall_velocity = 25
+	deathWall.position.x = Constants.DeathWall.START_X
+	deathWall.wall_velocity = Constants.DeathWall.WALL_INITIAL_VELOCITY
 
 @rpc("any_peer")
 func spawn_oilspill(position: Vector2):
@@ -176,17 +174,17 @@ func spawn_oilspill(position: Vector2):
 @rpc("any_peer")
 func pull_to_target(targetPosition: Vector2):
 	isBeingPulled = true
-	pull_target_position = targetPosition + CENTER_OF_SPRITE
+	pull_target_position = targetPosition + Constants.Player.CENTER_OF_SPRITE
 
 @rpc("any_peer")
 func draw_grappling_hook(throwerPosition: Vector2, targetPosition: Vector2):
 	drawGrapplingHook = true
-	grappleThrowerPosition = throwerPosition + CENTER_OF_SPRITE
+	grappleThrowerPosition = throwerPosition + Constants.Player.CENTER_OF_SPRITE
 	grappleTargetPosition = targetPosition
 
 @rpc("any_peer")
 func update_grappling_hook(throwerPosition: Vector2, targetPosition: Vector2):
-	grappleThrowerPosition = throwerPosition + CENTER_OF_SPRITE
+	grappleThrowerPosition = throwerPosition + Constants.Player.CENTER_OF_SPRITE
 	grappleTargetPosition = targetPosition
 
 @rpc("any_peer")
@@ -194,4 +192,4 @@ func stop_grappling_hook():
 	drawGrapplingHook = false
 	redraw_queue = true
 	grappleTargetPosition = Vector2.ZERO
-	grappleThrowerPosition = Vector2.ZERO + CENTER_OF_SPRITE
+	grappleThrowerPosition = Vector2.ZERO + Constants.Player.CENTER_OF_SPRITE

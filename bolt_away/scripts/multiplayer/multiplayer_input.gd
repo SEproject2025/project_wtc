@@ -28,4 +28,3 @@ func _process(_delta):
 	input_jump = Input.get_action_strength("jump")
 	input_dash = Input.get_action_strength("dash")
 	input_use_powerup = Input.get_action_strength("use_powerup")
-
