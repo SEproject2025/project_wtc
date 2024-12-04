@@ -1,0 +1,79 @@
+[gd_scene load_steps=9 format=3 uid="uid://cpoe72xuywwkb"]
+
+[ext_resource type="Script" path="res://scripts/WALLtransient_platform.gd" id="1_xa1pn"]
+[ext_resource type="Texture2D" uid="uid://4q18u2y54xjg" path="res://assets/sprites/TransientPlatformBottom.png" id="2_mjgft"]
+[ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="3_xrjpb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ykmdo"]
+radius = 8.06226
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0at4"]
+atlas = ExtResource("3_xrjpb")
+region = Rect2(24, 88.3328, 24, 23.6672)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_we03o"]
+size = Vector2(1, 34.125)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eca56"]
+radius = 11.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j08dq"]
+radius = 7.07107
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_xa1pn")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture = ExtResource("2_mjgft")
+
+[node name="RigidBodyUpperLeft" type="RigidBody2D" parent="."]
+position = Vector2(0, -16)
+collision_layer = 2
+collision_mask = 4
+sleeping = true
+freeze = true
+contact_monitor = true
+max_contacts_reported = 5
+linear_velocity = Vector2(1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBodyUpperLeft"]
+position = Vector2(-7, 6)
+shape = SubResource("CircleShape2D_ykmdo")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBodyUpperLeft"]
+visible = false
+position = Vector2(-9, 3)
+texture = SubResource("AtlasTexture_g0at4")
+
+[node name="SQUEEEEK" type="Timer" parent="."]
+wait_time = 0.253
+
+[node name="Area2DLeft" type="Area2D" parent="."]
+position = Vector2(0, -2)
+collision_mask = 2
+
+[node name="CollisionShape2DL" type="CollisionShape2D" parent="Area2DLeft"]
+position = Vector2(-16.5, 0.9375)
+shape = SubResource("RectangleShape2D_we03o")
+
+[node name="RigidBodyLowerRight" type="RigidBody2D" parent="."]
+sleeping = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBodyLowerRight"]
+position = Vector2(5, 6)
+shape = SubResource("CircleShape2D_eca56")
+
+[node name="RigidBodyUpperRight" type="RigidBody2D" parent="."]
+sleeping = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBodyUpperRight"]
+position = Vector2(10, -12)
+shape = SubResource("CircleShape2D_j08dq")
+
+[connection signal="body_entered" from="RigidBodyUpperLeft" to="RigidBodyUpperLeft" method="_on_body_entered"]
+[connection signal="timeout" from="SQUEEEEK" to="." method="_on_squeeeek_timeout"]
+[connection signal="area_entered" from="Area2DLeft" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2DLeft" to="." method="_on_area_2d_left_body_entered"]
+[connection signal="body_entered" from="Area2DLeft" to="." method="_on_area_2d_body_entered"]

@@ -4,7 +4,7 @@ extends Node2D
 var startingChunk: PackedScene = preload("res://chunks/starting_chunk.tscn")
 var deathWall: PackedScene = preload("res://scenes/death_wall.tscn")
 
-var amnt = 5
+var amnt = 3
 var offset = 512
 var start_offset = -200
 var rng = RandomNumberGenerator.new()

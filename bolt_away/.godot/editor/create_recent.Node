@@ -1,3 +1,7 @@
+CollisionShape2D
+RigidBody2D
+Camera2D
+TileMapLayer
 Sprite2D
 ParallaxLayer
 Parallax2D
@@ -6,9 +10,5 @@ Button
 Timer
 TextureRect
 Control
-CollisionShape2D
 Area2D
 RayCast2D
-Node2D
-NavigationRegion2D
-NavigationObstacle2D

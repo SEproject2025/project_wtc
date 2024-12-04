@@ -1,9 +1,7 @@
 extends Node
 
-var score = 0
 var singlePlayerEnabled = false
 
-@onready var score_label = $ScoreLabel
 @onready var end_game_screen = get_parent().get_node("EndGameScreen")
 
 func _ready():
@@ -12,9 +10,6 @@ func _ready():
 		MultiplayerManager.host()
 	end_game_screen.hide()
 
-func add_point():
-	score += 1
-	score_label.text = "score: " + str(score)
 
 func host():
 	print("host")

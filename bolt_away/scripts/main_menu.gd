@@ -7,8 +7,8 @@ func _ready() -> void:
 		call_deferred("_on_host_pressed")
 
 func _on_host_pressed():
+	#pass
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
-
 func _on_join_pressed():
 	pass # Replace with function body.
 
