@@ -1,6 +1,7 @@
-[gd_scene load_steps=40 format=3 uid="uid://bbkqm75x5qo4d"]
+[gd_scene load_steps=41 format=3 uid="uid://bbkqm75x5qo4d"]
 
 [ext_resource type="Script" path="res://scripts/player_character.gd" id="1_y2p1t"]
+[ext_resource type="Script" path="res://scripts/powerups/powerup_hud.gd" id="2_a42bt"]
 [ext_resource type="Script" path="res://scripts/multiplayer_input.gd" id="5_82x6r"]
 
 [sub_resource type="Animation" id="Animation_bvmwo"]
@@ -371,6 +372,23 @@ texture_progress = SubResource("CompressedTexture2D_5ggrr")
 position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_wboyi")
 
+[node name="GrapplingHookRayCasts" type="Node2D" parent="."]
+
+[node name="RayCastRight" type="RayCast2D" parent="GrapplingHookRayCasts"]
+position = Vector2(3, -6)
+target_position = Vector2(10, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="GrapplingHookRayCasts"]
+position = Vector2(-2, -6)
+target_position = Vector2(-10, 0)
+
+[node name="RayCastToObstacle" type="RayCast2D" parent="GrapplingHookRayCasts"]
+position = Vector2(3, -6)
+target_position = Vector2(500, 0)
+
+[node name="PowerUpManager" type="Node" parent="."]
+unique_name_in_owner = true
+
 [node name="Timers" type="Node" parent="."]
 
 [node name="DashTimer" type="Timer" parent="Timers"]
@@ -390,8 +408,27 @@ one_shot = true
 wait_time = 0.6
 one_shot = true
 
+[node name="DashEffectTimer" type="Timer" parent="Timers"]
+wait_time = 0.1
+
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_1i0gq")
+
+[node name="PowerUpHUD" type="Control" parent="PlayerSynchronizer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -5.0
+offset_top = -40.0
+offset_right = 5.0
+offset_bottom = -31.0
+script = ExtResource("2_a42bt")
+
+[node name="PowerupIcon" type="TextureRect" parent="PlayerSynchronizer/PowerUpHUD"]
+layout_mode = 0
+offset_left = -11.0
+offset_top = -48.0
+offset_right = 12.0
+offset_bottom = -26.0
 
 [node name="Input" type="Node" parent="."]
 script = ExtResource("5_82x6r")

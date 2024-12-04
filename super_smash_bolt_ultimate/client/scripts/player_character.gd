@@ -26,6 +26,9 @@ var wallJumping: bool = false
 var jumpReleased: bool = false
 var _is_on_floor: bool = true
 var alive: bool = true
+var grappleToPosition: Vector2
+var targetPlayer
+var isGrappling: bool = false
 var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 
 @onready var animated_sprite: Sprite2D = $Sprite2D
@@ -34,6 +37,11 @@ var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 @onready var dashTimer: Timer = $Timers/DashTimer
 @onready var jumpBufferTimer: Timer = $Timers/JumpBufferTimer
 @onready var dashCooldown: Timer = $"Timers/DashCooldown"
+@onready var powerupManager = $PowerUpManager
+@onready var rayCastRight = $GrapplingHookRayCasts/RayCastRight
+@onready var rayCastLeft = $GrapplingHookRayCasts/RayCastLeft
+@onready var raycastToObstacle = $GrapplingHookRayCasts/RayCastToObstacle
+@onready var dashEffectTimer = $Timers/DashEffectTimer
 
 var hostSprite = preload("res://assets/sprites/mine_bot_idle_sheet_5.png")
 
@@ -111,7 +119,8 @@ func _physics_process(delta):
 	if not is_on_floor():
 		if coyoteJump and coyoteTimer.is_stopped():
 			coyoteTimer.start(COYOTE_TIMER_LENGTH)
-		velocity.y += return_gravity() * delta
+		if not isDashing:
+			velocity.y += return_gravity() * delta
 	else:
 		coyoteJump = true
 		coyoteTimer.stop()

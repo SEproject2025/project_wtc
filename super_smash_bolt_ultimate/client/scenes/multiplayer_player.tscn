@@ -1,8 +1,8 @@
 [gd_scene load_steps=19 format=3 uid="uid://d226nufmlvivj"]
 
-[ext_resource type="Script" path="res://scripts/multiplayer_controller.gd" id="1_ij7lf"]
-[ext_resource type="Script" path="res://scripts/multiplayer_input.gd" id="2_75sn2"]
-[ext_resource type="Texture2D" uid="uid://c3ldrxkyptxuq" path="res://assets/sprites/mine_bot_idle_sheet_4.png" id="2_iawno"]
+[ext_resource type="Texture2D" uid="uid://bls1g11tx37i3" path="res://assets/sprites/mine_bot_idle_sheet_5.png" id="2_iawno"]
+[ext_resource type="Script" path="res://scripts/powerup_manager.gd" id="2_xrsns"]
+[ext_resource type="Script" path="res://scripts/powerups/powerup_hud.gd" id="5_scvm3"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bcfu3"]
 properties/0/path = NodePath(".:player_id")
@@ -28,6 +28,9 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:input_dash")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath(".:input_use_powerup")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_td1pg"]
 atlas = ExtResource("2_iawno")
@@ -128,23 +131,21 @@ animations = [{
 radius = 6.0
 height = 18.0
 
-[node name="MultiplayerPlayer" type="CharacterBody2D" node_paths=PackedStringArray("player_input")]
+[node name="MultiplayerPlayer" type="CharacterBody2D"]
 collision_layer = 2
-script = ExtResource("1_ij7lf")
-player_input = NodePath("Input")
+wall_min_slide_angle = 0.0
 
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_bcfu3")
 
 [node name="Input" type="Node" parent="."]
-script = ExtResource("2_75sn2")
 
 [node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="Input"]
 replication_config = SubResource("SceneReplicationConfig_kgm8b")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -7)
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 limit_bottom = 120
 limit_smoothed = true
 position_smoothing_enabled = true
@@ -154,8 +155,6 @@ position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_p2mq8")
 animation = &"idle"
 autoplay = "idle"
-frame = 2
-frame_progress = 0.717656
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -9)
@@ -180,8 +179,46 @@ one_shot = true
 wait_time = 0.6
 one_shot = true
 
+[node name="DashEffectTimer" type="Timer" parent="Timers"]
+wait_time = 0.1
+
+[node name="PowerUpManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_xrsns")
+
+[node name="GrapplingHookRayCasts" type="Node2D" parent="."]
+
+[node name="RayCastRight" type="RayCast2D" parent="GrapplingHookRayCasts"]
+position = Vector2(3, -8)
+target_position = Vector2(10, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="GrapplingHookRayCasts"]
+position = Vector2(-2, -8)
+target_position = Vector2(-10, 0)
+
+[node name="RayCastToObstacle" type="RayCast2D" parent="GrapplingHookRayCasts"]
+position = Vector2(3, -10)
+target_position = Vector2(500, 0)
+
+[node name="PowerUpHUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -5.0
+offset_top = -40.0
+offset_right = 5.0
+offset_bottom = -31.0
+script = ExtResource("5_scvm3")
+
+[node name="PowerupIcon" type="TextureRect" parent="PowerUpHUD"]
+layout_mode = 0
+offset_left = -11.0
+offset_top = -48.0
+offset_right = 12.0
+offset_bottom = -26.0
+
 [connection signal="timeout" from="Timers/DashTimer" to="." method="dash_timeout"]
 [connection signal="timeout" from="Timers/DashCooldown" to="." method="dash_cooldown_timeout"]
 [connection signal="timeout" from="Timers/JumpBufferTimer" to="." method="jump_buffer_timeout"]
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="coyote_timeout"]
 [connection signal="timeout" from="Timers/RespawnTimer" to="." method="_respawn"]
+[connection signal="timeout" from="Timers/DashEffectTimer" to="." method="_on_dash_effect_timer_timeout"]
