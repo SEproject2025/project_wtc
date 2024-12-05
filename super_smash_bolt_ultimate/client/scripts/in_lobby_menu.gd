@@ -96,7 +96,7 @@ func _on_return_pressed():
 	User.client.send_left_info(User.current_lobby_name)
 	await get_tree().create_timer(1).timeout
 	User.client.request_lobby_list()
-	get_parent().get_parent().add_child(load("res://scenes/lobby_menu.tscn").instantiate())
+	get_tree().get_root().add_child(load("res://scenes/lobby_menu.tscn").instantiate())
 	pop_up.queue_free()
 	queue_free()
 

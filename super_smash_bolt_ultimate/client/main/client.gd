@@ -12,6 +12,7 @@ var client_connected : bool = false
 
 # Signals for various events
 signal invalid_new_lobby_name
+signal invalid_user_name
 signal invalid_join_lobby_name
 signal join_lobby(lobby_name : String)
 signal new_lobby(lobby_name : String)
@@ -95,6 +96,9 @@ func parse_msg():
 	
 	# Handle different message types
 	if type == Message.USER_INFO:
+		if data == "INVALID":
+			invalid_user_name.emit()
+			return
 		User.user_name = data
 		User.ID = id
 		print("Received User name = %s ID# %s" %[data, id])

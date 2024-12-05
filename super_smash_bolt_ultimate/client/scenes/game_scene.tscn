@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://chvj808e8555p"]
+[gd_scene load_steps=18 format=3 uid="uid://chvj808e8555p"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_e2uyo"]
 [ext_resource type="PackedScene" uid="uid://dlrwjh05484qr" path="res://scenes/parallax_background.tscn" id="2_poitg"]
@@ -17,15 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://c3pfve3y737tc" path="res://scenes/death_wall.tscn" id="15_5ci7t"]
 [ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="16_1whiy"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ih6ro"]
-bg_color = Color(0.905882, 0.117647, 0.137255, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3c10p"]
-bg_color = Color(0.905882, 0.117647, 0.137255, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l03y4"]
-bg_color = Color(0.905882, 0.117647, 0.137255, 1)
-
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r3yr3"]
 distance = -683.0
 
@@ -36,35 +27,6 @@ script = ExtResource("1_e2uyo")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(185, 87)
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -512.0
-offset_top = -204.0
-offset_right = -512.0
-offset_bottom = -204.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Button" type="Button" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 299.0
-offset_top = 204.0
-offset_right = -800.0
-offset_bottom = -455.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_styles/hover = SubResource("StyleBoxFlat_ih6ro")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_3c10p")
-theme_override_styles/normal = SubResource("StyleBoxFlat_l03y4")
-text = "Return to Main Menu"
 
 [node name="level" type="Node2D" parent="."]
 position = Vector2(3, 0)
@@ -79,5 +41,3 @@ rotation = -0.0872665
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("WorldBoundaryShape2D_r3yr3")
-
-[connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]

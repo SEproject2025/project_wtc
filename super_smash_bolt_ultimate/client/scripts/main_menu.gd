@@ -2,6 +2,7 @@ extends Control
 
 var lobby_menu_template = preload("res://scenes/lobby_menu.tscn")
 var pop_up_template = preload("res://scenes/pop_up.tscn")
+var main_menu_template = preload("res://scenes/main_menu.tscn")
 var control_flag : bool = false
 var lobby_menu
 
@@ -27,6 +28,7 @@ func _on_play_pressed():
 		get_parent().add_child(User.client)
 		control_flag = true
 		User.client.user_name_feedback_received.connect(go_to_lobby_menu)
+		User.client.invalid_user_name.connect(invalid_name)
 		$Loading.show()
 		await get_tree().create_timer(2).timeout
 		
@@ -69,3 +71,11 @@ func _on_username_text_submitted(_new_text):
 
 func _on_quit_pressed():
 	get_tree().quit(0)
+
+func invalid_name():
+	var new_main_menu = main_menu_template.instantiate()
+	get_parent().add_child(new_main_menu)
+	var pop_up = pop_up_template.instantiate()
+	pop_up.set_msg("Invalid name!")
+	new_main_menu.add_child(pop_up)
+	queue_free()

@@ -9,7 +9,9 @@ var peers : Dictionary = {}
 var lobbies = []
 var to_remove_lobbys = []
 var to_remove_peers = []
+var http_request = HTTPRequest.new()
 
+signal profanity_check_completed(result: bool)
 class Peer extends RefCounted:
 	var id : = -1
 	var ws = WebSocketPeer.new()
@@ -39,6 +41,9 @@ class Lobby extends RefCounted:
 	func _init(host_id : int, _lobby_name : String):
 		_name = _lobby_name
 
+func _ready() -> void:
+	add_child(http_request)
+	http_request.connect("request_completed", _request_completed)
 
 func _init():
 	var error = server.listen(hard_coded_port)
@@ -60,7 +65,8 @@ func poll():
 		p.ws.poll()
 		
 		while p.is_ws_open() and p.ws.get_available_packet_count():
-			if parse_msg(p):
+			var parse_result = await parse_msg(p)
+			if parse_result:
 				pass
 			else:
 				print("Message received! ERROR can not parse! ")
@@ -171,9 +177,14 @@ func parse_msg(peer : Peer) -> bool:
 		return true
 	
 	if type == Message.USER_INFO:
-		peer.send_msg(Message.USER_INFO, peer.id, data)
-		peer.user_name = data
-		print("User name received! Received name: %s" %data)
+		create_request(data)
+		var profanity_result = await(profanity_check_completed)
+		if not profanity_result:
+			peer.send_msg(Message.USER_INFO, peer.id, data)
+			peer.user_name = data
+			print("User name received! Received name: %s" %data)
+		else:
+			peer.send_msg(Message.USER_INFO, peer.id, "INVALID")
 		return true
 	
 	if type == Message.LOBBY_LIST:
@@ -227,7 +238,14 @@ func parse_msg(peer : Peer) -> bool:
 		for i in lobbies:
 			if i.peers.has(peer):
 				for j in i.peers:
-					j.send_msg(Message.LOBBY_MESSAGE, 0, data)
+					create_request(data)
+					var profanity_result = await(profanity_check_completed)
+					if not profanity_result:
+						j.send_msg(Message.LOBBY_MESSAGE, 0, data)
+					else:
+						var array = data.split("***", true, 1)
+						array[1] = "***"
+						j.send_msg(Message.LOBBY_MESSAGE, 0, array[0] + "***" + array[1])
 				return true
 
 	if type == Message.MAP_SEED:
@@ -235,7 +253,6 @@ func parse_msg(peer : Peer) -> bool:
 			if i.peers.has(peer):
 				for j in i.peers:
 						j.send_msg(Message.MAP_SEED, 0, data)
-				to_remove_lobbys.push_back(i)
 				return true
 
 	
@@ -293,3 +310,21 @@ func find_lobby_by_name(lobby_name : String):
 			return lobby
 	
 	return false
+
+
+func create_request(text):
+	http_request.cancel_request()
+	var url = "https://www.purgomalum.com/service/containsprofanity?text=" + text.uri_encode()
+	var error = http_request.request(url)
+	if error != OK:
+		print("ERROR! Can not create request! ERROR CODE = %d" % error)
+	else:
+		print("Request created successfully!")
+
+func _request_completed(result, _response_code, _headers, body):
+	if result != 0:
+		print("ERROR! Can not create request! ERROR CODE = %d" % result)
+		return
+	
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	profanity_check_completed.emit(json)
