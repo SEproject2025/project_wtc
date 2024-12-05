@@ -24,6 +24,7 @@ Constants="*res://scripts/constants.gd"
 
 window/size/viewport_width=1300
 window/size/viewport_height=700
+window/stretch/mode="canvas_items"
 
 [editor]
 

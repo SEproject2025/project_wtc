@@ -1,6 +1,5 @@
 extends Control
 
-var lobby_menu_template = preload("res://scenes/lobby_menu.tscn")
 var pop_up_template = preload("res://scenes/pop_up.tscn")
 var game_scene_template = preload("res://scenes/game_scene.tscn")
 var player_character_template = preload("res://scenes/player_character.tscn")
@@ -97,7 +96,7 @@ func _on_return_pressed():
 	User.client.send_left_info(User.current_lobby_name)
 	await get_tree().create_timer(1).timeout
 	User.client.request_lobby_list()
-	get_parent().add_child(lobby_menu_template.instantiate())
+	get_parent().get_parent().add_child(load("res://scenes/lobby_menu.tscn").instantiate())
 	pop_up.queue_free()
 	queue_free()
 
