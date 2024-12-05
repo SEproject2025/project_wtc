@@ -106,8 +106,7 @@ func parse_msg(peer : Peer) -> bool:
 			
 			for player in current_lobby.peers:
 				player.send_msg(Message.GAME_STARTING, 0 , all_peer_ids)
-			to_remove_lobbys.push_back(current_lobby)
-			
+	
 		return true
 	
 	if type == Message.OFFER:
@@ -236,6 +235,7 @@ func parse_msg(peer : Peer) -> bool:
 			if i.peers.has(peer):
 				for j in i.peers:
 						j.send_msg(Message.MAP_SEED, 0, data)
+				to_remove_lobbys.push_back(i)
 				return true
 
 	

@@ -29,4 +29,5 @@ func add_chunk(num, chunkPosition):
 	add_child(instance)
 
 func set_map_seed(map_seed: int):
+	print("received seed: " + str(map_seed))
 	rng.seed = map_seed

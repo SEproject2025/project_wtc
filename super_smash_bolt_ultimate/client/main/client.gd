@@ -201,7 +201,6 @@ func parse_msg():
 		return false
 	
 	if type == Message.LEFT_GAME:
-		print("HEREEE")
 		if User.peers.has(id):
 			User.peers.erase(id)
 			some_one_left_game.emit(id)

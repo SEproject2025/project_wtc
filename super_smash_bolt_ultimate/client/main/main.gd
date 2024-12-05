@@ -9,7 +9,7 @@ func _ready():
 	add_child(intro)
 	User.reset.connect(connection_reset)
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 func connection_reset():

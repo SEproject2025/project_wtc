@@ -9,8 +9,8 @@ radius = 3.0
 [node name="PowerUpSpawner" type="Area2D"]
 collision_mask = 2
 script = ExtResource("1_pl8qu")
-powerups = null
-powerupProbabilities = null
+powerups = Array[int]([1, 2])
+powerupProbabilities = Array[float]([0.5, 0.5])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_a6lfy")

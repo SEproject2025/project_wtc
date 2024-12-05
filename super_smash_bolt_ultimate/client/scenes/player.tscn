@@ -1,7 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://dqnaqj8yb6hwd"]
+[gd_scene load_steps=18 format=3 uid="uid://dqnaqj8yb6hwd"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ofpvf"]
-[ext_resource type="Texture2D" uid="uid://c3ldrxkyptxuq" path="res://assets/sprites/mine_bot_idle_sheet_4.png" id="2_w6y4y"]
+[ext_resource type="Texture2D" uid="uid://ns3yo3xcmqji" path="res://assets/sprites/mine_bot_idle_sheet_4.png" id="2_w6y4y"]
+[ext_resource type="Script" path="res://scripts/powerup_manager.gd" id="3_uodo8"]
+[ext_resource type="Script" path="res://scripts/powerups/powerup_hud.gd" id="4_062mm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hq1gh"]
 atlas = ExtResource("2_w6y4y")
@@ -102,11 +104,6 @@ animations = [{
 radius = 6.0
 height = 20.0
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_w2u8d"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 2
@@ -117,8 +114,9 @@ metadata/_edit_vertical_guides_ = [-7.0, 6.0]
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_ci82u")
-animation = &"run"
+animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.634944
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
@@ -139,10 +137,41 @@ one_shot = true
 wait_time = 0.4
 one_shot = true
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_w2u8d")
+[node name="DashEffectTimer" type="Timer" parent="Timers"]
+wait_time = 0.1
 
-[connection signal="timeout" from="Timers/DashCooldown" to="." method="dash_cooldown_timeout"]
+[node name="OilSpillTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+one_shot = true
+
+[node name="PowerUpManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_uodo8")
+
+[node name="RayCastToObstacle" type="RayCast2D" parent="."]
+position = Vector2(3, -10)
+target_position = Vector2(500, 0)
+
+[node name="PowerUpHUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -4.0
+offset_top = -34.0
+offset_right = 4.0
+offset_bottom = -28.0
+script = ExtResource("4_062mm")
+
+[node name="PowerupIcon" type="TextureRect" parent="PowerUpHUD"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -11.0
+offset_right = 9.0
+offset_bottom = -1.0
+expand_mode = 3
+stretch_mode = 3
+
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="coyote_timeout"]
 [connection signal="timeout" from="Timers/JumpBufferTimer" to="." method="jump_buffer_timeout"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="dash_timeout"]
+[connection signal="timeout" from="Timers/DashEffectTimer" to="." method="_on_dash_effect_timer_timeou"]
+[connection signal="timeout" from="Timers/OilSpillTimer" to="." method="oilspill_timer_timeout"]

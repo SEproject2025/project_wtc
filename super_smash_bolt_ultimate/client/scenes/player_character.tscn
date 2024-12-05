@@ -1,7 +1,8 @@
-[gd_scene load_steps=41 format=3 uid="uid://bbkqm75x5qo4d"]
+[gd_scene load_steps=42 format=3 uid="uid://bbkqm75x5qo4d"]
 
 [ext_resource type="Script" path="res://scripts/player_character.gd" id="1_y2p1t"]
 [ext_resource type="Script" path="res://scripts/powerups/powerup_hud.gd" id="2_a42bt"]
+[ext_resource type="Script" path="res://scripts/powerup_manager.gd" id="2_xmqwq"]
 [ext_resource type="Script" path="res://scripts/multiplayer_input.gd" id="5_82x6r"]
 
 [sub_resource type="Animation" id="Animation_bvmwo"]
@@ -280,10 +281,9 @@ properties/2/replication_mode = 1
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f80uk"]
 load_path = "res://.godot/imported/mine_bot_idle_sheet_4.png-d724f3759fdae1bf673ea2c52026bf35.ctex"
 
-[node name="Player Character" type="CharacterBody2D" node_paths=PackedStringArray("player_input") groups=["Players"]]
+[node name="Player Character" type="CharacterBody2D" groups=["Players"]]
 collision_layer = 2
 script = ExtResource("1_y2p1t")
-player_input = NodePath("Input")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -7)
@@ -386,8 +386,10 @@ target_position = Vector2(-10, 0)
 position = Vector2(3, -6)
 target_position = Vector2(500, 0)
 
-[node name="PowerUpManager" type="Node" parent="."]
+[node name="PowerUpManager" type="Node2D" parent="." node_paths=PackedStringArray("PowerUpHUD")]
 unique_name_in_owner = true
+script = ExtResource("2_xmqwq")
+PowerUpHUD = NodePath("../PowerUpHUD")
 
 [node name="Timers" type="Node" parent="."]
 
@@ -404,6 +406,10 @@ one_shot = true
 
 [node name="CoyoteTimer" type="Timer" parent="Timers"]
 
+[node name="OilSpillTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+one_shot = true
+
 [node name="RespawnTimer" type="Timer" parent="Timers"]
 wait_time = 0.6
 one_shot = true
@@ -411,10 +417,7 @@ one_shot = true
 [node name="DashEffectTimer" type="Timer" parent="Timers"]
 wait_time = 0.1
 
-[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_1i0gq")
-
-[node name="PowerUpHUD" type="Control" parent="PlayerSynchronizer"]
+[node name="PowerUpHUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -5.0
@@ -423,12 +426,15 @@ offset_right = 5.0
 offset_bottom = -31.0
 script = ExtResource("2_a42bt")
 
-[node name="PowerupIcon" type="TextureRect" parent="PlayerSynchronizer/PowerUpHUD"]
+[node name="PowerupIcon" type="TextureRect" parent="PowerUpHUD"]
 layout_mode = 0
 offset_left = -11.0
 offset_top = -48.0
 offset_right = 12.0
 offset_bottom = -26.0
+
+[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1i0gq")
 
 [node name="Input" type="Node" parent="."]
 script = ExtResource("5_82x6r")
@@ -443,3 +449,9 @@ hframes = 4
 vframes = 2
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timers/DashTimer" to="." method="dash_timeout"]
+[connection signal="timeout" from="Timers/DashCooldown" to="." method="dash_cooldown_timeout"]
+[connection signal="timeout" from="Timers/JumpBufferTimer" to="." method="jump_buffer_timeout"]
+[connection signal="timeout" from="Timers/CoyoteTimer" to="." method="coyote_timeout"]
+[connection signal="timeout" from="Timers/OilSpillTimer" to="." method="oil_spill_timer_timeout"]
+[connection signal="timeout" from="Timers/DashEffectTimer" to="." method="_on_dash_effect_timer_timeout"]
