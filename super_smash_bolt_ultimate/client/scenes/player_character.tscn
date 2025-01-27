@@ -1,0 +1,457 @@
+[gd_scene load_steps=42 format=3 uid="uid://bbkqm75x5qo4d"]
+
+[ext_resource type="Script" path="res://scripts/player_character.gd" id="1_y2p1t"]
+[ext_resource type="Script" path="res://scripts/powerups/powerup_hud.gd" id="2_a42bt"]
+[ext_resource type="Script" path="res://scripts/powerup_manager.gd" id="2_xmqwq"]
+[ext_resource type="Script" path="res://scripts/multiplayer_input.gd" id="5_82x6r"]
+
+[sub_resource type="Animation" id="Animation_bvmwo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_6fyj1"]
+resource_name = "Dead"
+length = 0.333342
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_qtxea"]
+resource_name = "Fall_end"
+length = 0.20001
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_lv1o4"]
+resource_name = "Fall_start"
+length = 0.166675
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_1lwyr"]
+resource_name = "Hurt"
+length = 0.250008
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_p78ra"]
+resource_name = "idle"
+length = 0.7
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_lacnp"]
+resource_name = "Jump"
+length = 0.20001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [4, 4]
+}
+
+[sub_resource type="Animation" id="Animation_1kjfs"]
+resource_name = "Run"
+length = 0.500008
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0, 0, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_brr3u"]
+_data = {
+"RESET": SubResource("Animation_bvmwo"),
+"dead": SubResource("Animation_6fyj1"),
+"fall_end": SubResource("Animation_qtxea"),
+"fall_start": SubResource("Animation_lv1o4"),
+"hurt": SubResource("Animation_1lwyr"),
+"idle": SubResource("Animation_p78ra"),
+"jump": SubResource("Animation_lacnp"),
+"run": SubResource("Animation_1kjfs")
+}
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_voqrl"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Sprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hy5qk"]
+animation = &"dead"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hqgr2"]
+animation = &"fall_end"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w36rd"]
+animation = &"fall_start"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k0vis"]
+animation = &"hurt"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rvyjk"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e1o0n"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_31qxw"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bqjit"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ginhq"]
+reset = false
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_daml0"]
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qeowp"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q8hrg"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5ufo7"]
+switch_mode = 1
+advance_mode = 2
+advance_expression = "is_on_floor()"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p2aqo"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n353o"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x2t58"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r66ul"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mdvj4"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6akl4"]
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_vmskf"]
+states/End/position = Vector2(1073, 182)
+states/Start/position = Vector2(94, 176)
+states/dead/node = SubResource("AnimationNodeAnimation_hy5qk")
+states/dead/position = Vector2(2.98132, 126.211)
+states/fall_end/node = SubResource("AnimationNodeAnimation_hqgr2")
+states/fall_end/position = Vector2(508, -46)
+states/fall_start/node = SubResource("AnimationNodeAnimation_w36rd")
+states/fall_start/position = Vector2(326, -46)
+states/hurt/node = SubResource("AnimationNodeAnimation_k0vis")
+states/hurt/position = Vector2(111.981, 56.4166)
+states/idle/node = SubResource("AnimationNodeAnimation_rvyjk")
+states/idle/position = Vector2(282, 176)
+states/jump/node = SubResource("AnimationNodeAnimation_e1o0n")
+states/jump/position = Vector2(306, 33.4166)
+states/run/node = SubResource("AnimationNodeAnimation_31qxw")
+states/run/position = Vector2(524, 182)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_bqjit"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ginhq"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_daml0"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_qeowp"), "jump", "fall_start", SubResource("AnimationNodeStateMachineTransition_q8hrg"), "fall_start", "fall_end", SubResource("AnimationNodeStateMachineTransition_5ufo7"), "fall_end", "idle", SubResource("AnimationNodeStateMachineTransition_p2aqo"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_n353o"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_x2t58"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_r66ul"), "hurt", "dead", SubResource("AnimationNodeStateMachineTransition_mdvj4"), "idle", "dead", SubResource("AnimationNodeStateMachineTransition_6akl4")]
+graph_offset = Vector2(-128.549, 29.74)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sist4"]
+size = Vector2(9.61861, 23.1357)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8vt3m"]
+load_path = "res://.godot/imported/red.png-42432e989feef4cdfa07511ade50ab7a.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5ggrr"]
+load_path = "res://.godot/imported/green.png-314c33de04b335649345ea7d7aad302b.ctex"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wboyi"]
+radius = 6.0
+height = 20.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1i0gq"]
+properties/0/path = NodePath(".:player_id")
+properties/0/spawn = true
+properties/0/replication_mode = 0
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:_is_on_floor")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:velocity")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8e02d"]
+properties/0/path = NodePath(".:input_direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:input_jump")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:input_dash")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f80uk"]
+load_path = "res://.godot/imported/mine_bot_idle_sheet_4.png-d724f3759fdae1bf673ea2c52026bf35.ctex"
+
+[node name="Player Character" type="CharacterBody2D" groups=["Players"]]
+collision_layer = 2
+script = ExtResource("1_y2p1t")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -7)
+zoom = Vector2(4, 4)
+limit_bottom = 120
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_brr3u")
+}
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_voqrl")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_vmskf")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -11.4321)
+shape = SubResource("RectangleShape2D_sist4")
+disabled = true
+debug_color = Color(0.858824, 0, 0.878431, 0.419608)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = -49.0
+offset_top = -64.0
+offset_right = 50.0
+offset_bottom = -30.0
+
+[node name="Control2" type="Control" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control/VBoxContainer/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0588235, 0.0588235, 0.0588235, 0.87451)
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 2
+text = "Player name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Control/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+texture_under = SubResource("CompressedTexture2D_8vt3m")
+texture_progress = SubResource("CompressedTexture2D_5ggrr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("CapsuleShape2D_wboyi")
+
+[node name="GrapplingHookRayCasts" type="Node2D" parent="."]
+
+[node name="RayCastRight" type="RayCast2D" parent="GrapplingHookRayCasts"]
+position = Vector2(3, -6)
+target_position = Vector2(10, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="GrapplingHookRayCasts"]
+position = Vector2(-2, -6)
+target_position = Vector2(-10, 0)
+
+[node name="RayCastToObstacle" type="RayCast2D" parent="GrapplingHookRayCasts"]
+position = Vector2(3, -6)
+target_position = Vector2(500, 0)
+
+[node name="PowerUpManager" type="Node2D" parent="." node_paths=PackedStringArray("PowerUpHUD")]
+unique_name_in_owner = true
+script = ExtResource("2_xmqwq")
+PowerUpHUD = NodePath("../PowerUpHUD")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="DashTimer" type="Timer" parent="Timers"]
+wait_time = 0.4
+one_shot = true
+
+[node name="DashCooldown" type="Timer" parent="Timers"]
+wait_time = 3.0
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="Timers"]
+
+[node name="OilSpillTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+one_shot = true
+
+[node name="RespawnTimer" type="Timer" parent="Timers"]
+wait_time = 0.6
+one_shot = true
+
+[node name="DashEffectTimer" type="Timer" parent="Timers"]
+wait_time = 0.1
+
+[node name="PowerUpHUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -5.0
+offset_top = -40.0
+offset_right = 5.0
+offset_bottom = -31.0
+script = ExtResource("2_a42bt")
+
+[node name="PowerupIcon" type="TextureRect" parent="PowerUpHUD"]
+layout_mode = 0
+offset_left = -11.0
+offset_top = -48.0
+offset_right = 12.0
+offset_bottom = -26.0
+
+[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1i0gq")
+
+[node name="Input" type="Node" parent="."]
+script = ExtResource("5_82x6r")
+
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="Input"]
+replication_config = SubResource("SceneReplicationConfig_8e02d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+texture = SubResource("CompressedTexture2D_f80uk")
+hframes = 4
+vframes = 2
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timers/DashTimer" to="." method="dash_timeout"]
+[connection signal="timeout" from="Timers/DashCooldown" to="." method="dash_cooldown_timeout"]
+[connection signal="timeout" from="Timers/JumpBufferTimer" to="." method="jump_buffer_timeout"]
+[connection signal="timeout" from="Timers/CoyoteTimer" to="." method="coyote_timeout"]
+[connection signal="timeout" from="Timers/OilSpillTimer" to="." method="oil_spill_timer_timeout"]
+[connection signal="timeout" from="Timers/DashEffectTimer" to="." method="_on_dash_effect_timer_timeout"]
