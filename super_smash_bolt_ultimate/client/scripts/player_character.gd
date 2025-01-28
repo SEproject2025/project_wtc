@@ -11,7 +11,6 @@ var canDash: bool = true
 var jumpBuffered: bool = false
 var wallJumping: bool = false
 var jumpReleased: bool = false
-var _is_on_floor: bool = true
 var alive: bool = true
 var pullTargetPosition: Vector2
 var isGrappling: bool = false
@@ -55,7 +54,7 @@ var attack_timer : int = 0
 func _ready():
 	reset()
 
-func _process(delta):
+func _process(_delta):
 	check_health()
 	set_animation()
 	if Input.is_action_just_pressed("use_powerup") and !powerupManager.is_jetpack_active:
@@ -168,6 +167,8 @@ func _on_area_2d_body_entered(body):
 
 
 func apply_movement(delta: float):
+	var direction = Input.get_axis("move_left", "move_right")
+
 	if not is_on_floor():
 		if coyoteJump and coyoteTimer.is_stopped():
 			coyoteTimer.start(PLAYER.COYOTE_TIMER_LENGTH)
@@ -184,6 +185,13 @@ func apply_movement(delta: float):
 		if powerupManager.jetpack_fuel <= 0:
 			powerupManager.deactivate_jetpack()
 
+	if powerupManager.is_dash_powerup_active:
+		if Input.is_action_pressed("use_powerup") and powerupManager.dashFuel > 0:
+			handle_dash(direction)
+			powerupManager.dashFuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
+		if powerupManager.dashFuel <= 0:
+			powerupManager.deactivate_dash()
+
 	if Input.is_action_just_pressed("jump"):
 		jump()
 ###
@@ -195,7 +203,7 @@ func apply_movement(delta: float):
 	if is_on_wall_only() and Input.get_axis("move_left", "move_right"):
 		wall_slide()
 
-	var direction = Input.get_axis("move_left", "move_right")
+	
 
 	if isSlipping:
 			if isDashing or abs(velocity.x) > PLAYER.SPEED:
@@ -203,11 +211,7 @@ func apply_movement(delta: float):
 			else:
 				velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED * PLAYER.OIL_SLIP_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.OIL_SLIP_SPEED)
 	elif isDashing:
-		if not direction:
-			var dashDirection = -1 if animated_sprite.flip_h else 1
-			velocity.x = move_toward(velocity.x, dashDirection * PLAYER.SPEED * PLAYER.DASH_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.DASH_SPEED)
-		else:
-			velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED * PLAYER.DASH_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.DASH_SPEED)
+		handle_dash(direction)
 	elif powerupManager.isGrappling:
 		var directionToTarget = (powerupManager.grappleTargetPosition - global_position).normalized()
 		velocity += directionToTarget * PLAYER.GRAPPLING_HOOK_SPEED * delta
@@ -259,6 +263,13 @@ func start_dash():
 	dashCooldown.start()
 	dashEffectTimer.start()
 
+func handle_dash(direction: int) :
+	if not direction:
+		var dashDirection = -1 if animated_sprite.flip_h else 1
+		velocity.x = move_toward(velocity.x, dashDirection * PLAYER.SPEED * PLAYER.DASH_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.DASH_SPEED)
+	else:
+		velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED * PLAYER.DASH_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.DASH_SPEED)
+
 func return_gravity():
 	var gravity = get_gravity().y
 	if velocity.y <= 0 and bumped == true:
@@ -309,6 +320,3 @@ func _on_dash_effect_timer_timeout():
 func begin_pulling_to_target(pullPosition: Vector2):
 	isBeingGrappled = true
 	pullTargetPosition = pullPosition + PLAYER.CENTER_OF_SPRITE
-
-
-

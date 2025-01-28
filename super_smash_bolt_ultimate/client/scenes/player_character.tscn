@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/player_character.gd" id="1_y2p1t"]
 [ext_resource type="Script" path="res://scripts/powerups/powerup_hud.gd" id="2_a42bt"]
-[ext_resource type="Script" path="res://scripts/powerup_manager.gd" id="2_xmqwq"]
+[ext_resource type="Script" path="res://scripts/powerups/powerup_manager.gd" id="2_qorcy"]
 [ext_resource type="Script" path="res://scripts/multiplayer_input.gd" id="5_82x6r"]
 
 [sub_resource type="Animation" id="Animation_bvmwo"]
@@ -283,6 +283,7 @@ load_path = "res://.godot/imported/mine_bot_idle_sheet_4.png-d724f3759fdae1bf673
 
 [node name="Player Character" type="CharacterBody2D" groups=["Players"]]
 collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_y2p1t")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -387,9 +388,10 @@ target_position = Vector2(-10, 0)
 position = Vector2(3, -6)
 target_position = Vector2(500, 0)
 
-[node name="PowerUpManager" type="Node2D" parent="." node_paths=PackedStringArray("PowerUpHUD")]
+[node name="PowerUpManager" type="Node2D" parent="." node_paths=PackedStringArray("parent", "PowerUpHUD")]
 unique_name_in_owner = true
-script = ExtResource("2_xmqwq")
+script = ExtResource("2_qorcy")
+parent = NodePath("..")
 PowerUpHUD = NodePath("../PowerUpHUD")
 
 [node name="Timers" type="Node" parent="."]
