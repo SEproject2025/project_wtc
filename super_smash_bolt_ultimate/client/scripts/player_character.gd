@@ -36,7 +36,6 @@ var hostSprite = preload("res://assets/sprites/mine_bot_idle_sheet_5.png")
 @export var player_id := 1:
 	set(id):
 		player_id = id
-###
 
 
 
@@ -49,7 +48,6 @@ var attack_timer : int = 0
 @onready var anim_player = $AnimationPlayer
 @onready var character_name = $Control/VBoxContainer/Control2/Label
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
 
 func _ready():
 	reset()
@@ -86,22 +84,9 @@ func reset():
 		set_process(false)
 		set_process_input(false)
 
-
-
-@rpc("any_peer","call_remote","reliable")
-func set_player_name(_name : String):
-	await get_tree().create_timer(2).timeout
-	character_name.text = _name
-
-@rpc("any_peer","call_local","reliable")
-func set_sprite():
-	await get_tree().create_timer(2).timeout
-	animated_sprite.texture = hostSprite
-
 func check_health():
 	if health.value <= 0:
 		die.rpc()
-
 
 func _physics_process(delta):
 	if isBeingGrappled:
@@ -114,8 +99,7 @@ func _physics_process(delta):
 	else:
 		apply_movement(delta)
 
-func set_animation():
-	
+func set_animation():	
 	if Input.is_action_just_pressed("jump") :
 		anim_tree.travel("jump")
 		sync_animation.rpc("jump")
@@ -135,37 +119,10 @@ func set_animation():
 			attack_state = false
 			attack_count = 1
 
-@rpc("any_peer","call_local","reliable")
-func die():
-	$AnimationTree.set_active(false)
-	anim_player.play("Dead")
-	set_physics_process(false)
-	set_process(false)
-	if get_multiplayer_authority() == (User.ID):
-		var lost_pop_up = lost_pop_up_template.instantiate()
-		add_child(lost_pop_up)
-	
-	# reset()
-
-@rpc("any_peer","call_remote","reliable")
-func sync_animation(anim_name: StringName):
-	anim_tree.travel(anim_name)
-
-
-@rpc("any_peer","call_remote","reliable")
-func sync_flip(dir : int):
-	$Area2D.transform.x.x = dir
-
-@rpc("any_peer","call_local","reliable")
-func hit_received():
-	anim_tree.start("Hurt", true)
-	health.value -= 5
-
 func _on_area_2d_body_entered(body):
 	if body != self:
 		body.hit_received.rpc()
-
-
+		
 func apply_movement(delta: float):
 	var direction = Input.get_axis("move_left", "move_right")
 
@@ -194,7 +151,6 @@ func apply_movement(delta: float):
 
 	if Input.is_action_just_pressed("jump"):
 		jump()
-###
 
 	# Variable Jump Height
 	if !Input.is_action_pressed("jump") and velocity.y < 0:
@@ -202,8 +158,6 @@ func apply_movement(delta: float):
 	
 	if is_on_wall_only() and Input.get_axis("move_left", "move_right"):
 		wall_slide()
-
-	
 
 	if isSlipping:
 			if isDashing or abs(velocity.x) > PLAYER.SPEED:
@@ -240,7 +194,6 @@ func jump():
 	if is_on_floor() or coyoteJump:
 		velocity.y = PLAYER.JUMP_VELOCITY
 		coyoteJump = false
-
 	else:
 		if !jumpBuffered:
 			jumpBuffered = true
@@ -280,6 +233,7 @@ func return_gravity():
 		fall_rate = PLAYER.DECELERATE_ON_JUMP_RELEASE
 	return gravity
 	
+#region Timers	
 func coyote_timeout():
 	coyoteJump = false
 
@@ -315,8 +269,45 @@ func _on_dash_effect_timer_timeout():
 
 	await get_tree().create_timer(effectTime).timeout
 	playerCopy.queue_free()
+#endregion
+
+#region RPCs
+@rpc("any_peer","call_remote","reliable")
+func set_player_name(_name : String):
+	character_name.text = _name
+
+@rpc("any_peer","call_local","reliable")
+func set_sprite():
+	animated_sprite.texture = hostSprite
+
+@rpc("any_peer","call_local","reliable")
+func die():
+	$AnimationTree.set_active(false)
+	anim_player.play("Dead")
+	set_physics_process(false)
+	set_process(false)
+	if get_multiplayer_authority() == (User.ID):
+		var lost_pop_up = lost_pop_up_template.instantiate()
+		add_child(lost_pop_up)
 	
+	# reset()
+
+@rpc("any_peer","call_remote","reliable")
+func sync_animation(anim_name: StringName):
+	anim_tree.travel(anim_name)
+
+
+@rpc("any_peer","call_remote","reliable")
+func sync_flip(dir : int):
+	$Area2D.transform.x.x = dir
+
+@rpc("any_peer","call_local","reliable")
+func hit_received():
+	anim_tree.start("Hurt", true)
+	health.value -= 5
+
 @rpc("any_peer")
 func begin_pulling_to_target(pullPosition: Vector2):
 	isBeingGrappled = true
 	pullTargetPosition = pullPosition + PLAYER.CENTER_OF_SPRITE
+#endregion
