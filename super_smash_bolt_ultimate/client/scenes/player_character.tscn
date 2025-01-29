@@ -281,10 +281,11 @@ properties/2/replication_mode = 1
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f80uk"]
 load_path = "res://.godot/imported/mine_bot_idle_sheet_4.png-d724f3759fdae1bf673ea2c52026bf35.ctex"
 
-[node name="Player Character" type="CharacterBody2D" groups=["Players"]]
+[node name="Player Character" type="CharacterBody2D" node_paths=PackedStringArray("player_input") groups=["Players"]]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_y2p1t")
+player_input = NodePath("Input")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -7)
@@ -308,7 +309,7 @@ advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -374,17 +375,22 @@ texture_progress = SubResource("CompressedTexture2D_5ggrr")
 position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_wboyi")
 
-[node name="GrapplingHookRayCasts" type="Node2D" parent="."]
+[node name="RayCasts" type="Node2D" parent="."]
 
-[node name="RayCastRight" type="RayCast2D" parent="GrapplingHookRayCasts"]
+[node name="RayCastRightToPlayer" type="RayCast2D" parent="RayCasts"]
+position = Vector2(-1, -6)
+target_position = Vector2(10, 0)
+collision_mask = 2
+
+[node name="RayCastRight" type="RayCast2D" parent="RayCasts"]
 position = Vector2(3, -6)
 target_position = Vector2(10, 0)
 
-[node name="RayCastLeft" type="RayCast2D" parent="GrapplingHookRayCasts"]
+[node name="RayCastLeft" type="RayCast2D" parent="RayCasts"]
 position = Vector2(-2, -6)
 target_position = Vector2(-10, 0)
 
-[node name="RayCastToObstacle" type="RayCast2D" parent="GrapplingHookRayCasts"]
+[node name="RayCastToObstacle" type="RayCast2D" parent="RayCasts"]
 position = Vector2(3, -6)
 target_position = Vector2(500, 0)
 
@@ -419,6 +425,10 @@ one_shot = true
 
 [node name="DashEffectTimer" type="Timer" parent="Timers"]
 wait_time = 0.1
+
+[node name="StunTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+one_shot = true
 
 [node name="PowerUpHUD" type="Control" parent="."]
 layout_mode = 3
@@ -458,3 +468,4 @@ vframes = 2
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="coyote_timeout"]
 [connection signal="timeout" from="Timers/OilSpillTimer" to="." method="oil_spill_timer_timeout"]
 [connection signal="timeout" from="Timers/DashEffectTimer" to="." method="_on_dash_effect_timer_timeout"]
+[connection signal="timeout" from="Timers/StunTimer" to="." method="stun_timer_timeout"]

@@ -11,6 +11,8 @@ var canDash: bool = true
 var jumpBuffered: bool = false
 var wallJumping: bool = false
 var jumpReleased: bool = false
+var _is_on_floor: bool = true
+var isStunned: bool = false
 var alive: bool = true
 var pullTargetPosition: Vector2
 var isGrappling: bool = false
@@ -24,11 +26,13 @@ var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 @onready var jumpBufferTimer: Timer = $Timers/JumpBufferTimer
 @onready var dashCooldown: Timer = $"Timers/DashCooldown"
 @onready var powerupManager = $PowerUpManager
-@onready var rayCastRight = $GrapplingHookRayCasts/RayCastRight
-@onready var rayCastLeft = $GrapplingHookRayCasts/RayCastLeft
-@onready var raycastToObstacle = $GrapplingHookRayCasts/RayCastToObstacle
-@onready var dashEffectTimer = $Timers/DashEffectTimer
-@onready var oilSpillTimer = $Timers/OilSpillTimer
+@onready var rayCastRight: RayCast2D = $RayCasts/RayCastRight
+@onready var rayCastLeft: RayCast2D = $RayCasts/RayCastLeft
+@onready var raycastToObstacle: RayCast2D = $RayCasts/RayCastToObstacle
+@onready var rayCastRightToPlayer: RayCast2D = $RayCasts/RayCastRightToPlayer
+@onready var dashEffectTimer: Timer = $Timers/DashEffectTimer
+@onready var oilSpillTimer: Timer = $Timers/OilSpillTimer
+@onready var stunTimer:Timer = $Timers/StunTimer
 
 var hostSprite = preload("res://assets/sprites/mine_bot_idle_sheet_5.png")
 
@@ -55,7 +59,7 @@ func _ready():
 func _process(_delta):
 	check_health()
 	set_animation()
-	if Input.is_action_just_pressed("use_powerup") and !powerupManager.is_jetpack_active:
+	if Input.is_action_just_pressed("use_powerup") and !powerupManager.is_jetpack_active and !powerupManager.is_dash_powerup_active:
 		powerupManager.use_powerup()
 
 func reset():
@@ -89,17 +93,9 @@ func check_health():
 		die.rpc()
 
 func _physics_process(delta):
-	if isBeingGrappled:
-		var directionBackToTarget = (pullTargetPosition - global_position).normalized()
-		velocity += directionBackToTarget * PLAYER.GRAPPLING_HOOK_SPEED * delta
+	apply_movement(delta)
 
-		if global_position.distance_to(pullTargetPosition) < PLAYER.GRAPPLING_HOOK_STOP_DISTANCE or rayCastLeft.is_colliding():
-			isBeingGrappled = false
-		move_and_slide()
-	else:
-		apply_movement(delta)
-
-func set_animation():	
+func set_animation():
 	if Input.is_action_just_pressed("jump") :
 		anim_tree.travel("jump")
 		sync_animation.rpc("jump")
@@ -126,6 +122,14 @@ func _on_area_2d_body_entered(body):
 func apply_movement(delta: float):
 	var direction = Input.get_axis("move_left", "move_right")
 
+	if isStunned:
+		handle_stunned_movement(delta, direction)
+		return
+	
+	if isBeingGrappled:
+		handle_being_grappled_movement(delta)
+		return
+
 	if not is_on_floor():
 		if coyoteJump and coyoteTimer.is_stopped():
 			coyoteTimer.start(PLAYER.COYOTE_TIMER_LENGTH)
@@ -144,6 +148,10 @@ func apply_movement(delta: float):
 
 	if powerupManager.is_dash_powerup_active:
 		if Input.is_action_pressed("use_powerup") and powerupManager.dashFuel > 0:
+			if rayCastRightToPlayer.is_colliding():
+				var collider = rayCastRightToPlayer.get_collider()
+				if collider and !collider.isStunned:
+					collider.get_stunned.rpc()
 			handle_dash(direction)
 			powerupManager.dashFuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
 		if powerupManager.dashFuel <= 0:
@@ -232,6 +240,21 @@ func return_gravity():
 		bumped = false
 		fall_rate = PLAYER.DECELERATE_ON_JUMP_RELEASE
 	return gravity
+
+func handle_being_grappled_movement(delta: float):
+	var directionBackToTarget = (pullTargetPosition - global_position).normalized()
+	velocity += directionBackToTarget * PLAYER.GRAPPLING_HOOK_SPEED * delta
+
+	if global_position.distance_to(pullTargetPosition) < PLAYER.GRAPPLING_HOOK_STOP_DISTANCE or rayCastLeft.is_colliding():
+		isBeingGrappled = false
+	move_and_slide()
+
+func handle_stunned_movement(delta: float, direction: int):
+	if velocity.y > 0 and !is_on_floor():
+		velocity.y += return_gravity() * delta
+	velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED * PLAYER.OIL_SLIP_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.OIL_SLIP_SPEED)
+	move_and_slide()
+
 	
 #region Timers	
 func coyote_timeout():
@@ -269,6 +292,11 @@ func _on_dash_effect_timer_timeout():
 
 	await get_tree().create_timer(effectTime).timeout
 	playerCopy.queue_free()
+
+func stun_timer_timeout():
+	isStunned = false
+	set_physics_process(true)
+	set_process(true)
 #endregion
 
 #region RPCs
@@ -310,4 +338,9 @@ func hit_received():
 func begin_pulling_to_target(pullPosition: Vector2):
 	isBeingGrappled = true
 	pullTargetPosition = pullPosition + PLAYER.CENTER_OF_SPRITE
+
+@rpc("any_peer", "call_local", "reliable")
+func get_stunned():
+	isStunned = true
+	stunTimer.start()
 #endregion
