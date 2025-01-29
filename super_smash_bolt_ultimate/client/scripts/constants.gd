@@ -20,6 +20,7 @@ class Player:
 	const GRAPPLING_HOOK_WIDTH = 1.5
 	const GRAPPLING_HOOK_STOP_DISTANCE = 10
 	const OIL_SLIP_SPEED = 0.2
+	const STUN_SPEED = 0.5
 	const DASH_FUEL_CONSUMPTION = 25
 
 class DeathWall:

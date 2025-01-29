@@ -62,6 +62,9 @@ func _process(_delta):
 	if Input.is_action_just_pressed("use_powerup") and !powerupManager.is_jetpack_active and !powerupManager.is_dash_powerup_active:
 		powerupManager.use_powerup()
 
+func _physics_process(delta):
+	apply_movement(delta)
+
 func reset():
 	set_physics_process(false)
 	set_process(false)
@@ -92,9 +95,6 @@ func check_health():
 	if health.value <= 0:
 		die.rpc()
 
-func _physics_process(delta):
-	apply_movement(delta)
-
 func set_animation():
 	if Input.is_action_just_pressed("jump") :
 		anim_tree.travel("jump")
@@ -120,15 +120,16 @@ func _on_area_2d_body_entered(body):
 		body.hit_received.rpc()
 		
 func apply_movement(delta: float):
-	var direction = Input.get_axis("move_left", "move_right")
-
+	print("here")
 	if isStunned:
-		handle_stunned_movement(delta, direction)
+		handle_stunned_movement(delta)
 		return
 	
 	if isBeingGrappled:
 		handle_being_grappled_movement(delta)
 		return
+
+	var direction = Input.get_axis("move_left", "move_right")
 
 	if not is_on_floor():
 		if coyoteJump and coyoteTimer.is_stopped():
@@ -152,7 +153,7 @@ func apply_movement(delta: float):
 				var collider = rayCastRightToPlayer.get_collider()
 				if collider and !collider.isStunned:
 					collider.get_stunned.rpc()
-			handle_dash(direction)
+			handle_dash_movement(direction)
 			powerupManager.dashFuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
 		if powerupManager.dashFuel <= 0:
 			powerupManager.deactivate_dash()
@@ -168,26 +169,20 @@ func apply_movement(delta: float):
 		wall_slide()
 
 	if isSlipping:
-			if isDashing or abs(velocity.x) > PLAYER.SPEED:
-				velocity.x = lerp(velocity.x, velocity.x * PLAYER.OIL_SLIP_SPEED, PLAYER.OIL_SLIP_SPEED)
-			else:
-				velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED * PLAYER.OIL_SLIP_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.OIL_SLIP_SPEED)
+		handle_oilspill_movement(direction)
 	elif isDashing:
-		handle_dash(direction)
+		handle_dash_movement(direction)
 	elif powerupManager.isGrappling:
-		var directionToTarget = (powerupManager.grappleTargetPosition - global_position).normalized()
-		velocity += directionToTarget * PLAYER.GRAPPLING_HOOK_SPEED * delta
+		handle_grappling_movement(delta)
 	elif direction:
 		velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED, PLAYER.SPEED * PLAYER.ACCELERATION)
 		animated_sprite.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, PLAYER.SPEED * PLAYER.DECELERATION)
 	
-	
 	if Input.is_action_just_pressed("dash") and canDash:
 		if !isDashing and direction:
 			start_dash()
-
 
 	var wasOnFloor = is_on_floor()
 	move_and_slide()
@@ -224,13 +219,6 @@ func start_dash():
 	dashCooldown.start()
 	dashEffectTimer.start()
 
-func handle_dash(direction: int) :
-	if not direction:
-		var dashDirection = -1 if animated_sprite.flip_h else 1
-		velocity.x = move_toward(velocity.x, dashDirection * PLAYER.SPEED * PLAYER.DASH_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.DASH_SPEED)
-	else:
-		velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED * PLAYER.DASH_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.DASH_SPEED)
-
 func return_gravity():
 	var gravity = get_gravity().y
 	if velocity.y <= 0 and bumped == true:
@@ -241,6 +229,24 @@ func return_gravity():
 		fall_rate = PLAYER.DECELERATE_ON_JUMP_RELEASE
 	return gravity
 
+#region Horizontal Movement
+func handle_grappling_movement(delta: float): 
+	var directionToTarget = (powerupManager.grappleTargetPosition - global_position).normalized()
+	velocity += directionToTarget * PLAYER.GRAPPLING_HOOK_SPEED * delta
+
+func handle_oilspill_movement(direction: float):
+	if isDashing or abs(velocity.x) > PLAYER.SPEED:
+		velocity.x = lerp(velocity.x, velocity.x * PLAYER.OIL_SLIP_SPEED, PLAYER.OIL_SLIP_SPEED)
+	else:
+		velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED * PLAYER.OIL_SLIP_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.OIL_SLIP_SPEED)
+
+func handle_dash_movement(direction: int) :
+	if not direction:
+		var dashDirection = -1 if animated_sprite.flip_h else 1
+		velocity.x = move_toward(velocity.x, dashDirection * PLAYER.SPEED * PLAYER.DASH_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.DASH_SPEED)
+	else:
+		velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED * PLAYER.DASH_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.DASH_SPEED)
+
 func handle_being_grappled_movement(delta: float):
 	var directionBackToTarget = (pullTargetPosition - global_position).normalized()
 	velocity += directionBackToTarget * PLAYER.GRAPPLING_HOOK_SPEED * delta
@@ -249,12 +255,15 @@ func handle_being_grappled_movement(delta: float):
 		isBeingGrappled = false
 	move_and_slide()
 
-func handle_stunned_movement(delta: float, direction: int):
+func handle_stunned_movement(delta: float):
+	var direction = Input.get_axis("move_left", "move_right")
+	animated_sprite.flip_h = direction < 0;
 	if velocity.y > 0 and !is_on_floor():
 		velocity.y += return_gravity() * delta
-	velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED * PLAYER.OIL_SLIP_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.OIL_SLIP_SPEED)
+	velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED * PLAYER.STUN_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.STUN_SPEED)
 	move_and_slide()
 
+#endregion
 	
 #region Timers	
 func coyote_timeout():
@@ -302,6 +311,7 @@ func stun_timer_timeout():
 #region RPCs
 @rpc("any_peer","call_remote","reliable")
 func set_player_name(_name : String):
+	await get_tree().create_timer(2).timeout
 	character_name.text = _name
 
 @rpc("any_peer","call_local","reliable")
@@ -324,7 +334,6 @@ func die():
 func sync_animation(anim_name: StringName):
 	anim_tree.travel(anim_name)
 
-
 @rpc("any_peer","call_remote","reliable")
 func sync_flip(dir : int):
 	$Area2D.transform.x.x = dir
@@ -339,8 +348,8 @@ func begin_pulling_to_target(pullPosition: Vector2):
 	isBeingGrappled = true
 	pullTargetPosition = pullPosition + PLAYER.CENTER_OF_SPRITE
 
-@rpc("any_peer", "call_local", "reliable")
+@rpc("any_peer", "call_remote", "reliable")
 func get_stunned():
 	isStunned = true
-	stunTimer.start()
+	stunTimer.start(10)
 #endregion
