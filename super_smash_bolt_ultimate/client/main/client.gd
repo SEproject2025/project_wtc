@@ -3,7 +3,7 @@ class_name Client
 
 # Enum representing the types of messages exchanged between client and server
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
-START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME}
+START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS}
 
 var rtc_mp = WebRTCMultiplayerPeer.new()
 var ws = WebSocketPeer.new()
@@ -30,6 +30,7 @@ signal user_name_feedback_received
 signal reset_connection
 signal map_seed_received(seed: int)
 signal some_one_left_game(id : int)
+signal spawn_positions_received(spawn_positions : Dictionary)
 
 # Attempt to connect to the WebSocket server
 func _init():
@@ -210,6 +211,11 @@ func parse_msg():
 			some_one_left_game.emit(id)
 			print("Peer name: %s with ID # %s left the game" %[data, id])
 		return
+
+	if type == Message.SPAWN_POSITIONS:
+		var dict: Dictionary = str_to_var(data)
+		spawn_positions_received.emit(dict)
+		return 
 
 	return false
 

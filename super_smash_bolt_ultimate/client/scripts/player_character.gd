@@ -30,6 +30,7 @@ var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 @onready var rayCastLeft: RayCast2D = $RayCasts/RayCastLeft
 @onready var raycastToObstacle: RayCast2D = $RayCasts/RayCastToObstacle
 @onready var rayCastRightToPlayer: RayCast2D = $RayCasts/RayCastRightToPlayer
+@onready var rayCastLeftToPlayer: RayCast2D = $RayCasts/RayCastLeftToPlayer
 @onready var dashEffectTimer: Timer = $Timers/DashEffectTimer
 @onready var oilSpillTimer: Timer = $Timers/OilSpillTimer
 @onready var stunTimer:Timer = $Timers/StunTimer
@@ -52,7 +53,6 @@ var attack_timer : int = 0
 @onready var anim_player = $AnimationPlayer
 @onready var character_name = $Control/VBoxContainer/Control2/Label
 
-
 func _ready():
 	reset()
 
@@ -69,9 +69,9 @@ func reset():
 	set_physics_process(false)
 	set_process(false)
 	set_process_input(false)
-	
+
 	await get_tree().create_timer(5).timeout
-	
+
 	$AnimationTree.set_active(true)
 	health.value = 100
 	if get_multiplayer_authority() == (User.ID):
@@ -81,8 +81,7 @@ func reset():
 		set_physics_process(true)
 		set_process_input(true)
 		set_process(true)
-		set_player_name.rpc(User.user_name)
-		global_position = Vector2(0, 0)
+		set_player_name.rpc(User.user_name)	
 		if User.is_host:
 			set_sprite.rpc()
 	else:
@@ -118,13 +117,12 @@ func set_animation():
 func _on_area_2d_body_entered(body):
 	if body != self:
 		body.hit_received.rpc()
-		
+
 func apply_movement(delta: float):
-	print("here")
 	if isStunned:
 		handle_stunned_movement(delta)
 		return
-	
+
 	if isBeingGrappled:
 		handle_being_grappled_movement(delta)
 		return
@@ -134,12 +132,12 @@ func apply_movement(delta: float):
 	if not is_on_floor():
 		if coyoteJump and coyoteTimer.is_stopped():
 			coyoteTimer.start(PLAYER.COYOTE_TIMER_LENGTH)
-		if not isDashing:
+		if not isDashing or not (Input.is_action_just_pressed("use_powerup") and powerupManager.is_dash_powerup_active):
 			velocity.y += return_gravity() * delta
 	else:
 		coyoteJump = true
 		coyoteTimer.stop()
-	
+
 	if powerupManager.is_jetpack_active:
 		if Input.is_action_pressed("use_powerup") and powerupManager.jetpack_fuel > 0:
 			velocity.y = PLAYER.JETPACK_VELOCITY
@@ -149,9 +147,10 @@ func apply_movement(delta: float):
 
 	if powerupManager.is_dash_powerup_active:
 		if Input.is_action_pressed("use_powerup") and powerupManager.dashFuel > 0:
-			if rayCastRightToPlayer.is_colliding():
-				var collider = rayCastRightToPlayer.get_collider()
-				if collider and !collider.isStunned:
+			var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
+			if collidingRayCast:
+				var collider = collidingRayCast.get_collider()
+				if collider and not collider.isStunned:
 					collider.get_stunned.rpc()
 			handle_dash_movement(direction)
 			powerupManager.dashFuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
@@ -164,7 +163,7 @@ func apply_movement(delta: float):
 	# Variable Jump Height
 	if !Input.is_action_pressed("jump") and velocity.y < 0:
 		velocity.y *= fall_rate
-	
+
 	if is_on_wall_only() and Input.get_axis("move_left", "move_right"):
 		wall_slide()
 
@@ -172,6 +171,11 @@ func apply_movement(delta: float):
 		handle_oilspill_movement(direction)
 	elif isDashing:
 		handle_dash_movement(direction)
+		var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
+		if collidingRayCast:
+			var collider = collidingRayCast.get_collider()
+			if collider:
+				collider.get_bumped.rpc(direction)
 	elif powerupManager.isGrappling:
 		handle_grappling_movement(delta)
 	elif direction:
@@ -179,14 +183,14 @@ func apply_movement(delta: float):
 		animated_sprite.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, PLAYER.SPEED * PLAYER.DECELERATION)
-	
+
 	if Input.is_action_just_pressed("dash") and canDash:
 		if !isDashing and direction:
 			start_dash()
 
 	var wasOnFloor = is_on_floor()
 	move_and_slide()
-	
+
 	#Execute buffered jump
 	if !wasOnFloor && is_on_floor():
 		if jumpBuffered:
@@ -201,14 +205,14 @@ func jump():
 		if !jumpBuffered:
 			jumpBuffered = true
 			jumpBufferTimer.start(PLAYER.JUMP_BUFFER_TIME_LENGTH)
-			
+
 	if is_on_wall_only():
 		wall_jump()
-		
+
 func wall_jump():
 	velocity = Vector2(get_wall_normal().x * PLAYER.WALL_JUMP_PUSHBACK, PLAYER.JUMP_VELOCITY)
 	animated_sprite.flip_h = true
-	
+
 func wall_slide():
 	velocity.y = min(velocity.y, PLAYER.WALL_SLIDE_GRAVITY)
 
@@ -230,7 +234,7 @@ func return_gravity():
 	return gravity
 
 #region Horizontal Movement
-func handle_grappling_movement(delta: float): 
+func handle_grappling_movement(delta: float):
 	var directionToTarget = (powerupManager.grappleTargetPosition - global_position).normalized()
 	velocity += directionToTarget * PLAYER.GRAPPLING_HOOK_SPEED * delta
 
@@ -264,18 +268,18 @@ func handle_stunned_movement(delta: float):
 	move_and_slide()
 
 #endregion
-	
-#region Timers	
+
+#region Timers
 func coyote_timeout():
 	coyoteJump = false
 
 func jump_buffer_timeout():
 	jumpBuffered = false
-  	
+
 func dash_timeout():
 	isDashing = false
 	dashEffectTimer.stop()
-	
+
 func dash_cooldown_timeout():
 	canDash = true
 
@@ -291,7 +295,7 @@ func _on_dash_effect_timer_timeout():
 	var playerCopy = animated_sprite.duplicate()
 	get_tree().get_root().add_child(playerCopy)
 	playerCopy.global_position = global_position + PLAYER.CENTER_OF_SPRITE
-	
+
 	var effectTime = dashTimer.wait_time / 3
 	await get_tree().create_timer(effectTime).timeout
 	playerCopy.modulate.a = 0.4
@@ -327,7 +331,7 @@ func die():
 	if get_multiplayer_authority() == (User.ID):
 		var lost_pop_up = lost_pop_up_template.instantiate()
 		add_child(lost_pop_up)
-	
+
 	# reset()
 
 @rpc("any_peer","call_remote","reliable")
@@ -351,5 +355,9 @@ func begin_pulling_to_target(pullPosition: Vector2):
 @rpc("any_peer", "call_remote", "reliable")
 func get_stunned():
 	isStunned = true
-	stunTimer.start(10)
+	stunTimer.start(2)
+
+@rpc("any_peer", "call_remote", "reliable")
+func get_bumped(direction: int):
+	velocity += Vector2(direction * PLAYER.BUMP_FORCE.x, PLAYER.BUMP_FORCE.y)
 #endregion

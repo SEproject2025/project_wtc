@@ -286,7 +286,6 @@ collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_y2p1t")
 player_input = NodePath("Input")
-player_id = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -7)
@@ -394,6 +393,11 @@ target_position = Vector2(-10, 0)
 [node name="RayCastToObstacle" type="RayCast2D" parent="RayCasts"]
 position = Vector2(3, -6)
 target_position = Vector2(500, 0)
+
+[node name="RayCastLeftToPlayer" type="RayCast2D" parent="RayCasts"]
+position = Vector2(-1, -6)
+target_position = Vector2(-9, 0)
+collision_mask = 2
 
 [node name="PowerUpManager" type="Node2D" parent="." node_paths=PackedStringArray("parent", "PowerUpHUD")]
 unique_name_in_owner = true
