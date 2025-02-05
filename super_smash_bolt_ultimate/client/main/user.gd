@@ -10,6 +10,7 @@ var ID = -1
 var peers : Dictionary
 var game_scene_template = preload("res://scenes/game_scene.tscn")
 var player_character_template = preload("res://scenes/player_character.tscn")
+var spawn_positions : Dictionary = {}
 
 var connection_list : Dictionary = {}
 var rtc_peer : WebRTCMultiplayerPeer
@@ -23,6 +24,7 @@ func after_main_menu_init():
 	client.ice_received.connect(_ice_received)
 	client.reset_connection.connect(reset_connection)
 	client.game_start_received.connect(_game_start_received)
+	client.spawn_positions_received.connect(_spawn_positions_received)
 
 func init_connection():
 	rtc_peer = WebRTCMultiplayerPeer.new()
@@ -89,13 +91,16 @@ func _peer_connected(id : int):
 		var player_character = player_character_template.instantiate()
 		player_character.set_multiplayer_authority(User.ID)
 		player_character.name = str(User.ID)
+		player_character.global_position = spawn_positions[User.ID]
 		game_scene_node.add_child(player_character)
 	
 	var player_character = player_character_template.instantiate()
 	player_character.set_multiplayer_authority(id)
 	player_character.name = str(id)
+	player_character.global_position = spawn_positions[id]
 	game_scene_node.add_child(player_character)
-	
+
+
 	for connection in connection_list.values():
 		print("Peer connected with id %d" %connection_list.find_key(connection))
 
@@ -108,12 +113,13 @@ func _peer_disconnected(id : int):
 		peer_node.queue_free()
 
 func _game_start_received(peer_ids : String):
-	
 	var arr = peer_ids.split("***", false)
-	
 	
 	for id_string in arr:
 		User.connection_list.get(id_string.to_int()).create_offer()
+
+func _spawn_positions_received(spawnPositions : Dictionary):
+	spawn_positions = spawnPositions
 
 func reset_connection():
 	for connection in connection_list.values():

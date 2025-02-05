@@ -1,7 +1,7 @@
 extends Node
 
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
-START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME}
+START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS}
 
 var server = TCPServer.new()
 var hard_coded_port = 9999
@@ -107,12 +107,20 @@ func parse_msg(peer : Peer) -> bool:
 		var current_lobby = find_lobby_by_peer(peer)
 		if current_lobby:
 			var all_peer_ids : String = ""
+			var spawn_positions = [
+				Vector2(0, -6),
+				Vector2(-25, -6),
+				Vector2(-50, -6)
+			]
+			var spawn_positions_by_id: Dictionary = {}
 			for player in current_lobby.peers:
 				all_peer_ids += str(player.id) + "***"
-			
+				spawn_positions_by_id[player.id] = spawn_positions.pop_front()
+				
 			for player in current_lobby.peers:
 				player.send_msg(Message.GAME_STARTING, 0 , all_peer_ids)
-	
+				player.send_msg(Message.SPAWN_POSITIONS, 0 , var_to_str(spawn_positions_by_id))
+			
 		return true
 	
 	if type == Message.OFFER:

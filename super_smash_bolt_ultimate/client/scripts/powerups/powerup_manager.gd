@@ -11,10 +11,12 @@ var toPosition: Vector2 # Used to draw other player's grappling hooks
 var fromPosition: Vector2 # Used to draw other player's grappling hooks
 var drawGrapplingHook: bool = false
 var queueRedraw: bool = false
+var dashFuel: int = 100
+var is_dash_powerup_active: bool = false
 
 @onready var oilspill_scene = preload("res://scenes/powerups/oilspill.tscn")
 
-@onready var parent = get_parent()
+@export var parent: CharacterBody2D
 @export var PowerUpHUD: Control
 
 
@@ -44,7 +46,7 @@ func use_powerup() -> void:
 	match current_powerup:
 		Constants.PowerUpType.DASH:
 			print("Dash!")
-			parent.start_dash()
+			activate_dash()
 		Constants.PowerUpType.JETPACK:
 			print("Jetpack!")
 			activate_jetpack()
@@ -60,6 +62,18 @@ func use_powerup() -> void:
 		PowerUpHUD.rpc("update_powerup_icon", Constants.PowerUpType.NONE)
 		current_powerup = Constants.PowerUpType.NONE
 
+#region Dash
+func activate_dash() -> void:
+	dashFuel = 100
+	is_dash_powerup_active = true
+		
+func deactivate_dash() -> void:
+	is_dash_powerup_active = false
+	PowerUpHUD.rpc("update_powerup_icon", Constants.PowerUpType.NONE)
+	current_powerup = Constants.PowerUpType.NONE
+#endregion
+
+#region JetPack	
 func activate_jetpack() -> void:
 	jetpack_fuel = 100
 	is_jetpack_active = true
@@ -68,14 +82,18 @@ func deactivate_jetpack() -> void:
 	is_jetpack_active = false
 	PowerUpHUD.rpc("update_powerup_icon", Constants.PowerUpType.NONE)
 	current_powerup = Constants.PowerUpType.NONE
+#endregion
 
+#region Oil Spill
 @rpc("any_peer","call_local","reliable")
 func throw_oil() -> void:
 	var oilspill = oilspill_scene.instantiate()
 	oilspill.position = parent.global_position + Vector2(67, -10)
 	get_tree().get_root().add_child(oilspill)
+#endregion
 
 
+#region Grappling Hook
 func fire_grappling_hook():
 	isGrappling = true
 	targetPlayer = get_leading_player()
@@ -117,3 +135,5 @@ func draw_grappling_hook(throwerPosition: Vector2, targetPosition: Vector2):
 		drawGrapplingHook = true
 	toPosition = targetPosition
 	fromPosition = throwerPosition + parent.PLAYER.CENTER_OF_SPRITE
+
+#endregion

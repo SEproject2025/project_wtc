@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_bemx6"]
 [ext_resource type="Texture2D" uid="uid://dbxmhmrik75ch" path="res://assets/sprites/platform.png" id="2_68via"]
-[ext_resource type="Texture2D" uid="uid://csahsmv1kbrpx" path="res://assets/sprites/SpriteSheetWasteland2.png" id="3_4n8no"]
+[ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="3_4n8no"]
 [ext_resource type="Texture2D" uid="uid://cjv214hth048p" path="res://assets/sprites/SpriteSheetCave.png" id="3_8wwov"]
 [ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="4_at5aa"]
 

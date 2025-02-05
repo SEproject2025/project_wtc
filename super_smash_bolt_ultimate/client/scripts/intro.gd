@@ -4,8 +4,9 @@ var main_menu = preload("res://scenes/main_menu.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if OS.is_debug_build():
+		return
 	$Video.play()
-	
 	$Video.finished.connect(end)
 
 func _input(event):
