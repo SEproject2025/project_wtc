@@ -74,6 +74,7 @@ texture = ExtResource("4_u6cto")
 centered = false
 
 [node name="TopLayer" type="ParallaxLayer" parent="."]
+motion_offset = Vector2(0, -12)
 motion_mirroring = Vector2(768, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="TopLayer"]
