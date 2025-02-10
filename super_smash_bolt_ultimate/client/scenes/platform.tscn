@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3wgrdt3g8ekv"]
+
+[ext_resource type="Script" path="res://scripts/platform.gd" id="1_bwx77"]
+[ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="2_at8jw"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ijbck"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmkef"]
+atlas = ExtResource("2_at8jw")
+region = Rect2(0, 0, 32, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13ihi"]
+size = Vector2(32, 8)
+
+[node name="Platform" type="AnimatableBody2D"]
+script = ExtResource("1_bwx77")
+
+[node name="PlatformSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ijbck")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_repeat = 3
+texture = SubResource("AtlasTexture_pmkef")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_13ihi")
+one_way_collision = true
