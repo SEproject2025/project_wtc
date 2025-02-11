@@ -134,6 +134,9 @@ func apply_movement(delta: float):
 			coyoteTimer.start(PLAYER.COYOTE_TIMER_LENGTH)
 		if not isDashing or not (Input.is_action_just_pressed("use_powerup") and powerupManager.is_dash_powerup_active):
 			velocity.y += return_gravity() * delta
+		if not is_on_wall_only():
+			anim_tree.travel("fall_start")
+			sync_animation.rpc("fall_start")
 	else:
 		coyoteJump = true
 		coyoteTimer.stop()
@@ -212,9 +215,13 @@ func jump():
 func wall_jump():
 	velocity = Vector2(get_wall_normal().x * PLAYER.WALL_JUMP_PUSHBACK, PLAYER.JUMP_VELOCITY)
 	animated_sprite.flip_h = true
+	anim_tree.travel("jump")
+	sync_animation.rpc("jump")
 
 func wall_slide():
 	velocity.y = min(velocity.y, PLAYER.WALL_SLIDE_GRAVITY)
+	anim_tree.travel("wall_slide")
+	sync_animation.rpc("wall_slide")
 
 func start_dash():
 	isDashing = true
