@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://cpus4jwhibw4f"]
+[gd_scene load_steps=39 format=4 uid="uid://cpus4jwhibw4f"]
 
 [ext_resource type="PackedScene" uid="uid://dqnaqj8yb6hwd" path="res://scenes/player.tscn" id="1_rbmkf"]
 [ext_resource type="Texture2D" uid="uid://c265s82scq482" path="res://assets/sprites/background.png" id="3_1q0p7"]
@@ -7,11 +7,30 @@
 [ext_resource type="FontFile" uid="uid://b6g0oju3qagi0" path="res://assets/fonts/monogram.ttf" id="5_f1ggy"]
 [ext_resource type="Script" path="res://scripts/level.gd" id="5_odm52"]
 [ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="5_x8euu"]
-[ext_resource type="PackedScene" uid="uid://kjhh6jp8711k" path="res://chunks/chunk1.tscn" id="6_xxir6"]
-[ext_resource type="PackedScene" uid="uid://8sv84xrsny2w" path="res://chunks/chunk2.tscn" id="7_0yfv7"]
-[ext_resource type="PackedScene" uid="uid://c8wtlv7s0jxwr" path="res://chunks/chunk3.tscn" id="8_theye"]
+[ext_resource type="PackedScene" uid="uid://kjhh6jp8711k" path="res://chunks/caveChunks/chunk1.tscn" id="10_ktl2a"]
+[ext_resource type="PackedScene" uid="uid://8sv84xrsny2w" path="res://chunks/caveChunks/chunk2.tscn" id="11_47rxi"]
+[ext_resource type="PackedScene" uid="uid://c8wtlv7s0jxwr" path="res://chunks/caveChunks/chunk3.tscn" id="12_r8aw7"]
+[ext_resource type="PackedScene" uid="uid://bto5gwjteh2gd" path="res://chunks/caveChunks/chunk4.tscn" id="13_hjv2g"]
+[ext_resource type="PackedScene" uid="uid://cit33ltgf5f1u" path="res://chunks/caveChunks/chunk5.tscn" id="14_hjpwc"]
 [ext_resource type="PackedScene" uid="uid://c3pfve3y737tc" path="res://scenes/death_wall.tscn" id="15_3acr7"]
+[ext_resource type="PackedScene" uid="uid://c2pk3tlcvoiuv" path="res://chunks/caveChunks/chunk6.tscn" id="15_jdug3"]
 [ext_resource type="PackedScene" uid="uid://dmh84ndrox66e" path="res://scenes/mushroom_bumper.tscn" id="15_wwe6g"]
+[ext_resource type="PackedScene" uid="uid://nq2hvo4jxr3a" path="res://chunks/caveChunks/chunk7.tscn" id="16_6a5cu"]
+[ext_resource type="PackedScene" uid="uid://d2b31f522ib4b" path="res://chunks/caveChunks/chunk8.tscn" id="17_4kc24"]
+[ext_resource type="PackedScene" uid="uid://dhoqbwyfgpdij" path="res://chunks/caveChunks/chunk9.tscn" id="18_yvc6g"]
+[ext_resource type="PackedScene" uid="uid://txkmi1fes2fw" path="res://chunks/caveChunks/chunk10.tscn" id="19_67nr3"]
+[ext_resource type="PackedScene" uid="uid://qdrwrn6obfjs" path="res://chunks/caveChunks/chunk_11.tscn" id="20_4ulga"]
+[ext_resource type="PackedScene" uid="uid://dbijppdei5sx0" path="res://chunks/swampChunks/swamp_chunk1.tscn" id="21_32bs6"]
+[ext_resource type="PackedScene" uid="uid://bpg8hhopkd4hc" path="res://chunks/swampChunks/swamp_chunk2.tscn" id="22_r4xy5"]
+[ext_resource type="PackedScene" uid="uid://d1a2rhffxborf" path="res://chunks/swampChunks/swamp_chunk3.tscn" id="23_sf586"]
+[ext_resource type="PackedScene" uid="uid://c6evmbcfsb2dw" path="res://chunks/swamp_chunk4.tscn" id="24_e235p"]
+[ext_resource type="PackedScene" uid="uid://bb14xn300smfr" path="res://chunks/swamp_chunk5.tscn" id="25_og4dx"]
+[ext_resource type="PackedScene" uid="uid://dtf885yooq2y7" path="res://chunks/swamp_chunk6.tscn" id="26_ayq31"]
+[ext_resource type="PackedScene" uid="uid://5qvpopa1j300" path="res://chunks/swamp_chunk7.tscn" id="27_hcxhv"]
+[ext_resource type="PackedScene" uid="uid://dnupu6s160g2e" path="res://chunks/swamp_chunk8.tscn" id="28_hdvg7"]
+[ext_resource type="PackedScene" uid="uid://ckb0i27mt38xd" path="res://chunks/swamp_chunk9.tscn" id="29_ddaiw"]
+[ext_resource type="PackedScene" uid="uid://n63hwrfw8yds" path="res://chunks/swamp_chunk10.tscn" id="30_7p0qg"]
+[ext_resource type="PackedScene" uid="uid://1py3dghwr4f1" path="res://chunks/swamp_chunk11.tscn" id="31_5yhgj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ashvg"]
 0:0/0 = 0
@@ -242,11 +261,6 @@ spawn_limit = 10
 [node name="Players" type="Node2D" parent="."]
 position = Vector2(-8, -15)
 
-[node name="level" type="Node2D" parent="."]
-position = Vector2(3, 0)
-script = ExtResource("5_odm52")
-chunks = Array[PackedScene]([ExtResource("6_xxir6"), ExtResource("7_0yfv7"), ExtResource("8_theye")])
-
 [node name="DeathWallNode" parent="." instance=ExtResource("15_3acr7")]
 position = Vector2(-277, 94)
 script = null
@@ -255,6 +269,12 @@ script = null
 position = Vector2(247, 17)
 rotation = -0.570383
 script = null
+
+[node name="level" type="Node2D" parent="."]
+position = Vector2(3, 0)
+script = ExtResource("5_odm52")
+chunks = Array[PackedScene]([ExtResource("10_ktl2a"), ExtResource("11_47rxi"), ExtResource("12_r8aw7"), ExtResource("13_hjv2g"), ExtResource("14_hjpwc"), ExtResource("15_jdug3"), ExtResource("16_6a5cu"), ExtResource("17_4kc24"), ExtResource("18_yvc6g"), ExtResource("19_67nr3"), ExtResource("20_4ulga")])
+forestchunks = Array[PackedScene]([ExtResource("21_32bs6"), ExtResource("22_r4xy5"), ExtResource("23_sf586"), ExtResource("24_e235p"), ExtResource("25_og4dx"), ExtResource("26_ayq31"), ExtResource("27_hcxhv"), ExtResource("28_hdvg7"), ExtResource("29_ddaiw"), ExtResource("30_7p0qg"), ExtResource("31_5yhgj")])
 
 [connection signal="pressed" from="EndGameScreen/Exit" to="GameManager" method="exit"]
 [connection signal="pressed" from="Player/Camera2D/MultiplayerHUD/VBoxContainer/host" to="GameManager" method="host"]
