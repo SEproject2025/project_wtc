@@ -37,6 +37,7 @@ var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 
 var hostSprite = preload("res://assets/sprites/mine_bot_idle_sheet_5.png")
 
+
 @export var player_input: PlayerInput
 @export var player_id := 1:
 	set(id):
@@ -92,7 +93,7 @@ func reset():
 
 func check_health():
 	if health.value <= 0:
-		die.rpc()
+		die.rpc(name)
 
 func set_animation():
 	if Input.is_action_just_pressed("jump") :
@@ -323,14 +324,18 @@ func set_sprite():
 	animated_sprite.texture = hostSprite
 
 @rpc("any_peer","call_local","reliable")
-func die():
+func die(player_name: int):
+	print("Player %d died" %player_name)
 	$AnimationTree.set_active(false)
 	anim_player.play("Dead")
 	set_physics_process(false)
 	set_process(false)
+	alive = false
 	if get_multiplayer_authority() == (User.ID):
 		var lost_pop_up = lost_pop_up_template.instantiate()
-		add_child(lost_pop_up)
+		get_tree().get_root().add_child(lost_pop_up)
+	User.client.player_died.emit(player_name)
+		
 
 	# reset()
 

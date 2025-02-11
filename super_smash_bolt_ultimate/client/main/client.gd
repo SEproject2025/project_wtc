@@ -31,6 +31,7 @@ signal reset_connection
 signal map_seed_received(seed: int)
 signal some_one_left_game(id : int)
 signal spawn_positions_received(spawn_positions : Dictionary)
+signal player_died(id : int)
 
 # Attempt to connect to the WebSocket server
 func _init():

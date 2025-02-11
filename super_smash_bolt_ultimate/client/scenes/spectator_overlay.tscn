@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://s2g516g20bps"]
+[gd_scene load_steps=7 format=3 uid="uid://djmw0yyy4uwvx"]
 
 [ext_resource type="Script" path="res://scripts/spectator_overlay.gd" id="1_m2ooj"]
 [ext_resource type="Texture2D" uid="uid://b4xtumvqfrh5m" path="res://assets/icons/IconsFlat-32.png" id="1_sy4th"]
@@ -28,7 +28,7 @@ anchor_bottom = 1.0
 offset_top = -100.0
 grow_horizontal = 2
 grow_vertical = 0
-color = Color(1, 1, 1, 0.290196)
+color = Color(0.340339, 0.340339, 0.340339, 0.486275)
 
 [node name="Previous" type="Button" parent="."]
 offset_left = 25.0
@@ -70,3 +70,6 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
+
+[connection signal="pressed" from="Previous" to="." method="_previous_player"]
+[connection signal="pressed" from="Next" to="." method="_next_player"]
