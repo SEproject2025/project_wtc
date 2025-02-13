@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=3 uid="uid://djmw0yyy4uwvx"]
+
+[ext_resource type="Script" path="res://scripts/spectator_overlay.gd" id="1_m2ooj"]
+[ext_resource type="Texture2D" uid="uid://b4xtumvqfrh5m" path="res://assets/icons/IconsFlat-32.png" id="1_sy4th"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_su0us"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vku01"]
+atlas = ExtResource("1_sy4th")
+region = Rect2(288, 160, 32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7she3"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjdqq"]
+atlas = ExtResource("1_sy4th")
+region = Rect2(0, 192, 32, 32)
+
+[node name="SpectatorOverlay" type="CanvasLayer"]
+script = ExtResource("1_m2ooj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.340339, 0.340339, 0.340339, 0.486275)
+
+[node name="Previous" type="Button" parent="."]
+offset_left = 25.0
+offset_top = 632.0
+offset_right = 65.0
+offset_bottom = 676.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_su0us")
+icon = SubResource("AtlasTexture_vku01")
+
+[node name="Next" type="Button" parent="."]
+offset_left = 1227.0
+offset_top = 632.0
+offset_right = 1259.0
+offset_bottom = 664.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_7she3")
+icon = SubResource("AtlasTexture_jjdqq")
+
+[node name="Container" type="VBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -252.0
+offset_top = -98.0
+offset_right = 252.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Spectating" type="Label" parent="Container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Spectating
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterName" type="Label" parent="Container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Previous" to="." method="_previous_player"]
+[connection signal="pressed" from="Next" to="." method="_next_player"]
