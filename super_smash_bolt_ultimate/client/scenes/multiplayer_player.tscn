@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://d226nufmlvivj"]
+[gd_scene load_steps=18 format=3 uid="uid://d226nufmlvivj"]
 
 [ext_resource type="Texture2D" uid="uid://bls1g11tx37i3" path="res://assets/sprites/mine_bot_idle_sheet_5.png" id="2_iawno"]
-[ext_resource type="Script" path="res://scripts/powerup_manager.gd" id="2_xrsns"]
 [ext_resource type="Script" path="res://scripts/powerups/powerup_hud.gd" id="5_scvm3"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bcfu3"]
@@ -184,7 +183,6 @@ wait_time = 0.1
 
 [node name="PowerUpManager" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource("2_xrsns")
 
 [node name="GrapplingHookRayCasts" type="Node2D" parent="."]
 
