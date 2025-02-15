@@ -1,24 +1,21 @@
-[gd_scene load_steps=21 format=3 uid="uid://chvj808e8555p"]
+[gd_scene load_steps=18 format=3 uid="uid://chvj808e8555p"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_e2uyo"]
 [ext_resource type="PackedScene" uid="uid://dlrwjh05484qr" path="res://scenes/parallax_background.tscn" id="2_poitg"]
 [ext_resource type="Script" path="res://scripts/level.gd" id="4_wgcnf"]
-[ext_resource type="PackedScene" uid="uid://kjhh6jp8711k" path="res://chunks/caveChunks/chunk1.tscn" id="5_nycr6"]
-[ext_resource type="PackedScene" uid="uid://bto5gwjteh2gd" path="res://chunks/caveChunks/chunk4.tscn" id="6_bwhrc"]
-[ext_resource type="PackedScene" uid="uid://8sv84xrsny2w" path="res://chunks/caveChunks/chunk2.tscn" id="6_iiat1"]
-[ext_resource type="PackedScene" uid="uid://cit33ltgf5f1u" path="res://chunks/caveChunks/chunk5.tscn" id="7_1hrp0"]
-[ext_resource type="PackedScene" uid="uid://c8wtlv7s0jxwr" path="res://chunks/caveChunks/chunk3.tscn" id="7_ki8jc"]
-[ext_resource type="PackedScene" uid="uid://c2pk3tlcvoiuv" path="res://chunks/caveChunks/chunk6.tscn" id="8_f2tdy"]
-[ext_resource type="PackedScene" uid="uid://nq2hvo4jxr3a" path="res://chunks/caveChunks/chunk7.tscn" id="9_nmqnn"]
-[ext_resource type="PackedScene" uid="uid://d2b31f522ib4b" path="res://chunks/caveChunks/chunk8.tscn" id="10_81in4"]
-[ext_resource type="PackedScene" uid="uid://dhoqbwyfgpdij" path="res://chunks/caveChunks/chunk9.tscn" id="11_tc2vt"]
-[ext_resource type="PackedScene" uid="uid://txkmi1fes2fw" path="res://chunks/caveChunks/chunk10.tscn" id="12_n8afa"]
-[ext_resource type="PackedScene" uid="uid://qdrwrn6obfjs" path="res://chunks/caveChunks/chunk_11.tscn" id="13_gjbj5"]
+[ext_resource type="PackedScene" uid="uid://kjhh6jp8711k" path="res://chunks/chunk1.tscn" id="5_nycr6"]
+[ext_resource type="PackedScene" uid="uid://bto5gwjteh2gd" path="res://chunks/chunk4.tscn" id="6_bwhrc"]
+[ext_resource type="PackedScene" uid="uid://8sv84xrsny2w" path="res://chunks/chunk2.tscn" id="6_iiat1"]
+[ext_resource type="PackedScene" uid="uid://cit33ltgf5f1u" path="res://chunks/chunk5.tscn" id="7_1hrp0"]
+[ext_resource type="PackedScene" uid="uid://c8wtlv7s0jxwr" path="res://chunks/chunk3.tscn" id="7_ki8jc"]
+[ext_resource type="PackedScene" uid="uid://c2pk3tlcvoiuv" path="res://chunks/chunk6.tscn" id="8_f2tdy"]
+[ext_resource type="PackedScene" uid="uid://nq2hvo4jxr3a" path="res://chunks/chunk7.tscn" id="9_nmqnn"]
+[ext_resource type="PackedScene" uid="uid://d2b31f522ib4b" path="res://chunks/chunk8.tscn" id="10_81in4"]
+[ext_resource type="PackedScene" uid="uid://dhoqbwyfgpdij" path="res://chunks/chunk9.tscn" id="11_tc2vt"]
+[ext_resource type="PackedScene" uid="uid://txkmi1fes2fw" path="res://chunks/chunk10.tscn" id="12_n8afa"]
+[ext_resource type="PackedScene" uid="uid://qdrwrn6obfjs" path="res://chunks/chunk_11.tscn" id="13_gjbj5"]
 [ext_resource type="PackedScene" uid="uid://c3pfve3y737tc" path="res://scenes/death_wall.tscn" id="15_5ci7t"]
-[ext_resource type="PackedScene" uid="uid://dbijppdei5sx0" path="res://chunks/swampChunks/swamp_chunk1.tscn" id="15_jvm00"]
 [ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="16_1whiy"]
-[ext_resource type="PackedScene" uid="uid://bpg8hhopkd4hc" path="res://chunks/swampChunks/swamp_chunk2.tscn" id="16_fefpi"]
-[ext_resource type="PackedScene" uid="uid://d1a2rhffxborf" path="res://chunks/swampChunks/swamp_chunk3.tscn" id="17_l70tk"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r3yr3"]
 distance = -683.0
@@ -36,7 +33,6 @@ position = Vector2(185, 87)
 position = Vector2(3, 0)
 script = ExtResource("4_wgcnf")
 chunks = Array[PackedScene]([ExtResource("5_nycr6"), ExtResource("6_iiat1"), ExtResource("7_ki8jc"), ExtResource("6_bwhrc"), ExtResource("7_1hrp0"), ExtResource("8_f2tdy"), ExtResource("9_nmqnn"), ExtResource("10_81in4"), ExtResource("11_tc2vt"), ExtResource("12_n8afa"), ExtResource("13_gjbj5")])
-forestchunks = Array[PackedScene]([ExtResource("15_jvm00"), ExtResource("16_fefpi"), ExtResource("17_l70tk")])
 
 [node name="DeathWallNode" parent="." instance=ExtResource("15_5ci7t")]
 position = Vector2(-277, 94)
