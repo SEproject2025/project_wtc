@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://bcqbk6dle3bp5"]
+[gd_scene load_steps=3 format=3 uid="uid://bcqbk6dle3bp5"]
 
-[ext_resource type="Script" path="res://scripts/powerups/powerup.gd" id="1_vrkiy"]
 [ext_resource type="Texture2D" uid="uid://jaj1o7ps4ce2" path="res://assets/powerups (placeholders)/powerup_icons.png" id="2_cu0pu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ify4"]
@@ -8,8 +7,6 @@ size = Vector2(8, 6)
 
 [node name="GrapplingHookPowerup" type="Area2D"]
 collision_mask = 2
-script = ExtResource("1_vrkiy")
-powerup_type = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_7ify4")
