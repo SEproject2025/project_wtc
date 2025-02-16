@@ -82,7 +82,7 @@ func reset():
 		set_physics_process(true)
 		set_process_input(true)
 		set_process(true)
-		set_player_name.rpc(User.user_name)	
+		set_player_name.rpc(User.user_name)
 		if User.is_host:
 			set_sprite.rpc()
 	else:
@@ -123,7 +123,6 @@ func apply_movement(delta: float):
 	if isStunned:
 		handle_stunned_movement(delta)
 		return
-
 	if isBeingGrappled:
 		handle_being_grappled_movement(delta)
 		return
@@ -179,7 +178,10 @@ func apply_movement(delta: float):
 		if collidingRayCast:
 			var collider = collidingRayCast.get_collider()
 			if collider:
-				collider.get_bumped.rpc(direction)
+				if direction:
+					collider.get_bumped.rpc(direction)
+				else:
+					collider.get_bumped.rpc(-1 if animated_sprite.flip_h else 1)
 	elif powerupManager.isGrappling:
 		handle_grappling_movement(delta)
 	elif direction:
@@ -189,7 +191,7 @@ func apply_movement(delta: float):
 		velocity.x = move_toward(velocity.x, 0, PLAYER.SPEED * PLAYER.DECELERATION)
 
 	if Input.is_action_just_pressed("dash") and canDash:
-		if !isDashing and direction:
+		if !isDashing:
 			start_dash()
 
 	var wasOnFloor = is_on_floor()
@@ -269,8 +271,8 @@ func handle_being_grappled_movement(delta: float):
 
 func handle_stunned_movement(delta: float):
 	var direction = Input.get_axis("move_left", "move_right")
-	animated_sprite.flip_h = direction < 0;
-	if velocity.y > 0 and !is_on_floor():
+	animated_sprite.flip_h = direction < 0
+	if not is_on_floor():
 		velocity.y += return_gravity() * delta
 	velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED * PLAYER.STUN_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.STUN_SPEED)
 	move_and_slide()
@@ -316,8 +318,7 @@ func _on_dash_effect_timer_timeout():
 
 func stun_timer_timeout():
 	isStunned = false
-	set_physics_process(true)
-	set_process(true)
+
 #endregion
 
 #region RPCs
