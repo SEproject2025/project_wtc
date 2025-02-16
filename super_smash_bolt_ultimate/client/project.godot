@@ -33,6 +33,7 @@ script/search_in_file_extensions=PackedStringArray("gd", "gdshader", "tscn")
 [global_group]
 
 Players=""
+Enemy=""
 
 [input]
 
