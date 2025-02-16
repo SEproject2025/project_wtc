@@ -7,13 +7,13 @@ powerup_icons copy.png::CompressedTexture2D::3722758765034021217::1731978100::17
 monogram-extended-italic.ttf::FontFile::2387249278354819397::1731393260::1739743774::1::::<><>::
 monogram-extended.ttf::FontFile::9214293658821093641::1731393260::1739743774::1::::<><>::
 monogram.ttf::FontFile::5888239852664683225::1731393260::1739743774::1::::<><>::
-::res://assets/ParallaxBackground/::1739745872
+::res://assets/ParallaxBackground/::1739745873
 DownLayer.png::CompressedTexture2D::6770152459706698685::1731980074::1739743775::1::::<><>::
 Light.png::CompressedTexture2D::1564315703055813805::1731980074::1739743775::1::::<><>::
 MiddleLayer.png::CompressedTexture2D::2786235533382074435::1731980074::1739743775::1::::<><>::
 sky.png::CompressedTexture2D::2274972741348774926::1731980074::1739743775::1::::<><>::
 TopLayer.png::CompressedTexture2D::7728950166646348796::1731980074::1739743775::1::::<><>::
-::res://assets/powerups (placeholders)/::1739745872
+::res://assets/powerups (placeholders)/::1739745873
 dash_icon.png::CompressedTexture2D::2070120977324908019::1731978100::1739743775::1::::<><>::
 grapplinghook_icon.png::CompressedTexture2D::6779913528016375999::1731978100::1739743775::1::::<><>::
 jetpack_icon.png::CompressedTexture2D::1168549282130831745::1731978100::1739743775::1::::<><>::
@@ -23,9 +23,9 @@ oil_side_view.png::CompressedTexture2D::5522239580801175883::1731978100::1739743
 powerup_icons.png::CompressedTexture2D::632293261786087955::1731978100::1739743775::1::::<><>::
 Question.png::CompressedTexture2D::7010339723238627865::1731978100::1739743775::1::::<><>::
 SPEARS.png::CompressedTexture2D::2254272044395977878::1731978100::1739743775::1::::<><>::
-::res://assets/sounds/::1739745872
+::res://assets/sounds/::1739745873
 chip.wav::AudioStreamWAV::2691056647805643005::1731393260::1739743775::1::::<><>::
-::res://assets/sprites/::1739745872
+::res://assets/sprites/::1739745873
 background.png::CompressedTexture2D::6733791285863659409::1731393260::1739743775::1::::<><>::
 chip.png::CompressedTexture2D::415214128362740635::1731393260::1739743775::1::::<><>::
 Desert_Spikes.png::CompressedTexture2D::3844332861444873242::1731393260::1739743775::1::::<><>::
