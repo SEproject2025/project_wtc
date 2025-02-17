@@ -335,7 +335,7 @@ func set_sprite():
 	animated_sprite.texture = hostSprite
 
 @rpc("any_peer","call_local","reliable")
-func die():
+func die(player_name: int):
 	$AnimationTree.set_active(false)
 	anim_player.play("dead")
 	set_player_name("press R to Reset")
