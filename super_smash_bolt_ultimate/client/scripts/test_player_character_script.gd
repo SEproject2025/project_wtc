@@ -37,7 +37,6 @@ var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 
 var hostSprite = preload("res://assets/sprites/character_sprites/red_bot_mothersheet_divisionless.png")
 
-
 @export var player_input: PlayerInput
 @export var player_id := 1:
 	set(id):
@@ -53,62 +52,67 @@ var attack_timer : int = 0
 @onready var anim_tree = $AnimationTree.get("parameters/playback")
 @onready var anim_player = $AnimationPlayer
 @onready var character_name = $Control/VBoxContainer/Control2/Label
+@onready var player_spawn_x = position.x
+@onready var player_spawn_y = position.y
 
 func _ready():
 	reset()
 
 func _process(_delta):
-	check_health()
+#	check_health()
 	set_animation()
 	if Input.is_action_just_pressed("use_powerup") and !powerupManager.is_jetpack_active and !powerupManager.is_dash_powerup_active:
 		powerupManager.use_powerup()
+	if Input.is_action_just_pressed("reset"):
+		reset()
 
 func _physics_process(delta):
 	apply_movement(delta)
 
 func reset():
-	set_physics_process(false)
-	set_process(false)
-	set_process_input(false)
-
-	await get_tree().create_timer(5).timeout
+	#set_physics_process(false)
+	#set_process(false)
+	#set_process_input(false)
+	position.x = player_spawn_x
+	position.y = player_spawn_y
+	#await get_tree().create_timer(5).timeout
 
 	$AnimationTree.set_active(true)
 	health.value = 100
-	if get_multiplayer_authority() == (User.ID):
-		$AnimationTree.set_active(true)
-		$Camera2D.enabled = true
-		character_name.text = User.user_name
-		set_physics_process(true)
-		set_process_input(true)
-		set_process(true)
-		set_player_name.rpc(User.user_name)
-		if User.is_host:
-			set_sprite.rpc()
-	else:
-		character_name.text = "Other player"
-		set_physics_process(false)
-		set_process(false)
-		set_process_input(false)
+#	if get_multiplayer_authority() == (User.ID):
+	$AnimationTree.set_active(true)
+	$Camera2D.enabled = true
+	character_name.text = "Doug"
+	set_physics_process(true)
+	set_process_input(true)
+	set_process(true)
+#		set_player_name.rpc(User.user_name)	
+#		if User.is_host:
+#			set_sprite.rpc()
+	#else:
+		#character_name.text = "Other player"
+		#set_physics_process(false)
+		#set_process(false)
+		#set_process_input(false)
 
-func check_health():
-	if health.value <= 0:
-		die.rpc(name)
+#func check_health():
+#	if health.value <= 0:
+#		die.rpc()
 
 func set_animation():
 	if Input.is_action_just_pressed("jump") :
 		anim_tree.travel("jump")
-		sync_animation.rpc("jump")
+#		sync_animation.rpc("jump")
 	elif Input.is_action_just_pressed("left_mouse"):
 		attack_state = true
 		attack_timer = Time.get_ticks_msec()
 	elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
 		if is_on_floor() and not attack_state:
 			anim_tree.travel("run")
-			sync_animation.rpc("run")
+#			sync_animation.rpc("run")
 	elif is_on_floor() and not attack_state:
 		anim_tree.travel("idle")
-		sync_animation.rpc("idle")
+#		sync_animation.rpc("idle")
 
 	if attack_state:
 		if Time.get_ticks_msec() - attack_timer >= 600:
@@ -123,6 +127,7 @@ func apply_movement(delta: float):
 	if isStunned:
 		handle_stunned_movement(delta)
 		return
+
 	if isBeingGrappled:
 		handle_being_grappled_movement(delta)
 		return
@@ -136,7 +141,7 @@ func apply_movement(delta: float):
 			velocity.y += return_gravity() * delta
 		if not is_on_wall_only():
 			anim_tree.travel("fall_start")
-			sync_animation.rpc("fall_start")
+#			sync_animation.rpc("fall_start")
 	else:
 		coyoteJump = true
 		coyoteTimer.stop()
@@ -178,10 +183,7 @@ func apply_movement(delta: float):
 		if collidingRayCast:
 			var collider = collidingRayCast.get_collider()
 			if collider:
-				if direction:
-					collider.get_bumped.rpc(direction)
-				else:
-					collider.get_bumped.rpc(-1 if animated_sprite.flip_h else 1)
+				collider.get_bumped.rpc(direction)
 	elif powerupManager.isGrappling:
 		handle_grappling_movement(delta)
 	elif direction:
@@ -191,7 +193,7 @@ func apply_movement(delta: float):
 		velocity.x = move_toward(velocity.x, 0, PLAYER.SPEED * PLAYER.DECELERATION)
 
 	if Input.is_action_just_pressed("dash") and canDash:
-		if !isDashing:
+		if !isDashing and direction:
 			start_dash()
 
 	var wasOnFloor = is_on_floor()
@@ -219,12 +221,12 @@ func wall_jump():
 	velocity = Vector2(get_wall_normal().x * PLAYER.WALL_JUMP_PUSHBACK, PLAYER.JUMP_VELOCITY)
 	animated_sprite.flip_h = true
 	anim_tree.travel("jump")
-	sync_animation.rpc("jump")
+#	sync_animation.rpc("jump")
 
 func wall_slide():
 	velocity.y = min(velocity.y, PLAYER.WALL_SLIDE_GRAVITY)
 	anim_tree.travel("wall_slide")
-	sync_animation.rpc("wall_slide")
+#	sync_animation.rpc("wall_slide")
 
 func start_dash():
 	isDashing = true
@@ -271,8 +273,8 @@ func handle_being_grappled_movement(delta: float):
 
 func handle_stunned_movement(delta: float):
 	var direction = Input.get_axis("move_left", "move_right")
-	animated_sprite.flip_h = direction < 0
-	if not is_on_floor():
+	animated_sprite.flip_h = direction < 0;
+	if velocity.y > 0 and !is_on_floor():
 		velocity.y += return_gravity() * delta
 	velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED * PLAYER.STUN_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.STUN_SPEED)
 	move_and_slide()
@@ -304,7 +306,7 @@ func oil_spill_timer_timeout():
 func _on_dash_effect_timer_timeout():
 	var playerCopy = animated_sprite.duplicate()
 	get_tree().get_root().add_child(playerCopy)
-	playerCopy.global_position = global_position + PLAYER.CENTER_OF_SPRITE
+	playerCopy.global_position = global_position + 3 * PLAYER.CENTER_OF_SPRITE
 
 	var effectTime = dashTimer.wait_time / 3
 	await get_tree().create_timer(effectTime).timeout
@@ -318,14 +320,15 @@ func _on_dash_effect_timer_timeout():
 
 func stun_timer_timeout():
 	isStunned = false
-
+	set_physics_process(true)
+	set_process(true)
 #endregion
 
 #region RPCs
+	pass
 @rpc("any_peer","call_remote","reliable")
 func set_player_name(_name : String):
-	await get_tree().create_timer(2).timeout
-	character_name.text = _name
+	character_name.text = "Doug"
 
 @rpc("any_peer","call_local","reliable")
 func set_sprite():
@@ -333,17 +336,15 @@ func set_sprite():
 
 @rpc("any_peer","call_local","reliable")
 func die(player_name: int):
-	print("Player %d died" %player_name)
 	$AnimationTree.set_active(false)
 	anim_player.play("dead")
+	set_player_name("press R to Reset")
 	set_physics_process(false)
-	set_process(false)
-	alive = false
-	if get_multiplayer_authority() == (User.ID):
-		var lost_pop_up = lost_pop_up_template.instantiate()
-		get_tree().get_root().add_child(lost_pop_up)
-	User.client.player_died.emit(player_name)
-		
+	#set_process(false)
+	#if get_multiplayer_authority() == (User.ID):
+		#var lost_pop_up = lost_pop_up_template.instantiate()
+		#add_child(lost_pop_up)
+	character_name.text = "press R to Reset"
 
 	# reset()
 
