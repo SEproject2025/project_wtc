@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2kidlku6mw1f"]
+
+[ext_resource type="Texture2D" uid="uid://cccnylotwwlt1" path="res://assets/sprites/sprite_sheets/swamp_tileset.png" id="1_c6b3s"]
+[ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="2_nrk5t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwk5q"]
+atlas = ExtResource("1_c6b3s")
+region = Rect2(288, 32, 32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_56mja"]
+size = Vector2(30, 23)
+
+[node name="still_water" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_uwk5q")
+
+[node name="Killzone" parent="." instance=ExtResource("2_nrk5t")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_56mja")

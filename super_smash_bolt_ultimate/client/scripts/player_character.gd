@@ -332,7 +332,7 @@ func set_sprite():
 @rpc("any_peer","call_local","reliable")
 func die():
 	$AnimationTree.set_active(false)
-	anim_player.play("Dead")
+	anim_player.play("dead")
 	set_physics_process(false)
 	set_process(false)
 	if get_multiplayer_authority() == (User.ID):
