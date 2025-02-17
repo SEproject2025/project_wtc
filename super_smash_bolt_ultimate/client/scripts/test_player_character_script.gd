@@ -183,7 +183,7 @@ func apply_movement(delta: float):
 		if collidingRayCast:
 			var collider = collidingRayCast.get_collider()
 			if collider:
-				collider.get_bumped.rpc(direction)
+j				collider.get_bumped.rpc(direction)
 	elif powerupManager.isGrappling:
 		handle_grappling_movement(delta)
 	elif direction:
