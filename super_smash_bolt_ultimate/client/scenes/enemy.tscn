@@ -1,6 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://b014qwe6jvw50"]
+[gd_scene load_steps=31 format=3 uid="uid://b014qwe6jvw50"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_0i4fb"]
+[ext_resource type="Shader" uid="uid://cgge2uou7m65v" path="res://assets/sprites/sprite_sheets/enemy_hit_flash.tres" id="2_7wmco"]
 [ext_resource type="Texture2D" uid="uid://dsbpnn6oidr4j" path="res://assets/sprites/enemy_robots.png" id="2_nk2ri"]
 [ext_resource type="BehaviorTree" uid="uid://ujvb5ecnavwg" path="res://ai/trees/enemy.tres" id="3_h2e2c"]
 [ext_resource type="Texture2D" uid="uid://cc627tphtj1q0" path="res://assets/red-exclamation.png" id="3_xfnwc"]
@@ -9,6 +10,12 @@
 properties/0/path = NodePath("Enemy:velocity")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ksd7n"]
+resource_local_to_scene = true
+shader = ExtResource("2_7wmco")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_78jht"]
 atlas = ExtResource("2_nk2ri")
@@ -114,10 +121,6 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n1a60"]
-radius = 5.0
-height = 16.0
-
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_170w2"]
 
 [sub_resource type="Animation" id="Animation_qy0b0"]
@@ -199,10 +202,55 @@ tracks/2/keys = {
 "values": [0.0, -0.174533, 0.174533, -0.174533, 0.174533, -0.174533, 0.174533, 0.0]
 }
 
+[sub_resource type="Animation" id="Animation_sg5bh"]
+resource_name = "dead"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wgybp"]
 _data = {
 "RESET": SubResource("Animation_qy0b0"),
+"dead": SubResource("Animation_sg5bh"),
 "warning": SubResource("Animation_gx7b7")
+}
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_87cvk"]
+a = Vector2(-2, 0)
+b = Vector2(18, 0)
+
+[sub_resource type="Animation" id="Animation_w074i"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_uu4wl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g3ncs"]
+_data = {
+"RESET": SubResource("Animation_uu4wl"),
+"hit_flash": SubResource("Animation_w074i")
 }
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
@@ -214,9 +262,11 @@ script = ExtResource("1_0i4fb")
 replication_config = SubResource("SceneReplicationConfig_u7w01")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_ksd7n")
 position = Vector2(2, 0)
 sprite_frames = SubResource("SpriteFrames_ojfr0")
 animation = &"walk"
+metadata/_edit_lock_ = true
 
 [node name="warning" type="Sprite2D" parent="AnimatedSprite2D"]
 self_modulate = Color(1, 1, 1, 0)
@@ -224,10 +274,6 @@ position = Vector2(2, -11)
 rotation = -0.174533
 scale = Vector2(0.6, 0.65)
 texture = ExtResource("3_xfnwc")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, 4)
-shape = SubResource("CapsuleShape2D_n1a60")
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = ExtResource("3_h2e2c")
@@ -237,3 +283,33 @@ blackboard_plan = SubResource("BlackboardPlan_170w2")
 libraries = {
 "": SubResource("AnimationLibrary_wgybp")
 }
+
+[node name="DamageArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DamageArea"]
+polygon = PackedVector2Array(-3, 6, -3, 9, -2, 10, -1, 11, -1, 12, -1, 12, 0, 13, 1, 11, 1, 10, 3, 10, 3, 11, 3, 12, 4, 12, 6, 10, 6, 9, 7, 9, 7, 6, 6, 5, 9, 4, 9, -1, 6, -2, -3, -2, -4, -1, -5, -1, -5, 3, -4, 4)
+metadata/_edit_lock_ = true
+
+[node name="Killzone" type="Area2D" parent="."]
+position = Vector2(0, 1)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(-2, -5)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("SegmentShape2D_87cvk")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-2, 6, -2, 9, -2, 10, -1, 11, -1, 12, -1, 12, 0, 13, 1, 11, 1, 10, 3, 10, 3, 11, 3, 12, 4, 12, 6, 10, 7, 9, 6, 9, 6, 6, 6, 5, 8, 4, 8, -1, 7, -3, -3, -3, -4, -2, -4, -1, -4, 2, -3, 4)
+
+[node name="HurtAnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../CollisionPolygon2D")
+libraries = {
+"": SubResource("AnimationLibrary_g3ncs")
+}
+
+[connection signal="body_entered" from="DamageArea" to="." method="on_body_entered"]
+[connection signal="body_entered" from="Killzone" to="." method="on_killzone_entered"]
