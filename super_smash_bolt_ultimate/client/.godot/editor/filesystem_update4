@@ -1,4 +1,11 @@
 res://main/main.tscn
+res://assets/sprites/sprite_sheets/player_character_hit_flash.tres
+res://assets/sprites/sprite_sheets/enemy_hit_flash.tres
+res://ai/tasks/move_to_target.gd
+res://ai/trees/enemy.tres
+res://chunks/swamp_chunk1.tscn
+res://chunks/chunk_11.tscn
 res://scenes/test_level.tscn
+res://scenes/enemy.tscn
 res://scenes/player_character.tscn
-res://scripts/test_player_character_script.gd
+res://chunks/starting_chunk.tscn

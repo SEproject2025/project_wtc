@@ -1,19 +1,8 @@
-[gd_scene load_steps=10 format=4 uid="uid://mn7s2brx2fws"]
+[gd_scene load_steps=6 format=4 uid="uid://mn7s2brx2fws"]
 
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_6xa0p"]
 [ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="3_r74tu"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="4_1vrcv"]
-[ext_resource type="PackedScene" uid="uid://b014qwe6jvw50" path="res://scenes/enemy.tscn" id="5_hwwsv"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ad73v"]
-texture = ExtResource("1_u3b1e")
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qnvgi"]
-texture = ExtResource("1_u3b1e")
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t0802"]
 texture = ExtResource("3_r74tu")
@@ -68,6 +57,3 @@ tile_set = SubResource("TileSet_fghnj")
 position = Vector2(-77, -30)
 powerups = Array[int]([1])
 powerupProbabilities = Array[float]([1.0])
-
-[node name="Enemy" parent="." instance=ExtResource("5_hwwsv")]
-position = Vector2(44, -24)

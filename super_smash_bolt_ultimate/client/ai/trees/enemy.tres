@@ -10,8 +10,8 @@
 
 [sub_resource type="BTAction" id="BTAction_2ew6r"]
 script = ExtResource("1_x6s7c")
-range_min_in_direction = 10.0
-range_max_in_direction = 50.0
+range_min_in_direction = 40.0
+range_max_in_direction = 100.0
 position_var = &"pos"
 direction_var = &"dir"
 

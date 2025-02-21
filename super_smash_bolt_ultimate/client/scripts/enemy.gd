@@ -41,11 +41,11 @@ func play_animation(anim_name):
 
 func on_body_entered(body):
 	if body.is_in_group("Players"):
-		body.get_bumped.rpc(1 if body.animated_sprite.flip_h else -1)
+		body.get_bumped(1 if body.animated_sprite.flip_h else -1)
 		body.hit_received.rpc()
 
 func on_killzone_entered(body):
-	if body.is_in_group("Players") and !body.is_on_floor():
+	if body.is_in_group("Players"):
 		die.rpc()
 
 @rpc("any_peer","call_local","reliable")

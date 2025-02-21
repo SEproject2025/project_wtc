@@ -318,7 +318,6 @@ func _on_dash_effect_timer_timeout():
 
 func stun_timer_timeout():
 	isStunned = false
-
 #endregion
 
 #region RPCs
@@ -373,6 +372,6 @@ func get_stunned():
 
 @rpc("any_peer", "call_remote", "reliable")
 func get_bumped(direction: int):
-	velocity += Vector2(direction * PLAYER.BUMP_FORCE.x, PLAYER.BUMP_FORCE.y)
-	move_and_slide()
+	velocity = Vector2(direction * PLAYER.BUMP_FORCE.x, PLAYER.BUMP_FORCE.y)
+
 #endregion

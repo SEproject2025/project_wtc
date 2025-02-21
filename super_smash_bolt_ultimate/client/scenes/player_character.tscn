@@ -1,11 +1,11 @@
-[gd_scene load_steps=56 format=3 uid="uid://bbkqm75x5qo4d"]
+[gd_scene load_steps=61 format=3 uid="uid://bbkqm75x5qo4d"]
 
 [ext_resource type="Script" path="res://scripts/player_character.gd" id="1_y2p1t"]
 [ext_resource type="Script" path="res://scripts/powerups/powerup_hud.gd" id="2_a42bt"]
 [ext_resource type="Script" path="res://scripts/powerups/powerup_manager.gd" id="2_qorcy"]
 [ext_resource type="Script" path="res://scripts/multiplayer_input.gd" id="5_82x6r"]
-[ext_resource type="Texture2D" uid="uid://bjp26hq284uds" path="res://assets/sprites/character_sprites/bot_mothersheet_divisionless.png" id="5_d74or"]
 [ext_resource type="Shader" uid="uid://cix2p10kubhpy" path="res://assets/sprites/sprite_sheets/player_character_hit_flash.tres" id="5_ct6r3"]
+[ext_resource type="Texture2D" uid="uid://bjp26hq284uds" path="res://assets/sprites/character_sprites/bot_mothersheet_divisionless.png" id="5_d74or"]
 
 [sub_resource type="Animation" id="Animation_bvmwo"]
 length = 0.001
@@ -357,8 +357,20 @@ shader = ExtResource("5_ct6r3")
 shader_parameter/enabled = false
 shader_parameter/tint = Color(1, 1, 1, 1)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f80uk"]
-load_path = "res://.godot/imported/mine_bot_idle_sheet_4.png-d724f3759fdae1bf673ea2c52026bf35.ctex"
+[sub_resource type="Animation" id="Animation_ua2q2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_pjdbi"]
 resource_name = "hit_flash"
@@ -375,21 +387,6 @@ tracks/0/keys = {
 "values": [true, false]
 }
 
-[sub_resource type="Animation" id="Animation_ua2q2"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_28vel"]
 _data = {
 "RESET": SubResource("Animation_ua2q2"),
@@ -399,9 +396,9 @@ _data = {
 [node name="Player Character" type="CharacterBody2D" node_paths=PackedStringArray("player_input") groups=["Players"]]
 collision_layer = 2
 collision_mask = 3
+safe_margin = 0.01
 script = ExtResource("1_y2p1t")
 player_input = NodePath("Input")
-player_id = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -7)
@@ -488,7 +485,7 @@ texture_under = SubResource("CompressedTexture2D_8vt3m")
 texture_progress = SubResource("CompressedTexture2D_5ggrr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, -5)
+position = Vector2(-2, -5)
 shape = SubResource("CapsuleShape2D_wboyi")
 
 [node name="RayCasts" type="Node2D" parent="."]
