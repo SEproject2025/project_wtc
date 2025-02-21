@@ -30,10 +30,9 @@ func _on_play_again_pressed():
 
 
 func _on_spectate_pressed() -> void:
-	other_players[0].get_node("Camera2D").enabled = true
 	var spectatorOverlay = spectator_overlay.instantiate()
-	spectatorOverlay.set_msg(other_players[0].character_name.text)
 	spectatorOverlay.other_players = other_players
+	spectatorOverlay.spectate_player(0)
 	get_tree().get_root().add_child(spectatorOverlay)
 	queue_free()
 	

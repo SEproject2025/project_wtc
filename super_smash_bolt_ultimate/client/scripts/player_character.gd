@@ -339,6 +339,8 @@ func die(player_name: int):
 	set_physics_process(false)
 	set_process(false)
 	alive = false
+	visible = false
+	$Camera2D.enabled = false
 	if get_multiplayer_authority() == (User.ID):
 		var lost_pop_up = lost_pop_up_template.instantiate()
 		get_tree().get_root().add_child(lost_pop_up)

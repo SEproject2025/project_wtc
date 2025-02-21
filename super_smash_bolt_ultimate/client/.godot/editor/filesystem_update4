@@ -1,4 +1,2 @@
 res://main/main.tscn
-res://scenes/test_level.tscn
-res://scenes/player_character.tscn
-res://scripts/test_player_character_script.gd
+res://scripts/spectator_overlay.gd
