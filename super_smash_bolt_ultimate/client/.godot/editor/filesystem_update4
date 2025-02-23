@@ -5,3 +5,7 @@ res://scripts/spectator_overlay.gd
 res://scenes/game_scene.tscn
 res://scripts/pause_menu.gd
 res://scenes/end_pop_up.tscn
+res://scenes/in_lobby_menu.tscn
+res://scenes/killzone.tscn
+res://scenes/lobby_menu.tscn
+res://scenes/main_menu.tscn
