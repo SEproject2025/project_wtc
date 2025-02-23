@@ -1,4 +1,6 @@
-res://scenes/test_level.tscn
 res://main/main.tscn
-res://scenes/transient_platform.tscn
-res://scripts/test_player_character_script.gd
+res://scripts/WALLtransient_platform.gd
+res://scenes/test_level.tscn
+res://scenes/transient_wall.tscn
+res://scenes/test_player_character.tscn
+res://scenes/player_character.tscn

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cpoe72xuywwkb"]
+[gd_scene load_steps=11 format=3 uid="uid://cpoe72xuywwkb"]
 
 [ext_resource type="Script" path="res://scripts/WALLtransient_platform.gd" id="1_xa1pn"]
 [ext_resource type="Texture2D" uid="uid://4q18u2y54xjg" path="res://assets/sprites/TransientPlatformBottom.png" id="2_mjgft"]
@@ -12,24 +12,33 @@ atlas = ExtResource("3_xrjpb")
 region = Rect2(24, 88.3328, 24, 23.6672)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_we03o"]
-size = Vector2(1, 34.125)
+size = Vector2(36, 34.125)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eca56"]
-radius = 11.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1cwn"]
+atlas = ExtResource("3_xrjpb")
+region = Rect2(23, 112, 47, 23)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j08dq"]
 radius = 7.07107
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fryap"]
+atlas = ExtResource("3_xrjpb")
+region = Rect2(41, 85, 31, 33)
 
 [node name="TransientWall" type="Node2D"]
 script = ExtResource("1_xa1pn")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_mjgft")
 
 [node name="RigidBodyUpperLeft" type="RigidBody2D" parent="."]
 position = Vector2(0, -16)
 collision_layer = 2
 collision_mask = 4
+mass = 0.452
 sleeping = true
 freeze = true
 contact_monitor = true
@@ -41,7 +50,6 @@ position = Vector2(-7, 6)
 shape = SubResource("CircleShape2D_ykmdo")
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBodyUpperLeft"]
-visible = false
 position = Vector2(-9, 3)
 texture = SubResource("AtlasTexture_g0at4")
 
@@ -50,19 +58,34 @@ wait_time = 0.253
 
 [node name="Area2DLeft" type="Area2D" parent="."]
 position = Vector2(0, -2)
+collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2DL" type="CollisionShape2D" parent="Area2DLeft"]
-position = Vector2(-16.5, 0.9375)
+position = Vector2(1, 0.9375)
+shape = SubResource("RectangleShape2D_we03o")
+
+[node name="Area2DRight" type="Area2D" parent="."]
+position = Vector2(35, 900)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2DL" type="CollisionShape2D" parent="Area2DRight"]
+position = Vector2(-17, 0.9375)
 shape = SubResource("RectangleShape2D_we03o")
 
 [node name="RigidBodyLowerRight" type="RigidBody2D" parent="."]
+mass = 0.525
 sleeping = true
 freeze = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBodyLowerRight"]
 position = Vector2(5, 6)
 shape = SubResource("CircleShape2D_eca56")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBodyLowerRight"]
+position = Vector2(2, 9)
+texture = SubResource("AtlasTexture_f1cwn")
 
 [node name="RigidBodyUpperRight" type="RigidBody2D" parent="."]
 sleeping = true
@@ -72,8 +95,15 @@ freeze = true
 position = Vector2(10, -12)
 shape = SubResource("CircleShape2D_j08dq")
 
+[node name="Sprite2D" type="Sprite2D" parent="RigidBodyUpperRight"]
+position = Vector2(12, -13)
+texture = SubResource("AtlasTexture_fryap")
+
 [connection signal="body_entered" from="RigidBodyUpperLeft" to="RigidBodyUpperLeft" method="_on_body_entered"]
 [connection signal="timeout" from="SQUEEEEK" to="." method="_on_squeeeek_timeout"]
 [connection signal="area_entered" from="Area2DLeft" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2DLeft" to="." method="_on_area_2d_left_body_entered"]
 [connection signal="body_entered" from="Area2DLeft" to="." method="_on_area_2d_body_entered"]
+[connection signal="area_entered" from="Area2DRight" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2DRight" to="." method="_on_area_2d_left_body_entered"]
+[connection signal="body_entered" from="Area2DRight" to="." method="_on_area_2d_body_entered"]

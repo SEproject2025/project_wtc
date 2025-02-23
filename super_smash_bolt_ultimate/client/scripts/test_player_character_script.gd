@@ -182,8 +182,8 @@ func apply_movement(delta: float):
 		var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 		if collidingRayCast:
 			var collider = collidingRayCast.get_collider()
-			if collider:
-j				collider.get_bumped.rpc(direction)
+			if collider == CharacterBody2D:
+				collider.get_bumped.rpc(direction)
 	elif powerupManager.isGrappling:
 		handle_grappling_movement(delta)
 	elif direction:
