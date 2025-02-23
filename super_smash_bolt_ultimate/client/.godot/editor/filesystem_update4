@@ -1,4 +1,7 @@
+res://scenes/spectator_overlay.tscn
 res://main/main.tscn
-res://scenes/test_level.tscn
-res://scenes/player_character.tscn
-res://scripts/test_player_character_script.gd
+res://scenes/pause_menu.tscn
+res://scripts/spectator_overlay.gd
+res://scenes/game_scene.tscn
+res://scripts/pause_menu.gd
+res://scenes/end_pop_up.tscn

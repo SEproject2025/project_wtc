@@ -4,6 +4,8 @@ var other_players = []
 @onready var previousButton = $Previous
 @onready var nextButton = $Next
 
+var pause_menu = preload("res://scenes/pause_menu.tscn")
+
 func _ready() -> void:
 	if other_players.size() <= 1:
 		previousButton.visible = false
@@ -30,3 +32,7 @@ func spectate_player(index: int):
 func deactivate_current_camera(index: int):
 	var player = other_players[index]
 	player.get_node("Camera2D").enabled = false
+
+func pause_pressed():
+	var pause_menu_instance = pause_menu.instantiate()
+	get_tree().get_root().add_child(pause_menu_instance)
