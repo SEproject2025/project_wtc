@@ -1,4 +1,3 @@
+res://scenes/game_scene.tscn
+res://scenes/tutorial_buttons.tscn
 res://main/main.tscn
-res://scenes/test_level.tscn
-res://scenes/player_character.tscn
-res://scripts/test_player_character_script.gd

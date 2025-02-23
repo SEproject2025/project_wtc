@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://chvj808e8555p"]
+[gd_scene load_steps=19 format=3 uid="uid://chvj808e8555p"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_e2uyo"]
 [ext_resource type="PackedScene" uid="uid://dlrwjh05484qr" path="res://scenes/parallax_background.tscn" id="2_poitg"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://qdrwrn6obfjs" path="res://chunks/chunk_11.tscn" id="13_gjbj5"]
 [ext_resource type="PackedScene" uid="uid://c3pfve3y737tc" path="res://scenes/death_wall.tscn" id="15_5ci7t"]
 [ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="16_1whiy"]
+[ext_resource type="PackedScene" uid="uid://dufupyn6x0rk2" path="res://scenes/tutorial_buttons.tscn" id="17_rvdsv"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r3yr3"]
 distance = -683.0
@@ -43,3 +44,6 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("WorldBoundaryShape2D_r3yr3")
+
+[node name="Tutorial Buttons" parent="." instance=ExtResource("17_rvdsv")]
+position = Vector2(212, -104)
