@@ -19,6 +19,8 @@ var isGrappling: bool = false
 var isBeingGrappled: bool = false
 var isSlipping: bool = false
 var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
+var ui_template = preload("res://scenes/UI.tscn")
+var ui
 
 @onready var animated_sprite: Sprite2D = $Sprite2D
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
@@ -62,6 +64,10 @@ func _process(_delta):
 	set_animation()
 	if Input.is_action_just_pressed("use_powerup") and !powerupManager.is_jetpack_active and !powerupManager.is_dash_powerup_active:
 		powerupManager.use_powerup()
+	if ui.fuel.value != ui.fuel.max_value:
+		ui.fuel.value = ui.fuel.max_value - (dashCooldown.time_left * 10)
+	if powerupManager.is_jetpack_active or powerupManager.is_dash_powerup_active:
+		ui.power_fuel.value = powerupManager.fuel
 
 func _physics_process(delta):
 	apply_movement(delta)
@@ -85,6 +91,9 @@ func reset():
 		set_player_name.rpc(User.user_name)
 		if User.is_host:
 			set_sprite.rpc()
+		ui = ui_template.instantiate()
+		get_tree().get_root().add_child(ui)
+		ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
 	else:
 		character_name.text = "Other player"
 		set_physics_process(false)
@@ -142,22 +151,22 @@ func apply_movement(delta: float):
 		coyoteTimer.stop()
 
 	if powerupManager.is_jetpack_active:
-		if Input.is_action_pressed("use_powerup") and powerupManager.jetpack_fuel > 0:
+		if Input.is_action_pressed("use_powerup") and powerupManager.is_jetpack_active:
 			velocity.y = PLAYER.JETPACK_VELOCITY
-			powerupManager.jetpack_fuel -= PLAYER.JETPACK_FUEL_CONSUMPTION * delta
-		if powerupManager.jetpack_fuel <= 0:
+			powerupManager.fuel -= PLAYER.JETPACK_FUEL_CONSUMPTION * delta
+		if powerupManager.fuel <= 0:
 			powerupManager.deactivate_jetpack()
 
 	if powerupManager.is_dash_powerup_active:
-		if Input.is_action_pressed("use_powerup") and powerupManager.dashFuel > 0:
+		if Input.is_action_pressed("use_powerup") and powerupManager.is_dash_powerup_active:
 			var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 			if collidingRayCast:
 				var collider = collidingRayCast.get_collider()
 				if collider and not collider.isStunned:
 					collider.get_stunned.rpc()
 			handle_dash_movement(direction)
-			powerupManager.dashFuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
-		if powerupManager.dashFuel <= 0:
+			powerupManager.fuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
+		if powerupManager.fuel <= 0:
 			powerupManager.deactivate_dash()
 
 	if Input.is_action_just_pressed("jump"):
@@ -229,6 +238,7 @@ func wall_slide():
 func start_dash():
 	isDashing = true
 	canDash = false
+	ui.fuel.value = 0
 	dashTimer.start()
 	dashCooldown.start()
 	dashEffectTimer.start()
@@ -340,6 +350,7 @@ func die(player_name: int):
 	set_process(false)
 	alive = false
 	if get_multiplayer_authority() == (User.ID):
+		ui.set_visible(false)
 		var lost_pop_up = lost_pop_up_template.instantiate()
 		get_tree().get_root().add_child(lost_pop_up)
 	User.client.player_died.emit(player_name)
