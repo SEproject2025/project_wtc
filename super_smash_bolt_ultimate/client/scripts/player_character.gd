@@ -153,7 +153,7 @@ func apply_movement(delta: float):
 			var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 			if collidingRayCast:
 				var collider = collidingRayCast.get_collider()
-				if collider and not collider.isStunned:
+				if  collider and collider.get_class() == "CharacterBody2D" and not collider.isStunned:
 					collider.get_stunned.rpc()
 			handle_dash_movement(direction)
 			powerupManager.dashFuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
@@ -177,7 +177,8 @@ func apply_movement(delta: float):
 		var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 		if collidingRayCast:
 			var collider = collidingRayCast.get_collider()
-			if collider:
+			if collider and collider.get_class() == "CharacterBody2D":
+				print(collider.get_class())
 				if direction:
 					collider.get_bumped.rpc(direction)
 				else:

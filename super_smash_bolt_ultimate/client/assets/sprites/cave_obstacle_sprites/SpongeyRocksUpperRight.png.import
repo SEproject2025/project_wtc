@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cygpgsljrqtky"
-path="res://.godot/imported/Flag.png-b73482aa3046c965e55b24d226b54af9.ctex"
+uid="uid://dobdw80rfitmj"
+path="res://.godot/imported/SpongeyRocksUpperRight.png-1578ce500ea8bd92350e8ad1c400a708.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/animated_objects_sprite_sheets/Flag.png"
-dest_files=["res://.godot/imported/Flag.png-b73482aa3046c965e55b24d226b54af9.ctex"]
+source_file="res://assets/sprites/cave_obstacle_sprites/SpongeyRocksUpperRight.png"
+dest_files=["res://.godot/imported/SpongeyRocksUpperRight.png-1578ce500ea8bd92350e8ad1c400a708.ctex"]
 
 [params]
 

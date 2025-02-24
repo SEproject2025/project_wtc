@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm7eic06hfdas"
-path="res://.godot/imported/RustTrussTop.png-1657e300ea1c9b7808d7fb9efffca32a.ctex"
+uid="uid://byrgss5yolkma"
+path="res://.godot/imported/Key.png-ed341d88be7bf7206dc105085e9a335a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/RustTrussTop.png"
-dest_files=["res://.godot/imported/RustTrussTop.png-1657e300ea1c9b7808d7fb9efffca32a.ctex"]
+source_file="res://assets/sprites/swamp_objects/animated_swamp_objects_sprite_sheets/Key.png"
+dest_files=["res://.godot/imported/Key.png-ed341d88be7bf7206dc105085e9a335a.ctex"]
 
 [params]
 

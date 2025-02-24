@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dv2bl2xbwn1pe"]
 
 [ext_resource type="Script" path="res://scripts/transient_platform.gd" id="1_chnpl"]
-[ext_resource type="Texture2D" uid="uid://4q18u2y54xjg" path="res://assets/sprites/TransientPlatformBottom.png" id="2_c1m47"]
-[ext_resource type="Texture2D" uid="uid://dm7eic06hfdas" path="res://assets/sprites/RustTrussTop.png" id="3_rjg4p"]
+[ext_resource type="Texture2D" uid="uid://4q18u2y54xjg" path="res://assets/sprites/cave_obstacle_sprites/TransientPlatformBottom.png" id="2_c1m47"]
+[ext_resource type="Texture2D" uid="uid://dm7eic06hfdas" path="res://assets/sprites/cave_obstacle_sprites/RustTrussTop.png" id="3_rjg4p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1eidc"]
 size = Vector2(32, 4)
@@ -63,11 +63,11 @@ wait_time = 0.253
 
 [connection signal="body_entered" from="RigidBody2D" to="RigidBody2D" method="_on_body_entered"]
 [connection signal="area_entered" from="RigidBody2D/Area2DLeft" to="." method="_on_area_2d_area_entered"]
-[connection signal="body_entered" from="RigidBody2D/Area2DLeft" to="." method="_on_area_2d_left_body_entered"]
 [connection signal="body_entered" from="RigidBody2D/Area2DLeft" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="RigidBody2D/Area2DLeft" to="." method="_on_area_2d_left_body_entered"]
 [connection signal="area_entered" from="RigidBody2D/Area2D2Middle" to="." method="_on_area_2d_2_area_entered"]
-[connection signal="body_entered" from="RigidBody2D/Area2D2Middle" to="." method="_on_area_2d_2_middle_body_entered"]
 [connection signal="body_entered" from="RigidBody2D/Area2D2Middle" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="RigidBody2D/Area2DRight" to="." method="_on_area_2d_right_body_entered"]
+[connection signal="body_entered" from="RigidBody2D/Area2D2Middle" to="." method="_on_area_2d_2_middle_body_entered"]
 [connection signal="body_entered" from="RigidBody2D/Area2DRight" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="RigidBody2D/Area2DRight" to="." method="_on_area_2d_right_body_entered"]
 [connection signal="timeout" from="SQUEEEEK" to="." method="_on_squeeeek_timeout"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chngdhdqjj1lp"
-path="res://.godot/imported/Coin.png-2130bb20440951cca579c35423fbe00b.ctex"
+uid="uid://drvktuuiy3sxd"
+path="res://.godot/imported/SpongeyRocksUpperLeft.png-61ffd96590d76eea5a7ab17cfe273221.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/animated_objects_sprite_sheets/Coin.png"
-dest_files=["res://.godot/imported/Coin.png-2130bb20440951cca579c35423fbe00b.ctex"]
+source_file="res://assets/sprites/cave_obstacle_sprites/SpongeyRocksUpperLeft.png"
+dest_files=["res://.godot/imported/SpongeyRocksUpperLeft.png-61ffd96590d76eea5a7ab17cfe273221.ctex"]
 
 [params]
 

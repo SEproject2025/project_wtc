@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://4q18u2y54xjg"
-path="res://.godot/imported/TransientPlatformBottom.png-b8d0de20a42377239ec6f9f9d67de3e5.ctex"
+path="res://.godot/imported/TransientPlatformBottom.png-98689b3d19596dad0349592c8210f77d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/TransientPlatformBottom.png"
-dest_files=["res://.godot/imported/TransientPlatformBottom.png-b8d0de20a42377239ec6f9f9d67de3e5.ctex"]
+source_file="res://assets/sprites/cave_obstacle_sprites/TransientPlatformBottom.png"
+dest_files=["res://.godot/imported/TransientPlatformBottom.png-98689b3d19596dad0349592c8210f77d.ctex"]
 
 [params]
 
