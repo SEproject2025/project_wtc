@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1740349745
+::res://::1740601980
 icon.svg::CompressedTexture2D::4641424010700937205::1739835396::1740349562::1::::<><>::
 ::res://assets/::1740349414
 ::res://assets/fonts/::1740349562
@@ -161,15 +161,15 @@ chunk_11.tscn::PackedScene::1130287022220297184::1739835396::0::1::::<><>::res:/
 starting_chunk.tscn::PackedScene::871079542997444666::1739835396::0::1::::<><>::res://scripts/chunk.gd<>uid://d2evj4xtt87v4::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://ssnxjecv0xkf::::res://scenes/powerups/power_up_spawner.tscn
 swamp_chunk1.tscn::PackedScene::7246539949271583903::1739835396::0::1::::<><>::uid://cccnylotwwlt1::::res://assets/sprites/sprite_sheets/swamp_tileset.png
 swamp_chunk2.tscn::PackedScene::3453656156092332284::1739835396::0::1::::<><>::uid://cccnylotwwlt1::::res://assets/sprites/sprite_sheets/swamp_tileset.png<>uid://bboe7p52ncma3::::res://scenes/obstacles/still_water_centered.tscn<>uid://bvjfjvwqcpeu6::::res://scenes/obstacles/still_water_island.tscn<>uid://c2kidlku6mw1f::::res://scenes/obstacles/still_water_left.tscn<>uid://ovm85keqc52y::::res://scenes/obstacles/still_water_middle.tscn<>uid://cbwg3s2fmtqay::::res://scenes/obstacles/still_water_right.tscn
-::res://main/::1740349417
+::res://main/::1740349955
 client.gd::GDScript::-1::1739835396::0::1::::Client<>Node<>::
 main.gd::GDScript::-1::1739835396::0::1::::<>Node<>::
-main.tscn::PackedScene::2693157753843824692::1739835396::0::1::::<><>::res://main/main.gd
+main.tscn::PackedScene::2693157753843824692::1740349955::0::1::::<><>::res://main/main.gd
 user.gd::GDScript::-1::1739835396::0::1::::<>Node<>::
-::res://scenes/::1740349745
+::res://scenes/::1740349955
 death_wall.tscn::PackedScene::6769435996680115944::1739835396::0::1::::<><>::res://scripts/death_wall.gd<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn
 end_pop_up.tscn::PackedScene::8057633789611751793::1739835396::0::1::::<><>::res://scripts/end_game_pop_up.gd
-game_scene.tscn::PackedScene::5308121954110798787::1739835396::0::1::::<><>::res://scripts/game_scene.gd<>uid://dlrwjh05484qr::::res://scenes/parallax_background.tscn<>res://scripts/level.gd<>uid://kjhh6jp8711k::::res://chunks/chunk1.tscn<>uid://bto5gwjteh2gd::::res://chunks/chunk4.tscn<>uid://8sv84xrsny2w::::res://chunks/chunk2.tscn<>uid://cit33ltgf5f1u::::res://chunks/chunk5.tscn<>uid://c8wtlv7s0jxwr::::res://chunks/chunk3.tscn<>uid://c2pk3tlcvoiuv::::res://chunks/chunk6.tscn<>uid://nq2hvo4jxr3a::::res://chunks/chunk7.tscn<>uid://d2b31f522ib4b::::res://chunks/chunk8.tscn<>uid://dhoqbwyfgpdij::::res://chunks/chunk9.tscn<>uid://txkmi1fes2fw::::res://chunks/chunk10.tscn<>uid://qdrwrn6obfjs::::res://chunks/chunk_11.tscn<>uid://c3pfve3y737tc::::res://scenes/death_wall.tscn<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn
+game_scene.tscn::PackedScene::5308121954110798787::1740349955::0::1::::<><>::res://scripts/game_scene.gd<>uid://dlrwjh05484qr::::res://scenes/parallax_background.tscn<>res://scripts/level.gd<>uid://kjhh6jp8711k::::res://chunks/chunk1.tscn<>uid://bto5gwjteh2gd::::res://chunks/chunk4.tscn<>uid://8sv84xrsny2w::::res://chunks/chunk2.tscn<>uid://cit33ltgf5f1u::::res://chunks/chunk5.tscn<>uid://c8wtlv7s0jxwr::::res://chunks/chunk3.tscn<>uid://c2pk3tlcvoiuv::::res://chunks/chunk6.tscn<>uid://nq2hvo4jxr3a::::res://chunks/chunk7.tscn<>uid://d2b31f522ib4b::::res://chunks/chunk8.tscn<>uid://dhoqbwyfgpdij::::res://chunks/chunk9.tscn<>uid://txkmi1fes2fw::::res://chunks/chunk10.tscn<>uid://qdrwrn6obfjs::::res://chunks/chunk_11.tscn<>uid://c3pfve3y737tc::::res://scenes/death_wall.tscn<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn<>uid://dufupyn6x0rk2::::res://scenes/tutorial_buttons.tscn
 intro.tscn::PackedScene::3215006570723755155::1739835396::0::1::::<><>::res://scripts/intro.gd<>uid://dbv1h2xvmqiqu::::res://assets/overlays/intro_background.png<>res://assets/overlays/intro.ogv
 in_lobby_menu.tscn::PackedScene::6914247917438545956::1739835396::0::1::::<><>::res://scripts/in_lobby_menu.gd<>uid://bls1g11tx37i3::::res://assets/sprites/mine_bot_idle_sheet_5.png<>uid://ns3yo3xcmqji::::res://assets/sprites/mine_bot_idle_sheet_4.png
 killzone.tscn::PackedScene::8528023117307378280::1739835396::0::1::::<><>::res://scripts/killzone.gd
@@ -184,7 +184,7 @@ pop_up.tscn::PackedScene::3208356554862751835::1739835396::0::1::::<><>::res://s
 spectator_overlay.tscn::PackedScene::7817115894324522153::1739835396::0::1::::<><>::res://scripts/spectator_overlay.gd<>uid://b4xtumvqfrh5m::::res://assets/icons/IconsFlat-32.png
 test_level.tscn::PackedScene::4938247862496308910::1739835396::0::1::::<><>::uid://cccnylotwwlt1::::res://assets/sprites/sprite_sheets/swamp_tileset.png<>uid://d2evj4xtt87v4::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://c2kidlku6mw1f::::res://scenes/obstacles/still_water_left.tscn<>uid://bboe7p52ncma3::::res://scenes/obstacles/still_water_centered.tscn<>uid://bvjfjvwqcpeu6::::res://scenes/obstacles/still_water_island.tscn<>uid://bqiu1wtam800::::res://scenes/test_player_character.tscn<>uid://ovm85keqc52y::::res://scenes/obstacles/still_water_middle.tscn<>uid://cbwg3s2fmtqay::::res://scenes/obstacles/still_water_right.tscn<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png
 test_player_character.tscn::PackedScene::103741739979803055::1739835396::0::1::::<><>::res://scripts/test_player_character_script.gd<>res://scripts/powerups/powerup_manager.gd<>res://scripts/powerups/powerup_hud.gd<>res://scripts/multiplayer_input.gd<>uid://bjp26hq284uds::::res://assets/sprites/character_sprites/bot_mothersheet_divisionless.png
-tutorial_buttons.tscn::PackedScene::-1::1740349661::0::1::::<><>::
+tutorial_buttons.tscn::PackedScene::8574603221457249803::1740349955::0::1::::<><>::uid://d24k0auyknfdh::::res://assets/sprites/Keyboard Letters and Symbols.png<>uid://difbjxwugrxgg::::res://assets/sprites/Keyboard Extras.png<>uid://b6g0oju3qagi0::::res://assets/fonts/monogram.ttf<>uid://c644jhkdq338h::::res://assets/powerups (placeholders)/Question.png
 ::res://scenes/obstacles/::1740349417
 desert_spikes.tscn::PackedScene::2791200022939891208::1739835396::0::1::::<><>::uid://c1jgeeufdjble::::res://assets/sprites/Desert_Spikes.png<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn
 still_water_centered.tscn::PackedScene::2485811664702598796::1739835396::0::1::::<><>::uid://cccnylotwwlt1::::res://assets/sprites/sprite_sheets/swamp_tileset.png<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn
@@ -228,7 +228,7 @@ powerup_spawner.gd::GDScript::-1::1739835396::0::1::::<>Area2D<>::
 ::res://webrtc/::1740349418
 LICENSE.json::JSON::-1::1739835396::0::1::::<><>::
 webrtc.gdextension::GDExtension::-1::1739835396::0::1::::<><>::
-::res://webrtc/lib/::1740349555
+::res://webrtc/lib/::1740601975
 ::res://webrtc/lib/libwebrtc_native.macos.template_debug.universal.framework/::1740349421
 ::res://webrtc/lib/libwebrtc_native.macos.template_debug.universal.framework/Resources/::1740349421
 ::res://webrtc/lib/libwebrtc_native.macos.template_release.universal.framework/::1740349421

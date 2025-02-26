@@ -194,7 +194,8 @@ offset_top = 20.0
 offset_right = 453.0
 offset_bottom = 49.0
 theme_override_fonts/font = ExtResource("3_x2g3j")
-text = "let's you dash       then gets put on a timer"
+text = "lets you dash
+Keep an eye on the cooldown"
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -205,18 +206,20 @@ offset_top = 20.0
 offset_right = 630.0
 offset_bottom = 33.0
 theme_override_fonts/font = ExtResource("3_x2g3j")
-text = "let's you use powerups"
+text = "lets you use any
+powerup you find"
+horizontal_alignment = 1
 
 [node name="Label6" type="Label" parent="Control"]
 layout_mode = 0
-offset_left = 712.0
+offset_left = 657.0
 offset_top = 20.0
-offset_right = 850.0
+offset_right = 795.0
 offset_bottom = 33.0
 theme_override_fonts/font = ExtResource("3_x2g3j")
 text = "Get powerups from these"
 
 [node name="Question" type="Sprite2D" parent="."]
-position = Vector2(780, 0)
+position = Vector2(718, 0)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_narfv")
