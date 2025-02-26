@@ -36,9 +36,9 @@ var ui
 @onready var dashEffectTimer: Timer = $Timers/DashEffectTimer
 @onready var oilSpillTimer: Timer = $Timers/OilSpillTimer
 @onready var stunTimer:Timer = $Timers/StunTimer
+@onready var hitFlashAnimationPlayer = $HitFlashAnimationPlayer
 
-var hostSprite = preload("res://assets/sprites/character_sprites/red_bot_mothersheet_divisionless.png")
-
+var hostSprite = preload("res://assets/sprites/mine_bot_idle_sheet_5.png")
 
 @export var player_input: PlayerInput
 @export var player_id := 1:
@@ -102,7 +102,7 @@ func reset():
 
 func check_health():
 	if health.value <= 0:
-		die.rpc(name)
+		die.rpc(name.to_int())
 
 func set_animation():
 	if Input.is_action_just_pressed("jump") :
@@ -162,7 +162,7 @@ func apply_movement(delta: float):
 			var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 			if collidingRayCast:
 				var collider = collidingRayCast.get_collider()
-				if collider and not collider.isStunned:
+				if collider.is_in_group("Player") and not collider.isStunned:
 					collider.get_stunned.rpc()
 			handle_dash_movement(direction)
 			powerupManager.fuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
@@ -186,7 +186,7 @@ func apply_movement(delta: float):
 		var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 		if collidingRayCast:
 			var collider = collidingRayCast.get_collider()
-			if collider:
+			if collider.is_in_group("Players"):
 				if direction:
 					collider.get_bumped.rpc(direction)
 				else:
@@ -328,7 +328,6 @@ func _on_dash_effect_timer_timeout():
 
 func stun_timer_timeout():
 	isStunned = false
-
 #endregion
 
 #region RPCs
@@ -354,7 +353,7 @@ func die(player_name: int):
 		var lost_pop_up = lost_pop_up_template.instantiate()
 		get_tree().get_root().add_child(lost_pop_up)
 	User.client.player_died.emit(player_name)
-		
+
 
 	# reset()
 
@@ -368,8 +367,9 @@ func sync_flip(dir : int):
 
 @rpc("any_peer","call_local","reliable")
 func hit_received():
-	anim_tree.start("Hurt", true)
+	# anim_tree.start("Hurt", true)
 	health.value -= 5
+	hitFlashAnimationPlayer.play("hit_flash")
 
 @rpc("any_peer")
 func begin_pulling_to_target(pullPosition: Vector2):
@@ -383,5 +383,6 @@ func get_stunned():
 
 @rpc("any_peer", "call_remote", "reliable")
 func get_bumped(direction: int):
-	velocity += Vector2(direction * PLAYER.BUMP_FORCE.x, PLAYER.BUMP_FORCE.y)
+	velocity = Vector2(direction * PLAYER.BUMP_FORCE.x, PLAYER.BUMP_FORCE.y)
+
 #endregion
