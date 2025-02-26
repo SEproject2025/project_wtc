@@ -1,8 +1,5 @@
-res://scenes/UI.tscn
-res://scripts/powerups/powerup_manager.gd
-res://scripts/player_character.gd
 res://main/main.tscn
-res://scenes/spectator_overlay.tscn
+res://scripts/player_character.gd
 res://scenes/player_character.tscn
-res://scenes/ui_hud.gd
-res://scripts/powerups/powerup_hud.gd
+res://scenes/spectator_overlay.tscn
+res://scenes/UI.tscn
