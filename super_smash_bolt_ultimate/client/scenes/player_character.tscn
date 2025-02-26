@@ -1,9 +1,10 @@
-[gd_scene load_steps=56 format=3 uid="uid://bbkqm75x5qo4d"]
+[gd_scene load_steps=61 format=3 uid="uid://bbkqm75x5qo4d"]
 
 [ext_resource type="Script" path="res://scripts/player_character.gd" id="1_y2p1t"]
 [ext_resource type="Script" path="res://scripts/powerups/powerup_hud.gd" id="2_a42bt"]
 [ext_resource type="Script" path="res://scripts/powerups/powerup_manager.gd" id="2_qorcy"]
 [ext_resource type="Script" path="res://scripts/multiplayer_input.gd" id="5_82x6r"]
+[ext_resource type="Shader" uid="uid://cix2p10kubhpy" path="res://assets/sprites/sprite_sheets/player_character_hit_flash.tres" id="5_ct6r3"]
 [ext_resource type="Texture2D" uid="uid://bjp26hq284uds" path="res://assets/sprites/character_sprites/bot_mothersheet_divisionless.png" id="5_d74or"]
 
 [sub_resource type="Animation" id="Animation_bvmwo"]
@@ -322,7 +323,7 @@ load_path = "res://.godot/imported/red.png-42432e989feef4cdfa07511ade50ab7a.ctex
 load_path = "res://.godot/imported/green.png-314c33de04b335649345ea7d7aad302b.ctex"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wboyi"]
-radius = 6.0
+radius = 7.0
 height = 20.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1i0gq"]
@@ -350,12 +351,54 @@ properties/2/path = NodePath(".:input_dash")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mhb3c"]
+resource_local_to_scene = true
+shader = ExtResource("5_ct6r3")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_ua2q2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_pjdbi"]
+resource_name = "hit_flash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_28vel"]
+_data = {
+"RESET": SubResource("Animation_ua2q2"),
+"hit_flash": SubResource("Animation_pjdbi")
+}
+
 [node name="Player Character" type="CharacterBody2D" node_paths=PackedStringArray("player_input") groups=["Players"]]
 collision_layer = 2
 collision_mask = 3
+safe_margin = 0.01
 script = ExtResource("1_y2p1t")
 player_input = NodePath("Input")
-player_id = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -7)
@@ -442,7 +485,7 @@ texture_under = SubResource("CompressedTexture2D_8vt3m")
 texture_progress = SubResource("CompressedTexture2D_5ggrr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
+position = Vector2(-2, -5)
 shape = SubResource("CapsuleShape2D_wboyi")
 
 [node name="RayCasts" type="Node2D" parent="."]
@@ -531,13 +574,19 @@ script = ExtResource("5_82x6r")
 replication_config = SubResource("SceneReplicationConfig_8e02d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-10, -30)
+material = SubResource("ShaderMaterial_mhb3c")
+position = Vector2(-12, -30)
 texture = ExtResource("5_d74or")
 centered = false
 offset = Vector2(1, 1)
 hframes = 9
 vframes = 12
 frame = 16
+
+[node name="HitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_28vel")
+}
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="dash_timeout"]
