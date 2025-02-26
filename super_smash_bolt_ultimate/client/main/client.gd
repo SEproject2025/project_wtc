@@ -3,12 +3,13 @@ class_name Client
 
 # Enum representing the types of messages exchanged between client and server
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
-START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS}
+START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS, AI_SEED}
 
 var rtc_mp = WebRTCMultiplayerPeer.new()
 var ws = WebSocketPeer.new()
 var url = "ws://127.0.0.1:9999"
 var client_connected : bool = false
+var ai_seed: int = 0
 
 # Signals for various events
 signal invalid_new_lobby_name
@@ -217,6 +218,9 @@ func parse_msg():
 		var dict: Dictionary = str_to_var(data)
 		spawn_positions_received.emit(dict)
 		return 
+	if type == Message.AI_SEED:
+		ai_seed = str_to_var(data)
+		return
 
 	return false
 
@@ -265,3 +269,4 @@ func send_map_seed(map_seed: int):
 
 func send_left_game(lobby_name: String):
 	send_msg(Message.LEFT_GAME, 0, lobby_name)
+

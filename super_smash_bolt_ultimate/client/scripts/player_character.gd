@@ -93,7 +93,7 @@ func reset():
 
 func check_health():
 	if health.value <= 0:
-		die.rpc(name)
+		die.rpc(name.to_int())
 
 func set_animation():
 	if Input.is_action_just_pressed("jump") :
@@ -342,7 +342,7 @@ func die(player_name: int):
 		var lost_pop_up = lost_pop_up_template.instantiate()
 		get_tree().get_root().add_child(lost_pop_up)
 	User.client.player_died.emit(player_name)
-		
+
 
 	# reset()
 
@@ -356,7 +356,7 @@ func sync_flip(dir : int):
 
 @rpc("any_peer","call_local","reliable")
 func hit_received():
-	anim_tree.start("Hurt", true)
+	# anim_tree.start("Hurt", true)
 	health.value -= 5
 	hitFlashAnimationPlayer.play("hit_flash")
 

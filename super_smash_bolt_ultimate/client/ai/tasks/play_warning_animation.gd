@@ -1,7 +1,7 @@
 extends BTAction
 
 func _tick(_delta: float) -> Status:
-	if !User.is_host:
-		return FAILURE
-	agent.play_animation.rpc("warning")
+	# if !User.is_host or !agent.alive:
+	# 	return FAILURE
+	agent.play_animation("warning")
 	return SUCCESS

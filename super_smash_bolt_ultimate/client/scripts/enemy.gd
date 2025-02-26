@@ -6,15 +6,16 @@ extends CharacterBody2D
 @onready var hurtAnimationPlayer = $HurtAnimationPlayer
 
 const JUMP_POWER = -400
+var alive: bool = true
+
 
 func _physics_process(delta: float) -> void:
 		if is_on_wall() and is_on_floor():
 			velocity.y = JUMP_POWER
-		else: 
+		else:
 			velocity.y += get_gravity().y * delta
-	
 		move_and_slide()
-	
+
 @rpc("any_peer","call_local","reliable")
 func move(direction, speed):
 		velocity.x = direction * speed
@@ -46,10 +47,11 @@ func on_body_entered(body):
 
 func on_killzone_entered(body):
 	if body.is_in_group("Players"):
-		die.rpc()
+		die()
 
-@rpc("any_peer","call_local","reliable")
 func die():
 	hurtAnimationPlayer.play("hit_flash")
 	await get_tree().create_timer(0.2).timeout
+	alive = false
 	queue_free()
+

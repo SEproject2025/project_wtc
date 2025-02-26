@@ -6,11 +6,6 @@
 [ext_resource type="BehaviorTree" uid="uid://ujvb5ecnavwg" path="res://ai/trees/enemy.tres" id="3_h2e2c"]
 [ext_resource type="Texture2D" uid="uid://cc627tphtj1q0" path="res://assets/red-exclamation.png" id="3_xfnwc"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_u7w01"]
-properties/0/path = NodePath("Enemy:velocity")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ksd7n"]
 resource_local_to_scene = true
 shader = ExtResource("2_7wmco")
@@ -213,7 +208,8 @@ _data = {
 }
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_87cvk"]
-b = Vector2(16, 0)
+a = Vector2(2, 0)
+b = Vector2(14, 0)
 
 [sub_resource type="Animation" id="Animation_uu4wl"]
 length = 0.001
@@ -252,13 +248,12 @@ _data = {
 "hit_flash": SubResource("Animation_w074i")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_quyo7"]
+
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 position = Vector2(3, 0)
 collision_layer = 2
 script = ExtResource("1_0i4fb")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_u7w01")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_ksd7n")
@@ -309,6 +304,9 @@ root_node = NodePath("../CollisionPolygon2D")
 libraries = {
 "": SubResource("AnimationLibrary_g3ncs")
 }
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_quyo7")
 
 [connection signal="body_entered" from="DamageArea" to="." method="on_body_entered"]
 [connection signal="body_entered" from="Killzone" to="." method="on_killzone_entered"]

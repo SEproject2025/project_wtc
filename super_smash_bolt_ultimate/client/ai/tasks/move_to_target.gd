@@ -7,8 +7,8 @@ extends BTAction
 
 
 func _tick(_delta: float) -> Status:
-	if !User.is_host:
-		return FAILURE
+	# if !User.is_host or !agent.alive:
+	# 	return FAILURE
 	var target: CharacterBody2D = blackboard.get_var(target_var)
 	if target == null:
 		return FAILURE
@@ -16,8 +16,8 @@ func _tick(_delta: float) -> Status:
 	var direction = agent.global_position.direction_to(target_position)
 
 	if abs(agent.global_position.x - target_position.x) < tolerance:
-		agent.move.rpc(direction.x, 0)
+		agent.move(direction.x, 0)
 		return SUCCESS
 	else:
-		agent.move.rpc(direction.x, speed)
+		agent.move(direction.x, speed)
 		return RUNNING

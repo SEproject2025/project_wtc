@@ -4,6 +4,9 @@ var pop_up_template = preload("res://scenes/pop_up.tscn")
 var main_menu_template = preload("res://scenes/main_menu.tscn")
 var in_lobby_menu_template = preload("res://scenes/in_lobby_menu.tscn")
 
+func _ready() -> void:
+	if(get_tree().get_root().get_node("main_menu")):
+		get_tree().get_root().get_node("main_menu").queue_free()
 func _init():
 	User.client.lobby_list_received.connect(create_lobby_list)
 	User.client.invalid_new_lobby_name.connect(invalid_new_lobby_name)
