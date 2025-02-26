@@ -20,7 +20,6 @@ func _on_play_pressed():
 		pop_up.set_msg("Enter a name!\nNo spaces are allowed!")
 		add_child(pop_up)
 		return
-		
 	else:
 		if User.client:
 			User.client.queue_free()
@@ -49,7 +48,6 @@ func check_if_connected():
 	else:
 		if lobby_menu:
 			lobby_menu.queue_free()
-		User.client.queue_free()
 		control_flag = false
 		$Loading.hide()
 		$"Cannot Connect".show()

@@ -4,6 +4,8 @@ var other_players = []
 @onready var previousButton = $Previous
 @onready var nextButton = $Next
 
+var pause_menu = preload("res://scenes/pause_menu.tscn")
+
 func _ready() -> void:
 	User.client.connect("player_died", update_dead_players)
 	if other_players.size() <= 1:
@@ -43,3 +45,7 @@ func update_dead_players(id: int):
 	if current_player_index >= other_players.size():
 		current_player_index = 0
 	spectate_player(current_player_index)
+
+func pause_pressed():
+	var pause_menu_instance = pause_menu.instantiate()
+	get_tree().get_root().add_child(pause_menu_instance)

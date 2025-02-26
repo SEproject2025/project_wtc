@@ -26,6 +26,7 @@ func _on_play_again_pressed():
 	pop_up.queue_free()
 	var game_scene_node = get_tree().get_root().get_node("game_scene")
 	game_scene_node.queue_free()
+	game_scene_node.get_node(str(User.ID)).queue_free()
 	queue_free()
 
 

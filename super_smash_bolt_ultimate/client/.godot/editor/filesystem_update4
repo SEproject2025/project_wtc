@@ -1,2 +1,9 @@
 res://main/main.tscn
-res://scripts/spectator_overlay.gd
+res://scenes/spectator_overlay.tscn
+res://scenes/pause_menu.tscn
+res://scenes/game_scene.tscn
+res://scenes/end_pop_up.tscn
+res://scenes/in_lobby_menu.tscn
+res://scenes/killzone.tscn
+res://scenes/lobby_menu.tscn
+res://scenes/main_menu.tscn
