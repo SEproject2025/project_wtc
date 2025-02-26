@@ -1,15 +1,1 @@
-res://main/main.tscn
-res://assets/sprites/sprite_sheets/enemy_hit_flash.tres
-res://ai/trees/enemy.tres
-res://assets/sprites/sprite_sheets/player_character_hit_flash.tres
-res://chunks/swamp_chunk1.tscn
-res://chunks/chunk_11.tscn
-res://scenes/test_level.tscn
-res://scenes/enemy.tscn
-res://scenes/player_character.tscn
-res://chunks/starting_chunk.tscn
-res://scenes/death_wall.tscn
-res://scripts/enemy.gd
-res://ai/tasks/bt_probability.gd
-res://chunks/chunk2.tscn
-res://chunks/chunk1.tscn
+res://scripts/constants.gd
