@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=4 uid="uid://8sv84xrsny2w"]
+[gd_scene load_steps=12 format=4 uid="uid://8sv84xrsny2w"]
 
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_wt8xq"]
 [ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="2_cxxl6"]
 [ext_resource type="Texture2D" uid="uid://cjv214hth048p" path="res://assets/sprites/SpriteSheetCave.png" id="3_1jwse"]
 [ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="3_arvx0"]
+[ext_resource type="PackedScene" uid="uid://b014qwe6jvw50" path="res://scenes/enemy.tscn" id="5_adhvy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_empj7"]
 texture = ExtResource("3_1jwse")
@@ -150,3 +151,6 @@ tile_set = SubResource("TileSet_w3x24")
 [node name="Background" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD6////AAABAAEAAAD6//7/AAABAAEAAAD6//3/AAACAAEAAAD6//z/AAACAAEAAAD6//v/AAABAAEAAAAGAP//AAABAAEAAAAGAP7/AAACAAEAAAAGAP3/AAACAAEAAAAGAPz/AAABAAEAAAAGAPv/AAACAAEAAAAGAPr/AAAAAAEAAAABAPr/AAAAAAEAAAD5//r/AAAAAAEAAAD6//r/AAAAAAEAAAD7//r/AAAAAAEAAAAAAPr/AAAAAAEAAAAFAPr/AAAAAAEAAAAHAPr/AAAAAAEAAAD///r/AAAAAAEAAAAAAP//AAACAAEAAAAAAP7/AAABAAEAAAAAAP3/AAACAAEAAAAAAPz/AAABAAEAAAAAAPv/AAABAAEAAAA=")
 tile_set = SubResource("TileSet_omb1a")
+
+[node name="Enemy" parent="." instance=ExtResource("5_adhvy")]
+position = Vector2(-111, -16)

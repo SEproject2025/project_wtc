@@ -2,7 +2,7 @@ extends Node2D
 
 
 var current_powerup: Constants.PowerUpType = Constants.PowerUpType.NONE
-var jetpack_fuel = 100
+var fuel = 100
 var is_jetpack_active = false
 var isGrappling: bool = false
 var targetPlayer
@@ -11,13 +11,13 @@ var toPosition: Vector2 # Used to draw other player's grappling hooks
 var fromPosition: Vector2 # Used to draw other player's grappling hooks
 var drawGrapplingHook: bool = false
 var queueRedraw: bool = false
-var dashFuel: int = 100
 var is_dash_powerup_active: bool = false
 
 @onready var oilspill_scene = preload("res://scenes/powerups/oilspill.tscn")
 
 @export var parent: CharacterBody2D
 @export var PowerUpHUD: Control
+
 
 
 func _process(_delta: float) -> void:
@@ -64,7 +64,9 @@ func use_powerup() -> void:
 
 #region Dash
 func activate_dash() -> void:
-	dashFuel = 100
+	fuel = 100
+	if is_jetpack_active:
+		deactivate_jetpack()
 	is_dash_powerup_active = true
 		
 func deactivate_dash() -> void:
@@ -75,7 +77,9 @@ func deactivate_dash() -> void:
 
 #region JetPack	
 func activate_jetpack() -> void:
-	jetpack_fuel = 100
+	fuel = 100
+	if is_dash_powerup_active:
+		deactivate_dash()
 	is_jetpack_active = true
 
 func deactivate_jetpack() -> void:
