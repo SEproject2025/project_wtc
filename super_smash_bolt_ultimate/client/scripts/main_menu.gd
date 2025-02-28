@@ -6,6 +6,8 @@ var main_menu_template = preload("res://scenes/main_menu.tscn")
 var control_flag : bool = false
 var lobby_menu
 
+func _ready() -> void:
+	name = "main_menu"
 
 func _on_play_pressed():
 	if get_child_count() > 5:

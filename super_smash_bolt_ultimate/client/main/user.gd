@@ -12,6 +12,7 @@ var game_scene_template = preload("res://scenes/game_scene.tscn")
 var player_character_template = preload("res://scenes/player_character.tscn")
 var spawn_positions : Dictionary = {}
 
+
 var connection_list : Dictionary = {}
 var rtc_peer : WebRTCMultiplayerPeer
 
