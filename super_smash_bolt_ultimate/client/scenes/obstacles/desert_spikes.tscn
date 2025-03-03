@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bf1cwlaflxa5e"]
 
-[ext_resource type="Texture2D" uid="uid://c1jgeeufdjble" path="res://assets/sprites/Desert_Spikes.png" id="1_h23qp"]
+[ext_resource type="Texture2D" uid="uid://c1jgeeufdjble" path="res://assets/sprites/cave_obstacle_sprites/Desert_Spikes.png" id="1_h23qp"]
 [ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="2_f0ujk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ywxm"]
