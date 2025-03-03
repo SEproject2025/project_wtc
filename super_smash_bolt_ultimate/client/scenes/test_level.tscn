@@ -1,7 +1,6 @@
-[gd_scene load_steps=16 format=4 uid="uid://ccmehriwbp2le"]
+[gd_scene load_steps=15 format=4 uid="uid://ccmehriwbp2le"]
 
 [ext_resource type="Texture2D" uid="uid://cccnylotwwlt1" path="res://assets/sprites/sprite_sheets/swamp_tileset.png" id="1_5m7mf"]
-[ext_resource type="PackedScene" uid="uid://b014qwe6jvw50" path="res://scenes/enemy.tscn" id="1_nljxs"]
 [ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="2_5dslk"]
 [ext_resource type="PackedScene" uid="uid://c2kidlku6mw1f" path="res://scenes/obstacles/still_water_left.tscn" id="3_kd6ee"]
 [ext_resource type="PackedScene" uid="uid://bboe7p52ncma3" path="res://scenes/obstacles/still_water_centered.tscn" id="4_xblt6"]
@@ -215,9 +214,6 @@ sources/2 = SubResource("TileSetScenesCollectionSource_og53w")
 sources/3 = SubResource("TileSetAtlasSource_wl6wu")
 
 [node name="SwampChunk1" type="Node2D"]
-
-[node name="Enemy" parent="." instance=ExtResource("1_nljxs")]
-position = Vector2(786, 31)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(47, 53)

@@ -3,7 +3,8 @@ class_name Client
 
 # Enum representing the types of messages exchanged between client and server
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
-START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS, AI_SEED}
+START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS, AI_SEED, \
+GENERATE_SEED}
 
 var rtc_mp = WebRTCMultiplayerPeer.new()
 var ws = WebSocketPeer.new()
@@ -33,6 +34,7 @@ signal map_seed_received(seed: int)
 signal some_one_left_game(id : int)
 signal spawn_positions_received(spawn_positions : Dictionary)
 signal player_died(id : int)
+signal generated_seed_received(seed: int)
 
 # Attempt to connect to the WebSocket server
 func _init():
@@ -218,8 +220,13 @@ func parse_msg():
 		var dict: Dictionary = str_to_var(data)
 		spawn_positions_received.emit(dict)
 		return 
+
 	if type == Message.AI_SEED:
 		ai_seed = str_to_var(data)
+		return
+
+	if type == Message.GENERATE_SEED:
+		generated_seed_received.emit(data.to_int())
 		return
 
 	return false
@@ -269,4 +276,7 @@ func send_map_seed(map_seed: int):
 
 func send_left_game(lobby_name: String):
 	send_msg(Message.LEFT_GAME, 0, lobby_name)
+
+func request_seed():
+	send_msg(Message.GENERATE_SEED, 0, "")
 

@@ -1,7 +1,7 @@
-[gd_scene load_steps=31 format=3 uid="uid://b014qwe6jvw50"]
+[gd_scene load_steps=31 format=3 uid="uid://lpaxegay60m8"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_0i4fb"]
-[ext_resource type="Shader" uid="uid://cgge2uou7m65v" path="res://assets/sprites/sprite_sheets/enemy_hit_flash.tres" id="2_7wmco"]
+[ext_resource type="Shader" uid="uid://tlvj1lm82chj" path="res://assets/sprites/sprite_sheets/enemy_hit_flash.tres" id="2_7wmco"]
 [ext_resource type="Texture2D" uid="uid://dsbpnn6oidr4j" path="res://assets/sprites/enemy_robots.png" id="2_nk2ri"]
 [ext_resource type="BehaviorTree" uid="uid://ujvb5ecnavwg" path="res://ai/trees/enemy.tres" id="3_h2e2c"]
 [ext_resource type="Texture2D" uid="uid://cc627tphtj1q0" path="res://assets/red-exclamation.png" id="3_xfnwc"]

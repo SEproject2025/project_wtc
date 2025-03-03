@@ -1,0 +1,164 @@
+[gd_scene load_steps=21 format=3 uid="uid://c58usve2vv3gi"]
+
+[ext_resource type="Script" path="res://scripts/flying_enemy.gd" id="1_8igmr"]
+[ext_resource type="Texture2D" uid="uid://dwbvg2o0lcdl0" path="res://assets/sprites/animated_objects_sprite_sheets/Giant Fly Sprite Sheet.png" id="2_rbh1h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukkus"]
+atlas = ExtResource("2_rbh1h")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5qcrg"]
+atlas = ExtResource("2_rbh1h")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_263hh"]
+atlas = ExtResource("2_rbh1h")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxeg6"]
+atlas = ExtResource("2_rbh1h")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tiwyo"]
+atlas = ExtResource("2_rbh1h")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttwee"]
+atlas = ExtResource("2_rbh1h")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ax264"]
+atlas = ExtResource("2_rbh1h")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spwi4"]
+atlas = ExtResource("2_rbh1h")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfuen"]
+atlas = ExtResource("2_rbh1h")
+region = Rect2(128, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_upnn4"]
+atlas = ExtResource("2_rbh1h")
+region = Rect2(160, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgs2n"]
+atlas = ExtResource("2_rbh1h")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khypw"]
+atlas = ExtResource("2_rbh1h")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwkhb"]
+atlas = ExtResource("2_rbh1h")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68kcw"]
+atlas = ExtResource("2_rbh1h")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nc7p1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ukkus")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5qcrg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_263hh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxeg6")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tiwyo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ttwee")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ax264")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spwi4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfuen")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_upnn4")
+}],
+"loop": false,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hgs2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khypw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwkhb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68kcw")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_brbxo"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oj4la"]
+radius = 68.0074
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_er41d"]
+
+[node name="FlyingEnemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_8igmr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_nc7p1")
+animation = &"attack"
+frame_progress = 0.344113
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_brbxo")
+
+[node name="ChaseRadius" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseRadius"]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_oj4la")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="DamgeArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="Collision2D" type="CollisionShape2D" parent="DamgeArea"]
+shape = SubResource("CircleShape2D_er41d")
+
+[connection signal="body_entered" from="ChaseRadius" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="ChaseRadius" to="." method="_on_chase_radius_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="DamgeArea" to="." method="_on_damage_area_entered"]

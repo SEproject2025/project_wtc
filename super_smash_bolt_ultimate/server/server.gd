@@ -1,7 +1,8 @@
 extends Node
 
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
-START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS, AI_SEED}
+START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS, AI_SEED, \
+GENERATE_SEED}
 
 var server = TCPServer.new()
 var hard_coded_port = 9999
@@ -263,6 +264,14 @@ func parse_msg(peer : Peer) -> bool:
 			if i.peers.has(peer):
 				for j in i.peers:
 						j.send_msg(Message.MAP_SEED, 0, data)
+				return true
+	
+	if type == Message.GENERATE_SEED:
+		var generated_seed = randi()
+		for i in lobbies:
+			if i.peers.has(peer):
+				for j in i.peers:
+						j.send_msg(Message.GENERATE_SEED, 0, str(generated_seed))
 				return true
 
 	
