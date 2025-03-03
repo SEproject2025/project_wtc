@@ -308,16 +308,16 @@ position = Vector2(0, -58)
 position = Vector2(64, -58)
 
 [node name="AnimatableBody2D3" parent="Background" instance=ExtResource("3_y7d74")]
-position = Vector2(-150, -249)
+position = Vector2(-150, -221)
 
 [node name="AnimatableBody2D4" parent="Background" instance=ExtResource("3_y7d74")]
-position = Vector2(-86, -249)
+position = Vector2(-86, -221)
 
 [node name="AnimatableBody2D5" parent="Background" instance=ExtResource("3_y7d74")]
-position = Vector2(113, -249)
+position = Vector2(113, -221)
 
 [node name="AnimatableBody2D6" parent="Background" instance=ExtResource("3_y7d74")]
-position = Vector2(177, -249)
+position = Vector2(177, -221)
 
 [node name="ground" type="TileMapLayer" parent="."]
 z_index = 2

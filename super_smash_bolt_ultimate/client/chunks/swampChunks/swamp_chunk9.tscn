@@ -326,28 +326,34 @@ tile_map_data = PackedByteArray("AAD9////AgAAAAAAAgD6////AgAAAAAAAQAEAP//AgAAAAA
 tile_set = SubResource("TileSet_f60kj")
 
 [node name="AnimatableBody2D" parent="Background" instance=ExtResource("12_fseuh")]
-position = Vector2(0, -58)
+position = Vector2(6, -54)
 
 [node name="AnimatableBody2D2" parent="Background" instance=ExtResource("12_fseuh")]
-position = Vector2(64, -58)
+position = Vector2(70, -54)
 
 [node name="AnimatableBody2D3" parent="Background" instance=ExtResource("12_fseuh")]
-position = Vector2(46, -142)
+position = Vector2(44, -112)
 
 [node name="AnimatableBody2D4" parent="Background" instance=ExtResource("12_fseuh")]
-position = Vector2(110, -142)
+position = Vector2(108, -112)
+
+[node name="AnimatableBody2D9" parent="Background" instance=ExtResource("12_fseuh")]
+position = Vector2(101, -170)
+
+[node name="AnimatableBody2D10" parent="Background" instance=ExtResource("12_fseuh")]
+position = Vector2(165, -170)
 
 [node name="AnimatableBody2D5" parent="Background" instance=ExtResource("12_fseuh")]
-position = Vector2(-215, -250)
+position = Vector2(-215, -221)
 
 [node name="AnimatableBody2D6" parent="Background" instance=ExtResource("12_fseuh")]
-position = Vector2(-151, -250)
+position = Vector2(-151, -221)
 
 [node name="AnimatableBody2D7" parent="Background" instance=ExtResource("12_fseuh")]
-position = Vector2(159, -250)
+position = Vector2(159, -221)
 
 [node name="AnimatableBody2D8" parent="Background" instance=ExtResource("12_fseuh")]
-position = Vector2(223, -250)
+position = Vector2(223, -221)
 
 [node name="ground" type="TileMapLayer" parent="."]
 z_index = 2
@@ -355,6 +361,6 @@ tile_map_data = PackedByteArray("AAD8/wAAAAABAAAAAAD9/wAAAAABAAAAAAD7/wAAAAABAAA
 tile_set = SubResource("TileSet_7lpd5")
 
 [node name="PowerUpSpawner" parent="." instance=ExtResource("16_isrdq")]
-position = Vector2(219, -271)
+position = Vector2(219, -242)
 powerups = Array[int]([2, 3, 1, 4])
 powerupProbabilities = Array[float]([0.1, 0.3, 0.4, 0.2])

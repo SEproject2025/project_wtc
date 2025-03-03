@@ -1,115 +1,116 @@
 fc8a56933c4b1c8d796fdb8f7a9f9475
-::res://::1733031819
-export_presets.cfg::TextFile::-1::1732672496::0::1::::<><>::
-::res://assets/::1733031820
-powerup_icons copy.png::CompressedTexture2D::3722758765034021217::1732672496::1733031820::1::::<><>::
-::res://assets/fonts/::1733031820
-monogram-extended-italic.ttf::FontFile::2387249278354819397::1732672496::1733031820::1::::<><>::
-monogram-extended.ttf::FontFile::9214293658821093641::1732672496::1733031820::1::::<><>::
-monogram.ttf::FontFile::5888239852664683225::1732672496::1733031820::1::::<><>::
-::res://assets/ParallaxBackground/::1733031820
-DownLayer.png::CompressedTexture2D::6770152459706698685::1732672496::1733031820::1::::<><>::
-Light.png::CompressedTexture2D::1564315703055813805::1732672496::1733031820::1::::<><>::
-MiddleLayer.png::CompressedTexture2D::2786235533382074435::1732672496::1733031820::1::::<><>::
-sky.png::CompressedTexture2D::2274972741348774926::1732672496::1733031820::1::::<><>::
-TopLayer.png::CompressedTexture2D::7728950166646348796::1732672496::1733031820::1::::<><>::
-::res://assets/powerups (placeholders)/::1733031820
-dash_icon.png::CompressedTexture2D::2070120977324908019::1732672496::1733031820::1::::<><>::
-grapplinghook_icon.png::CompressedTexture2D::6779913528016375999::1732672496::1733031820::1::::<><>::
-jetpack_icon.png::CompressedTexture2D::1168549282130831745::1732672496::1733031820::1::::<><>::
-oil-spill.png::CompressedTexture2D::7134699219645320163::1732672496::1733031820::1::::<><>::
-oilspill_icon.png::CompressedTexture2D::9080636934629320076::1732672496::1733031820::1::::<><>::
-oil_side_view.png::CompressedTexture2D::5522239580801175883::1732672496::1733031820::1::::<><>::
-powerup_icons.png::CompressedTexture2D::632293261786087955::1732672496::1733031820::1::::<><>::
-Question.png::CompressedTexture2D::7010339723238627865::1732672496::1733031820::1::::<><>::
-SPEARS.png::CompressedTexture2D::2254272044395977878::1732672496::1733031820::1::::<><>::
-::res://assets/sounds/::1733031820
-chip.wav::AudioStreamWAV::2691056647805643005::1732672496::1733031820::1::::<><>::
-::res://assets/sprites/::1733032065
-background.png::CompressedTexture2D::6733791285863659409::1732672496::1733031820::1::::<><>::
-chip.png::CompressedTexture2D::415214128362740635::1732672496::1733031820::1::::<><>::
-Desert_Spikes.png::CompressedTexture2D::3844332861444873242::1732672496::1733031820::1::::<><>::
-jump_pad.gd::GDScript::-1::1732672496::0::1::::<>Area2D<>::
-Jump_pad.png::CompressedTexture2D::5266315247715448560::1732672496::1733031820::1::::<><>::
-Keyboard Extras.png::CompressedTexture2D::2924856978107067006::1733032065::1733032065::1::::<><>::
-Keyboard Letters and Symbols.png::CompressedTexture2D::5388060047583212816::1733032053::1733032053::1::::<><>::
-mine_bot_idle_sheet_4.png::CompressedTexture2D::951357481348279002::1732672496::1733031820::1::::<><>::
-mine_bot_idle_sheet_5.png::CompressedTexture2D::3197247526527055836::1732672496::1733031820::1::::<><>::
-mouse.png::CompressedTexture2D::6936713088847388997::1732672496::1733031820::1::::<><>::
-mushroom_bumper.png::CompressedTexture2D::5328860162012606203::1732672496::1733031820::1::::<><>::
-platform.png::CompressedTexture2D::7277673344451258275::1732672496::1733031820::1::::<><>::
-RockyLavaSpritesheet.png::CompressedTexture2D::8235897115088868178::1732672496::1733031820::1::::<><>::
-RustTrussTop.png::CompressedTexture2D::8067845562272772822::1732672496::1733031820::1::::<><>::
-SpriteSheetCave.png::CompressedTexture2D::4865438487437073485::1732672496::1733031820::1::::<><>::
-SpriteSheetMine1.png::CompressedTexture2D::4425186763146615787::1732672496::1733031820::1::::<><>::
-SpriteSheetWasteland2.png::CompressedTexture2D::6036698380026276737::1732672496::1733031820::1::::<><>::
-TransientPlatformBottom.png::CompressedTexture2D::2070145175887114268::1732672496::1733031820::1::::<><>::
-::res://chunks/::1733031788
-chunk1.tscn::PackedScene::720906998527574678::1732672496::0::1::::<><>::res://scripts/chunk.gd<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png<>uid://bgv5v2fxqlswe::::res://scenes/platform.tscn<>uid://ssnxjecv0xkf::::res://scenes/powerups/power_up_spawner.tscn
-chunk2.tscn::PackedScene::2354726187179753588::1732672496::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png
-chunk3.tscn::PackedScene::7135663937901823985::1732672496::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png
-chunk4.tscn::PackedScene::3750743396204844371::1732672496::0::1::::<><>::uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>res://scripts/chunk.gd<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png
-chunk5.tscn::PackedScene::5375325979233010524::1732672496::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png<>uid://bhu24tgmbqicb::::res://scenes/mushroom_bumper.tscn<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png
-chunk6.tscn::PackedScene::6699563999136970269::1732672496::0::1::::<><>::uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>res://scripts/chunk.gd<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png
-chunk7.tscn::PackedScene::947137996669599972::1732672496::0::1::::<><>::uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>res://scripts/chunk.gd<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://bf1cwlaflxa5e::::res://scenes/desert_spikes.tscn<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png
-chunk8.tscn::PackedScene::9058172023723262895::1732672496::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png<>uid://bf1cwlaflxa5e::::res://scenes/desert_spikes.tscn<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png
-chunk9.tscn::PackedScene::7680459695605332637::1732672496::0::1::::<><>::uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>res://scripts/chunk.gd<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://bf1cwlaflxa5e::::res://scenes/desert_spikes.tscn<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png
-chunk10.tscn::PackedScene::1381697777505490844::1732672496::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png<>uid://bf1cwlaflxa5e::::res://scenes/desert_spikes.tscn<>uid://bgv5v2fxqlswe::::res://scenes/platform.tscn
-chunk_11.tscn::PackedScene::1130287022220297184::1732672496::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png<>uid://bf1cwlaflxa5e::::res://scenes/desert_spikes.tscn<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png<>uid://bhu24tgmbqicb::::res://scenes/mushroom_bumper.tscn
-starting_chunk.tscn::PackedScene::871079542997444666::1732672496::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://dv2bl2xbwn1pe::::res://scenes/transient_platform.tscn
-::res://scenes/::1733031971
-death_wall.tscn::PackedScene::4166977535517782215::1732672496::0::1::::<><>::res://scripts/death_wall.gd<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn
-desert_spikes.tscn::PackedScene::2791200022939891208::1732672496::0::1::::<><>::uid://bu1huoithdvgs::::res://assets/sprites/Desert_Spikes.png<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn
-game.tscn::PackedScene::6221769105244979977::1732672496::0::1::::<><>::res://scripts/game_manager.gd<>uid://dqnaqj8yb6hwd::::res://scenes/player.tscn<>uid://cp5kpkkmrmdob::::res://assets/fonts/monogram.ttf<>res://scripts/level.gd<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn<>uid://kjhh6jp8711k::::res://chunks/chunk1.tscn<>uid://8sv84xrsny2w::::res://chunks/chunk2.tscn<>uid://c8wtlv7s0jxwr::::res://chunks/chunk3.tscn<>uid://bto5gwjteh2gd::::res://chunks/chunk4.tscn<>uid://cit33ltgf5f1u::::res://chunks/chunk5.tscn<>uid://b0mrrm7qidtv0::::res://scenes/death_wall.tscn<>uid://c2pk3tlcvoiuv::::res://chunks/chunk6.tscn<>uid://ssnxjecv0xkf::::res://scenes/powerups/power_up_spawner.tscn<>uid://nq2hvo4jxr3a::::res://chunks/chunk7.tscn<>uid://d2b31f522ib4b::::res://chunks/chunk8.tscn<>uid://dhoqbwyfgpdij::::res://chunks/chunk9.tscn<>uid://txkmi1fes2fw::::res://chunks/chunk10.tscn<>uid://qdrwrn6obfjs::::res://chunks/chunk_11.tscn<>uid://7oap61xymarm::::res://assets/ParallaxBackground/sky.png<>uid://c3prolxtb1i58::::res://assets/ParallaxBackground/DownLayer.png<>uid://bfxw5llqpsg8j::::res://assets/ParallaxBackground/MiddleLayer.png<>uid://wj1b0bv77g6x::::res://assets/ParallaxBackground/Light.png<>uid://did7xed6152vw::::res://assets/ParallaxBackground/TopLayer.png
-game_manager.tscn::PackedScene::6461845027608184949::1732672496::0::1::::<><>::res://scripts/game_manager.gd<>uid://cp5kpkkmrmdob::::res://assets/fonts/monogram.ttf
-go_button.tscn::PackedScene::5677798081294473915::1732672496::0::1::::<><>::res://scripts/go_button_basic.gd
-jump.tscn::PackedScene::9000656413580627460::1732672496::0::1::::<><>::res://scripts/jump_pad.gd
-jump_pad.tscn::PackedScene::2392211204408944516::1732672496::0::1::::<><>::uid://chbbpb1lov2eu::::res://assets/sprites/Jump_pad.png<>uid://d1h8q4rqdmnpc::::res://scenes/jump.tscn
-killzone.tscn::PackedScene::8528023117307378280::1732672496::0::1::::<><>::res://scripts/killzone.gd
-main_menu.tscn::PackedScene::5438708010918430765::1732672496::0::1::::<><>::uid://cp5kpkkmrmdob::::res://assets/fonts/monogram.ttf<>res://scripts/main_menu.gd<>uid://c265s82scq482::::res://assets/sprites/background.png<>uid://d4jqcnkqbiw78::::res://assets/fonts/monogram-extended.ttf
-mouse.tscn::PackedScene::9101432372716425337::1732672496::0::1::::<><>::res://scripts/mouse.gd<>uid://c53gwexdr3hmb::::res://assets/sprites/mouse.png<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn
-multiplayer_player.tscn::PackedScene::9112005529514100619::1732672496::0::1::::<><>::res://scripts/multiplayer/multiplayer_controller.gd<>res://scripts/multiplayer/multiplayer_input.gd<>uid://bls1g11tx37i3::::res://assets/sprites/mine_bot_idle_sheet_5.png<>res://scripts/powerup_manager.gd<>res://scripts/powerups/powerup_hud.gd
-mushroom_bumper.tscn::PackedScene::2920722298828138613::1732672496::0::1::::<><>::res://scripts/mushroom_bumper.gd<>uid://ch6lsv34ikpcl::::res://assets/sprites/mushroom_bumper.png
-music.tscn::PackedScene::9006222053998901985::1732672496::0::1::::<><>::
-platform.tscn::PackedScene::2852766116732873392::1732672496::0::1::::<><>::res://scripts/platform.gd<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png
-player.tscn::PackedScene::8309149557574787539::1732672496::0::1::::<><>::res://scripts/player.gd<>uid://ns3yo3xcmqji::::res://assets/sprites/mine_bot_idle_sheet_4.png<>res://scripts/powerup_manager.gd<>res://scripts/powerups/powerup_hud.gd
-point.tscn::PackedScene::1086827868758606395::1732672496::0::1::::<><>::res://scripts/point.gd<>uid://f6ersscix0b4::::res://assets/sprites/chip.png<>uid://beltksfhblbsn::::res://assets/sounds/chip.wav
-practice_game.tscn::PackedScene::7728878433922252852::1732672496::0::1::::<><>::res://practice_game.gd<>uid://c2f6awcyvqsqw::::res://Assets/welded_plates.png<>res://level.gd<>uid://kjhh6jp8711k::::res://chunks/chunk1.tscn<>uid://8sv84xrsny2w::::res://chunks/chunk2.tscn<>uid://c8wtlv7s0jxwr::::res://chunks/chunk3.tscn<>uid://cmmrhqyyslomb::::res://Assets/pixilart-drawing (2).png<>uid://c55flv2kuqdt6::::res://Scenes/Player.tscn<>uid://bj5ne8ipt6vrq::::res://Scenes/platts.tscn<>uid://6m3n8k35mf66::::res://Scenes/chip.tscn<>uid://cviwwaplmvfy3::::res://Scenes/killzob.tscn
-tutorial_buttons.tscn::PackedScene::8456307539331908699::1733031971::0::1::::<><>::
-rocky_lava_tile.tscn::PackedScene::321650366803451699::1732672496::0::1::::<><>::uid://dplsa0w1r35uc::::res://assets/sprites/RockyLavaSpritesheet.png
-transient_platform.tscn::PackedScene::8689047781299649298::1732672496::0::1::::<><>::res://scripts/transient_platform.gd<>uid://4q18u2y54xjg::::res://assets/sprites/TransientPlatformBottom.png<>uid://dm7eic06hfdas::::res://assets/sprites/RustTrussTop.png
-wasteland_tile_set.tscn::PackedScene::915175965817082343::1732672496::0::1::::<><>::uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png
-::res://scenes/powerups/::1733031789
-dash.tscn::PackedScene::5497171161250031765::1732672496::0::1::::<><>::uid://jaj1o7ps4ce2::::res://assets/powerups (placeholders)/powerup_icons.png<>res://scripts/powerups/powerup.gd
-grappling_hook_powerup.tscn::PackedScene::2559908623330442592::1732672496::0::1::::<><>::res://scripts/powerups/powerup.gd<>uid://jaj1o7ps4ce2::::res://assets/powerups (placeholders)/powerup_icons.png
-jetpack.tscn::PackedScene::1246860600118092604::1732672496::0::1::::<><>::res://scripts/powerups/powerup.gd<>uid://jaj1o7ps4ce2::::res://assets/powerups (placeholders)/powerup_icons.png
-oilspill.tscn::PackedScene::4395049795639104184::1732672496::0::1::::<><>::uid://ckxaqj3asbyu2::::res://assets/powerups (placeholders)/oil_side_view.png<>res://scripts/powerups/oilspill.gd
-oilspill_powerup.tscn::PackedScene::7881723724604715864::1732672496::0::1::::<><>::uid://jaj1o7ps4ce2::::res://assets/powerups (placeholders)/powerup_icons.png<>res://scripts/powerups/powerup.gd
-power_up_spawner.tscn::PackedScene::1301388858232747917::1732672496::0::1::::<><>::res://scripts/powerups/powerup_spawner.gd<>uid://c644jhkdq338h::::res://assets/powerups (placeholders)/Question.png
-::res://scripts/::1733031971
-chunk.gd::GDScript::-1::1732672496::0::1::::<>Node2D<>::
-constants.gd::GDScript::-1::1733031971::0::1::::<>Node<>::
-death_wall.gd::GDScript::-1::1732672496::0::1::::<>Node2D<>::
-death_wall_functionality.gd::GDScript::-1::1732672496::0::1::::<>Node2D<>::
-game_manager.gd::GDScript::-1::1732672496::0::1::::<>Node<>::
-go_button_basic.gd::GDScript::-1::1732672496::0::1::::<>Button<>::
-jump_pad.gd::GDScript::-1::1732672496::0::1::::<>Area2D<>::
-killzone.gd::GDScript::-1::1732672496::0::1::::<>Area2D<>::
-level.gd::GDScript::-1::1732672496::0::1::::<>Node2D<>::
-main_menu.gd::GDScript::-1::1732672496::0::1::::<>Control<>::
-mouse.gd::GDScript::-1::1732672496::0::1::::<>Node2D<>::
-mushroom_bumper.gd::GDScript::-1::1732672496::0::1::::<>Node2D<>::
-platform.gd::GDScript::-1::1732672496::0::1::::<>AnimatableBody2D<>::
-player.gd::GDScript::-1::1732672496::0::1::::<>CharacterBody2D<>::
-point.gd::GDScript::-1::1732672496::0::1::::<>Area2D<>::
-powerup_manager.gd::GDScript::-1::1732672496::0::1::::<>Node<>::
-transient_platform.gd::GDScript::-1::1732672496::0::1::::<>Node2D<>::
-::res://scripts/multiplayer/::1733031789
-multiplayer_controller.gd::GDScript::-1::1732672496::0::1::::MultiplayerPlayer<>CharacterBody2D<>::
-multiplayer_input.gd::GDScript::-1::1732672496::0::1::::PlayerInput<>Node<>::
-multiplayer_manager.gd::GDScript::-1::1732672496::0::1::::<>Node<>::
-::res://scripts/powerups/::1733031971
-oilspill.gd::GDScript::-1::1732672496::0::1::::<>RigidBody2D<>::
-powerup.gd::GDScript::-1::1732672496::0::1::::<>Node<>::
-powerup_hud.gd::GDScript::-1::1732672496::0::1::::<>Control<>::
-powerup_spawner.gd::GDScript::-1::1733031971::0::1::::<>Area2D<>::
+::res://::1740610707
+export_presets.cfg::TextFile::-1::1739238911::0::1::::<><>::
+::res://assets/::1740601816
+powerup_icons copy.png::CompressedTexture2D::3722758765034021217::1739238938::1740601816::1::::<><>::
+::res://assets/fonts/::1740601816
+monogram-extended-italic.ttf::FontFile::2387249278354819397::1739238939::1740601816::1::::<><>::
+monogram-extended.ttf::FontFile::9214293658821093641::1739238939::1740601816::1::::<><>::
+monogram.ttf::FontFile::5888239852664683225::1739238939::1740601816::1::::<><>::
+::res://assets/ParallaxBackground/::1740601816
+DownLayer.png::CompressedTexture2D::6770152459706698685::1739238938::1740601816::1::::<><>::
+Light.png::CompressedTexture2D::1564315703055813805::1739238938::1740601816::1::::<><>::
+MiddleLayer.png::CompressedTexture2D::2786235533382074435::1739238939::1740601816::1::::<><>::
+sky.png::CompressedTexture2D::2274972741348774926::1739238939::1740601816::1::::<><>::
+TopLayer.png::CompressedTexture2D::7728950166646348796::1739238939::1740601816::1::::<><>::
+::res://assets/powerups (placeholders)/::1740601816
+dash_icon.png::CompressedTexture2D::2070120977324908019::1739238939::1740601816::1::::<><>::
+grapplinghook_icon.png::CompressedTexture2D::6779913528016375999::1739238939::1740601816::1::::<><>::
+jetpack_icon.png::CompressedTexture2D::1168549282130831745::1739238939::1740601816::1::::<><>::
+oil-spill.png::CompressedTexture2D::7134699219645320163::1739238939::1740601816::1::::<><>::
+oilspill_icon.png::CompressedTexture2D::9080636934629320076::1739238940::1740601816::1::::<><>::
+oil_side_view.png::CompressedTexture2D::5522239580801175883::1739238939::1740601816::1::::<><>::
+powerup_icons.png::CompressedTexture2D::632293261786087955::1739238940::1740601816::1::::<><>::
+Question.png::CompressedTexture2D::7010339723238627865::1739238939::1740601816::1::::<><>::
+SPEARS.png::CompressedTexture2D::2254272044395977878::1739238939::1740601816::1::::<><>::
+::res://assets/sounds/::1740601816
+chip.wav::AudioStreamWAV::2691056647805643005::1739238940::1740601816::1::::<><>::
+::res://assets/sprites/::1740601816
+background.png::CompressedTexture2D::6733791285863659409::1739238940::1740601816::1::::<><>::
+chip.png::CompressedTexture2D::415214128362740635::1739238940::1740601816::1::::<><>::
+Desert_Spikes.png::CompressedTexture2D::3844332861444873242::1739238940::1740601816::1::::<><>::
+jump_pad.gd::GDScript::-1::1739238941::0::1::::<>Area2D<>::
+Jump_pad.png::CompressedTexture2D::5266315247715448560::1739238940::1740601816::1::::<><>::
+Keyboard Extras.png::CompressedTexture2D::2924856978107067006::1739238940::1740601816::1::::<><>::
+Keyboard Letters and Symbols.png::CompressedTexture2D::5388060047583212816::1739238940::1740601816::1::::<><>::
+mine_bot_idle_sheet_4.png::CompressedTexture2D::951357481348279002::1739238941::1740601816::1::::<><>::
+mine_bot_idle_sheet_5.png::CompressedTexture2D::3197247526527055836::1739238941::1740601816::1::::<><>::
+mouse.png::CompressedTexture2D::6936713088847388997::1739238941::1740601816::1::::<><>::
+mushroom_bumper.png::CompressedTexture2D::5328860162012606203::1739238941::1740601816::1::::<><>::
+platform.png::CompressedTexture2D::7277673344451258275::1739238941::1740601816::1::::<><>::
+RockyLavaSpritesheet.png::CompressedTexture2D::8235897115088868178::1739238940::1740601816::1::::<><>::
+RustTrussTop.png::CompressedTexture2D::8067845562272772822::1739238940::1740601816::1::::<><>::
+SpriteSheetCave.png::CompressedTexture2D::4865438487437073485::1739238940::1740601816::1::::<><>::
+SpriteSheetMine1.png::CompressedTexture2D::4425186763146615787::1739238940::1740601816::1::::<><>::
+SpriteSheetWasteland2.png::CompressedTexture2D::6036698380026276737::1739238940::1740601816::1::::<><>::
+TransientPlatformBottom.png::CompressedTexture2D::2070145175887114268::1739238940::1740601816::1::::<><>::
+::res://chunks/::1739238941
+chunk1.tscn::PackedScene::720906998527574678::1739238941::0::1::::<><>::res://scripts/chunk.gd<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png<>uid://bgv5v2fxqlswe::::res://scenes/platform.tscn<>uid://ssnxjecv0xkf::::res://scenes/powerups/power_up_spawner.tscn
+chunk2.tscn::PackedScene::2354726187179753588::1739238941::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png
+chunk3.tscn::PackedScene::7135663937901823985::1739238941::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png
+chunk4.tscn::PackedScene::3750743396204844371::1739238941::0::1::::<><>::uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>res://scripts/chunk.gd<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png
+chunk5.tscn::PackedScene::5375325979233010524::1739238941::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png<>uid://bhu24tgmbqicb::::res://scenes/mushroom_bumper.tscn<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png
+chunk6.tscn::PackedScene::6699563999136970269::1739238941::0::1::::<><>::uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>res://scripts/chunk.gd<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png
+chunk7.tscn::PackedScene::947137996669599972::1739238941::0::1::::<><>::uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>res://scripts/chunk.gd<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://bf1cwlaflxa5e::::res://scenes/desert_spikes.tscn<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png
+chunk8.tscn::PackedScene::9058172023723262895::1739238941::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png<>uid://bf1cwlaflxa5e::::res://scenes/desert_spikes.tscn<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png
+chunk9.tscn::PackedScene::7680459695605332637::1739238941::0::1::::<><>::uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>res://scripts/chunk.gd<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://bf1cwlaflxa5e::::res://scenes/desert_spikes.tscn<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png
+chunk10.tscn::PackedScene::1381697777505490844::1739238941::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png<>uid://bf1cwlaflxa5e::::res://scenes/desert_spikes.tscn<>uid://bgv5v2fxqlswe::::res://scenes/platform.tscn
+chunk_11.tscn::PackedScene::1130287022220297184::1739238941::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://cbk4cctceadd2::::res://assets/sprites/SpriteSheetCave.png<>uid://bf1cwlaflxa5e::::res://scenes/desert_spikes.tscn<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png<>uid://bhu24tgmbqicb::::res://scenes/mushroom_bumper.tscn
+starting_chunk.tscn::PackedScene::871079542997444666::1739238941::0::1::::<><>::res://scripts/chunk.gd<>uid://dbxmhmrik75ch::::res://assets/sprites/platform.png<>uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png<>uid://dv2bl2xbwn1pe::::res://scenes/transient_platform.tscn
+::res://scenes/::1740610639
+death_wall.tscn::PackedScene::4166977535517782215::1739238941::0::1::::<><>::res://scripts/death_wall.gd<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn
+desert_spikes.tscn::PackedScene::2791200022939891208::1739238941::0::1::::<><>::uid://bu1huoithdvgs::::res://assets/sprites/Desert_Spikes.png<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn
+game.tscn::PackedScene::6221769105244979977::1740610639::0::1::::<><>::res://scripts/game_manager.gd<>uid://dqnaqj8yb6hwd::::res://scenes/player.tscn<>uid://cp5kpkkmrmdob::::res://assets/fonts/monogram.ttf<>res://scripts/level.gd<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn<>uid://kjhh6jp8711k::::res://chunks/chunk1.tscn<>uid://8sv84xrsny2w::::res://chunks/chunk2.tscn<>uid://c8wtlv7s0jxwr::::res://chunks/chunk3.tscn<>uid://bto5gwjteh2gd::::res://chunks/chunk4.tscn<>uid://cit33ltgf5f1u::::res://chunks/chunk5.tscn<>uid://b0mrrm7qidtv0::::res://scenes/death_wall.tscn<>uid://c2pk3tlcvoiuv::::res://chunks/chunk6.tscn<>uid://ssnxjecv0xkf::::res://scenes/powerups/power_up_spawner.tscn<>uid://nq2hvo4jxr3a::::res://chunks/chunk7.tscn<>uid://d2b31f522ib4b::::res://chunks/chunk8.tscn<>uid://dhoqbwyfgpdij::::res://chunks/chunk9.tscn<>uid://txkmi1fes2fw::::res://chunks/chunk10.tscn<>uid://qdrwrn6obfjs::::res://chunks/chunk_11.tscn<>uid://dsqkfdbphdqdn::::res://scenes/tutorial_buttons.tscn<>uid://7oap61xymarm::::res://assets/ParallaxBackground/sky.png<>uid://c3prolxtb1i58::::res://assets/ParallaxBackground/DownLayer.png<>uid://bfxw5llqpsg8j::::res://assets/ParallaxBackground/MiddleLayer.png<>uid://wj1b0bv77g6x::::res://assets/ParallaxBackground/Light.png<>uid://did7xed6152vw::::res://assets/ParallaxBackground/TopLayer.png
+game_manager.tscn::PackedScene::6461845027608184949::1739238942::0::1::::<><>::res://scripts/game_manager.gd<>uid://cp5kpkkmrmdob::::res://assets/fonts/monogram.ttf
+go_button.tscn::PackedScene::5677798081294473915::1739238942::0::1::::<><>::res://scripts/go_button_basic.gd
+jump.tscn::PackedScene::9000656413580627460::1739238942::0::1::::<><>::res://scripts/jump_pad.gd
+jump_pad.tscn::PackedScene::2392211204408944516::1739238942::0::1::::<><>::uid://chbbpb1lov2eu::::res://assets/sprites/Jump_pad.png<>uid://d1h8q4rqdmnpc::::res://scenes/jump.tscn
+killzone.tscn::PackedScene::8528023117307378280::1739238942::0::1::::<><>::res://scripts/killzone.gd
+main_menu.tscn::PackedScene::5438708010918430765::1740610639::0::1::::<><>::uid://cp5kpkkmrmdob::::res://assets/fonts/monogram.ttf<>res://scripts/main_menu.gd<>uid://c265s82scq482::::res://assets/sprites/background.png<>uid://d4jqcnkqbiw78::::res://assets/fonts/monogram-extended.ttf
+mouse.tscn::PackedScene::9101432372716425337::1739238942::0::1::::<><>::res://scripts/mouse.gd<>uid://c53gwexdr3hmb::::res://assets/sprites/mouse.png<>uid://dtrbka1ef726o::::res://scenes/killzone.tscn
+multiplayer_player.tscn::PackedScene::9112005529514100619::1739238942::0::1::::<><>::res://scripts/multiplayer/multiplayer_controller.gd<>res://scripts/multiplayer/multiplayer_input.gd<>uid://bls1g11tx37i3::::res://assets/sprites/mine_bot_idle_sheet_5.png<>res://scripts/powerup_manager.gd<>res://scripts/powerups/powerup_hud.gd
+mushroom_bumper.tscn::PackedScene::2920722298828138613::1739238942::0::1::::<><>::res://scripts/mushroom_bumper.gd<>uid://ch6lsv34ikpcl::::res://assets/sprites/mushroom_bumper.png
+music.tscn::PackedScene::9006222053998901985::1739238942::0::1::::<><>::
+parallax_background.tscn::PackedScene::7967786006589390845::1739238942::0::1::::<><>::uid://7oap61xymarm::::res://assets/ParallaxBackground/sky.png<>uid://c3prolxtb1i58::::res://assets/ParallaxBackground/DownLayer.png<>uid://bfxw5llqpsg8j::::res://assets/ParallaxBackground/MiddleLayer.png<>uid://wj1b0bv77g6x::::res://assets/ParallaxBackground/Light.png<>uid://did7xed6152vw::::res://assets/ParallaxBackground/TopLayer.png
+platform.tscn::PackedScene::2852766116732873392::1739238942::0::1::::<><>::res://scripts/platform.gd<>uid://b4bugdpsnk7nr::::res://assets/sprites/SpriteSheetMine1.png
+player.tscn::PackedScene::8309149557574787539::1739238942::0::1::::<><>::res://scripts/player.gd<>uid://ns3yo3xcmqji::::res://assets/sprites/mine_bot_idle_sheet_4.png<>res://scripts/powerup_manager.gd<>res://scripts/powerups/powerup_hud.gd
+point.tscn::PackedScene::1086827868758606395::1739238942::0::1::::<><>::res://scripts/point.gd<>uid://f6ersscix0b4::::res://assets/sprites/chip.png<>uid://beltksfhblbsn::::res://assets/sounds/chip.wav
+practice_game.tscn::PackedScene::7728878433922252852::1739238942::0::1::::<><>::res://practice_game.gd<>uid://c2f6awcyvqsqw::::res://Assets/welded_plates.png<>res://level.gd<>uid://kjhh6jp8711k::::res://chunks/chunk1.tscn<>uid://8sv84xrsny2w::::res://chunks/chunk2.tscn<>uid://c8wtlv7s0jxwr::::res://chunks/chunk3.tscn<>uid://cmmrhqyyslomb::::res://Assets/pixilart-drawing (2).png<>uid://c55flv2kuqdt6::::res://Scenes/Player.tscn<>uid://bj5ne8ipt6vrq::::res://Scenes/platts.tscn<>uid://6m3n8k35mf66::::res://Scenes/chip.tscn<>uid://cviwwaplmvfy3::::res://Scenes/killzob.tscn
+rocky_lava_tile.tscn::PackedScene::321650366803451699::1739238942::0::1::::<><>::uid://dplsa0w1r35uc::::res://assets/sprites/RockyLavaSpritesheet.png
+transient_platform.tscn::PackedScene::8689047781299649298::1739238942::0::1::::<><>::res://scripts/transient_platform.gd<>uid://4q18u2y54xjg::::res://assets/sprites/TransientPlatformBottom.png<>uid://dm7eic06hfdas::::res://assets/sprites/RustTrussTop.png
+tutorial_buttons.tscn::PackedScene::8456307539331908699::1740610639::0::1::::<><>::uid://ci1atdoer6mn5::::res://assets/sprites/Keyboard Letters and Symbols.png<>uid://bhw274783204i::::res://assets/sprites/Keyboard Extras.png<>uid://cp5kpkkmrmdob::::res://assets/fonts/monogram.ttf<>uid://c644jhkdq338h::::res://assets/powerups (placeholders)/Question.png
+wasteland_tile_set.tscn::PackedScene::915175965817082343::1739238942::0::1::::<><>::uid://csahsmv1kbrpx::::res://assets/sprites/SpriteSheetWasteland2.png
+::res://scenes/powerups/::1739238942
+dash.tscn::PackedScene::5497171161250031765::1739238942::0::1::::<><>::uid://jaj1o7ps4ce2::::res://assets/powerups (placeholders)/powerup_icons.png<>res://scripts/powerups/powerup.gd
+grappling_hook_powerup.tscn::PackedScene::2559908623330442592::1739238942::0::1::::<><>::res://scripts/powerups/powerup.gd<>uid://jaj1o7ps4ce2::::res://assets/powerups (placeholders)/powerup_icons.png
+jetpack.tscn::PackedScene::1246860600118092604::1739238942::0::1::::<><>::res://scripts/powerups/powerup.gd<>uid://jaj1o7ps4ce2::::res://assets/powerups (placeholders)/powerup_icons.png
+oilspill.tscn::PackedScene::4395049795639104184::1739238942::0::1::::<><>::uid://ckxaqj3asbyu2::::res://assets/powerups (placeholders)/oil_side_view.png<>res://scripts/powerups/oilspill.gd
+oilspill_powerup.tscn::PackedScene::7881723724604715864::1739238942::0::1::::<><>::uid://jaj1o7ps4ce2::::res://assets/powerups (placeholders)/powerup_icons.png<>res://scripts/powerups/powerup.gd
+power_up_spawner.tscn::PackedScene::1301388858232747917::1739238943::0::1::::<><>::res://scripts/powerups/powerup_spawner.gd<>uid://c644jhkdq338h::::res://assets/powerups (placeholders)/Question.png
+::res://scripts/::1739238943
+chunk.gd::GDScript::-1::1739238943::0::1::::<>Node2D<>::
+constants.gd::GDScript::-1::1739238943::0::1::::<>Node<>::
+death_wall.gd::GDScript::-1::1739238943::0::1::::<>Node2D<>::
+death_wall_functionality.gd::GDScript::-1::1739238943::0::1::::<>Node2D<>::
+game_manager.gd::GDScript::-1::1739238943::0::1::::<>Node<>::
+go_button_basic.gd::GDScript::-1::1739238943::0::1::::<>Button<>::
+jump_pad.gd::GDScript::-1::1739238943::0::1::::<>Area2D<>::
+killzone.gd::GDScript::-1::1739238943::0::1::::<>Area2D<>::
+level.gd::GDScript::-1::1739238943::0::1::::<>Node2D<>::
+main_menu.gd::GDScript::-1::1739238943::0::1::::<>Control<>::
+mouse.gd::GDScript::-1::1739238943::0::1::::<>Node2D<>::
+mushroom_bumper.gd::GDScript::-1::1739238943::0::1::::<>Node2D<>::
+platform.gd::GDScript::-1::1739238943::0::1::::<>AnimatableBody2D<>::
+player.gd::GDScript::-1::1739238943::0::1::::<>CharacterBody2D<>::
+point.gd::GDScript::-1::1739238943::0::1::::<>Area2D<>::
+powerup_manager.gd::GDScript::-1::1739238943::0::1::::<>Node<>::
+transient_platform.gd::GDScript::-1::1739238943::0::1::::<>Node2D<>::
+::res://scripts/multiplayer/::1739238943
+multiplayer_controller.gd::GDScript::-1::1739238943::0::1::::MultiplayerPlayer<>CharacterBody2D<>::
+multiplayer_input.gd::GDScript::-1::1739238943::0::1::::PlayerInput<>Node<>::
+multiplayer_manager.gd::GDScript::-1::1739238943::0::1::::<>Node<>::
+::res://scripts/powerups/::1739238943
+oilspill.gd::GDScript::-1::1739238943::0::1::::<>RigidBody2D<>::
+powerup.gd::GDScript::-1::1739238943::0::1::::<>Node<>::
+powerup_hud.gd::GDScript::-1::1739238943::0::1::::<>Control<>::
+powerup_spawner.gd::GDScript::-1::1739238944::0::1::::<>Area2D<>::

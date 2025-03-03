@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://1py3dghwr4f1"]
+[gd_scene load_steps=34 format=4 uid="uid://1py3dghwr4f1"]
 
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_dteyg"]
 [ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="2_tukml"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bu7tl0c1yx6d2" path="res://scenes/bush6.tscn" id="16_smkr6"]
 [ext_resource type="PackedScene" uid="uid://dmh84ndrox66e" path="res://scenes/mushroom_bumper.tscn" id="17_rcre3"]
 [ext_resource type="PackedScene" uid="uid://bf1cwlaflxa5e" path="res://scenes/desert_spikes.tscn" id="22_0ri6b"]
+[ext_resource type="PackedScene" uid="uid://cwwvcqfy86ns5" path="res://splatform.tscn" id="23_e1800"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3paog"]
 texture = ExtResource("2_tukml")
@@ -373,3 +374,9 @@ position = Vector2(145, 2)
 
 [node name="desert_spikes7" parent="." instance=ExtResource("22_0ri6b")]
 position = Vector2(177, 1)
+
+[node name="AnimatableBody2D3" parent="." instance=ExtResource("23_e1800")]
+position = Vector2(164, -218)
+
+[node name="AnimatableBody2D4" parent="." instance=ExtResource("23_e1800")]
+position = Vector2(228, -218)

@@ -1,10 +1,13 @@
 extends Node2D
 
-@export var chunks: Array[PackedScene] = []
-@export var forestchunks: Array[PackedScene] = []
-@export var labchunks: Array[PackedScene] = []
+@export  var chunks:       Array[PackedScene] = []
+@export  var forestchunks: Array[PackedScene] = []
+@export  var labchunks:    Array[PackedScene] = []
+@onready var parallax_background = $"../CaveBackground"
 var startingChunk: PackedScene = preload("res://chunks/starting_chunk.tscn")
-var deathWall: PackedScene = preload("res://scenes/death_wall.tscn")
+var cavetoforest:  PackedScene = preload("res://chunks/Cavetoforest.tscn")
+var foresttocave:  PackedScene = preload("res://chunks/Foresttocave.tscn")
+var deathWall:     PackedScene = preload("res://scenes/death_wall.tscn")
 
 var amnt = 3
 var count = 0
@@ -17,16 +20,18 @@ func _ready() -> void:
 	spawn_starting_chunks()
 
 func algorithm(n):
-	if (count < 25):
+	if (count < 5):
 		var num = rng.randi_range(0, chunks.size()-1)
 		add_chunk(num, n)
-	elif (count < 50):
+	elif (count == 5):
 		var num = rng.randi_range(0, forestchunks.size()-1)
 		add_chunk(num, n)
-	elif (count < 75):
-		var num = rng.randi_range(0, labchunks.size()-1)
+	elif (count < 10):
+		var num = rng.randi_range(0, forestchunks.size()-1)
 		add_chunk(num, n)
 	else:
+		var num = rng.randi_range(0, forestchunks.size()-1)
+		add_chunk(num, n)
 		count = 0
 
 func spawn_starting_chunks():
@@ -37,18 +42,26 @@ func spawn_starting_chunks():
 
 func add_chunk(num, chunkPosition):
 	
-	if (count < 25):
+	if (count < 5):
 		var instance = chunks[num].instantiate()
 		instance.position.x = chunkPosition
 		add_child(instance)
-	elif (count < 50):
+		print("yeet")
+	elif (count == 5):
+		var instance = cavetoforest.instantiate()
+		instance.position.x = chunkPosition
+		add_child(instance)
+		print("forest")
+	elif (count < 10):
 		var instance = forestchunks[num].instantiate()
 		instance.position.x = chunkPosition
 		add_child(instance)
-	elif (count < 75):
-		var instance = labchunks[num].instantiate()
+		print("yote")
+	else:
+		var instance = foresttocave.instantiate()
 		instance.position.x = chunkPosition
 		add_child(instance)
+		print("heeheehoohoo")
 	count = count + 1
 	print(count)
 

@@ -178,16 +178,16 @@ tile_map_data = PackedByteArray("AAD7/wAAAAACAAMAAAD5/wAAAAABAAUAADD8/wAAAAACAAM
 tile_set = SubResource("TileSet_4xn2w")
 
 [node name="AnimatableBody2D" parent="TileMapLayer" instance=ExtResource("3_jvgrh")]
-position = Vector2(-223, -247)
+position = Vector2(-223, -225)
 
 [node name="AnimatableBody2D2" parent="TileMapLayer" instance=ExtResource("3_jvgrh")]
-position = Vector2(-160, -247)
+position = Vector2(-160, -225)
 
 [node name="AnimatableBody2D3" parent="TileMapLayer" instance=ExtResource("3_jvgrh")]
-position = Vector2(164, -247)
+position = Vector2(164, -225)
 
 [node name="AnimatableBody2D4" parent="TileMapLayer" instance=ExtResource("3_jvgrh")]
-position = Vector2(228, -247)
+position = Vector2(228, -225)
 
 [node name="Background" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD5////BQAAAAAAAQD7////BQAAAAAAAwADAP//BQAAAAAAAgAGAP//BQAAAAAAAgA=")

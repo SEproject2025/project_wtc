@@ -1,15 +1,213 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlrwjh05484qr"]
+[gd_scene load_steps=11 format=3 uid="uid://dlrwjh05484qr"]
 
+[ext_resource type="Script" path="res://scripts/parallax_background.gd" id="1_85wkp"]
 [ext_resource type="Texture2D" uid="uid://7oap61xymarm" path="res://assets/ParallaxBackground/sky.png" id="1_cjh26"]
 [ext_resource type="Texture2D" uid="uid://c3prolxtb1i58" path="res://assets/ParallaxBackground/DownLayer.png" id="2_bv6xl"]
 [ext_resource type="Texture2D" uid="uid://bfxw5llqpsg8j" path="res://assets/ParallaxBackground/MiddleLayer.png" id="3_erpws"]
 [ext_resource type="Texture2D" uid="uid://wj1b0bv77g6x" path="res://assets/ParallaxBackground/Light.png" id="4_u6cto"]
 [ext_resource type="Texture2D" uid="uid://did7xed6152vw" path="res://assets/ParallaxBackground/TopLayer.png" id="5_w68fy"]
 
-[node name="ParallaxBackground" type="ParallaxBackground"]
+[sub_resource type="Animation" id="Animation_lfiib"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sky:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DownLayer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MidLayer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Light:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TopLayer:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_b7usp"]
+resource_name = "Scene transition"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sky:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DownLayer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MidLayer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Light:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TopLayer:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hbpys"]
+resource_name = "foresttocave"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sky:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DownLayer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MidLayer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333334, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Light:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0333333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TopLayer:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sif4j"]
+_data = {
+"RESET": SubResource("Animation_lfiib"),
+"Scene transition": SubResource("Animation_b7usp"),
+"foresttocave": SubResource("Animation_hbpys")
+}
+
+[node name="CaveBackground" type="ParallaxBackground"]
 offset = Vector2(0, -273.625)
 transform = Transform2D(1, 0, 0, 1, 0, -273.625)
 follow_viewport_scale = 4.0
+script = ExtResource("1_85wkp")
 
 [node name="Sky" type="ParallaxLayer" parent="."]
 position = Vector2(0, 5.83)
@@ -17,18 +215,18 @@ motion_mirroring = Vector2(768, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Sky"]
 texture_filter = 1
-position = Vector2(0, -90)
+position = Vector2(0, -100)
 texture = ExtResource("1_cjh26")
 centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="Sky"]
 texture_filter = 1
-position = Vector2(384, -90)
+position = Vector2(384, -100)
 texture = ExtResource("1_cjh26")
 centered = false
 
 [node name="DownLayer" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.6, 1)
+motion_scale = Vector2(0.2, 1)
 motion_mirroring = Vector2(768, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="DownLayer"]
@@ -43,9 +241,25 @@ position = Vector2(384, -100)
 texture = ExtResource("2_bv6xl")
 centered = false
 
+[node name="Light" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.7, 1)
+motion_mirroring = Vector2(768, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Light"]
+modulate = Color(2.3, 2.3, 2.3, 1)
+position = Vector2(0, -100)
+texture = ExtResource("4_u6cto")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="Light"]
+modulate = Color(2.3, 2.3, 2.3, 1)
+position = Vector2(384, -100)
+texture = ExtResource("4_u6cto")
+centered = false
+
 [node name="MidLayer" type="ParallaxLayer" parent="."]
 motion_scale = Vector2(0.5, 1)
-motion_mirroring = Vector2(768, 0)
+motion_mirroring = Vector2(766, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="MidLayer"]
 texture_filter = 1
@@ -55,22 +269,8 @@ centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="MidLayer"]
 texture_filter = 1
-position = Vector2(384, -100)
+position = Vector2(383, -100)
 texture = ExtResource("3_erpws")
-centered = false
-
-[node name="Light" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.2, 1)
-motion_mirroring = Vector2(768, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="Light"]
-position = Vector2(0, -100)
-texture = ExtResource("4_u6cto")
-centered = false
-
-[node name="Sprite2D2" type="Sprite2D" parent="Light"]
-position = Vector2(384, -100)
-texture = ExtResource("4_u6cto")
 centered = false
 
 [node name="TopLayer" type="ParallaxLayer" parent="."]
@@ -79,12 +279,17 @@ motion_mirroring = Vector2(768, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="TopLayer"]
 texture_filter = 1
-position = Vector2(0, -120)
+position = Vector2(0, -100)
 texture = ExtResource("5_w68fy")
 centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="TopLayer"]
 texture_filter = 1
-position = Vector2(384, -120)
+position = Vector2(384, -100)
 texture = ExtResource("5_w68fy")
 centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sif4j")
+}
