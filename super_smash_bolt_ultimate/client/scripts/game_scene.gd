@@ -10,7 +10,6 @@ var pop_up
 
 func _ready():
 	User.client.some_one_left_game.connect(player_left)
-	User.client.player_died.connect(player_died)
 	pop_up = pop_up_template.instantiate()
 	pop_up.name = "pop_up"
 	pop_up.set_msg("5")
@@ -42,12 +41,3 @@ func _on_button_pressed():
 
 func player_left(other_player_id : int):
 	User.rtc_peer.peer_disconnected.emit(other_player_id)
-
-func player_died(id : int):
-	if get_multiplayer_authority() == User.ID:
-		var player = get_node(str(id))
-		player.get_node("MultiplayerSynchronizer").public_visibility = false
-		player.get_node("Input/InputSynchronizer").public_visibility = false
-		player.get_node("PlayerSynchronizer").public_visibility = false
-		await get_tree().create_timer(0.1).timeout
-		player.queue_free()
