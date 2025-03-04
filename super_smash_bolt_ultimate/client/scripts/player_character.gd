@@ -171,7 +171,8 @@ func apply_movement(delta: float):
 			var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 			if collidingRayCast:
 				var collider = collidingRayCast.get_collider()
-				if collider and not collider.isStunned:
+
+				if  collider and collider.get_class() == "CharacterBody2D" and not collider.isStunned:
 					collider.get_stunned.rpc()
 			handle_dash_movement(direction)
 			powerupManager.fuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
@@ -195,7 +196,7 @@ func apply_movement(delta: float):
 		var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 		if collidingRayCast:
 			var collider = collidingRayCast.get_collider()
-			if collider:
+			if collider and collider.get_class() == "CharacterBody2D":
 				if direction:
 					collider.get_bumped.rpc(direction)
 				else:
@@ -360,6 +361,8 @@ func die(player_name: int):
 	set_physics_process(false)
 	set_process(false)
 	alive = false
+	visible = false
+	$Camera2D.enabled = false
 	if get_multiplayer_authority() == (User.ID):
 		ui.set_visible(false)
 		var lost_pop_up = lost_pop_up_template.instantiate()

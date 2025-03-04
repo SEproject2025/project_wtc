@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bb8fyy0j5kbw0"
-path="res://.godot/imported/Chest.png-f6513c9aac849d184e36df54860817fa.ctex"
+uid="uid://cj2rakmrivimv"
+path="res://.godot/imported/UI ICONS_WHITE_pixel art_Sprite Sheet.png-78d2f8a54c5a65c2c583075065b0d1fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/animated_objects_sprite_sheets/Chest.png"
-dest_files=["res://.godot/imported/Chest.png-f6513c9aac849d184e36df54860817fa.ctex"]
+source_file="res://assets/sprites/sprite_sheets/UI ICONS_WHITE_pixel art_Sprite Sheet.png"
+dest_files=["res://.godot/imported/UI ICONS_WHITE_pixel art_Sprite Sheet.png-78d2f8a54c5a65c2c583075065b0d1fc.ctex"]
 
 [params]
 

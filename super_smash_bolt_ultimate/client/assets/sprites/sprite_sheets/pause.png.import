@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byrgss5yolkma"
-path="res://.godot/imported/Key.png-0432f09144cfe140d962e6540944e6ad.ctex"
+uid="uid://cfkogmbt63eb3"
+path="res://.godot/imported/pause.png-8720722e0429b6efebea59ea4974edf4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/animated_objects_sprite_sheets/Key.png"
-dest_files=["res://.godot/imported/Key.png-0432f09144cfe140d962e6540944e6ad.ctex"]
+source_file="res://assets/sprites/sprite_sheets/pause.png"
+dest_files=["res://.godot/imported/pause.png-8720722e0429b6efebea59ea4974edf4.ctex"]
 
 [params]
 

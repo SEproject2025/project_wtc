@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cygpgsljrqtky"
-path="res://.godot/imported/Flag.png-b73482aa3046c965e55b24d226b54af9.ctex"
+uid="uid://dm7eic06hfdas"
+path="res://.godot/imported/RustTrussTop.png-ca320f2c2cb247d3dc847a8eb8c713c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/animated_objects_sprite_sheets/Flag.png"
-dest_files=["res://.godot/imported/Flag.png-b73482aa3046c965e55b24d226b54af9.ctex"]
+source_file="res://assets/sprites/cave_obstacle_sprites/RustTrussTop.png"
+dest_files=["res://.godot/imported/RustTrussTop.png-ca320f2c2cb247d3dc847a8eb8c713c4.ctex"]
 
 [params]
 

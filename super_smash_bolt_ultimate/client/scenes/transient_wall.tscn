@@ -1,0 +1,90 @@
+[gd_scene load_steps=10 format=3 uid="uid://cpoe72xuywwkb"]
+
+[ext_resource type="Script" path="res://scripts/transient_wall.gd" id="1_xa1pn"]
+[ext_resource type="Texture2D" uid="uid://drvktuuiy3sxd" path="res://assets/sprites/cave_obstacle_sprites/SpongeyRocksUpperLeft.png" id="3_gn6d4"]
+[ext_resource type="Texture2D" uid="uid://h33olqyubqqd" path="res://assets/sprites/cave_obstacle_sprites/SpongeyRocksBottom.png" id="4_fw7f2"]
+[ext_resource type="Texture2D" uid="uid://dobdw80rfitmj" path="res://assets/sprites/cave_obstacle_sprites/SpongeyRocksUpperRight.png" id="5_8dgcj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ykmdo"]
+radius = 8.06226
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_we03o"]
+size = Vector2(39, 34.125)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eca56"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j08dq"]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kytge"]
+size = Vector2(23, 30)
+
+[node name="TransientWall" type="Node2D"]
+script = ExtResource("1_xa1pn")
+
+[node name="RigidBodyUpperLeft" type="RigidBody2D" parent="."]
+position = Vector2(0, -16)
+mass = 0.452
+sleeping = true
+freeze = true
+contact_monitor = true
+max_contacts_reported = 5
+linear_velocity = Vector2(1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBodyUpperLeft"]
+position = Vector2(-8, 8)
+shape = SubResource("CircleShape2D_ykmdo")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBodyUpperLeft"]
+position = Vector2(0, 16)
+texture = ExtResource("3_gn6d4")
+
+[node name="CRUMBLE" type="Timer" parent="."]
+wait_time = 0.253
+
+[node name="Area2DLeft" type="Area2D" parent="."]
+position = Vector2(0, -2)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2DL" type="CollisionShape2D" parent="Area2DLeft"]
+position = Vector2(-1.5, 0.9375)
+shape = SubResource("RectangleShape2D_we03o")
+
+[node name="RigidBodyLowerRight" type="RigidBody2D" parent="."]
+mass = 0.525
+sleeping = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBodyLowerRight"]
+position = Vector2(-3, 9)
+shape = SubResource("CircleShape2D_eca56")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBodyLowerRight"]
+texture = ExtResource("4_fw7f2")
+
+[node name="RigidBodyUpperRight" type="RigidBody2D" parent="."]
+sleeping = true
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBodyUpperRight"]
+position = Vector2(10, -5)
+shape = SubResource("CircleShape2D_j08dq")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBodyUpperRight"]
+texture = ExtResource("5_8dgcj")
+
+[node name="SolidBlock" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Hardness" type="CollisionShape2D" parent="SolidBlock"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_kytge")
+
+[connection signal="body_entered" from="RigidBodyUpperLeft" to="RigidBodyUpperLeft" method="_on_body_entered"]
+[connection signal="timeout" from="CRUMBLE" to="." method="_on_squeeeek_timeout"]
+[connection signal="area_entered" from="Area2DLeft" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2DLeft" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Area2DLeft" to="." method="_on_area_2d_left_body_entered"]
