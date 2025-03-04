@@ -38,6 +38,7 @@ var ui
 @onready var dashEffectTimer: Timer = $Timers/DashEffectTimer
 @onready var oilSpillTimer: Timer = $Timers/OilSpillTimer
 @onready var stunTimer:Timer = $Timers/StunTimer
+@onready var hitFlashAnimationPlayer = $HitFlashAnimationPlayer
 @onready var displacement_hud = $Camera2D/Label
 
 var hostSprite = preload("res://assets/sprites/character_sprites/red_bot_mothersheet_divisionless.png")
