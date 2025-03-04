@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://chvj808e8555p"]
+[gd_scene load_steps=21 format=3 uid="uid://chvj808e8555p"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_e2uyo"]
 [ext_resource type="PackedScene" uid="uid://dlrwjh05484qr" path="res://scenes/parallax_background.tscn" id="2_poitg"]
@@ -15,8 +15,10 @@
 [ext_resource type="PackedScene" uid="uid://txkmi1fes2fw" path="res://chunks/chunk10.tscn" id="12_n8afa"]
 [ext_resource type="PackedScene" uid="uid://qdrwrn6obfjs" path="res://chunks/chunk_11.tscn" id="13_gjbj5"]
 [ext_resource type="PackedScene" uid="uid://c3pfve3y737tc" path="res://scenes/death_wall.tscn" id="15_5ci7t"]
+[ext_resource type="PackedScene" uid="uid://douvx7rwh4mox" path="res://chunks/chunk21.tscn" id="15_vldxi"]
 [ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="16_1whiy"]
-[ext_resource type="PackedScene" uid="uid://dufupyn6x0rk2" path="res://scenes/tutorial_buttons.tscn" id="17_rvdsv"]
+[ext_resource type="PackedScene" uid="uid://dlgqjhl5lmele" path="res://chunks/chunk22.tscn" id="16_m3axx"]
+[ext_resource type="PackedScene" uid="uid://bl3ilaqlbk7ph" path="res://chunks/chunk23.tscn" id="17_ecepd"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r3yr3"]
 distance = -683.0
@@ -33,7 +35,7 @@ position = Vector2(185, 87)
 [node name="level" type="Node2D" parent="."]
 position = Vector2(3, 0)
 script = ExtResource("4_wgcnf")
-chunks = Array[PackedScene]([ExtResource("5_nycr6"), ExtResource("6_iiat1"), ExtResource("7_ki8jc"), ExtResource("6_bwhrc"), ExtResource("7_1hrp0"), ExtResource("8_f2tdy"), ExtResource("9_nmqnn"), ExtResource("10_81in4"), ExtResource("11_tc2vt"), ExtResource("12_n8afa"), ExtResource("13_gjbj5")])
+chunks = Array[PackedScene]([ExtResource("5_nycr6"), ExtResource("6_iiat1"), ExtResource("7_ki8jc"), ExtResource("6_bwhrc"), ExtResource("7_1hrp0"), ExtResource("8_f2tdy"), ExtResource("9_nmqnn"), ExtResource("10_81in4"), ExtResource("11_tc2vt"), ExtResource("12_n8afa"), ExtResource("13_gjbj5"), ExtResource("15_vldxi"), ExtResource("16_m3axx"), ExtResource("17_ecepd")])
 
 [node name="DeathWallNode" parent="." instance=ExtResource("15_5ci7t")]
 position = Vector2(-277, 94)
@@ -44,6 +46,3 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("WorldBoundaryShape2D_r3yr3")
-
-[node name="Tutorial Buttons" parent="." instance=ExtResource("17_rvdsv")]
-position = Vector2(212, -104)
