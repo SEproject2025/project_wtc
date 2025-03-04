@@ -8,7 +8,8 @@ extends BTAction
 var rng := RandomNumberGenerator.new()
 
 func _setup() -> void: 
-	rng.seed = User.client.ai_seed;
+	if User.client:
+			rng.seed = User.client.ai_seed;
 
 func _tick(_delta: float) -> Status:
 	var pos: Vector2
