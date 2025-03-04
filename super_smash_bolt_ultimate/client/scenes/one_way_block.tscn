@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://clerq04owoa00"]
+
+[ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="1_llsq5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlqgc"]
+atlas = ExtResource("1_llsq5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hmaqk"]
+size = Vector2(32, 6)
+
+[node name="OneWay" type="Node2D"]
+
+[node name="Block" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Block"]
+texture = SubResource("AtlasTexture_nlqgc")
+
+[node name="OneWayTopper" type="CollisionShape2D" parent="Block"]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_hmaqk")
+one_way_collision = true

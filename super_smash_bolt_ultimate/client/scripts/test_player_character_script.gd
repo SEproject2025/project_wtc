@@ -107,10 +107,10 @@ func set_animation():
 		attack_state = true
 		attack_timer = Time.get_ticks_msec()
 	elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
-		if is_on_floor() and not attack_state and not isDashing:
+		if is_on_floor() and not attack_state:
 			anim_tree.travel("run")
 #			sync_animation.rpc("run")
-	elif is_on_floor() and not attack_state and not isDashing:
+	elif is_on_floor() and not attack_state:
 		anim_tree.travel("idle")
 #		sync_animation.rpc("idle")
 
@@ -137,9 +137,9 @@ func apply_movement(delta: float):
 	if not is_on_floor():
 		if coyoteJump and coyoteTimer.is_stopped():
 			coyoteTimer.start(PLAYER.COYOTE_TIMER_LENGTH)
-		if not isDashing and not (Input.is_action_just_pressed("use_powerup") and powerupManager.is_dash_powerup_active):
+		if not isDashing or not (Input.is_action_just_pressed("use_powerup") and powerupManager.is_dash_powerup_active):
 			velocity.y += return_gravity() * delta
-		if not isDashing and not is_on_wall_only():
+		if not is_on_wall_only():
 			anim_tree.travel("fall_start")
 #			sync_animation.rpc("fall_start")
 	else:
@@ -182,7 +182,7 @@ func apply_movement(delta: float):
 		var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 		if collidingRayCast:
 			var collider = collidingRayCast.get_collider()
-			if collider.get_class() == "CharacterBody2D":
+			if collider == CharacterBody2D:
 				collider.get_bumped.rpc(direction)
 	elif powerupManager.isGrappling:
 		handle_grappling_movement(delta)
@@ -230,8 +230,6 @@ func wall_slide():
 
 func start_dash():
 	isDashing = true
-	anim_tree.travel("dash")
-#	sync_animation.rpc("dash")
 	canDash = false
 	dashTimer.start()
 	dashCooldown.start()

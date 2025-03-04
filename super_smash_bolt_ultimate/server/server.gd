@@ -9,7 +9,6 @@ var peers : Dictionary = {}
 var lobbies = []
 var to_remove_lobbys = []
 var to_remove_peers = []
-var http_request = HTTPRequest.new()
 
 signal profanity_check_completed(result: bool)
 class Peer extends RefCounted:
@@ -41,9 +40,7 @@ class Lobby extends RefCounted:
 	func _init(host_id : int, _lobby_name : String):
 		_name = _lobby_name
 
-func _ready() -> void:
-	add_child(http_request)
-	http_request.connect("request_completed", _request_completed)
+
 
 func _init():
 	var error = server.listen(hard_coded_port)
@@ -323,7 +320,9 @@ func find_lobby_by_name(lobby_name : String):
 
 
 func create_request(text):
-	http_request.cancel_request()
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	http_request.request_completed.connect(_request_completed.bind(http_request))
 	var url = "https://www.purgomalum.com/service/containsprofanity?text=" + text.uri_encode()
 	var error = http_request.request(url)
 	if error != OK:
@@ -331,10 +330,11 @@ func create_request(text):
 	else:
 		print("Request created successfully!")
 
-func _request_completed(result, _response_code, _headers, body):
+func _request_completed(result, _response_code, _headers, body, http_request):
 	if result != 0:
 		print("ERROR! Can not create request! ERROR CODE = %d" % result)
 		return
 	
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	profanity_check_completed.emit(json)
+	http_request.queue_free()
