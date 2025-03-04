@@ -71,7 +71,7 @@ use_powerup={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-environment/defaults/default_clear_color=Color(0.156863, 0.0627451, 0.0588235, 1)
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 viewport/hdr_2d=true
 environment/stretch/aspect="keep"
 environment/stretch/mode="canvas_items"

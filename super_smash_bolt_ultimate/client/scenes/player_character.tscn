@@ -238,7 +238,7 @@ states/jump/position = Vector2(306, 33.4166)
 states/run/node = SubResource("AnimationNodeAnimation_31qxw")
 states/run/position = Vector2(524, 182)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_bqjit"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ginhq"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_daml0"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_qeowp"), "jump", "fall_start", SubResource("AnimationNodeStateMachineTransition_q8hrg"), "fall_start", "fall_end", SubResource("AnimationNodeStateMachineTransition_5ufo7"), "fall_end", "idle", SubResource("AnimationNodeStateMachineTransition_p2aqo"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_n353o"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_x2t58"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_r66ul"), "hurt", "dead", SubResource("AnimationNodeStateMachineTransition_mdvj4"), "idle", "dead", SubResource("AnimationNodeStateMachineTransition_6akl4")]
-graph_offset = Vector2(-128.549, 29.74)
+graph_offset = Vector2(-114.549, -47.26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sist4"]
 size = Vector2(9.61861, 23.1357)

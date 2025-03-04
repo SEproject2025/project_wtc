@@ -1,6 +1,8 @@
 extends Node2D
 @onready var level = $"../"
 @onready var parallax_background = $"../../CaveBackground"
+@onready var Forestsound = $"../../ForestAmbience"
+@onready var Cavesound = $"../../CaveAmbience"
 
 var anim_count = 0
 # func _ready() -> void:
@@ -14,6 +16,8 @@ func _physics_process(_delta):
 	for player in players:
 		if global_position.distance_to(player.global_position) > 400 and player.global_position.x > global_position.x and anim_count < 1:
 			parallax_background.foresttocave()
+			Forestsound.fading = true
+			Cavesound.play_sound = true
 			anim_count += 1
 		if global_position.distance_to(player.global_position) > 1000 and player.global_position.x > global_position.x:
 			level.algorithm(position.x+(level.amnt*level.offset))
