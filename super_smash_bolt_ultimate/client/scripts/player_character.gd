@@ -18,8 +18,6 @@ var pullTargetPosition: Vector2
 var isGrappling: bool = false
 var isBeingGrappled: bool = false
 var isSlipping: bool = false
-var displacement := 0.0
-var prev_x := 0.0
 var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 var ui_template = preload("res://scenes/UI.tscn")
 var ui
@@ -39,9 +37,15 @@ var ui
 @onready var oilSpillTimer: Timer = $Timers/OilSpillTimer
 @onready var stunTimer:Timer = $Timers/StunTimer
 @onready var hitFlashAnimationPlayer = $HitFlashAnimationPlayer
-@onready var displacement_hud = $Camera2D/Label
 
-var hostSprite = preload("res://assets/sprites/character_sprites/red_bot_mothersheet_divisionless.png")
+var yellow_bot_sprite    = preload("res://assets/sprites/character_sprites/mine_bot_mothersheet_complete.png")
+var red_bot_sprite       = preload("res://assets/sprites/character_sprites/red_bot_mothersheet.png")
+var blue_bot_sprite      = preload("res://assets/sprites/character_sprites/blue_bot_mothersheet.png")
+var orange_bot_sprite    = preload("res://assets/sprites/character_sprites/orange_bot_mothersheet.png")
+var purple_bot_sprite    = preload("res://assets/sprites/character_sprites/purple_guy_mothersheet.png")
+var green_bot_sprite     = preload("res://assets/sprites/character_sprites/lime_bot_mothersheet_2.png")
+var pink_bot_sprite      = preload("res://assets/sprites/character_sprites/pink_bot_mothersheet.png")
+var vermilion_bot_sprite = preload("res://assets/sprites/character_sprites/vermilion_bot_mothersheet.png")
 
 
 @export var player_input: PlayerInput
@@ -61,6 +65,7 @@ var attack_timer : int = 0
 @onready var character_name = $Control/VBoxContainer/Control2/Label
 
 func _ready():
+	player_id = randi_range(1,7)
 	reset()
 
 func _process(_delta):
@@ -81,29 +86,23 @@ func reset():
 	set_process(false)
 	set_process_input(false)
 
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(5.0).timeout
 
 	$AnimationTree.set_active(true)
 	health.value = 100
 	if get_multiplayer_authority() == (User.ID):
 		$AnimationTree.set_active(true)
 		$Camera2D.enabled = true
-		$Camera2D.make_current()
-		$Camera2D/Label.show()
 		character_name.text = User.user_name
+		set_sprite.rpc(player_id)
+		set_player_name.rpc(User.user_name)
 		set_physics_process(true)
 		set_process_input(true)
 		set_process(true)
-		set_player_name.rpc(User.user_name)
-		global_position = Vector2(0, 0)
-		if User.is_host:
-			set_sprite.rpc()
 		ui = ui_template.instantiate()
 		get_tree().get_root().add_child(ui)
 		ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
 	else:
-		$Camera2D/Label.hide()
-		displacement_hud.text = ""
 		character_name.text = "Other player"
 		set_physics_process(false)
 		set_process(false)
@@ -114,7 +113,10 @@ func check_health():
 		die.rpc(name)
 
 func set_animation():
-	if Input.is_action_just_pressed("jump") :
+	if isDashing:
+		anim_tree.travel("dash")
+		sync_animation.rpc("dash")
+	elif Input.is_action_just_pressed("jump"):
 		anim_tree.travel("jump")
 		sync_animation.rpc("jump")
 	elif Input.is_action_just_pressed("left_mouse"):
@@ -138,7 +140,6 @@ func _on_area_2d_body_entered(body):
 		body.hit_received.rpc()
 
 func apply_movement(delta: float):
-	prev_x = global_position.x
 	if isStunned:
 		handle_stunned_movement(delta)
 		return
@@ -151,7 +152,7 @@ func apply_movement(delta: float):
 	if not is_on_floor():
 		if coyoteJump and coyoteTimer.is_stopped():
 			coyoteTimer.start(PLAYER.COYOTE_TIMER_LENGTH)
-		if not isDashing or not (Input.is_action_just_pressed("use_powerup") and powerupManager.is_dash_powerup_active):
+		if (not isDashing) and (not (Input.is_action_just_pressed("use_powerup") and powerupManager.is_dash_powerup_active)):
 			velocity.y += return_gravity() * delta
 		if not is_on_wall_only():
 			anim_tree.travel("fall_start")
@@ -172,8 +173,7 @@ func apply_movement(delta: float):
 			var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 			if collidingRayCast:
 				var collider = collidingRayCast.get_collider()
-
-				if  collider and collider.get_class() == "CharacterBody2D" and not collider.isStunned:
+				if  collider and collider.get_script() == $".".get_script() and not collider.isStunned:
 					collider.get_stunned.rpc()
 			handle_dash_movement(direction)
 			powerupManager.fuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
@@ -197,7 +197,7 @@ func apply_movement(delta: float):
 		var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 		if collidingRayCast:
 			var collider = collidingRayCast.get_collider()
-			if collider and collider.get_class() == "CharacterBody2D":
+			if collider and collider.get_script() == $".".get_script():
 				if direction:
 					collider.get_bumped.rpc(direction)
 				else:
@@ -216,8 +216,6 @@ func apply_movement(delta: float):
 
 	var wasOnFloor = is_on_floor()
 	move_and_slide()
-	displacement += global_position.x - prev_x
-	displacement_hud.text = "%.1f m" % displacement
 
 	#Execute buffered jump
 	if !wasOnFloor && is_on_floor():
@@ -327,7 +325,7 @@ func oil_spill_timer_timeout():
 func _on_dash_effect_timer_timeout():
 	var playerCopy = animated_sprite.duplicate()
 	get_tree().get_root().add_child(playerCopy)
-	playerCopy.global_position = global_position + PLAYER.CENTER_OF_SPRITE
+	playerCopy.global_position = global_position + PLAYER.CENTER_OF_SPRITE * 3
 
 	var effectTime = dashTimer.wait_time / 3
 	await get_tree().create_timer(effectTime).timeout
@@ -351,8 +349,24 @@ func set_player_name(_name : String):
 	character_name.text = _name
 
 @rpc("any_peer","call_local","reliable")
-func set_sprite():
-	animated_sprite.texture = hostSprite
+func set_sprite(player_id):
+	match player_id:
+		1:
+			animated_sprite.texture = yellow_bot_sprite
+		2:
+			animated_sprite.texture = orange_bot_sprite
+		3:
+			animated_sprite.texture = red_bot_sprite
+		4:
+			animated_sprite.texture = purple_bot_sprite
+		5:
+			animated_sprite.texture = blue_bot_sprite
+		6:
+			animated_sprite.texture = green_bot_sprite
+		7:
+			animated_sprite.texture = pink_bot_sprite
+		_:
+			animated_sprite.texture = vermilion_bot_sprite
 
 @rpc("any_peer","call_local","reliable")
 func die(player_name: int):
@@ -400,6 +414,3 @@ func get_stunned():
 func get_bumped(direction: int):
 	velocity += Vector2(direction * PLAYER.BUMP_FORCE.x, PLAYER.BUMP_FORCE.y)
 #endregion
-
-func format_displacement(value: float) -> String:
-	return "Displacement: %.2fm" % value
