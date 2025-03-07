@@ -51,7 +51,11 @@ func _on_damage_area_entered(body):
 	if body.is_in_group("Players"):
 		animated_sprite.play("attack")
 		body.get_bumped(1 if body.animated_sprite.flip_h else -1)
-		body.hit_received.rpc()
+		# body.hit_received.rpc()
+
+func _on_killzone_area_entered(body):
+	if body.is_in_group("Players") and abs(body.velocity.x) > Constants.Player.SPEED:
+		queue_free()
 
 func _on_timer_timeout():
 	timer.wait_time = choose([0.8, 1, 1.4])
@@ -59,7 +63,6 @@ func _on_timer_timeout():
 		dir = choose([Vector2.RIGHT, Vector2.UP, Vector2.LEFT, Vector2.DOWN])
 
 func on_generated_seed_received(generated_seed: int):
-	print(generated_seed)
 	rng.seed = generated_seed
 
 func choose(array):

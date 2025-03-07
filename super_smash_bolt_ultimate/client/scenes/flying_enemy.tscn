@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c58usve2vv3gi"]
+[gd_scene load_steps=20 format=3 uid="uid://c58usve2vv3gi"]
 
 [ext_resource type="Script" path="res://scripts/flying_enemy.gd" id="1_8igmr"]
 [ext_resource type="Texture2D" uid="uid://dwbvg2o0lcdl0" path="res://assets/sprites/animated_objects_sprite_sheets/Giant Fly Sprite Sheet.png" id="2_rbh1h"]
@@ -119,17 +119,14 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_brbxo"]
-radius = 7.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_oj4la"]
 radius = 68.0074
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_er41d"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_81gkb"]
+radius = 11.0
 
 [node name="FlyingEnemy" type="CharacterBody2D"]
-collision_layer = 4
-collision_mask = 3
+collision_layer = 2
 script = ExtResource("1_8igmr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -137,10 +134,11 @@ sprite_frames = SubResource("SpriteFrames_nc7p1")
 animation = &"attack"
 frame_progress = 0.344113
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_brbxo")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(2, 7, 2, 9, 1, 10, -1, 9, -1, 7, -1, 6, -2, 6, -3, 7, -3, 9, -4, 9, -6, 8, -7, 7, -8, 5, -7, 3, -8, 2, -9, 1, -9, -1, -9, -2, -9, -4, -8, -6, -6, -7, -2, -7, 4, -8, 8, -5, 8, -3, 8, -2, 8, -1, 8, 2, 8, 4, 8, 5, 8, 7, 7, 7, 6, 7, 5, 6, 3, 7, 3, 7)
 
 [node name="ChaseRadius" type="Area2D" parent="."]
+visible = false
 collision_layer = 8
 collision_mask = 2
 
@@ -148,17 +146,28 @@ collision_mask = 2
 position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_oj4la")
 
-[node name="Timer" type="Timer" parent="."]
-autostart = true
-
 [node name="DamgeArea" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 2
 
-[node name="Collision2D" type="CollisionShape2D" parent="DamgeArea"]
-shape = SubResource("CircleShape2D_er41d")
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="DamgeArea"]
+visible = false
+polygon = PackedVector2Array(-2, 7, -2, 8, -3, 10, -5, 10, -7, 9, -8, 7, -8, 6, -9, 5, -8, 4, -8, 3, -10, 2, -11, 1, -10, -1, -10, -4, -9, -7, -7, -8, -3, -8, -1, -8, 1, -9, 4, -10, 6, -10, 7, -9, 8, -8, 8, -6, 9, -4, 9, -2, 9, 1, 8, 3, 9, 6, 8, 7, 7, 8, 4, 8, 3, 8, 2, 10, 0, 11, -1, 10, -2, 8)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Killzone" type="Area2D" parent="."]
+visible = false
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+shape = SubResource("CircleShape2D_81gkb")
+metadata/_edit_lock_ = true
 
 [connection signal="body_entered" from="ChaseRadius" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="ChaseRadius" to="." method="_on_chase_radius_exited"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="DamgeArea" to="." method="_on_damage_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Killzone" to="." method="_on_killzone_area_entered"]

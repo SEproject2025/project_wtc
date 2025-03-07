@@ -324,7 +324,7 @@ load_path = "res://.godot/imported/green.png-314c33de04b335649345ea7d7aad302b.ct
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wboyi"]
 radius = 7.0
-height = 20.0
+height = 26.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1i0gq"]
 properties/0/path = NodePath(".:player_id")
@@ -395,7 +395,7 @@ _data = {
 
 [node name="Player Character" type="CharacterBody2D" node_paths=PackedStringArray("player_input") groups=["Players"]]
 collision_layer = 2
-collision_mask = 11
+collision_mask = 3
 safe_margin = 0.01
 script = ExtResource("1_y2p1t")
 player_input = NodePath("Input")
@@ -422,6 +422,7 @@ advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 2
 
@@ -485,7 +486,7 @@ texture_under = SubResource("CompressedTexture2D_8vt3m")
 texture_progress = SubResource("CompressedTexture2D_5ggrr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2, -5)
+position = Vector2(-2, -8)
 shape = SubResource("CapsuleShape2D_wboyi")
 
 [node name="RayCasts" type="Node2D" parent="."]

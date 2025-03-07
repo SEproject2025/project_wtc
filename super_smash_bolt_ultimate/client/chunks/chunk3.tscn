@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=4 uid="uid://c8wtlv7s0jxwr"]
+[gd_scene load_steps=11 format=4 uid="uid://c8wtlv7s0jxwr"]
 
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_bemx6"]
 [ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="3_4n8no"]
 [ext_resource type="Texture2D" uid="uid://cjv214hth048p" path="res://assets/sprites/SpriteSheetCave.png" id="3_8wwov"]
 [ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="4_at5aa"]
-[ext_resource type="PackedScene" uid="uid://c58usve2vv3gi" path="res://scenes/flying_enemy.tscn" id="5_rwdlh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g8vh8"]
 texture = ExtResource("3_8wwov")
@@ -139,6 +138,3 @@ tile_set = SubResource("TileSet_ago5b")
 [node name="Background" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD+//7/AAAAAAAAAAD+////AQABAAMAAAD///7/AAAAAAAAAAAAAP7/AAAAAAAAAAABAP7/AAAAAAAAAAABAP//AQABAAMAAAABAP3/AAADAAIAAAABAPz/AQACAAIAAAA=")
 tile_set = SubResource("TileSet_qqvyl")
-
-[node name="FlyingEnemy" parent="." instance=ExtResource("5_rwdlh")]
-position = Vector2(-45, -128)

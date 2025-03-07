@@ -33,6 +33,7 @@ position = Vector2(185, 87)
 position = Vector2(3, 0)
 script = ExtResource("4_wgcnf")
 chunks = Array[PackedScene]([ExtResource("5_nycr6"), ExtResource("6_iiat1"), ExtResource("7_ki8jc"), ExtResource("6_bwhrc"), ExtResource("7_1hrp0"), ExtResource("8_f2tdy"), ExtResource("9_nmqnn"), ExtResource("10_81in4"), ExtResource("11_tc2vt"), ExtResource("12_n8afa"), ExtResource("13_gjbj5")])
+testChunks = Array[PackedScene]([ExtResource("5_nycr6")])
 
 [node name="DeathWallNode" parent="." instance=ExtResource("15_5ci7t")]
 position = Vector2(-277, 94)

@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var chunks: Array[PackedScene]
+@export var testChunks: Array[PackedScene]
 var startingChunk: PackedScene = preload("res://chunks/starting_chunk.tscn")
 var deathWall: PackedScene = preload("res://scenes/death_wall.tscn")
 
@@ -14,7 +15,8 @@ func _ready() -> void:
 	spawn_starting_chunks()
 
 func algorithm(n):
-	var num = rng.randi_range(0, chunks.size()-1)
+	var chunksToUse = testChunks if OS.is_debug_build() else chunks
+	var num = rng.randi_range(0, chunksToUse.size()-1)
 	add_chunk(num, n)
 
 func spawn_starting_chunks():
@@ -24,7 +26,11 @@ func spawn_starting_chunks():
 		add_child(instance)
 
 func add_chunk(num, chunkPosition):
-	var instance = chunks[num].instantiate()
+	var instance
+	if OS.is_debug_build():
+		instance = testChunks[num].instantiate()
+	else:
+		instance = chunks[num].instantiate()
 	instance.position.x = chunkPosition
 	add_child(instance)
 
