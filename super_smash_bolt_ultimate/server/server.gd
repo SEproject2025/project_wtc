@@ -189,9 +189,9 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 		# create_request(data) # COMMENT OUT PROFANITY REQUEST
 		# var profanity_result = await(profanity_check_completed) # COMMENT OUT PROFANITY AWAIT
 		# if not profanity_result: # COMMENT OUT PROFANITY CHECK
-			peer.send_msg(Message.USER_INFO, peer.id, data)
-			peer.user_name = data
-			print("User name received! Received name: %s" %data)
+		peer.send_msg(Message.USER_INFO, peer.id, data)
+		peer.user_name = data
+		print("User name received! Received name: %s" %data)
 		# else: # COMMENT OUT PROFANITY ELSE
 		# 	peer.send_msg(Message.USER_INFO, peer.id, "INVALID") # COMMENT OUT PROFANITY INVALID SEND
 		return true
