@@ -7,7 +7,8 @@ START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_
 
 var rtc_mp = WebRTCMultiplayerPeer.new()
 var ws = WebSocketPeer.new()
-var url = "ws://127.0.0.1:9999"
+# var url = "127.0.0.1:9999"
+var url = "wss://godot.silfsy.com"
 var client_connected : bool = false
 var ai_seed: int = 0
 
@@ -269,4 +270,3 @@ func send_map_seed(map_seed: int):
 
 func send_left_game(lobby_name: String):
 	send_msg(Message.LEFT_GAME, 0, lobby_name)
-
