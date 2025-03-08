@@ -295,6 +295,12 @@ limit_bottom = 120
 limit_smoothed = true
 position_smoothing_enabled = true
 
+[node name="Label" type="Label" parent="Camera2D"]
+offset_left = -19.0
+offset_top = -80.0
+offset_right = 21.0
+offset_bottom = -57.0
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_brr3u")

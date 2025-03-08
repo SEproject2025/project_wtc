@@ -21,3 +21,11 @@ func _on_play_again_pressed():
 	game_scene_node.queue_free()
 	game_scene_node.get_node(str(User.ID)).queue_free()
 	queue_free()
+
+
+func _on_spectate_pressed() -> void:
+	var spectatorOverlay = spectator_overlay.instantiate()
+	spectatorOverlay.other_players = other_players
+	spectatorOverlay.spectate_player(0)
+	get_tree().get_root().add_child(spectatorOverlay)
+	queue_free()
