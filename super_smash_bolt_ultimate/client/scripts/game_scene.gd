@@ -3,7 +3,6 @@ extends Node
 const POP_UP_START_POSITION_X = -625
 const POP_UP_START_POSITION_Y = -400
 
-
 var pop_up_template = preload("res://scenes/pop_up.tscn")
 var start_time : float = 5.0
 var pop_up

@@ -21,8 +21,6 @@ var isSlipping: bool = false
 var displacement := 0.0
 var prev_x := 0.0
 var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
-var ui_template = preload("res://scenes/UI.tscn")
-var ui
 
 @onready var animated_sprite: Sprite2D = $Sprite2D
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
@@ -41,8 +39,7 @@ var ui
 @onready var hitFlashAnimationPlayer = $HitFlashAnimationPlayer
 @onready var displacement_hud = $Camera2D/Label
 
-var hostSprite = preload("res://assets/sprites/character_sprites/red_bot_mothersheet_divisionless.png")
-
+var hostSprite = preload("res://assets/sprites/mine_bot_idle_sheet_5.png")
 
 @export var player_input: PlayerInput
 @export var player_id := 1:
@@ -68,10 +65,6 @@ func _process(_delta):
 	set_animation()
 	if Input.is_action_just_pressed("use_powerup") and !powerupManager.is_jetpack_active and !powerupManager.is_dash_powerup_active:
 		powerupManager.use_powerup()
-	if ui.fuel.value != ui.fuel.max_value:
-		ui.fuel.value = ui.fuel.max_value - (dashCooldown.time_left * 10)
-	if powerupManager.is_jetpack_active or powerupManager.is_dash_powerup_active:
-		ui.power_fuel.value = powerupManager.fuel
 
 func _physics_process(delta):
 	apply_movement(delta)
@@ -98,9 +91,6 @@ func reset():
 		global_position = Vector2(0, 0)
 		if User.is_host:
 			set_sprite.rpc()
-		ui = ui_template.instantiate()
-		get_tree().get_root().add_child(ui)
-		ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
 	else:
 		$Camera2D/Label.hide()
 		displacement_hud.text = ""
@@ -111,7 +101,7 @@ func reset():
 
 func check_health():
 	if health.value <= 0:
-		die.rpc(name)
+		die.rpc()
 
 func set_animation():
 	if Input.is_action_just_pressed("jump") :
@@ -142,6 +132,7 @@ func apply_movement(delta: float):
 	if isStunned:
 		handle_stunned_movement(delta)
 		return
+
 	if isBeingGrappled:
 		handle_being_grappled_movement(delta)
 		return
@@ -153,22 +144,19 @@ func apply_movement(delta: float):
 			coyoteTimer.start(PLAYER.COYOTE_TIMER_LENGTH)
 		if not isDashing or not (Input.is_action_just_pressed("use_powerup") and powerupManager.is_dash_powerup_active):
 			velocity.y += return_gravity() * delta
-		if not is_on_wall_only():
-			anim_tree.travel("fall_start")
-			sync_animation.rpc("fall_start")
 	else:
 		coyoteJump = true
 		coyoteTimer.stop()
 
 	if powerupManager.is_jetpack_active:
-		if Input.is_action_pressed("use_powerup") and powerupManager.is_jetpack_active:
+		if Input.is_action_pressed("use_powerup") and powerupManager.jetpack_fuel > 0:
 			velocity.y = PLAYER.JETPACK_VELOCITY
-			powerupManager.fuel -= PLAYER.JETPACK_FUEL_CONSUMPTION * delta
-		if powerupManager.fuel <= 0:
+			powerupManager.jetpack_fuel -= PLAYER.JETPACK_FUEL_CONSUMPTION * delta
+		if powerupManager.jetpack_fuel <= 0:
 			powerupManager.deactivate_jetpack()
 
 	if powerupManager.is_dash_powerup_active:
-		if Input.is_action_pressed("use_powerup") and powerupManager.is_dash_powerup_active:
+		if Input.is_action_pressed("use_powerup") and powerupManager.dashFuel > 0:
 			var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 			if collidingRayCast:
 				var collider = collidingRayCast.get_collider()
@@ -176,8 +164,8 @@ func apply_movement(delta: float):
 				if  collider and collider.get_class() == "CharacterBody2D" and not collider.isStunned:
 					collider.get_stunned.rpc()
 			handle_dash_movement(direction)
-			powerupManager.fuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
-		if powerupManager.fuel <= 0:
+			powerupManager.dashFuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
+		if powerupManager.dashFuel <= 0:
 			powerupManager.deactivate_dash()
 
 	if Input.is_action_just_pressed("jump"):
@@ -211,7 +199,7 @@ func apply_movement(delta: float):
 		velocity.x = move_toward(velocity.x, 0, PLAYER.SPEED * PLAYER.DECELERATION)
 
 	if Input.is_action_just_pressed("dash") and canDash:
-		if !isDashing:
+		if !isDashing and direction:
 			start_dash()
 
 	var wasOnFloor = is_on_floor()
@@ -240,18 +228,13 @@ func jump():
 func wall_jump():
 	velocity = Vector2(get_wall_normal().x * PLAYER.WALL_JUMP_PUSHBACK, PLAYER.JUMP_VELOCITY)
 	animated_sprite.flip_h = true
-	anim_tree.travel("jump")
-	sync_animation.rpc("jump")
 
 func wall_slide():
 	velocity.y = min(velocity.y, PLAYER.WALL_SLIDE_GRAVITY)
-	anim_tree.travel("wall_slide")
-	sync_animation.rpc("wall_slide")
 
 func start_dash():
 	isDashing = true
 	canDash = false
-	ui.fuel.value = 0
 	dashTimer.start()
 	dashCooldown.start()
 	dashEffectTimer.start()
@@ -294,8 +277,8 @@ func handle_being_grappled_movement(delta: float):
 
 func handle_stunned_movement(delta: float):
 	var direction = Input.get_axis("move_left", "move_right")
-	animated_sprite.flip_h = direction < 0
-	if not is_on_floor():
+	animated_sprite.flip_h = direction < 0;
+	if velocity.y > 0 and !is_on_floor():
 		velocity.y += return_gravity() * delta
 	velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED * PLAYER.STUN_SPEED, PLAYER.SPEED * PLAYER.ACCELERATION * PLAYER.STUN_SPEED)
 	move_and_slide()
@@ -341,7 +324,8 @@ func _on_dash_effect_timer_timeout():
 
 func stun_timer_timeout():
 	isStunned = false
-
+	set_physics_process(true)
+	set_process(true)
 #endregion
 
 #region RPCs
@@ -355,21 +339,17 @@ func set_sprite():
 	animated_sprite.texture = hostSprite
 
 @rpc("any_peer","call_local","reliable")
-func die(player_name: int):
-	print("Player %d died" %player_name)
+func die():
 	$AnimationTree.set_active(false)
-	anim_player.play("dead")
+	anim_player.play("Dead")
 	set_physics_process(false)
 	set_process(false)
 	alive = false
 	visible = false
 	$Camera2D.enabled = false
 	if get_multiplayer_authority() == (User.ID):
-		ui.set_visible(false)
 		var lost_pop_up = lost_pop_up_template.instantiate()
-		get_tree().get_root().add_child(lost_pop_up)
-	User.client.player_died.emit(player_name)
-		
+		add_child(lost_pop_up)
 
 	# reset()
 

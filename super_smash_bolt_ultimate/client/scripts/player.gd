@@ -39,10 +39,8 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		if coyoteJump and coyoteTimer.is_stopped():
 			coyoteTimer.start(PLAYER.COYOTE_TIMER_LENGTH)
-			animated_sprite.play("jump")
 		if not isDashing:
 			velocity.y += return_gravity() * delta
-			animated_sprite.play("fall")
 	else:
 		coyoteJump = true
 		coyoteTimer.stop()
@@ -60,7 +58,6 @@ func _physics_process(delta: float) -> void:
 	# Variable Jump Height
 	if !Input.is_action_pressed("jump") and velocity.y < 0:
 		velocity.y *= fall_rate
-		animated_sprite.play("jump")
 	
 	if is_on_wall_only() and Input.get_axis("move_left", "move_right"):
 		wall_slide()
@@ -85,10 +82,8 @@ func _physics_process(delta: float) -> void:
 	elif direction:
 		velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED, PLAYER.SPEED * PLAYER.ACCELERATION)
 		animated_sprite.flip_h = direction < 0
-		animated_sprite.play("run")
 	else:
 		velocity.x = move_toward(velocity.x, 0, PLAYER.SPEED * PLAYER.DECELERATION)
-		animated_sprite.play("idle")
 	
 	if Input.is_action_just_pressed("dash") and canDash:
 		if !isDashing:
@@ -115,7 +110,6 @@ func jump():
 	if is_on_floor() or coyoteJump:
 		velocity.y = PLAYER.JUMP_VELOCITY
 		coyoteJump = false
-		animated_sprite.play("jump")
 
 	else:
 		if !jumpBuffered:
@@ -128,11 +122,9 @@ func jump():
 func wall_jump():
 	velocity = Vector2(get_wall_normal().x * PLAYER.WALL_JUMP_PUSHBACK, PLAYER.JUMP_VELOCITY)
 	animated_sprite.flip_h = true
-	animated_sprite.play("jump")
 	
 func wall_slide():
 	velocity.y = min(velocity.y, PLAYER.WALL_SLIDE_GRAVITY)
-	animated_sprite.play("wall_slide")
 
 func start_dash():
 	isDashing = true

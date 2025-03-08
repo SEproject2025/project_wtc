@@ -1,7 +1,7 @@
 extends Control
 
 func set_msg(_msg : String, \
-_color : Color = Color(255, 255, 255)):
+_color : Color = Color(1, 1, 1)):
 	$VBoxContainer/Detail.text = _msg
 	$VBoxContainer/Detail.add_theme_color_override("font_color", _color)
 
