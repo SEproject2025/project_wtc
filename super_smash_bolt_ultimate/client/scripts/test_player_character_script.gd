@@ -36,6 +36,7 @@ var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 @onready var stunTimer:Timer = $Timers/StunTimer
 
 var hostSprite = preload("res://assets/sprites/character_sprites/blue_bot_mothersheet.png")
+var death_explosion = preload("res://scenes/death_explosion.tscn")
 
 @export var player_input: PlayerInput
 @export var player_id := 1:
@@ -75,6 +76,7 @@ func reset():
 	#set_process_input(false)
 	position.x = player_spawn_x
 	position.y = player_spawn_y
+	$Sprite2D.visible = true
 	#await get_tree().create_timer(5).timeout
 
 	$AnimationTree.set_active(true)
@@ -98,7 +100,12 @@ func reset():
 #func check_health():
 #	if health.value <= 0:
 #		die.rpc()
-
+func die_explode():
+	var begin_death = death_explosion.instantiate()
+	add_child(begin_death)
+	begin_death.set_sprite(hostSprite)
+	begin_death.set_momentum(velocity)
+	
 func set_animation():
 	if Input.is_action_just_pressed("jump") :
 		anim_tree.travel("jump")
@@ -336,8 +343,8 @@ func set_sprite():
 
 @rpc("any_peer","call_local","reliable")
 func die(player_name: int):
-	$AnimationTree.set_active(false)
-	anim_player.play("dead")
+	$Sprite2D.visible = false
+	die_explode()
 	set_player_name("press R to Reset")
 	set_physics_process(false)
 	#set_process(false)
