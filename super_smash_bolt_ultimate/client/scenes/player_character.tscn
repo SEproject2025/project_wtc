@@ -339,6 +339,12 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath(".:velocity")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath(".:isPowerUpDashing")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath(".:isDashing")
+properties/5/spawn = true
+properties/5/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8e02d"]
 properties/0/path = NodePath(".:input_direction")
@@ -396,7 +402,7 @@ _data = {
 [node name="Player Character" type="CharacterBody2D" node_paths=PackedStringArray("player_input") groups=["Players"]]
 collision_layer = 2
 collision_mask = 3
-safe_margin = 0.01
+safe_margin = 0.1
 script = ExtResource("1_y2p1t")
 player_input = NodePath("Input")
 

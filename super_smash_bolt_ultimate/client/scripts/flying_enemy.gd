@@ -41,7 +41,6 @@ func _on_body_entered(body):
 		target = body
 
 func _on_chase_radius_exited(body):
-	print("HERE")
 	if body.is_in_group("Players"):
 		is_chase = false
 		target = null
@@ -50,11 +49,12 @@ func _on_chase_radius_exited(body):
 func _on_damage_area_entered(body):
 	if body.is_in_group("Players"):
 		animated_sprite.play("attack")
-		body.get_bumped(1 if body.animated_sprite.flip_h else -1)
+		var direction = sign(body.global_position.x - global_position.x)
+		body.get_bumped(direction)
 		# body.hit_received.rpc()
 
 func _on_killzone_area_entered(body):
-	if body.is_in_group("Players") and abs(body.velocity.x) > Constants.Player.SPEED:
+	if body.is_in_group("Players") and (body.isDashing or body.isPowerUpDashing):
 		queue_free()
 
 func _on_timer_timeout():
