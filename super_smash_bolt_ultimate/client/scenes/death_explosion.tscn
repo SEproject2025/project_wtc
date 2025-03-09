@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://c4vhnwwf0uca6"]
+
+[ext_resource type="Script" path="res://scripts/death_explosion.gd" id="1_h05yh"]
+[ext_resource type="Texture2D" uid="uid://ddjdp5aybu81n" path="res://assets/sprites/character_sprites/vermilion_bot_mothersheet.png" id="1_vjpu1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wa2wm"]
+radius = 5.09902
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23mma"]
+atlas = ExtResource("1_vjpu1")
+region = Rect2(19, 240, 17, 17)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tgm0u"]
+radius = 3.0
+height = 10.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2kf6d"]
+atlas = ExtResource("1_vjpu1")
+region = Rect2(19.6688, 256.96, 11.2514, 10.7727)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h2wf5"]
+radius = 2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6nsr"]
+atlas = ExtResource("1_vjpu1")
+region = Rect2(28, 268, 6, 4)
+
+[node name="Death_explosion" type="Node2D"]
+position = Vector2(-1, -20)
+script = ExtResource("1_h05yh")
+
+[node name="Head" type="RigidBody2D" parent="."]
+mass = 0.028
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_wa2wm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Head/CollisionShape2D"]
+position = Vector2(1, -2)
+texture = SubResource("AtlasTexture_23mma")
+
+[node name="Torso" type="RigidBody2D" parent="."]
+mass = 0.065
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Torso"]
+position = Vector2(0, 14)
+shape = SubResource("CapsuleShape2D_tgm0u")
+
+[node name="Sprite2D" type="Sprite2D" parent="Torso/CollisionShape2D"]
+position = Vector2(-1, 0)
+texture = SubResource("AtlasTexture_2kf6d")
+
+[node name="Foot" type="RigidBody2D" parent="."]
+mass = 0.013
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Foot"]
+position = Vector2(4, 22)
+shape = SubResource("CircleShape2D_h2wf5")
+
+[node name="Sprite2D" type="Sprite2D" parent="Foot/CollisionShape2D"]
+texture = SubResource("AtlasTexture_y6nsr")
+
+[node name="Despawn_timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Despawn_timer" to="." method="_on_despawn_timer_timeout"]

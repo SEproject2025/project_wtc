@@ -11,7 +11,8 @@ func _generate_name() -> String:
 
 # Called once during initialization.
 func _setup() -> void:
-	rng.seed = User.client.ai_seed;
+	if User.client:
+		rng.seed = User.client.ai_seed;
 
 
 # Called each time this task is ticked (aka executed).
@@ -21,5 +22,3 @@ func _tick(delta: float) -> Status:
 		
 	return FAILURE
 		
-
-
