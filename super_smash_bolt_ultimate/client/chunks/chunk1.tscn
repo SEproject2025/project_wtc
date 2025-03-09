@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://kjhh6jp8711k"]
+[gd_scene load_steps=14 format=4 uid="uid://kjhh6jp8711k"]
 
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_uoo8r"]
 [ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="2_2jm3j"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cjv214hth048p" path="res://assets/sprites/SpriteSheetCave.png" id="3_sswap"]
 [ext_resource type="PackedScene" uid="uid://b3wgrdt3g8ekv" path="res://scenes/platform.tscn" id="4_8jy2i"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="6_aqds7"]
+[ext_resource type="PackedScene" uid="uid://c58usve2vv3gi" path="res://scenes/flying_enemy.tscn" id="7_ltb20"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jqdff"]
 texture = ExtResource("2_2jm3j")
@@ -166,3 +167,6 @@ tile_set = SubResource("TileSet_duc2e")
 position = Vector2(78, -79)
 powerups = Array[int]([2, 3, 1, 4])
 powerupProbabilities = Array[float]([0.1, 0.3, 0.4, 0.2])
+
+[node name="FlyingEnemy" parent="." instance=ExtResource("7_ltb20")]
+position = Vector2(-48, -115)

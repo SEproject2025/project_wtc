@@ -63,7 +63,7 @@ children = [SubResource("BTAction_5lngj"), SubResource("BTAction_87lfh"), SubRes
 [sub_resource type="BTDecorator" id="BTDecorator_j6j4i"]
 children = [SubResource("BTSequence_28y73")]
 script = ExtResource("3_1132w")
-probability = 0.3
+probability = 0.7
 
 [sub_resource type="BTSelector" id="BTSelector_52p6w"]
 children = [SubResource("BTDecorator_ctw0g"), SubResource("BTDecorator_j6j4i")]

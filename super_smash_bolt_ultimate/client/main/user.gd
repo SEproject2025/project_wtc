@@ -78,16 +78,17 @@ func _answer_received(type: String, sdp: String, sender_id):
 func _peer_connected(id : int):
 	delete_in_lobby_menu.emit()
 	
-	var game_scene_node = get_node("../game_scene")
+	var game_scene_node = get_node_or_null("../game_scene")
 
 	if not game_scene_node:
 		var game_scene = game_scene_template.instantiate()
 		game_scene.set_multiplayer_authority(User.ID)
 		game_scene.name = "game_scene"
 		get_parent().add_child(game_scene)
+		game_scene_node = get_node("../game_scene")
+
 	
-	game_scene_node = get_node("../game_scene")
-	var check_my_player = game_scene_node.get_node("%s" %ID)
+	var check_my_player = game_scene_node.get_node_or_null("%s" %ID)
 	if not check_my_player:
 		var player_character = player_character_template.instantiate()
 		player_character.set_multiplayer_authority(User.ID)
