@@ -18,6 +18,8 @@ var pullTargetPosition: Vector2
 var isGrappling: bool = false
 var isBeingGrappled: bool = false
 var isSlipping: bool = false
+var displacement := 0.0
+var prev_x := 0.0
 var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 var ui_template = preload("res://scenes/UI.tscn")
 var ui
@@ -37,6 +39,7 @@ var ui
 @onready var oilSpillTimer: Timer = $Timers/OilSpillTimer
 @onready var stunTimer:Timer = $Timers/StunTimer
 @onready var hitFlashAnimationPlayer = $HitFlashAnimationPlayer
+@onready var displacement_hud = $Camera2D/Label
 
 var yellow_bot_sprite    = preload("res://assets/sprites/character_sprites/mine_bot_mothersheet_complete.png")
 var red_bot_sprite       = preload("res://assets/sprites/character_sprites/red_bot_mothersheet.png")
@@ -93,9 +96,12 @@ func reset():
 	if get_multiplayer_authority() == (User.ID):
 		$AnimationTree.set_active(true)
 		$Camera2D.enabled = true
+		$Camera2D.make_current()
+		$Camera2D/Label.show()
 		character_name.text = User.user_name
 		set_sprite.rpc(player_id)
 		set_player_name.rpc(User.user_name)
+		global_position = Vector2(0, 0)
 		set_physics_process(true)
 		set_process_input(true)
 		set_process(true)
@@ -103,6 +109,8 @@ func reset():
 		get_tree().get_root().add_child(ui)
 		ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
 	else:
+		$Camera2D/Label.hide()
+		displacement_hud.text = ""
 		character_name.text = "Other player"
 		set_physics_process(false)
 		set_process(false)
@@ -140,6 +148,7 @@ func _on_area_2d_body_entered(body):
 		body.hit_received.rpc()
 
 func apply_movement(delta: float):
+	prev_x = global_position.x
 	if isStunned:
 		handle_stunned_movement(delta)
 		return
@@ -216,6 +225,8 @@ func apply_movement(delta: float):
 
 	var wasOnFloor = is_on_floor()
 	move_and_slide()
+	displacement += global_position.x - prev_x
+	displacement_hud.text = "%.1f m" % displacement
 
 	#Execute buffered jump
 	if !wasOnFloor && is_on_floor():
@@ -414,3 +425,6 @@ func get_stunned():
 func get_bumped(direction: int):
 	velocity += Vector2(direction * PLAYER.BUMP_FORCE.x, PLAYER.BUMP_FORCE.y)
 #endregion
+
+func format_displacement(value: float) -> String:
+	return "Displacement: %.2fm" % value
