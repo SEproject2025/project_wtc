@@ -19,6 +19,8 @@ var pullTargetPosition: Vector2
 var isGrappling: bool = false
 var isBeingGrappled: bool = false
 var isSlipping: bool = false
+var displacement := 0.0
+var prev_x := 0.0
 var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 var ui_template = preload("res://scenes/UI.tscn")
 var ui
@@ -38,8 +40,10 @@ var ui
 @onready var oilSpillTimer: Timer = $Timers/OilSpillTimer
 @onready var stunTimer:Timer = $Timers/StunTimer
 @onready var hitFlashAnimationPlayer = $HitFlashAnimationPlayer
+@onready var displacement_hud = $Camera2D/Label
 
-var hostSprite = preload("res://assets/sprites/mine_bot_idle_sheet_5.png")
+var hostSprite = preload("res://assets/sprites/character_sprites/red_bot_mothersheet_divisionless.png")
+
 
 @export var player_input: PlayerInput
 @export var player_id := 1:
@@ -85,17 +89,22 @@ func reset():
 	if get_multiplayer_authority() == (User.ID):
 		$AnimationTree.set_active(true)
 		$Camera2D.enabled = true
+		$Camera2D.make_current()
+		$Camera2D/Label.show()
 		character_name.text = User.user_name
 		set_physics_process(true)
 		set_process_input(true)
 		set_process(true)
 		set_player_name.rpc(User.user_name)
+		global_position = Vector2(0, 0)
 		if User.is_host:
 			set_sprite.rpc()
 		ui = ui_template.instantiate()
 		get_tree().get_root().add_child(ui)
 		ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
 	else:
+		$Camera2D/Label.hide()
+		displacement_hud.text = ""
 		character_name.text = "Other player"
 		set_physics_process(false)
 		set_process(false)
@@ -103,7 +112,7 @@ func reset():
 
 func check_health():
 	if health.value <= 0:
-		die.rpc(name.to_int())
+		die.rpc(name)
 
 func set_animation():
 	if Input.is_action_just_pressed("jump") :
@@ -130,6 +139,7 @@ func _on_area_2d_body_entered(body):
 		body.hit_received.rpc()
 
 func apply_movement(delta: float):
+	prev_x = global_position.x
 	if isStunned:
 		handle_stunned_movement(delta)
 		return
@@ -164,7 +174,8 @@ func apply_movement(delta: float):
 			var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 			if collidingRayCast:
 				var collider = collidingRayCast.get_collider()
-				if collider.is_in_group("Player") and not collider.isStunned:
+
+				if  collider and collider.get_class() == "CharacterBody2D" and not collider.isStunned:
 					collider.get_stunned.rpc()
 			handle_dash_movement(direction)
 			powerupManager.fuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
@@ -190,7 +201,7 @@ func apply_movement(delta: float):
 		var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 		if collidingRayCast:
 			var collider = collidingRayCast.get_collider()
-			if collider.is_in_group("Players"):
+			if collider and collider.get_class() == "CharacterBody2D":
 				if direction:
 					collider.get_bumped.rpc(direction)
 				else:
@@ -209,6 +220,8 @@ func apply_movement(delta: float):
 
 	var wasOnFloor = is_on_floor()
 	move_and_slide()
+	displacement += global_position.x - prev_x
+	displacement_hud.text = "%.1f m" % displacement
 
 	#Execute buffered jump
 	if !wasOnFloor && is_on_floor():
@@ -332,6 +345,7 @@ func _on_dash_effect_timer_timeout():
 
 func stun_timer_timeout():
 	isStunned = false
+
 #endregion
 
 #region RPCs
@@ -352,12 +366,14 @@ func die(player_name: int):
 	set_physics_process(false)
 	set_process(false)
 	alive = false
+	visible = false
+	$Camera2D.enabled = false
 	if get_multiplayer_authority() == (User.ID):
 		ui.set_visible(false)
 		var lost_pop_up = lost_pop_up_template.instantiate()
 		get_tree().get_root().add_child(lost_pop_up)
 	User.client.player_died.emit(player_name)
-
+		
 
 	# reset()
 
@@ -371,9 +387,8 @@ func sync_flip(dir : int):
 
 @rpc("any_peer","call_local","reliable")
 func hit_received():
-	# anim_tree.start("Hurt", true)
+	anim_tree.start("Hurt", true)
 	health.value -= 5
-	hitFlashAnimationPlayer.play("hit_flash")
 
 @rpc("any_peer")
 func begin_pulling_to_target(pullPosition: Vector2):
@@ -387,6 +402,8 @@ func get_stunned():
 
 @rpc("any_peer", "call_remote", "reliable")
 func get_bumped(direction: int):
-	velocity = Vector2(direction * PLAYER.BUMP_FORCE.x, PLAYER.BUMP_FORCE.y)
-
+	velocity += Vector2(direction * PLAYER.BUMP_FORCE.x, PLAYER.BUMP_FORCE.y)
 #endregion
+
+func format_displacement(value: float) -> String:
+	return "Displacement: %.2fm" % value

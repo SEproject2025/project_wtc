@@ -388,6 +388,7 @@ disabled = true
 debug_color = Color(0.858824, 0, 0.878431, 0.419608)
 
 [node name="Control" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

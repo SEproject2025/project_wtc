@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://djmw0yyy4uwvx"]
+[gd_scene load_steps=9 format=3 uid="uid://djmw0yyy4uwvx"]
 
 [ext_resource type="Script" path="res://scripts/spectator_overlay.gd" id="1_m2ooj"]
 [ext_resource type="Texture2D" uid="uid://b4xtumvqfrh5m" path="res://assets/icons/IconsFlat-32.png" id="1_sy4th"]
+[ext_resource type="Texture2D" uid="uid://cj2rakmrivimv" path="res://assets/sprites/sprite_sheets/UI ICONS_WHITE_pixel art_Sprite Sheet.png" id="3_1qfer"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_su0us"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -16,6 +17,10 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 [sub_resource type="AtlasTexture" id="AtlasTexture_jjdqq"]
 atlas = ExtResource("1_sy4th")
 region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4xjd"]
+atlas = ExtResource("3_1qfer")
+region = Rect2(136, 8, 112, 112)
 
 [node name="SpectatorOverlay" type="CanvasLayer"]
 script = ExtResource("1_m2ooj")
@@ -71,5 +76,20 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 
+[node name="Pause" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -76.0
+offset_top = 9.0
+offset_right = 44.0
+offset_bottom = 145.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+mouse_filter = 1
+icon = SubResource("AtlasTexture_r4xjd")
+flat = true
+
 [connection signal="pressed" from="Previous" to="." method="_previous_player"]
 [connection signal="pressed" from="Next" to="." method="_next_player"]
+[connection signal="pressed" from="Pause" to="." method="pause_pressed"]
