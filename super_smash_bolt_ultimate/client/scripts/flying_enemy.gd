@@ -51,7 +51,7 @@ func _on_damage_area_entered(body):
 		animated_sprite.play("attack")
 		var direction = sign(body.global_position.x - global_position.x)
 		body.get_bumped(direction)
-		# body.hit_received.rpc()
+		body.hit_received.rpc()
 
 func _on_killzone_area_entered(body):
 	if body.is_in_group("Players") and (body.isDashing or body.isPowerUpDashing):
