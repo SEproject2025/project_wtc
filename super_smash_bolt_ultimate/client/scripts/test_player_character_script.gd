@@ -35,7 +35,7 @@ var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 @onready var oilSpillTimer: Timer = $Timers/OilSpillTimer
 @onready var stunTimer:Timer = $Timers/StunTimer
 
-var hostSprite = preload("res://assets/sprites/character_sprites/red_bot_mothersheet_divisionless.png")
+var hostSprite = preload("res://assets/sprites/character_sprites/blue_bot_mothersheet.png")
 
 @export var player_input: PlayerInput
 @export var player_id := 1:
