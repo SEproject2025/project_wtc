@@ -49,4 +49,3 @@ func update_dead_players(id: int):
 func pause_pressed():
 	var pause_menu_instance = pause_menu.instantiate()
 	get_tree().get_root().add_child(pause_menu_instance)
-
