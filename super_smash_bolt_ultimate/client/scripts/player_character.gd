@@ -40,6 +40,7 @@ var ui
 @onready var stunTimer:Timer = $Timers/StunTimer
 @onready var hitFlashAnimationPlayer = $HitFlashAnimationPlayer
 @onready var displacement_hud = $Camera2D/Label
+@onready var death_explosion = preload("res://scenes/death_explosion.tscn")
 
 var yellow_bot_sprite    = preload("res://assets/sprites/character_sprites/mine_bot_mothersheet_complete.png")
 var red_bot_sprite       = preload("res://assets/sprites/character_sprites/red_bot_mothersheet.png")
@@ -275,6 +276,12 @@ func return_gravity():
 		fall_rate = PLAYER.DECELERATE_ON_JUMP_RELEASE
 	return gravity
 
+func die_explode():
+	var begin_death = death_explosion.instantiate()
+	add_child(begin_death)
+	begin_death.set_sprite(animated_sprite.texture)
+	begin_death.set_momentum(velocity)
+	
 #region Horizontal Movement
 func handle_grappling_movement(delta: float):
 	var directionToTarget = (powerupManager.grappleTargetPosition - global_position).normalized()
@@ -382,12 +389,16 @@ func set_sprite(player_id):
 @rpc("any_peer","call_local","reliable")
 func die(player_name: int):
 	print("Player %d died" %player_name)
-	$AnimationTree.set_active(false)
-	anim_player.play("dead")
+	#$AnimationTree.set_active(false)
+	#anim_player.play("dead")
+	die_explode()
 	set_physics_process(false)
 	set_process(false)
 	alive = false
-	visible = false
+	$PowerUpHUD.visible = false
+	$Sprite2D.visible = false
+	$Camera2D/Label.visible = false
+	$Control.visible = false
 	$Camera2D.enabled = false
 	if get_multiplayer_authority() == (User.ID):
 		ui.set_visible(false)
