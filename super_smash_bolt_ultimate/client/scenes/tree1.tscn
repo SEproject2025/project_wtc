@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cf8kktqfr4p02"]
+
+[ext_resource type="Texture2D" uid="uid://6nro4q16flte" path="res://assets/sprites/swamp_objects/Willows/1.png" id="1_hjpwf"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, -50)
+texture = ExtResource("1_hjpwf")

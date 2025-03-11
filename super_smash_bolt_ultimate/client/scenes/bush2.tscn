@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0nrnwg1lsfq3"]
+
+[ext_resource type="Texture2D" uid="uid://46ga7nnctaw7" path="res://assets/sprites/swamp_objects/Bushes/2.png" id="1_v63sa"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 11.275)
+texture = ExtResource("1_v63sa")
