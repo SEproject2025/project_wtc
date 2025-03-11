@@ -356,8 +356,8 @@ load_path = "res://.godot/imported/red.png-42432e989feef4cdfa07511ade50ab7a.ctex
 load_path = "res://.godot/imported/green.png-314c33de04b335649345ea7d7aad302b.ctex"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wboyi"]
-radius = 6.0
-height = 20.0
+radius = 7.0
+height = 26.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1i0gq"]
 properties/0/path = NodePath(".:player_id")
@@ -476,7 +476,7 @@ texture_under = SubResource("CompressedTexture2D_8vt3m")
 texture_progress = SubResource("CompressedTexture2D_5ggrr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
+position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_wboyi")
 
 [node name="RayCasts" type="Node2D" parent="."]
@@ -572,6 +572,7 @@ offset = Vector2(1, 1)
 hframes = 9
 vframes = 12
 frame = 16
+metadata/_edit_lock_ = true
 
 [node name="Death_Explosion" type="Node2D" parent="."]
 

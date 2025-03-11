@@ -12,6 +12,7 @@ var jumpBuffered: bool = false
 var wallJumping: bool = false
 var jumpReleased: bool = false
 var _is_on_floor: bool = true
+var isPowerUpDashing: bool  = false
 var isStunned: bool = false
 var alive: bool = true
 var pullTargetPosition: Vector2
@@ -179,7 +180,8 @@ func apply_movement(delta: float):
 			powerupManager.deactivate_jetpack()
 
 	if powerupManager.is_dash_powerup_active:
-		if Input.is_action_pressed("use_powerup") and powerupManager.is_dash_powerup_active:
+		if Input.is_action_pressed("use_powerup"):
+			isPowerUpDashing = true
 			var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 			if collidingRayCast:
 				var collider = collidingRayCast.get_collider()
@@ -187,6 +189,8 @@ func apply_movement(delta: float):
 					collider.get_stunned.rpc()
 			handle_dash_movement(direction)
 			powerupManager.fuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
+		else:
+			isPowerUpDashing = false
 		if powerupManager.fuel <= 0:
 			powerupManager.deactivate_dash()
 
