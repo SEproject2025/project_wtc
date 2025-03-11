@@ -277,3 +277,6 @@ func send_map_seed(map_seed: int):
 
 func send_left_game(lobby_name: String):
 	send_msg(Message.LEFT_GAME, 0, lobby_name)
+
+func request_seed():
+	send_msg(Message.GENERATE_SEED, 0, "")
