@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cjv214hth048p" path="res://assets/sprites/SpriteSheetCave.png" id="5_j2ga4"]
 [ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="6_4oulg"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="7_s8kge"]
-[ext_resource type="PackedScene" uid="uid://bf1cwlaflxa5e" path="res://scenes/desert_spikes.tscn" id="8_uo1uy"]
+[ext_resource type="PackedScene" uid="uid://bf1cwlaflxa5e" path="res://scenes/obstacles/desert_spikes.tscn" id="8_uo1uy"]
 [ext_resource type="PackedScene" uid="uid://dmh84ndrox66e" path="res://scenes/mushroom_bumper.tscn" id="9_ka606"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3paog"]
@@ -125,9 +125,9 @@ texture_region_size = Vector2i(32, 32)
 5:4/0 = 0
 5:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 6:4/0 = 0
-6:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -16, 16, 16, -16, 16)
+6:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -16, 16, -16, 16, 16, -14.6466, 16)
 7:4/0 = 0
-7:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, 16, -16, 16)
+7:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -16, -16, 14.9226, 16, -16, 16)
 8:4/0 = 0
 9:4/0 = 0
 0:5/0 = 0

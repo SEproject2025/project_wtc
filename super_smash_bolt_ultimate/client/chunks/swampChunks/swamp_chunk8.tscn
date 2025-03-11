@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="7_te4na"]
 [ext_resource type="PackedScene" uid="uid://cb8cy12k2syq8" path="res://scenes/bush5.tscn" id="8_4h6la"]
 [ext_resource type="PackedScene" uid="uid://bu7tl0c1yx6d2" path="res://scenes/bush6.tscn" id="9_n516t"]
-[ext_resource type="PackedScene" uid="uid://bf1cwlaflxa5e" path="res://scenes/desert_spikes.tscn" id="13_ijis5"]
+[ext_resource type="PackedScene" uid="uid://bf1cwlaflxa5e" path="res://scenes/obstacles/desert_spikes.tscn" id="13_ijis5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3paog"]
 texture = ExtResource("2_t2pop")

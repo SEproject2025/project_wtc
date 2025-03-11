@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://cb8cy12k2syq8" path="res://scenes/bush5.tscn" id="15_s7wp8"]
 [ext_resource type="PackedScene" uid="uid://bu7tl0c1yx6d2" path="res://scenes/bush6.tscn" id="16_smkr6"]
 [ext_resource type="PackedScene" uid="uid://dmh84ndrox66e" path="res://scenes/mushroom_bumper.tscn" id="17_rcre3"]
-[ext_resource type="PackedScene" uid="uid://bf1cwlaflxa5e" path="res://scenes/desert_spikes.tscn" id="22_0ri6b"]
+[ext_resource type="PackedScene" uid="uid://bf1cwlaflxa5e" path="res://scenes/obstacles/desert_spikes.tscn" id="22_0ri6b"]
 [ext_resource type="PackedScene" uid="uid://cwwvcqfy86ns5" path="res://splatform.tscn" id="23_e1800"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3paog"]
