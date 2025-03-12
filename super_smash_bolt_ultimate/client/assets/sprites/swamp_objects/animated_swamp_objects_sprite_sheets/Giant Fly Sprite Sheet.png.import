@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dwbvg2o0lcdl0"
-path="res://.godot/imported/Giant Fly Sprite Sheet.png-80713b06d7169d2892cf8f1738c197f6.ctex"
+path="res://.godot/imported/Giant Fly Sprite Sheet.png-e9066d862e4f219d277e07bebf548b9e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/animated_objects_sprite_sheets/Giant Fly Sprite Sheet.png"
-dest_files=["res://.godot/imported/Giant Fly Sprite Sheet.png-80713b06d7169d2892cf8f1738c197f6.ctex"]
+source_file="res://assets/sprites/swamp_objects/animated_swamp_objects_sprite_sheets/Giant Fly Sprite Sheet.png"
+dest_files=["res://.godot/imported/Giant Fly Sprite Sheet.png-e9066d862e4f219d277e07bebf548b9e.ctex"]
 
 [params]
 
