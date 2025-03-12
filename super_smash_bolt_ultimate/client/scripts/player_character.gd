@@ -103,7 +103,7 @@ func reset():
 		character_name.text = User.user_name
 		set_sprite.rpc(player_id)
 		set_player_name.rpc(User.user_name)
-		global_position = Vector2(0, 0)
+		# global_position = Vector2(0, 0)
 		set_physics_process(true)
 		set_process_input(true)
 		set_process(true)
