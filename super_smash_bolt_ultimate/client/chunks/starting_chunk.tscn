@@ -57,3 +57,8 @@ tile_set = SubResource("TileSet_fghnj")
 position = Vector2(-77, -30)
 powerups = Array[int]([1])
 powerupProbabilities = Array[float]([1.0])
+
+[node name="PowerUpSpawner2" parent="." instance=ExtResource("4_1vrcv")]
+position = Vector2(0, -30)
+powerups = Array[int]([2])
+powerupProbabilities = Array[float]([1.0])

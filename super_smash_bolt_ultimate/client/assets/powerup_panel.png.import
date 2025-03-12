@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwbvg2o0lcdl0"
-path="res://.godot/imported/Giant Fly Sprite Sheet.png-e9066d862e4f219d277e07bebf548b9e.ctex"
+uid="uid://b0w7mta8ai8vj"
+path="res://.godot/imported/powerup_panel.png-e248ca0d3590e529d811961d505dfb42.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/swamp_objects/animated_swamp_objects_sprite_sheets/Giant Fly Sprite Sheet.png"
-dest_files=["res://.godot/imported/Giant Fly Sprite Sheet.png-e9066d862e4f219d277e07bebf548b9e.ctex"]
+source_file="res://assets/powerup_panel.png"
+dest_files=["res://.godot/imported/powerup_panel.png-e248ca0d3590e529d811961d505dfb42.ctex"]
 
 [params]
 
