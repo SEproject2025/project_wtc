@@ -154,22 +154,22 @@ func apply_movement(delta: float):
 		coyoteTimer.stop()
 
 	if powerupManager.is_jetpack_active:
-		if Input.is_action_pressed("use_powerup") and powerupManager.jetpack_fuel > 0:
+		if Input.is_action_pressed("use_powerup") and powerupManager.fuel > 0:
 			velocity.y = PLAYER.JETPACK_VELOCITY
-			powerupManager.jetpack_fuel -= PLAYER.JETPACK_FUEL_CONSUMPTION * delta
-		if powerupManager.jetpack_fuel <= 0:
+			powerupManager.fuel -= PLAYER.JETPACK_FUEL_CONSUMPTION * delta
+		if powerupManager.fuel <= 0:
 			powerupManager.deactivate_jetpack()
 
 	if powerupManager.is_dash_powerup_active:
-		if Input.is_action_pressed("use_powerup") and powerupManager.dashFuel > 0:
+		if Input.is_action_pressed("use_powerup") and powerupManager.fuel > 0:
 			var collidingRayCast = rayCastRightToPlayer if rayCastRightToPlayer.is_colliding() else rayCastLeftToPlayer if rayCastLeftToPlayer.is_colliding() else null
 			if collidingRayCast:
 				var collider = collidingRayCast.get_collider()
 				if collider and not collider.isStunned:
 					collider.get_stunned.rpc()
 			handle_dash_movement(direction)
-			powerupManager.dashFuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
-		if powerupManager.dashFuel <= 0:
+			powerupManager.fuel -= PLAYER.DASH_FUEL_CONSUMPTION * delta
+		if powerupManager.fuel <= 0:
 			powerupManager.deactivate_dash()
 
 	if Input.is_action_just_pressed("jump"):

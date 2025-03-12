@@ -1,7 +1,8 @@
 extends Node2D
 
 
-var current_powerup: Constants.PowerUpType = Constants.PowerUpType.NONE
+var active_powerup: Constants.PowerUpType = Constants.PowerUpType.NONE
+var inactive_powerup: Constants.PowerUpType = Constants.PowerUpType.NONE
 var fuel = 100
 var is_jetpack_active = false
 var isGrappling: bool = false
@@ -16,7 +17,7 @@ var is_dash_powerup_active: bool = false
 @onready var oilspill_scene = preload("res://scenes/powerups/oilspill.tscn")
 
 @export var parent: CharacterBody2D
-@export var PowerUpHUD: Control
+@export var PowerUpUI: CanvasLayer
 
 
 
@@ -38,12 +39,16 @@ func _draw() -> void:
 		draw_line(to_local(fromPosition), to_local(toPosition), Color.BLACK, 1.5)
 
 func collect_powerup(powerup: Constants.PowerUpType) -> void:
-	if current_powerup == Constants.PowerUpType.NONE and get_multiplayer_authority() == User.ID: 
-		current_powerup = powerup
-		PowerUpHUD.rpc("update_powerup_icon", powerup)
+	if parent.get_multiplayer_authority() == User.ID:
+		if active_powerup == Constants.PowerUpType.NONE:
+			active_powerup = powerup
+			PowerUpUI.update_active_icon(powerup)
+		elif inactive_powerup == Constants.PowerUpType.NONE:
+			inactive_powerup = powerup
+			PowerUpUI.update_inactive_icon(powerup)
 
 func use_powerup() -> void:
-	match current_powerup:
+	match active_powerup:
 		Constants.PowerUpType.DASH:
 			print("Dash!")
 			activate_dash()
@@ -58,9 +63,6 @@ func use_powerup() -> void:
 			fire_grappling_hook()
 		Constants.PowerUpType.NONE:
 			print("No powerup!")
-	if not is_jetpack_active:
-		PowerUpHUD.rpc("update_powerup_icon", Constants.PowerUpType.NONE)
-		current_powerup = Constants.PowerUpType.NONE
 
 #region Dash
 func activate_dash() -> void:
@@ -71,8 +73,7 @@ func activate_dash() -> void:
 		
 func deactivate_dash() -> void:
 	is_dash_powerup_active = false
-	PowerUpHUD.rpc("update_powerup_icon", Constants.PowerUpType.NONE)
-	current_powerup = Constants.PowerUpType.NONE
+	update_powerup()
 #endregion
 
 #region JetPack	
@@ -84,8 +85,7 @@ func activate_jetpack() -> void:
 
 func deactivate_jetpack() -> void:
 	is_jetpack_active = false
-	PowerUpHUD.rpc("update_powerup_icon", Constants.PowerUpType.NONE)
-	current_powerup = Constants.PowerUpType.NONE
+	update_powerup()	
 #endregion
 
 #region Oil Spill
@@ -94,6 +94,7 @@ func throw_oil() -> void:
 	var oilspill = oilspill_scene.instantiate()
 	oilspill.position = parent.global_position + Vector2(67, -10)
 	get_tree().get_root().add_child(oilspill)
+	update_powerup()
 #endregion
 
 
@@ -109,6 +110,7 @@ func fire_grappling_hook():
 		if parent.raycastToObstacle.is_colliding():
 			grappleTargetPosition = parent.raycastToObstacle.get_collision_point()
 	draw_grappling_hook.rpc(parent.global_position, grappleTargetPosition)
+	update_powerup()
 
 func get_leading_player() -> Node2D:
 	var closestPlayer = null
@@ -122,6 +124,17 @@ func get_leading_player() -> Node2D:
 				closestPlayer = player
 
 	return closestPlayer
+
+func update_powerup():
+	if(inactive_powerup != Constants.PowerUpType.NONE):
+		active_powerup = inactive_powerup
+		inactive_powerup = Constants.PowerUpType.NONE
+		PowerUpUI.update_active_icon(active_powerup)
+		PowerUpUI.update_inactive_icon(Constants.PowerUpType.NONE)
+	else:
+		active_powerup = Constants.PowerUpType.NONE
+		PowerUpUI.update_active_icon(Constants.PowerUpType.NONE)
+
 
 @rpc("any_peer","call_local","reliable")
 func stop_grappling_hook():

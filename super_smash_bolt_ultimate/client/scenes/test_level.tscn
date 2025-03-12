@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://ccmehriwbp2le"]
+[gd_scene load_steps=18 format=4 uid="uid://ccmehriwbp2le"]
 
 [ext_resource type="Texture2D" uid="uid://cccnylotwwlt1" path="res://assets/sprites/sprite_sheets/swamp_tileset.png" id="1_5m7mf"]
 [ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="2_5dslk"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cbwg3s2fmtqay" path="res://scenes/obstacles/still_water_right.tscn" id="8_c42lt"]
 [ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="8_lpgbk"]
 [ext_resource type="PackedScene" uid="uid://cpoe72xuywwkb" path="res://scenes/transient_wall.tscn" id="9_g1876"]
+[ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="12_b54qr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qq02a"]
 texture = ExtResource("1_5m7mf")
@@ -226,3 +227,9 @@ tile_set = SubResource("TileSet_4xn2w")
 
 [node name="Test Player Character" parent="." instance=ExtResource("5_hycs2")]
 position = Vector2(0, -4)
+
+[node name="PowerUpSpawner" parent="." instance=ExtResource("12_b54qr")]
+position = Vector2(186, -1)
+
+[node name="PowerUpSpawner2" parent="." instance=ExtResource("12_b54qr")]
+position = Vector2(253, 9)
