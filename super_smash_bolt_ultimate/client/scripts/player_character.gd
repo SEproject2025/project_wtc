@@ -439,6 +439,9 @@ func get_stunned():
 @rpc("any_peer", "call_remote", "reliable")
 func get_bumped(direction: int):
 	velocity += Vector2(direction * PLAYER.BUMP_FORCE.x, PLAYER.BUMP_FORCE.y)
+
+	velocity.x = clamp(velocity.x, -PLAYER.BUMP_FORCE.x, PLAYER.BUMP_FORCE.x)
+	velocity.y = clamp(velocity.y, -PLAYER.BUMP_FORCE.x, PLAYER.BUMP_FORCE.y)
 #endregion
 
 func format_displacement(value: float) -> String:
