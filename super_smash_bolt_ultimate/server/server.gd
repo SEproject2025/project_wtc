@@ -109,9 +109,13 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 			var all_peer_ids : String = ""
 			var spawn_positions = [
 				Vector2(0, -6),
-				Vector2(-25, -6),
-				Vector2(-50, -6)
+				Vector2(-40, -6),
+				Vector2(-80, -6),
+				Vector2(-120, -6),
+				Vector2(-160, -6),
+				Vector2(-200, -6),
 			]
+			spawn_positions.shuffle()
 			var spawn_positions_by_id: Dictionary = {}
 			var ai_seed = randi()
 			for player in current_lobby.peers:
