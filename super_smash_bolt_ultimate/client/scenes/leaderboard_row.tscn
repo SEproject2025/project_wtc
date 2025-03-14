@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://iet224t6j1su"]
+
+[ext_resource type="Script" path="res://scripts/leaderboard_row.gd" id="1_i0cpr"]
+
+[node name="LeaderboardRow" type="GridContainer"]
+offset_right = 878.0
+offset_bottom = 77.0
+theme_override_constants/h_separation = 400
+columns = 3
+script = ExtResource("1_i0cpr")
+
+[node name="Rank" type="Label" parent="."]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Player" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Distance" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2

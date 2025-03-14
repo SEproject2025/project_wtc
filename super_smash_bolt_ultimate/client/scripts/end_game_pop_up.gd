@@ -1,13 +1,35 @@
 extends CanvasLayer
 
+@onready var spectate_button = $MarginContainer/VBoxContainer/BoxContainer/Spectate
+@onready var box_container = $MarginContainer/VBoxContainer/BoxContainer
+
 var pop_up_template = preload("res://scenes/pop_up.tscn")
 var spectator_overlay = preload("res://scenes/spectator_overlay.tscn")
+
+var leaderboard_container = preload("res://scenes/leaderboard.tscn")
+var leaderboard
+
 var other_players = []
+var all_players = []
 
 func _ready() -> void:
-	other_players = get_tree().get_nodes_in_group("Players").filter(func(player): return player.name != str(User.ID) && player.alive)
+	all_players = get_tree().get_nodes_in_group("Players")
+	other_players = all_players.filter(func(player): return player.name != str(User.ID) && player.alive)
 	if other_players.size() == 0:
-		$VBoxContainer/BoxContainer/Spectate.hide()
+		spectate_button.hide()
+	if all_players.size() > 1:
+		leaderboard = leaderboard_container.instantiate()
+		leaderboard.set_leaderboard(all_players)
+		$MarginContainer/VBoxContainer.add_child(leaderboard)
+		$MarginContainer/VBoxContainer.move_child(leaderboard, box_container.get_index())
+
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("toggle_leaderboard"):
+		if leaderboard.visible:
+			leaderboard.hide()
+		else:
+			leaderboard.show()
 	
 
 func _on_play_again_pressed():

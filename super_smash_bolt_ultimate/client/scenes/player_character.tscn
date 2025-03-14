@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/powerups/powerup_hud.gd" id="2_a42bt"]
 [ext_resource type="Script" path="res://scripts/powerups/powerup_manager.gd" id="2_qorcy"]
 [ext_resource type="Script" path="res://scripts/multiplayer_input.gd" id="5_82x6r"]
-[ext_resource type="Shader" uid="uid://d1ecoa4y31erb" path="res://assets/sprites/sprite_sheets/player_character_hit_flash.tres" id="5_ct6r3"]
+[ext_resource type="Shader" uid="uid://cix2p10kubhpy" path="res://assets/sprites/sprite_sheets/player_character_hit_flash.tres" id="5_ct6r3"]
 [ext_resource type="Texture2D" uid="uid://qhcwemdu5r50" path="res://assets/sprites/character_sprites/mine_bot_mothersheet_complete.png" id="6_t7umd"]
 
 [sub_resource type="Animation" id="Animation_bvmwo"]
@@ -423,6 +423,9 @@ properties/4/replication_mode = 1
 properties/5/path = NodePath(".:isDashing")
 properties/5/spawn = true
 properties/5/replication_mode = 1
+properties/6/path = NodePath(".:maxDisplacement")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8e02d"]
 properties/0/path = NodePath(".:input_direction")

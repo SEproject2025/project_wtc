@@ -20,6 +20,7 @@ var isGrappling: bool = false
 var isBeingGrappled: bool = false
 var isSlipping: bool = false
 var displacement := 0.0
+var maxDisplacement := 0.0
 var prev_x := 0.0
 var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 var ui_template = preload("res://scenes/UI.tscn")
@@ -232,6 +233,7 @@ func apply_movement(delta: float):
 	move_and_slide()
 	displacement += global_position.x - prev_x
 	displacement_hud.text = "%.1f m" % displacement
+	maxDisplacement = max(maxDisplacement, displacement)
 
 	#Execute buffered jump
 	if !wasOnFloor && is_on_floor():

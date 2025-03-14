@@ -1,17 +1,81 @@
-[gd_scene format=3 uid="uid://bnv3kccqw1ufj"]
+[gd_scene load_steps=2 format=3 uid="uid://chn6e5lwuun4r"]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[ext_resource type="Script" path="res://scripts/leaderboard.gd" id="1_skgio"]
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="LeaderboardContainer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_skgio")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 50.0
+offset_right = -100.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+tab_alignment = 1
+current_tab = 0
+clip_tabs = false
+
+[node name="Leaderboard" type="TextureButton" parent="TabContainer"]
 layout_mode = 2
+metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Leaderboard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Leaderboard/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 24
 
-[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="TabContainer/Leaderboard/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lobby Leaderboard"
+
+[node name="Header" type="GridContainer" parent="TabContainer/Leaderboard/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 400
+columns = 3
+
+[node name="Rank" type="Label" parent="TabContainer/Leaderboard/MarginContainer/VBoxContainer/Header"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "Rank"
+
+[node name="Player" type="Label" parent="TabContainer/Leaderboard/MarginContainer/VBoxContainer/Header"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Player"
+
+[node name="Distance" type="Label" parent="TabContainer/Leaderboard/MarginContainer/VBoxContainer/Header"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Distance"
+
+[node name="List" type="VBoxContainer" parent="TabContainer/Leaderboard/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Your Stats" type="Button" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
