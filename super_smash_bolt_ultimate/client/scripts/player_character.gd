@@ -399,7 +399,6 @@ func die(player_name: int):
 	set_physics_process(false)
 	set_process(false)
 	alive = false
-	$PowerUpHUD.visible = false
 	$Sprite2D.visible = false
 	$Camera2D/Label.visible = false
 	$Control.visible = false
