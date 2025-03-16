@@ -10,8 +10,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if power_fuel.value > 0 and fuel.visible:
-		fuel.set_visible(false)
-	if power_fuel.value == 0 and !fuel.visible:
-		fuel.set_visible(true)
-	pass
+	if power_fuel.value > 0:
+		$ui_base_extension.set_visible(true)
+		$powerup_battery.set_visible(true)
+	else:
+		$ui_base_extension.set_visible(false)
+		$powerup_battery.set_visible(false)
+	#pass
