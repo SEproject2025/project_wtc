@@ -28,9 +28,9 @@ texture_progress = ExtResource("2_vhlte")
 [node name="power_fuel" type="TextureProgressBar" parent="."]
 show_behind_parent = true
 offset_left = 111.0
-offset_top = 529.0
+offset_top = 530.0
 offset_right = 144.0
-offset_bottom = 622.0
+offset_bottom = 623.0
 fill_mode = 3
 nine_patch_stretch = true
 texture_progress = ExtResource("3_xgu5u")
@@ -42,11 +42,13 @@ scale = Vector2(1.4, 1.4)
 texture = ExtResource("1_b1rxw")
 
 [node name="ui_base_extension" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(117, 663)
 scale = Vector2(1.4, 1.4)
 texture = SubResource("AtlasTexture_tg55b")
 
 [node name="powerup_battery" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(127, 573.4)
 scale = Vector2(0.736364, 1.43684)
 texture = SubResource("AtlasTexture_bccij")
