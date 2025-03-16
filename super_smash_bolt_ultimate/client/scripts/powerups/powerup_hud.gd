@@ -1,10 +1,17 @@
-extends Control
+extends CanvasLayer
 
-@onready var powerupIcon = $PowerupIcon
+@onready var active = $Active
+@onready var inactive = $Inactive
 
-@rpc ("any_peer", "call_local", "reliable")
-func update_powerup_icon(powerup_type: Constants.PowerUpType):
+func update_active_icon(powerup_type: Constants.PowerUpType):
 	if Constants.powerupIcons.has(Constants.PowerUpType.keys()[powerup_type]):
-		powerupIcon.texture = Constants.powerupIcons[Constants.PowerUpType.keys()[powerup_type]]
+		print("HERE")
+		active.get_node("Icon").texture = Constants.powerupIcons[Constants.PowerUpType.keys()[powerup_type]]
 	else:
-		powerupIcon.texture = null
+		active.get_node("Icon").texture = null
+
+func update_inactive_icon(powerup_type: Constants.PowerUpType):
+	if Constants.powerupIcons.has(Constants.PowerUpType.keys()[powerup_type]):
+		inactive.get_node("Icon").texture = Constants.powerupIcons[Constants.PowerUpType.keys()[powerup_type]]
+	else:
+		inactive.get_node("Icon").texture = null
