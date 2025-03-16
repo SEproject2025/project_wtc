@@ -22,7 +22,8 @@
 [ext_resource type="PackedScene" uid="uid://bu7tl0c1yx6d2" path="res://scenes/bush6.tscn" id="16_smkr6"]
 [ext_resource type="PackedScene" uid="uid://dmh84ndrox66e" path="res://scenes/mushroom_bumper.tscn" id="17_rcre3"]
 [ext_resource type="PackedScene" uid="uid://bf1cwlaflxa5e" path="res://scenes/obstacles/desert_spikes.tscn" id="22_0ri6b"]
-[ext_resource type="PackedScene" uid="uid://cwwvcqfy86ns5" path="res://splatform.tscn" id="23_e1800"]
+[ext_resource type="PackedScene" uid="uid://cwwvcqfy86ns5" path="res://scenes/splatform.tscn" id="23_e1800"]
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3paog"]
 texture = ExtResource("2_tukml")

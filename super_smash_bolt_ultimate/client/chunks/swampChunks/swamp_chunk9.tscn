@@ -11,11 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://cf8kktqfr4p02" path="res://scenes/tree1.tscn" id="9_pdvin"]
 [ext_resource type="PackedScene" uid="uid://c4yit3o7gycm2" path="res://scenes/tree2.tscn" id="10_t02rx"]
 [ext_resource type="PackedScene" uid="uid://btg73jjorq353" path="res://scenes/tree3.tscn" id="11_de1gk"]
-[ext_resource type="PackedScene" uid="uid://cwwvcqfy86ns5" path="res://splatform.tscn" id="12_fseuh"]
+[ext_resource type="PackedScene" uid="uid://cwwvcqfy86ns5" path="res://scenes/splatform.tscn" id="12_fseuh"]
 [ext_resource type="Texture2D" uid="uid://cccnylotwwlt1" path="res://assets/sprites/sprite_sheets/swamp_tileset.png" id="13_w2ddg"]
 [ext_resource type="Texture2D" uid="uid://cjv214hth048p" path="res://assets/sprites/SpriteSheetCave.png" id="14_f2g4y"]
 [ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="15_xgl0v"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="16_isrdq"]
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3paog"]
 texture = ExtResource("2_eceb7")

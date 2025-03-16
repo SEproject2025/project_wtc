@@ -35,8 +35,9 @@
 [ext_resource type="PackedScene" uid="uid://bm1rjwjo0h6ij" path="res://scenes/foregroundforest.tscn" id="29_utu8o"]
 [ext_resource type="AudioStream" uid="uid://dqvks3x8havo0" path="res://assets/sounds/553080__nox_sound__ambiance_atmosphere_cave_loop_stereo.ogg" id="31_87e3v"]
 [ext_resource type="AudioStream" uid="uid://br58myenyca41" path="res://assets/sounds/427400__imjeax__forest-ambient-loop.ogg" id="32_qda10"]
-[ext_resource type="Script" path="res://scenes/forest_ambience.gd" id="33_ch0mr"]
-[ext_resource type="Script" path="res://scenes/cave_ambience.gd" id="35_q62te"]
+[ext_resource type="Script" path="res://scripts/forest_ambience.gd" id="33_ch0mr"]
+[ext_resource type="Script" path="res://scripts/cave_ambience.gd" id="35_q62te"]
+
 
 [sub_resource type="Environment" id="Environment_1qvk7"]
 background_mode = 3

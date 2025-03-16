@@ -1,11 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://eo01dd7ldv0c"]
 
 [ext_resource type="Script" path="res://scripts/parallax_background.gd" id="1_6upsw"]
-[ext_resource type="Texture2D" uid="uid://7oap61xymarm" path="res://assets/ParallaxBackground/sky.png" id="2_23bf7"]
-[ext_resource type="Texture2D" uid="uid://c3prolxtb1i58" path="res://assets/ParallaxBackground/DownLayer.png" id="3_lcdnm"]
-[ext_resource type="Texture2D" uid="uid://bfxw5llqpsg8j" path="res://assets/ParallaxBackground/MiddleLayer.png" id="4_sofur"]
-[ext_resource type="Texture2D" uid="uid://wj1b0bv77g6x" path="res://assets/ParallaxBackground/Light.png" id="5_a3ccl"]
-[ext_resource type="Texture2D" uid="uid://did7xed6152vw" path="res://assets/ParallaxBackground/TopLayer.png" id="6_fxg0u"]
+[ext_resource type="Texture2D" uid="uid://7oap61xymarm" path="res://assets/sky.png" id="2_23bf7"]
+[ext_resource type="Texture2D" uid="uid://c3prolxtb1i58" path="res://assets/DownLayer.png" id="3_lcdnm"]
+[ext_resource type="Texture2D" uid="uid://bfxw5llqpsg8j" path="res://assets/sprites/MiddleLayer.png" id="4_sofur"]
+[ext_resource type="Texture2D" uid="uid://wj1b0bv77g6x" path="res://assets/sprites/Light.png" id="5_a3ccl"]
+[ext_resource type="Texture2D" uid="uid://did7xed6152vw" path="res://assets/sprites/TopLayer.png" id="6_fxg0u"]
+
 
 [sub_resource type="Animation" id="Animation_lfiib"]
 length = 0.001

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cccnylotwwlt1" path="res://assets/sprites/sprite_sheets/swamp_tileset.png" id="1_didap"]
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_frplm"]
-[ext_resource type="PackedScene" uid="uid://cwwvcqfy86ns5" path="res://splatform.tscn" id="3_f6upa"]
+[ext_resource type="PackedScene" uid="uid://cwwvcqfy86ns5" path="res://scenes/splatform.tscn" id="3_f6upa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qq02a"]
 texture = ExtResource("1_didap")

@@ -1,10 +1,11 @@
 [gd_scene load_steps=6 format=3 uid="uid://dlrwjh05484qr"]
 
-[ext_resource type="Texture2D" uid="uid://7oap61xymarm" path="res://assets/ParallaxBackground/sky.png" id="1_cjh26"]
-[ext_resource type="Texture2D" uid="uid://c3prolxtb1i58" path="res://assets/ParallaxBackground/DownLayer.png" id="2_bv6xl"]
-[ext_resource type="Texture2D" uid="uid://bfxw5llqpsg8j" path="res://assets/ParallaxBackground/MiddleLayer.png" id="3_erpws"]
-[ext_resource type="Texture2D" uid="uid://wj1b0bv77g6x" path="res://assets/ParallaxBackground/Light.png" id="4_u6cto"]
-[ext_resource type="Texture2D" uid="uid://did7xed6152vw" path="res://assets/ParallaxBackground/TopLayer.png" id="5_w68fy"]
+[ext_resource type="Texture2D" uid="uid://7oap61xymarm" path="res://assets/sky.png" id="1_cjh26"]
+[ext_resource type="Texture2D" uid="uid://c3prolxtb1i58" path="res://assets/DownLayer.png" id="2_bv6xl"]
+[ext_resource type="Texture2D" uid="uid://bfxw5llqpsg8j" path="res://assets/sprites/MiddleLayer.png" id="3_erpws"]
+[ext_resource type="Texture2D" uid="uid://wj1b0bv77g6x" path="res://assets/sprites/Light.png" id="4_u6cto"]
+[ext_resource type="Texture2D" uid="uid://did7xed6152vw" path="res://assets/sprites/TopLayer.png" id="5_w68fy"]
+
 
 [node name="ParallaxBackground" type="ParallaxBackground"]
 offset = Vector2(0, -273.625)
