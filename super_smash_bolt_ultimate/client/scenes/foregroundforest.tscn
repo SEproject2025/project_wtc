@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://bm1rjwjo0h6ij"]
+
+[ext_resource type="Texture2D" uid="uid://dn6no583m273a" path="res://assets/ParallaxBackground/swamp_paralax/5.png" id="1_nwffd"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+layer = 1
+
+[node name="TopLayer" type="ParallaxLayer" parent="."]
+position = Vector2(0, -67.15)
+motion_scale = Vector2(2, 1)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="TopLayer"]
+texture_filter = 1
+position = Vector2(0, -100)
+texture = ExtResource("1_nwffd")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="TopLayer"]
+texture_filter = 1
+position = Vector2(576, -100)
+texture = ExtResource("1_nwffd")
+centered = false

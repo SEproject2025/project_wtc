@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkmuxif18f7ro"]
+
+[ext_resource type="Texture2D" uid="uid://dbdw54jb4epp1" path="res://assets/sprites/swamp_objects/Stones/2.png" id="1_je086"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+texture = ExtResource("1_je086")
