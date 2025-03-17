@@ -9,6 +9,7 @@ var death_wall_start = false
 var   wall_velocity          = WALL_INITIAL_VELOCITY
 
 func _process(delta: float) -> void:
+	pass
 	if death_wall_start:
 		var players = get_tree().get_nodes_in_group("Players")
 		var distance = 100000
