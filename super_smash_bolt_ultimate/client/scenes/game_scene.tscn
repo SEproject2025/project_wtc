@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://chvj808e8555p"]
+[gd_scene load_steps=22 format=3 uid="uid://chvj808e8555p"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_e2uyo"]
 [ext_resource type="PackedScene" uid="uid://dlrwjh05484qr" path="res://scenes/parallax_background.tscn" id="2_poitg"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="16_1whiy"]
 [ext_resource type="PackedScene" uid="uid://dlgqjhl5lmele" path="res://chunks/chunk22.tscn" id="16_m3axx"]
 [ext_resource type="PackedScene" uid="uid://bl3ilaqlbk7ph" path="res://chunks/chunk23.tscn" id="17_ecepd"]
+[ext_resource type="PackedScene" uid="uid://dm2gb0jre5tl6" path="res://scenes/end_pop_up.tscn" id="20_fal2p"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r3yr3"]
 distance = -683.0
@@ -46,3 +47,5 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("WorldBoundaryShape2D_r3yr3")
+
+[node name="EndPopUp" parent="." instance=ExtResource("20_fal2p")]

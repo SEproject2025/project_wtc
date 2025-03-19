@@ -8,6 +8,12 @@ var pop_up_template = preload("res://scenes/pop_up.tscn")
 var start_time : float = 5.0
 var pop_up
 
+@onready var end_pop_up = $EndPopUp
+@onready var end_vbox = $EndPopUp/MarginContainer/VBoxContainer
+
+var leaderboard
+
+
 func _ready():
 	User.client.some_one_left_game.connect(player_left)
 	pop_up = pop_up_template.instantiate()
@@ -19,8 +25,14 @@ func _ready():
 	pop_up.position.y = POP_UP_START_POSITION_Y
 	pop_up.z_index = 10
 	add_child(pop_up)
+	
+	end_vbox.get_node("Message").visible = false
+	end_vbox.get_node("BoxContainer").visible = false
+	end_vbox.get_node("LeaderboardContainer").visible = false
+	
 	if User.is_host:
 		User.client.send_map_seed(RandomNumberGenerator.new().randi())
+	
 
 
 func _process(delta):
@@ -32,6 +44,19 @@ func _process(delta):
 		set_process(false)
 		get_node("pop_up").queue_free()
 		get_node("DeathWallNode").death_wall_start = true
+		end_pop_up.setup()
+
+func _unhandled_input(event):
+	if event is InputEventKey:
+		if event.pressed and event.keycode == KEY_TAB:
+			if (is_instance_valid(end_pop_up) and end_pop_up.leaderboard_enabled):
+				end_pop_up.leaderboard_container.visible = !end_pop_up.leaderboard_container.visible
+				if end_pop_up.leaderboard_container.allPlayers.size() == 0 or end_pop_up.leaderboard_container.names_not_set():
+					end_pop_up.leaderboard_container.setup()
+			else:
+				print(leaderboard)
+				if leaderboard:
+					leaderboard.visible = !leaderboard.visible
 
 func _on_button_pressed():
 	User.reset_connection()
@@ -41,3 +66,7 @@ func _on_button_pressed():
 
 func player_left(other_player_id : int):
 	User.rtc_peer.peer_disconnected.emit(other_player_id)
+
+func enable_death_pop_up() -> void:
+	end_vbox.get_node("Message").visible = true
+	end_vbox.get_node("BoxContainer").visible = true

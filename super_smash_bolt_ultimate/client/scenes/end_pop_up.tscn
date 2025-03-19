@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dm2gb0jre5tl6"]
+[gd_scene load_steps=5 format=3 uid="uid://dm2gb0jre5tl6"]
 
 [ext_resource type="Script" path="res://scripts/end_game_pop_up.gd" id="1_jneo6"]
+[ext_resource type="PackedScene" uid="uid://chn6e5lwuun4r" path="res://scenes/leaderboard.tscn" id="2_bob4a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v78n3"]
 bg_color = Color(0, 0, 0, 0.470588)
@@ -31,6 +32,9 @@ text = "You Died!
 "
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="LeaderboardContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_bob4a")]
+layout_mode = 2
 
 [node name="BoxContainer" type="BoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

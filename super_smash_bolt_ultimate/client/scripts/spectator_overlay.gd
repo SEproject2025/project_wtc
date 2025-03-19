@@ -27,6 +27,7 @@ func _previous_player():
 
 func spectate_player(index: int):
 	if other_players.size() == 0:
+		print("No players to spectate")
 		return
 	var player = other_players[index]
 	player.get_node("Camera2D").enabled = true

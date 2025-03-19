@@ -426,6 +426,9 @@ properties/5/replication_mode = 1
 properties/6/path = NodePath(".:maxDisplacement")
 properties/6/spawn = true
 properties/6/replication_mode = 1
+properties/7/path = NodePath(".:displacement_updated")
+properties/7/spawn = true
+properties/7/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8e02d"]
 properties/0/path = NodePath(".:input_direction")
@@ -486,6 +489,7 @@ collision_mask = 3
 safe_margin = 0.1
 script = ExtResource("1_y2p1t")
 player_input = NodePath("Input")
+player_id = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -7)
@@ -642,6 +646,9 @@ wait_time = 0.1
 wait_time = 2.0
 one_shot = true
 
+[node name="DisplacementUpdateTimer" type="Timer" parent="Timers"]
+autostart = true
+
 [node name="PowerUpHUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -690,3 +697,4 @@ libraries = {
 [connection signal="timeout" from="Timers/OilSpillTimer" to="." method="oil_spill_timer_timeout"]
 [connection signal="timeout" from="Timers/DashEffectTimer" to="." method="_on_dash_effect_timer_timeout"]
 [connection signal="timeout" from="Timers/StunTimer" to="." method="stun_timer_timeout"]
+[connection signal="timeout" from="Timers/DisplacementUpdateTimer" to="." method="on_displacement_update_timer"]

@@ -110,7 +110,8 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 			var spawn_positions = [
 				Vector2(0, -6),
 				Vector2(-25, -6),
-				Vector2(-50, -6)
+				Vector2(-50, -6),
+				Vector2(-75, -6),
 			]
 			var spawn_positions_by_id: Dictionary = {}
 			var ai_seed = randi()
