@@ -1,42 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2pc43vjhgr5w"]
+[gd_scene load_steps=7 format=3 uid="uid://d2pc43vjhgr5w"]
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_85aau"]
 [ext_resource type="Texture2D" uid="uid://cqtxofp8lb7j0" path="res://assets/sprites/battery-and-small-screen-ui-pixilart.png" id="1_b1rxw"]
 [ext_resource type="Texture2D" uid="uid://djlipafwkva7o" path="res://assets/sprites/yellow.png" id="2_vhlte"]
 [ext_resource type="Texture2D" uid="uid://cjauy8ip3076c" path="res://assets/sprites/green_power.tres" id="3_xgu5u"]
 
-[sub_resource type="GDScript" id="GDScript_gtps8"]
-script/source = "extends Sprite2D
+[sub_resource type="AtlasTexture" id="AtlasTexture_tg55b"]
+atlas = ExtResource("1_b1rxw")
+region = Rect2(26, 77, 51, 51)
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-"
+[sub_resource type="AtlasTexture" id="AtlasTexture_bccij"]
+atlas = ExtResource("1_b1rxw")
+region = Rect2(21, 0, 55, 76)
 
 [node name="Ui" type="CanvasLayer"]
 script = ExtResource("1_85aau")
 
 [node name="boost_fuel" type="TextureProgressBar" parent="."]
 show_behind_parent = true
-offset_left = 37.0
+offset_left = 38.0
 offset_top = 529.0
-offset_right = 102.0
-offset_bottom = 621.0
+offset_right = 104.0
+offset_bottom = 622.0
 fill_mode = 3
 texture_progress = ExtResource("2_vhlte")
 
 [node name="power_fuel" type="TextureProgressBar" parent="."]
 show_behind_parent = true
-offset_left = 37.0
-offset_top = 528.0
-offset_right = 103.0
-offset_bottom = 621.0
+offset_left = 111.0
+offset_top = 530.0
+offset_right = 144.0
+offset_bottom = 623.0
 fill_mode = 3
 nine_patch_stretch = true
 texture_progress = ExtResource("3_xgu5u")
@@ -46,4 +40,15 @@ tint_progress = Color(0.182542, 0.625217, 0.228241, 1)
 position = Vector2(55, 609)
 scale = Vector2(1.4, 1.4)
 texture = ExtResource("1_b1rxw")
-script = SubResource("GDScript_gtps8")
+
+[node name="ui_base_extension" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(117, 663)
+scale = Vector2(1.4, 1.4)
+texture = SubResource("AtlasTexture_tg55b")
+
+[node name="powerup_battery" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(127, 573.4)
+scale = Vector2(0.736364, 1.43684)
+texture = SubResource("AtlasTexture_bccij")

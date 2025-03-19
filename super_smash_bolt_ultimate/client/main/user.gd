@@ -35,7 +35,16 @@ func init_connection():
 	
 	for peer_id in peers.keys():
 		var connection = WebRTCPeerConnection.new()
-		connection.initialize({"iceServers": [ { "urls": ["stun:stun.l.google.com:19302"]}]})
+		connection.initialize({"iceServers": [
+			{ "urls": ["stun:stun.l.google.com:19302"] },  # Keep the public STUN server
+			{
+				"urls": [
+					"turn:turn.silfsy.com:3478"
+				],
+				"username": "bolt",  # Your TURN username
+				"credential": "4w4y1011"  # Your TURN password (replace with actual credential!)
+			}
+		]})
 		connection.session_description_created.connect(session_created.bind(connection))
 		connection.ice_candidate_created.connect(ice_created.bind(connection))
 		connection_list[peer_id] = connection
@@ -47,6 +56,7 @@ func init_connection():
 	rtc_peer.peer_connected.connect(_peer_connected)
 	rtc_peer.peer_disconnected.connect(_peer_disconnected)
 	get_tree().get_multiplayer().multiplayer_peer = rtc_peer
+
 
 
 func session_created(type: String, sdp: String, connection : WebRTCLibPeerConnection):

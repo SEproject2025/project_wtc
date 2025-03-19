@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/test_player_character_script.gd" id="1_636bd"]
 [ext_resource type="Script" path="res://scripts/powerups/powerup_manager.gd" id="2_eolm8"]
-[ext_resource type="Script" path="res://scripts/powerups/powerup_hud.gd" id="3_55wac"]
+[ext_resource type="PackedScene" uid="uid://ld0nfnklnql6" path="res://scenes/powerups/power_up_ui.tscn" id="2_xukkd"]
 [ext_resource type="Script" path="res://scripts/multiplayer_input.gd" id="4_dhsi6"]
 [ext_resource type="Texture2D" uid="uid://bmuq3tb85fm8d" path="res://assets/sprites/character_sprites/orange_bot_mothersheet.png" id="5_isygt"]
 
@@ -326,7 +326,7 @@ states/Start/position = Vector2(94, 176)
 states/dash/node = SubResource("AnimationNodeAnimation_op1px")
 states/dash/position = Vector2(645.061, 123.904)
 states/dead/node = SubResource("AnimationNodeAnimation_hy5qk")
-states/dead/position = Vector2(2.98132, 126.211)
+states/dead/position = Vector2(2.48132, 125.057)
 states/fall_end/node = SubResource("AnimationNodeAnimation_hqgr2")
 states/fall_end/position = Vector2(512, -29)
 states/fall_start/node = SubResource("AnimationNodeAnimation_w36rd")
@@ -344,7 +344,7 @@ states/run/position = Vector2(524, 182)
 states/wall_slide/node = SubResource("AnimationNodeAnimation_1ul2t")
 states/wall_slide/position = Vector2(106.152, -66.0469)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_bqjit"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_ginhq"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_daml0"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_qeowp"), "jump", "fall_start", SubResource("AnimationNodeStateMachineTransition_q8hrg"), "fall_start", "fall_end", SubResource("AnimationNodeStateMachineTransition_5ufo7"), "fall_end", "idle", SubResource("AnimationNodeStateMachineTransition_p2aqo"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_n353o"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_x2t58"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_r66ul"), "hurt", "dead", SubResource("AnimationNodeStateMachineTransition_mdvj4"), "idle", "dead", SubResource("AnimationNodeStateMachineTransition_6akl4"), "fall_end", "run", SubResource("AnimationNodeStateMachineTransition_37jhl"), "jump", "into_wall_slide", SubResource("AnimationNodeStateMachineTransition_gxcl2"), "fall_start", "into_wall_slide", SubResource("AnimationNodeStateMachineTransition_8kvax"), "into_wall_slide", "wall_slide", SubResource("AnimationNodeStateMachineTransition_kj3eg"), "wall_slide", "idle", SubResource("AnimationNodeStateMachineTransition_s4b0m"), "wall_slide", "jump", SubResource("AnimationNodeStateMachineTransition_64n7x"), "wall_slide", "fall_start", SubResource("AnimationNodeStateMachineTransition_tydlt"), "into_wall_slide", "jump", SubResource("AnimationNodeStateMachineTransition_kq160"), "run", "fall_start", SubResource("AnimationNodeStateMachineTransition_earcg"), "into_wall_slide", "fall_start", SubResource("AnimationNodeStateMachineTransition_2pdpd"), "run", "dash", SubResource("AnimationNodeStateMachineTransition_2f3af"), "dash", "run", SubResource("AnimationNodeStateMachineTransition_ns4lo"), "jump", "dash", SubResource("AnimationNodeStateMachineTransition_vcxvs"), "dash", "jump", SubResource("AnimationNodeStateMachineTransition_oub64"), "fall_start", "dash", SubResource("AnimationNodeStateMachineTransition_e4lpb")]
-graph_offset = Vector2(-307.939, -71.6289)
+graph_offset = Vector2(-203.779, -28.9765)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sist4"]
 size = Vector2(9.61861, 23.1357)
@@ -398,6 +398,8 @@ zoom = Vector2(2, 2)
 limit_bottom = 160
 limit_smoothed = true
 position_smoothing_enabled = true
+
+[node name="PowerUpUI" parent="." instance=ExtResource("2_xukkd")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -504,11 +506,11 @@ position = Vector2(-1, -6)
 target_position = Vector2(-9, 0)
 collision_mask = 2
 
-[node name="PowerUpManager" type="Node2D" parent="." node_paths=PackedStringArray("parent", "PowerUpHUD")]
+[node name="PowerUpManager" type="Node2D" parent="." node_paths=PackedStringArray("parent", "PowerUpUI")]
 unique_name_in_owner = true
 script = ExtResource("2_eolm8")
 parent = NodePath("..")
-PowerUpHUD = NodePath("../PowerUpHUD")
+PowerUpUI = NodePath("../PowerUpUI")
 
 [node name="Timers" type="Node" parent="."]
 
@@ -539,22 +541,6 @@ wait_time = 0.1
 [node name="StunTimer" type="Timer" parent="Timers"]
 wait_time = 2.0
 one_shot = true
-
-[node name="PowerUpHUD" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -5.0
-offset_top = -40.0
-offset_right = 5.0
-offset_bottom = -31.0
-script = ExtResource("3_55wac")
-
-[node name="PowerupIcon" type="TextureRect" parent="PowerUpHUD"]
-layout_mode = 0
-offset_left = -11.0
-offset_top = -48.0
-offset_right = 12.0
-offset_bottom = -26.0
 
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_1i0gq")

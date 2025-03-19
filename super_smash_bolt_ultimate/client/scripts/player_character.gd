@@ -55,6 +55,7 @@ var orange_bot_sprite    = preload("res://assets/sprites/character_sprites/orang
 var purple_bot_sprite    = preload("res://assets/sprites/character_sprites/purple_guy_mothersheet.png")
 var green_bot_sprite     = preload("res://assets/sprites/character_sprites/lime_bot_mothersheet_2.png")
 var pink_bot_sprite      = preload("res://assets/sprites/character_sprites/pink_bot_mothersheet.png")
+var zorro_bot_sprite     = preload("res://assets/sprites/character_sprites/zorrobot_mothersheet.png")
 var vermilion_bot_sprite = preload("res://assets/sprites/character_sprites/vermilion_bot_mothersheet.png")
 
 
@@ -76,6 +77,8 @@ var attack_timer : int = 0
 
 func _ready():
 	player_id = randi_range(1,7)
+	if User.user_name.to_upper() == "ZORRO":
+		player_id = 8
 	reset()
 
 func _process(_delta):
@@ -396,6 +399,8 @@ func set_sprite(player_id):
 			animated_sprite.texture = green_bot_sprite
 		7:
 			animated_sprite.texture = pink_bot_sprite
+		8:
+			animated_sprite.texture = zorro_bot_sprite
 		_:
 			animated_sprite.texture = vermilion_bot_sprite
 
@@ -408,7 +413,6 @@ func die(player_name: int):
 	set_physics_process(false)
 	set_process(false)
 	alive = false
-	$PowerUpHUD.visible = false
 	$Sprite2D.visible = false
 	$Camera2D/Label.visible = false
 	$Control.visible = false
@@ -453,6 +457,9 @@ func get_stunned():
 @rpc("any_peer", "call_remote", "reliable")
 func get_bumped(direction: int):
 	velocity += Vector2(direction * PLAYER.BUMP_FORCE.x, PLAYER.BUMP_FORCE.y)
+
+	velocity.x = clamp(velocity.x, -PLAYER.BUMP_FORCE.x, PLAYER.BUMP_FORCE.x)
+	velocity.y = clamp(velocity.y, -PLAYER.BUMP_FORCE.x, PLAYER.BUMP_FORCE.y)
 #endregion
 
 func format_displacement(value: float) -> String:
