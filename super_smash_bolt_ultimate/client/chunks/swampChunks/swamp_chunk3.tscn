@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://c4yit3o7gycm2" path="res://scenes/tree2.tscn" id="8_elb5h"]
 [ext_resource type="PackedScene" uid="uid://btg73jjorq353" path="res://scenes/tree3.tscn" id="9_ddaxx"]
 
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vvchs"]
 texture = ExtResource("1_jxisx")
 texture_region_size = Vector2i(32, 32)

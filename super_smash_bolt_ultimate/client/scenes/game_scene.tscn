@@ -38,7 +38,6 @@
 [ext_resource type="Script" path="res://scripts/forest_ambience.gd" id="33_ch0mr"]
 [ext_resource type="Script" path="res://scripts/cave_ambience.gd" id="35_q62te"]
 
-
 [sub_resource type="Environment" id="Environment_1qvk7"]
 background_mode = 3
 glow_enabled = true
