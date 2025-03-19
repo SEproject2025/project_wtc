@@ -50,6 +50,7 @@ var orange_bot_sprite    = preload("res://assets/sprites/character_sprites/orang
 var purple_bot_sprite    = preload("res://assets/sprites/character_sprites/purple_guy_mothersheet.png")
 var green_bot_sprite     = preload("res://assets/sprites/character_sprites/lime_bot_mothersheet_2.png")
 var pink_bot_sprite      = preload("res://assets/sprites/character_sprites/pink_bot_mothersheet.png")
+var zorro_bot_sprite     = preload("res://assets/sprites/character_sprites/zorrobot_mothersheet.png")
 var vermilion_bot_sprite = preload("res://assets/sprites/character_sprites/vermilion_bot_mothersheet.png")
 
 
@@ -71,6 +72,8 @@ var attack_timer : int = 0
 
 func _ready():
 	player_id = randi_range(1,7)
+	if User.user_name.to_upper() == "ZORRO":
+		player_id = 8
 	reset()
 
 func _process(_delta):
@@ -387,6 +390,8 @@ func set_sprite(player_id):
 			animated_sprite.texture = green_bot_sprite
 		7:
 			animated_sprite.texture = pink_bot_sprite
+		8:
+			animated_sprite.texture = zorro_bot_sprite
 		_:
 			animated_sprite.texture = vermilion_bot_sprite
 
