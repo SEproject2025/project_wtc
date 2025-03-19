@@ -412,6 +412,7 @@ func die(player_name: int):
 	$Sprite2D.visible = false
 	$Camera2D/Label.visible = false
 	$Control.visible = false
+	await get_tree().create_timer(0.5).timeout
 	if get_tree().get_nodes_in_group("Players").filter(func(player): return player.alive).size() > 0:
 		$Camera2D.enabled = false
 	if get_multiplayer_authority() == (User.ID):

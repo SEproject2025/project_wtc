@@ -49,3 +49,8 @@ visible = false
 shape = SubResource("WorldBoundaryShape2D_r3yr3")
 
 [node name="EndPopUp" parent="." instance=ExtResource("20_fal2p")]
+
+[node name="GhostCamera" type="Camera2D" parent="."]
+offset = Vector2(0, -50)
+enabled = false
+zoom = Vector2(2, 2)

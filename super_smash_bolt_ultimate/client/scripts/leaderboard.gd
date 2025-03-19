@@ -11,7 +11,8 @@ func _ready() -> void:
 func setup():
 	allPlayers = get_tree().get_nodes_in_group("Players")
 	for player in allPlayers:
-		player.displacement_updated.connect(update_leaderboard)
+		if not player.displacement_updated.is_connected(update_leaderboard):
+			player.displacement_updated.connect(update_leaderboard)
 	set_leaderboard(allPlayers)
 
 func set_leaderboard(allPlayers: Array) -> void:

@@ -12,7 +12,8 @@ func _ready():
 func _input(event):
 	if (event is InputEventKey and event.is_pressed()) or (event is InputEventMouseButton and event.pressed):
 		$Video.stop()
-		get_parent().add_child(main_menu.instantiate())
+		if !get_parent().has_node("main_menu"):
+			get_parent().add_child(main_menu.instantiate())
 		queue_free()
 
 func end():

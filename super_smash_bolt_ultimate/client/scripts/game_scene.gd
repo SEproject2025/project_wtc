@@ -11,9 +11,6 @@ var pop_up
 @onready var end_pop_up = $EndPopUp
 @onready var end_vbox = $EndPopUp/MarginContainer/VBoxContainer
 
-var leaderboard
-
-
 func _ready():
 	User.client.some_one_left_game.connect(player_left)
 	pop_up = pop_up_template.instantiate()
@@ -53,10 +50,6 @@ func _unhandled_input(event):
 				end_pop_up.leaderboard_container.visible = !end_pop_up.leaderboard_container.visible
 				if end_pop_up.leaderboard_container.allPlayers.size() == 0 or end_pop_up.leaderboard_container.names_not_set():
 					end_pop_up.leaderboard_container.setup()
-			else:
-				print(leaderboard)
-				if leaderboard:
-					leaderboard.visible = !leaderboard.visible
 
 func _on_button_pressed():
 	User.reset_connection()
@@ -68,5 +61,6 @@ func player_left(other_player_id : int):
 	User.rtc_peer.peer_disconnected.emit(other_player_id)
 
 func enable_death_pop_up() -> void:
+	end_pop_up.setup()
 	end_vbox.get_node("Message").visible = true
 	end_vbox.get_node("BoxContainer").visible = true
