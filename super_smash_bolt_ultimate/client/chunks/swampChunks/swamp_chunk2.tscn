@@ -1,13 +1,11 @@
-[gd_scene load_steps=13 format=4 uid="uid://bpg8hhopkd4hc"]
+[gd_scene load_steps=11 format=4 uid="uid://bpg8hhopkd4hc"]
 
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_eneu6"]
 [ext_resource type="Texture2D" uid="uid://cccnylotwwlt1" path="res://assets/sprites/sprite_sheets/swamp_tileset.png" id="1_hsgct"]
 [ext_resource type="PackedScene" uid="uid://cwwvcqfy86ns5" path="res://scenes/splatform.tscn" id="3_jvgrh"]
-[ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="4_upood"]
-[ext_resource type="PackedScene" uid="uid://cf8kktqfr4p02" path="res://scenes/tree1.tscn" id="5_8x1i6"]
-[ext_resource type="PackedScene" uid="uid://c4yit3o7gycm2" path="res://scenes/tree2.tscn" id="6_6seyf"]
-[ext_resource type="PackedScene" uid="uid://btg73jjorq353" path="res://scenes/tree3.tscn" id="7_1esat"]
-
+[ext_resource type="PackedScene" uid="uid://cf8kktqfr4p02" path="res://scenes/swamp_decorations/tree1.tscn" id="5_8x1i6"]
+[ext_resource type="PackedScene" uid="uid://c4yit3o7gycm2" path="res://scenes/swamp_decorations/tree2.tscn" id="6_6seyf"]
+[ext_resource type="PackedScene" uid="uid://btg73jjorq353" path="res://scenes/swamp_decorations/tree3.tscn" id="7_1esat"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qq02a"]
 texture = ExtResource("1_hsgct")
@@ -138,29 +136,6 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_qq02a")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0kgu0"]
-texture = ExtResource("4_upood")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-3:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
-2:1/0 = 0
-3:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-3:2/0 = 0
-0:3/0 = 0
-1:3/0 = 0
-2:3/0 = 0
-3:3/0 = 0
-0:4/0 = 0
-1:4/0 = 0
-2:4/0 = 0
-3:4/0 = 0
-
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_8va5l"]
 scenes/1/scene = ExtResource("5_8x1i6")
 scenes/2/scene = ExtResource("6_6seyf")
@@ -168,7 +143,6 @@ scenes/3/scene = ExtResource("7_1esat")
 
 [sub_resource type="TileSet" id="TileSet_gd5ar"]
 tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_0kgu0")
 sources/5 = SubResource("TileSetScenesCollectionSource_8va5l")
 
 [node name="SwampChunk1" type="Node2D"]

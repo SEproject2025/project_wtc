@@ -1,19 +1,19 @@
 [gd_scene load_steps=15 format=4 uid="uid://bl3ilaqlbk7ph"]
 
-[ext_resource type="Script" path="res://scripts/chunk.gd" id="1_owuef"]
-[ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="2_034i1"]
-[ext_resource type="PackedScene" uid="uid://cpoe72xuywwkb" path="res://scenes/transient_wall.tscn" id="2_o5kfl"]
-[ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="3_5msfk"]
-[ext_resource type="PackedScene" uid="uid://dv2bl2xbwn1pe" path="res://scenes/transient_platform.tscn" id="3_gbc3l"]
-[ext_resource type="Texture2D" uid="uid://cjv214hth048p" path="res://assets/sprites/SpriteSheetCave.png" id="3_mq42g"]
-[ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="4_gf5ek"]
+[ext_resource type="Script" path="res://scripts/chunk.gd" id="1_f3amq"]
+[ext_resource type="PackedScene" uid="uid://cpoe72xuywwkb" path="res://scenes/transient_wall.tscn" id="2_8t71c"]
+[ext_resource type="PackedScene" uid="uid://dv2bl2xbwn1pe" path="res://scenes/transient_platform.tscn" id="3_swmm0"]
+[ext_resource type="Texture2D" uid="uid://cjv214hth048p" path="res://assets/sprites/SpriteSheetCave.png" id="4_imys5"]
+[ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="5_kf233"]
+[ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="6_t23ae"]
+[ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="7_jic6o"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_lcq61"]
-scenes/1/scene = ExtResource("2_o5kfl")
-scenes/2/scene = ExtResource("3_gbc3l")
+scenes/1/scene = ExtResource("2_8t71c")
+scenes/2/scene = ExtResource("3_swmm0")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xbyoo"]
-texture = ExtResource("3_mq42g")
+texture = ExtResource("4_imys5")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -45,7 +45,7 @@ texture_region_size = Vector2i(32, 32)
 3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wbhfm"]
-texture = ExtResource("4_gf5ek")
+texture = ExtResource("5_kf233")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -71,7 +71,7 @@ texture_region_size = Vector2i(32, 32)
 3:4/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t0802"]
-texture = ExtResource("2_034i1")
+texture = ExtResource("6_t23ae")
 texture_region_size = Vector2i(32, 32)
 1:0/0 = 0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, 16, 16, 16, -16, 16)
@@ -114,7 +114,7 @@ sources/1 = SubResource("TileSetAtlasSource_xbyoo")
 sources/2 = SubResource("TileSetAtlasSource_wbhfm")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dh8vv"]
-texture = ExtResource("4_gf5ek")
+texture = ExtResource("5_kf233")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -135,7 +135,7 @@ tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_dh8vv")
 
 [node name="StartingChunk" type="Node2D"]
-script = ExtResource("1_owuef")
+script = ExtResource("1_f3amq")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 visibility_layer = 7
@@ -147,7 +147,7 @@ tile_set = SubResource("TileSet_fghnj")
 tile_map_data = PackedByteArray("AAAEAAAAAAACAAEAAAAEAP//AAACAAEAAAADAP//AAACAAEAAAADAAAAAAACAAEAAAADAP7/AAAAAAEAAAAFAP7/AAAAAAEAAAAGAP7/AAAAAAEAAAAHAP7/AAAAAAEAAAAEAP7/AAABAAEAAAD///3/AAACAAEAAAD///7/AAACAAEAAAD/////AAACAAEAAAD//wAAAAACAAEAAAD9//3/AAACAAEAAAD6//7/AAACAAEAAAD4/wAAAAAAAAIAAAD6////AAAAAAIAAAD9//7/AAAAAAIAAAD//wEAAAAAAAIAAAAAAAEAAAAAAAIAAAACAAEAAAAAAAIAAAADAAEAAAAAAAIAAAAGAAAAAAAAAAIAAAAHAAAAAAAAAAIAAAAEAPn/AAAAAAIAAAABAPn/AAAAAAIAAAABAPr/AAAAAAIAAAD8//v/AAAAAAIAAAACAP3/AAAAAAIAAAADAPz/AAAAAAIAAAADAPv/AAAAAAIAAAD4//X/AAAAAAIAAAD5//X/AAAAAAIAAAD6//X/AAAAAAIAAAD7//X/AAAAAAIAAAD8//X/AAAAAAIAAAD9//X/AAAAAAIAAAD+//X/AAAAAAIAAAD///X/AAAAAAIAAAAAAPX/AAAAAAIAAAABAPX/AAAAAAIAAAACAPX/AAAAAAIAAAADAPX/AAAAAAIAAAAEAPX/AAAAAAIAAAAFAPX/AAAAAAIAAAAGAPX/AAAAAAIAAAAHAPX/AAAAAAIAAAD+/wAAAAAAAAIAAAABAAAAAAACAAEAAAABAP//AAACAAEAAAABAP7/AAABAAEAAAD7////AAAAAAIAAAD8//7/AAAAAAIAAAABAAEAAAAAAAIAAAA=")
 tile_set = SubResource("TileSet_8isrv")
 
-[node name="PowerUpSpawner" parent="." instance=ExtResource("3_5msfk")]
+[node name="PowerUpSpawner" parent="." instance=ExtResource("7_jic6o")]
 position = Vector2(170, -29)
 powerups = Array[int]([1])
 powerupProbabilities = Array[float]([1.0])
