@@ -1,23 +1,11 @@
-[gd_scene load_steps=16 format=4 uid="uid://txkmi1fes2fw"]
+[gd_scene load_steps=13 format=4 uid="uid://txkmi1fes2fw"]
 
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_f5cx7"]
-[ext_resource type="Texture2D" uid="uid://dbxmhmrik75ch" path="res://assets/sprites/platform.png" id="2_nqc11"]
 [ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="3_c1ahu"]
 [ext_resource type="Texture2D" uid="uid://cjv214hth048p" path="res://assets/sprites/SpriteSheetCave.png" id="3_j5kqk"]
 [ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="4_pvpx4"]
 [ext_resource type="PackedScene" uid="uid://bf1cwlaflxa5e" path="res://scenes/obstacles/desert_spikes.tscn" id="4_w5n5f"]
 [ext_resource type="PackedScene" uid="uid://b3wgrdt3g8ekv" path="res://scenes/platform.tscn" id="6_8wloj"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lqk2s"]
-texture = ExtResource("2_nqc11")
-texture_region_size = Vector2i(1, 1)
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qad8x"]
-texture = ExtResource("2_nqc11")
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t5882"]
 texture = ExtResource("3_j5kqk")
@@ -114,8 +102,6 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_uhh3k"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_lqk2s")
-sources/1 = SubResource("TileSetAtlasSource_qad8x")
 sources/4 = SubResource("TileSetAtlasSource_nmpu5")
 sources/2 = SubResource("TileSetAtlasSource_t5882")
 sources/3 = SubResource("TileSetAtlasSource_xybog")

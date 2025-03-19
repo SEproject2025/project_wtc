@@ -1,15 +1,15 @@
 [gd_scene load_steps=16 format=4 uid="uid://douvx7rwh4mox"]
 
-[ext_resource type="Script" path="res://scripts/chunk.gd" id="1_mv0k3"]
-[ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="2_y6mfg"]
-[ext_resource type="PackedScene" uid="uid://dv2bl2xbwn1pe" path="res://scenes/transient_platform.tscn" id="3_aiks6"]
-[ext_resource type="Texture2D" uid="uid://cjv214hth048p" path="res://assets/sprites/SpriteSheetCave.png" id="3_e6en0"]
-[ext_resource type="PackedScene" uid="uid://clerq04owoa00" path="res://scenes/one_way_block.tscn" id="4_b1ehj"]
-[ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="4_rm2w0"]
-[ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="8_oxd7v"]
+[ext_resource type="Script" path="res://scripts/chunk.gd" id="1_seelr"]
+[ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="2_wrkky"]
+[ext_resource type="Texture2D" uid="uid://cjv214hth048p" path="res://assets/sprites/SpriteSheetCave.png" id="3_80r5v"]
+[ext_resource type="PackedScene" uid="uid://dv2bl2xbwn1pe" path="res://scenes/transient_platform.tscn" id="4_rvqlc"]
+[ext_resource type="PackedScene" uid="uid://clerq04owoa00" path="res://scenes/one_way_block.tscn" id="5_80al2"]
+[ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="6_0lccu"]
+[ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="7_yjcnv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sl6q5"]
-texture = ExtResource("2_y6mfg")
+texture = ExtResource("2_wrkky")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -33,7 +33,7 @@ texture_region_size = Vector2i(32, 32)
 3:4/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_63otn"]
-texture = ExtResource("3_e6en0")
+texture = ExtResource("3_80r5v")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -63,11 +63,11 @@ texture_region_size = Vector2i(32, 32)
 3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_kj64n"]
-scenes/1/scene = ExtResource("3_aiks6")
-scenes/2/scene = ExtResource("4_b1ehj")
+scenes/1/scene = ExtResource("4_rvqlc")
+scenes/2/scene = ExtResource("5_80al2")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t0802"]
-texture = ExtResource("4_rm2w0")
+texture = ExtResource("6_0lccu")
 texture_region_size = Vector2i(32, 32)
 1:0/0 = 0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, 16, 16, 16, -16, 16)
@@ -111,7 +111,7 @@ sources/0 = SubResource("TileSetAtlasSource_sl6q5")
 sources/2 = SubResource("TileSetAtlasSource_63otn")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_si4oi"]
-texture = ExtResource("2_y6mfg")
+texture = ExtResource("2_wrkky")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -128,7 +128,7 @@ texture_region_size = Vector2i(32, 32)
 0:2/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_14tva"]
-texture = ExtResource("4_rm2w0")
+texture = ExtResource("6_0lccu")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -153,7 +153,7 @@ sources/0 = SubResource("TileSetAtlasSource_si4oi")
 sources/1 = SubResource("TileSetAtlasSource_14tva")
 
 [node name="THEchunk" type="Node2D"]
-script = ExtResource("1_mv0k3")
+script = ExtResource("1_seelr")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 visibility_layer = 7
@@ -165,7 +165,7 @@ tile_set = SubResource("TileSet_fghnj")
 tile_map_data = PackedByteArray("AAD6//v/AAAAAAIAAAD6//r/AAAAAAIAAAD4//n/AAAAAAIAAAD5//n/AAAAAAIAAAD4/wAAAAAAAAIAAAD4/wEAAAAAAAIAAAD6/wIAAAAAAAIAAAD7/wMAAAAAAAIAAAD8/wMAAAAAAAIAAAD9/wMAAAAAAAIAAAD+/wMAAAAAAAIAAAD//wMAAAAAAAIAAAD6//n/AAAAAAIAAAD6//j/AAAAAAIAAAD6//f/AAAAAAIAAAD7//f/AAAAAAIAAAD8//f/AAAAAAIAAAD8//j/AAAAAAIAAAD8//n/AAAAAAIAAAD8//r/AAAAAAIAAAD9//j/AAAAAAIAAAD+//j/AAAAAAIAAAD///j/AAAAAAIAAAAAAPf/AAAAAAIAAAABAPf/AAAAAAIAAAACAPf/AAAAAAIAAAAEAPX/AAAAAAIAAAAGAPf/AAAAAAIAAAAEAPn/AAAAAAIAAAAFAPn/AAAAAAIAAAAEAPj/AAAAAAIAAAAHAPj/AAAAAAIAAAAHAPn/AAAAAAIAAAAHAAAAAAAAAAIAAAAHAAEAAAAAAAIAAAAGAAEAAAAAAAIAAAAFAAIAAAAAAAIAAAAEAAIAAAAAAAIAAAADAAIAAAAAAAIAAAACAAIAAAAAAAIAAAABAAIAAAAAAAIAAAAAAAIAAAAAAAIAAAD6/wMAAAAAAAIAAAD5/wMAAAAAAAIAAAD4/wMAAAAAAAIAAAD4/wIAAAAAAAIAAAAAAAMAAAAAAAIAAAABAAMAAAAAAAIAAAACAAMAAAAAAAIAAAADAAMAAAAAAAIAAAAEAAMAAAAAAAIAAAAFAAMAAAAAAAIAAAAGAAMAAAAAAAIAAAAHAAMAAAAAAAIAAAAHAAIAAAAAAAIAAAAHAPb/AAAAAAIAAAAHAPX/AAAAAAIAAAAGAPX/AAAAAAIAAAAFAPX/AAAAAAIAAAADAPX/AAAAAAIAAAACAPX/AAAAAAIAAAABAPX/AAAAAAIAAAAAAPX/AAAAAAIAAAD///X/AAAAAAIAAAD+//X/AAAAAAIAAAD9//X/AAAAAAIAAAD8//X/AAAAAAIAAAD7//X/AAAAAAIAAAD6//X/AAAAAAIAAAD5//X/AAAAAAIAAAD4//X/AAAAAAIAAAD4//b/AAAAAAIAAAD4//f/AAAAAAIAAAD4//j/AAAAAAIAAAABAPj/AAAAAAIAAAABAPn/AAAAAAIAAAACAPj/AAAAAAIAAAAFAPb/AQAAAAEAADADAPb/AAAAAAIAAAD8/wIAAAACAAAAAAD+/wIAAAACAAAAAAD//wIAAAACAAAAAAD7/wIAAAACAAAAAAD6/wEAAAACAAAAAAA=")
 tile_set = SubResource("TileSet_1obhc")
 
-[node name="PowerUpSpawner" parent="." instance=ExtResource("8_oxd7v")]
+[node name="PowerUpSpawner" parent="." instance=ExtResource("7_yjcnv")]
 position = Vector2(174, -269)
 powerups = Array[int]([1, 2, 3, 4])
 powerupProbabilities = Array[float]([0.0, 0.25, 0.4, 0.35])
