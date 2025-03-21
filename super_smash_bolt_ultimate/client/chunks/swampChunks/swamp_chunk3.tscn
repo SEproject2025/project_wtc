@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://d1a2rhffxborf"]
+[gd_scene load_steps=24 format=4 uid="uid://d1a2rhffxborf"]
 
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_fp18x"]
 [ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="1_jxisx"]
@@ -11,6 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://cf8kktqfr4p02" path="res://scenes/tree1.tscn" id="7_ey8ks"]
 [ext_resource type="PackedScene" uid="uid://c4yit3o7gycm2" path="res://scenes/tree2.tscn" id="8_elb5h"]
 [ext_resource type="PackedScene" uid="uid://btg73jjorq353" path="res://scenes/tree3.tscn" id="9_ddaxx"]
+[ext_resource type="PackedScene" uid="uid://c2kidlku6mw1f" path="res://scenes/obstacles/still_water_left.tscn" id="12_rdxgr"]
+[ext_resource type="PackedScene" uid="uid://ovm85keqc52y" path="res://scenes/obstacles/still_water_middle.tscn" id="13_eyb2f"]
+[ext_resource type="PackedScene" uid="uid://cbwg3s2fmtqay" path="res://scenes/obstacles/still_water_right.tscn" id="14_e8sme"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vvchs"]
 texture = ExtResource("1_jxisx")
@@ -356,10 +359,66 @@ tile_set = SubResource("TileSet_f60kj")
 
 [node name="ground" type="TileMapLayer" parent="."]
 z_index = 2
-tile_map_data = PackedByteArray("AAD4/wAAAAABAAAAAAAHAAAAAAABAAAAAAD4/wEAAAABAAEAAAD4/wIAAAABAAEAAAD5/wEAAAABAAEAAAD6/wEAAAABAAEAAAD6/wIAAAADAAAAAAD7/wEAAAADAAAAAAD7/wIAAAACAAIAAAD+/wEAAAABAAIAAAD//wEAAAAHAAEAAAD//wIAAAADAAUAADAAAAEAAAABAAIAAAAEAAEAAAAFAAAAAAAFAAEAAAABAAEAAAAFAAIAAAAFAAAAAAAGAAEAAAABAAEAAAAGAAIAAAABAAEAAAAHAAEAAAABAAEAAAAHAAIAAAABAAEAAAD4/wMAAAABAAEAAAD4/wQAAAABAAEAAAD5/wMAAAABAAEAAAD5/wQAAAABAAEAAAD6/wMAAAACAAEAAAAFAAMAAAAAAAIAAAAGAAMAAAABAAIAAAAHAAMAAAAFAAAAAAAHAAQAAAAAAAIAAAD5/wAAAAAJAAIAAAD6/wAAAAAJAAIAAAD7/wAAAAAJAAIAAAD8/wAAAAAJAAIAAAD9/wAAAAAJAAIAAAD+/wAAAAAJAAIAAAD//wAAAAAJAAIAAAAAAAAAAAAJAAIAAAABAAAAAAAJAAIAAAACAAAAAAAJAAIAAAADAAAAAAAJAAIAAAAEAAAAAAAJAAIAAAAFAAAAAAAJAAIAAAAGAAAAAAAJAAIAAAD5/wIAAAABAAEAAAD9/wEAAAABAAIAAAD8/wEAAAABAAIAAAABAAEAAAABAAIAAAACAAEAAAABAAIAAAADAAEAAAABAAIAAAAEAAIAAAAAAAIAAAD6/wQAAAACAAIAAAA=")
+tile_map_data = PackedByteArray("AAD4/wAAAAABAAAAAAAHAAAAAAABAAAAAAD4/wEAAAABAAEAAAD4/wIAAAABAAEAAAD5/wEAAAABAAEAAAD6/wEAAAABAAEAAAD6/wIAAAADAAAAAAD7/wEAAAADAAAAAAD7/wIAAAACAAIAAAD+/wEAAAABAAIAAAD//wEAAAAHAAEAAAD//wIAAAADAAUAADAAAAEAAAABAAIAAAAEAAEAAAAFAAAAAAAFAAEAAAABAAEAAAAFAAIAAAAFAAAAAAAGAAEAAAABAAEAAAAGAAIAAAABAAEAAAAHAAEAAAABAAEAAAAHAAIAAAABAAEAAAD4/wMAAAABAAEAAAD4/wQAAAABAAEAAAD5/wMAAAABAAEAAAD5/wQAAAABAAEAAAD6/wMAAAACAAEAAAAFAAMAAAAAAAIAAAAGAAMAAAABAAIAAAAHAAMAAAAFAAAAAAAHAAQAAAAAAAIAAAD5/wAAAAAJAAEAAAD6/wAAAAAJAAIAAAD7/wAAAAAJAAIAAAD8/wAAAAAJAAIAAAD9/wAAAAAJAAIAAAD+/wAAAAAJAAIAAAD//wAAAAAJAAIAAAAAAAAAAAAJAAIAAAABAAAAAAAJAAIAAAACAAAAAAAJAAIAAAADAAAAAAAJAAIAAAAEAAAAAAAJAAIAAAAFAAAAAAAJAAIAAAAGAAAAAAAJAAQAAAD5/wIAAAABAAEAAAD9/wEAAAABAAIAAAD8/wEAAAABAAIAAAABAAEAAAABAAIAAAACAAEAAAABAAIAAAADAAEAAAABAAIAAAAEAAIAAAAAAAIAAAD6/wQAAAACAAIAAAA=")
 tile_set = SubResource("TileSet_7lpd5")
 
 [node name="PowerUpSpawner" parent="." instance=ExtResource("6_an68x")]
 position = Vector2(-107, -49)
 powerups = Array[int]([2, 3, 1, 4])
 powerupProbabilities = Array[float]([0.1, 0.3, 0.4, 0.2])
+
+[node name="still_water" parent="." instance=ExtResource("12_rdxgr")]
+z_index = 2
+position = Vector2(-208, 16)
+
+[node name="still_water3" parent="." instance=ExtResource("13_eyb2f")]
+z_index = 2
+position = Vector2(-176, 16)
+
+[node name="still_water4" parent="." instance=ExtResource("13_eyb2f")]
+z_index = 2
+position = Vector2(-144, 16)
+
+[node name="still_water5" parent="." instance=ExtResource("13_eyb2f")]
+z_index = 2
+position = Vector2(-112, 16)
+
+[node name="still_water6" parent="." instance=ExtResource("13_eyb2f")]
+z_index = 2
+position = Vector2(-80, 16)
+
+[node name="still_water7" parent="." instance=ExtResource("13_eyb2f")]
+z_index = 2
+position = Vector2(-48, 16)
+
+[node name="still_water8" parent="." instance=ExtResource("13_eyb2f")]
+z_index = 2
+position = Vector2(-16, 16)
+
+[node name="still_water9" parent="." instance=ExtResource("13_eyb2f")]
+z_index = 2
+position = Vector2(16, 16)
+
+[node name="still_water10" parent="." instance=ExtResource("13_eyb2f")]
+z_index = 2
+position = Vector2(48, 16)
+
+[node name="still_water11" parent="." instance=ExtResource("13_eyb2f")]
+z_index = 2
+position = Vector2(80, 16)
+
+[node name="still_water12" parent="." instance=ExtResource("13_eyb2f")]
+z_index = 2
+position = Vector2(112, 16)
+
+[node name="still_water13" parent="." instance=ExtResource("13_eyb2f")]
+z_index = 2
+position = Vector2(144, 16)
+
+[node name="still_water14" parent="." instance=ExtResource("13_eyb2f")]
+z_index = 2
+position = Vector2(176, 16)
+
+[node name="still_water2" parent="." instance=ExtResource("14_e8sme")]
+z_index = 2
+position = Vector2(208, 16)
