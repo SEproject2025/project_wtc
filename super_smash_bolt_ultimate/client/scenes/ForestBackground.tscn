@@ -1,12 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://b8vfx3ae8fclc"]
 
-[ext_resource type="Texture2D" uid="uid://7sbc4dgcewri" path="res://assets/ParallaxBackground/cloud_parallax/1.png" id="1_vcj6t"]
+[ext_resource type="Texture2D" uid="uid://7sbc4dgcewri" path="res://assets/ParallaxBackground/swamp_paralax/1.png" id="1_vcj6t"]
 [ext_resource type="Texture2D" uid="uid://4kco1r1hrt0s" path="res://assets/ParallaxBackground/swamp_paralax/2.png" id="2_dpl6w"]
 [ext_resource type="Texture2D" uid="uid://dyy3bguu8l2sa" path="res://assets/ParallaxBackground/swamp_paralax/3.png" id="3_41uo1"]
 [ext_resource type="Script" path="res://scripts/river.gd" id="4_573cm"]
 [ext_resource type="Texture2D" uid="uid://8bw34mdjmqjf" path="res://assets/ParallaxBackground/swamp_paralax/4.png" id="4_7753i"]
 [ext_resource type="Texture2D" uid="uid://dn6no583m273a" path="res://assets/ParallaxBackground/swamp_paralax/5.png" id="5_fyb8b"]
-
 
 [node name="ParallaxBackground" type="ParallaxBackground"]
 
@@ -14,14 +13,14 @@
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Sky"]
-modulate = Color(3.2, 3.2, 1, 1)
+modulate = Color(3.6, 3.2, 1, 1)
 texture_filter = 1
 position = Vector2(0, -150)
 texture = ExtResource("1_vcj6t")
 centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="Sky"]
-modulate = Color(3.2, 3.2, 1, 1)
+modulate = Color(3.5, 3.2, 1, 1)
 texture_filter = 1
 position = Vector2(576, -150)
 texture = ExtResource("1_vcj6t")

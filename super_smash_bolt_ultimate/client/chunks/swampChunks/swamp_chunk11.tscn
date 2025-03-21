@@ -24,7 +24,6 @@
 [ext_resource type="PackedScene" uid="uid://bf1cwlaflxa5e" path="res://scenes/obstacles/desert_spikes.tscn" id="22_0ri6b"]
 [ext_resource type="PackedScene" uid="uid://cwwvcqfy86ns5" path="res://scenes/splatform.tscn" id="23_e1800"]
 
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3paog"]
 texture = ExtResource("2_tukml")
 texture_region_size = Vector2i(32, 32)

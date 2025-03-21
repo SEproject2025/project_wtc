@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="13_lahog"]
 [ext_resource type="PackedScene" uid="uid://cwwvcqfy86ns5" path="res://scenes/splatform.tscn" id="14_sbamh"]
 
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3paog"]
 texture = ExtResource("2_q5thc")
 texture_region_size = Vector2i(32, 32)

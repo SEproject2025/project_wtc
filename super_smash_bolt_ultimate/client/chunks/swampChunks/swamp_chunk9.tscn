@@ -17,7 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="15_xgl0v"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="16_isrdq"]
 
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3paog"]
 texture = ExtResource("2_eceb7")
 texture_region_size = Vector2i(32, 32)

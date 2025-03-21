@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://wj1b0bv77g6x" path="res://assets/sprites/Light.png" id="4_u6cto"]
 [ext_resource type="Texture2D" uid="uid://did7xed6152vw" path="res://assets/sprites/TopLayer.png" id="5_w68fy"]
 
-
 [node name="ParallaxBackground" type="ParallaxBackground"]
 offset = Vector2(0, -273.625)
 transform = Transform2D(1, 0, 0, 1, 0, -273.625)

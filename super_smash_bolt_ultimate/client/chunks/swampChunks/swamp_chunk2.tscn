@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://bpg8hhopkd4hc"]
+[gd_scene load_steps=14 format=4 uid="uid://bpg8hhopkd4hc"]
 
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_eneu6"]
 [ext_resource type="Texture2D" uid="uid://cccnylotwwlt1" path="res://assets/sprites/sprite_sheets/swamp_tileset.png" id="1_hsgct"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cf8kktqfr4p02" path="res://scenes/tree1.tscn" id="5_8x1i6"]
 [ext_resource type="PackedScene" uid="uid://c4yit3o7gycm2" path="res://scenes/tree2.tscn" id="6_6seyf"]
 [ext_resource type="PackedScene" uid="uid://btg73jjorq353" path="res://scenes/tree3.tscn" id="7_1esat"]
-
+[ext_resource type="PackedScene" uid="uid://c58usve2vv3gi" path="res://scenes/flying_enemy.tscn" id="8_0ywfs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qq02a"]
 texture = ExtResource("1_hsgct")
@@ -193,3 +193,6 @@ position = Vector2(228, -225)
 [node name="Background" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD5////BQAAAAAAAQD7////BQAAAAAAAwADAP//BQAAAAAAAgAGAP//BQAAAAAAAgA=")
 tile_set = SubResource("TileSet_gd5ar")
+
+[node name="FlyingEnemy" parent="." instance=ExtResource("8_0ywfs")]
+position = Vector2(37, -63)

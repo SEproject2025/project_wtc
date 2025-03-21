@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://5qvpopa1j300"]
+[gd_scene load_steps=26 format=4 uid="uid://5qvpopa1j300"]
 
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_6dd7e"]
 [ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="2_6r07o"]
@@ -12,6 +12,11 @@
 [ext_resource type="PackedScene" uid="uid://7yvo1vuwo7gq" path="res://scenes/bush4.tscn" id="7_yhu8y"]
 [ext_resource type="PackedScene" uid="uid://cb8cy12k2syq8" path="res://scenes/bush5.tscn" id="8_feqif"]
 [ext_resource type="PackedScene" uid="uid://bu7tl0c1yx6d2" path="res://scenes/bush6.tscn" id="9_x3hyc"]
+[ext_resource type="PackedScene" uid="uid://bvjfjvwqcpeu6" path="res://scenes/obstacles/still_water_island.tscn" id="13_lims0"]
+[ext_resource type="PackedScene" uid="uid://c2kidlku6mw1f" path="res://scenes/obstacles/still_water_left.tscn" id="14_g2dvt"]
+[ext_resource type="PackedScene" uid="uid://cbwg3s2fmtqay" path="res://scenes/obstacles/still_water_right.tscn" id="15_ahkjl"]
+[ext_resource type="PackedScene" uid="uid://ovm85keqc52y" path="res://scenes/obstacles/still_water_middle.tscn" id="16_bcl8b"]
+[ext_resource type="PackedScene" uid="uid://c58usve2vv3gi" path="res://scenes/flying_enemy.tscn" id="17_vd1m3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3paog"]
 texture = ExtResource("2_6r07o")
@@ -327,3 +332,54 @@ tile_set = SubResource("TileSet_7lpd5")
 position = Vector2(-3, -80)
 powerups = Array[int]([2, 3, 1, 4])
 powerupProbabilities = Array[float]([0.1, 0.3, 0.4, 0.2])
+
+[node name="still_water" parent="." instance=ExtResource("13_lims0")]
+z_index = 2
+position = Vector2(-82, 16)
+
+[node name="still_water2" parent="." instance=ExtResource("13_lims0")]
+z_index = 2
+position = Vector2(79, 16)
+
+[node name="still_water3" parent="." instance=ExtResource("14_g2dvt")]
+z_index = 4
+position = Vector2(-176, 16)
+
+[node name="still_water4" parent="." instance=ExtResource("15_ahkjl")]
+z_index = 2
+position = Vector2(175, 16)
+
+[node name="still_water5" parent="." instance=ExtResource("16_bcl8b")]
+z_index = 2
+position = Vector2(-144, 16)
+
+[node name="still_water6" parent="." instance=ExtResource("16_bcl8b")]
+z_index = 2
+position = Vector2(-112, 16)
+
+[node name="still_water7" parent="." instance=ExtResource("16_bcl8b")]
+z_index = 2
+position = Vector2(-48, 16)
+
+[node name="still_water8" parent="." instance=ExtResource("16_bcl8b")]
+z_index = 2
+position = Vector2(-16, 16)
+
+[node name="still_water9" parent="." instance=ExtResource("16_bcl8b")]
+z_index = 2
+position = Vector2(16, 16)
+
+[node name="still_water10" parent="." instance=ExtResource("16_bcl8b")]
+z_index = 2
+position = Vector2(48, 16)
+
+[node name="still_water11" parent="." instance=ExtResource("16_bcl8b")]
+z_index = 2
+position = Vector2(112, 16)
+
+[node name="still_water12" parent="." instance=ExtResource("16_bcl8b")]
+z_index = 2
+position = Vector2(144, 16)
+
+[node name="FlyingEnemy" parent="." instance=ExtResource("17_vd1m3")]
+position = Vector2(-4, -14)
