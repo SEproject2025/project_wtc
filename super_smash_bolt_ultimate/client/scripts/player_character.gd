@@ -94,11 +94,10 @@ func reset():
 	set_process(false)
 	set_process_input(false)
 
-	# Set sprite and name immediately
 	$AnimationTree.set_active(true)
 	health.value = 100
 
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(.01).timeout
 	var is_authority: bool = get_multiplayer_authority() == User.ID
 
 	if is_authority:
@@ -117,10 +116,8 @@ func reset():
 		displacement_hud.text = ""
 		character_name.text = "Other player"
 
-	# Wait asynchronously, but allow immediate updates
 	await get_tree().create_timer(5.0).timeout
 	
-	# Enable processing after delay
 	set_physics_process(is_authority)
 	set_process_input(is_authority)
 	set_process(is_authority)
