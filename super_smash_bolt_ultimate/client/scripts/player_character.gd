@@ -409,7 +409,7 @@ func die(player_name: int):
 	print("Player %d died" %player_name)
 	#$AnimationTree.set_active(false)
 	#anim_player.play("dead")
-	die_explode()
+	call_deferred("die_explode")
 	set_physics_process(false)
 	set_process(false)
 	alive = false
