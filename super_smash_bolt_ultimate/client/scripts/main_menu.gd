@@ -73,6 +73,7 @@ func _on_quit_pressed():
 	get_tree().quit(0)
 
 func invalid_name():
+	print("here")
 	var new_main_menu = main_menu_template.instantiate()
 	get_parent().add_child(new_main_menu)
 	var pop_up = pop_up_template.instantiate()

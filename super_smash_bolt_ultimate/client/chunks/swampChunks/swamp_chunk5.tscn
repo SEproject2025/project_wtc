@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://cccnylotwwlt1" path="res://assets/sprites/sprite_sheets/swamp_tileset.png" id="10_skq40"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="13_lahog"]
 [ext_resource type="PackedScene" uid="uid://cwwvcqfy86ns5" path="res://scenes/splatform.tscn" id="14_sbamh"]
-
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_i2hjn"]
 scenes/1/scene = ExtResource("3_bjqom")
 scenes/2/scene = ExtResource("4_hoiji")

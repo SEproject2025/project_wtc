@@ -1,7 +1,8 @@
-[gd_scene load_steps=40 format=3 uid="uid://chvj808e8555p"]
+[gd_scene load_steps=41 format=3 uid="uid://chvj808e8555p"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_e2uyo"]
 [ext_resource type="PackedScene" uid="uid://b8vfx3ae8fclc" path="res://scenes/swamp_decorations/ForestBackground.tscn" id="2_m6dii"]
+[ext_resource type="PackedScene" uid="uid://dm2gb0jre5tl6" path="res://scenes/end_pop_up.tscn" id="2_btewo"]
 [ext_resource type="PackedScene" uid="uid://dbvkq2bq688np" path="res://scenes/CaveBackground.tscn" id="3_e5nna"]
 [ext_resource type="PackedScene" uid="uid://darcjd1oqf1un" path="res://scenes/CloudParalax.tscn" id="4_kmxhs"]
 [ext_resource type="Script" path="res://scripts/level.gd" id="4_wgcnf"]
@@ -38,7 +39,6 @@
 [ext_resource type="Script" path="res://scripts/forest_ambience.gd" id="33_ch0mr"]
 [ext_resource type="Script" path="res://scripts/cave_ambience.gd" id="35_q62te"]
 
-
 [sub_resource type="Environment" id="Environment_1qvk7"]
 background_mode = 3
 glow_enabled = true
@@ -70,6 +70,13 @@ distance = -683.0
 
 [node name="Game Loop" type="Node"]
 script = ExtResource("1_e2uyo")
+
+[node name="EndPopUp" parent="." instance=ExtResource("2_btewo")]
+
+[node name="GhostCamera" type="Camera2D" parent="."]
+offset = Vector2(0, -50)
+enabled = false
+zoom = Vector2(2, 2)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1qvk7")

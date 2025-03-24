@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://cwwvcqfy86ns5" path="res://scenes/splatform.tscn" id="12_fseuh"]
 [ext_resource type="Texture2D" uid="uid://cccnylotwwlt1" path="res://assets/sprites/sprite_sheets/swamp_tileset.png" id="13_w2ddg"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="16_isrdq"]
-
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_1fs7c"]
 scenes/1/scene = ExtResource("3_164pd")
 scenes/2/scene = ExtResource("4_mtvmw")
