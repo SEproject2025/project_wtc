@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://djmw0yyy4uwvx"]
+[gd_scene load_steps=10 format=3 uid="uid://djmw0yyy4uwvx"]
 
 [ext_resource type="Script" path="res://scripts/spectator_overlay.gd" id="1_m2ooj"]
 [ext_resource type="Texture2D" uid="uid://b4xtumvqfrh5m" path="res://assets/icons/IconsFlat-32.png" id="1_sy4th"]
 [ext_resource type="Texture2D" uid="uid://cj2rakmrivimv" path="res://assets/sprites/sprite_sheets/UI ICONS_WHITE_pixel art_Sprite Sheet.png" id="3_1qfer"]
+[ext_resource type="PackedScene" uid="uid://d4a3u2tbbv4qf" path="res://scenes/pause_menu.tscn" id="4_2hd41"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_su0us"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -89,6 +90,9 @@ scale = Vector2(0.5, 0.5)
 mouse_filter = 1
 icon = SubResource("AtlasTexture_r4xjd")
 flat = true
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_2hd41")]
+visible = false
 
 [connection signal="pressed" from="Previous" to="." method="_previous_player"]
 [connection signal="pressed" from="Next" to="." method="_next_player"]
