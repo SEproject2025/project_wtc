@@ -122,6 +122,7 @@ func _peer_disconnected(id : int):
 	var peer_node = get_node_or_null("../game_scene/%s" %id)	
 	if peer_node:
 		peer_node.queue_free()
+	
 
 func _game_start_received(peer_ids : String):
 	var arr = peer_ids.split("***", false)
@@ -136,7 +137,9 @@ func reset_connection():
 	for connection in connection_list.values():
 		connection.close()
 	
-	
+	var game_scene = get_tree().get_root().get_node_or_null("game_scene")
+	if game_scene:
+		game_scene.queue_free()
 	client.queue_free()
 	client = Client.new()
 	user_name = ""

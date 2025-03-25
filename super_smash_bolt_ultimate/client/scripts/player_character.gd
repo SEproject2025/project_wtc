@@ -114,7 +114,7 @@ func reset():
 		set_player_name.rpc(User.user_name)
 		
 		ui = ui_template.instantiate()
-		get_tree().get_root().add_child(ui)
+		get_tree().get_root().get_node("game_scene").add_child(ui)
 		ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
 	else:
 		$Camera2D/Label.hide()
