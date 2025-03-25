@@ -99,21 +99,20 @@ func reset():
 	set_process(false)
 	set_process_input(false)
 
-	await get_tree().create_timer(5.0).timeout
-
 	$AnimationTree.set_active(true)
 	health.value = 100
-	if get_multiplayer_authority() == (User.ID):
-		$AnimationTree.set_active(true)
+
+	await get_tree().create_timer(.01).timeout
+	var is_authority: bool = get_multiplayer_authority() == User.ID
+
+	if is_authority:
 		$Camera2D.enabled = true
 		$Camera2D.make_current()
 		$Camera2D/Label.show()
 		character_name.text = User.user_name
 		set_sprite.rpc(player_id)
 		set_player_name.rpc(User.user_name)
-		set_physics_process(true)
-		set_process_input(true)
-		set_process(true)
+		
 		ui = ui_template.instantiate()
 		get_tree().get_root().add_child(ui)
 		ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
@@ -121,9 +120,13 @@ func reset():
 		$Camera2D/Label.hide()
 		displacement_hud.text = ""
 		character_name.text = "Other player"
-		set_physics_process(false)
-		set_process(false)
-		set_process_input(false)
+
+	await get_tree().create_timer(5.0).timeout
+	
+	set_physics_process(is_authority)
+	set_process_input(is_authority)
+	set_process(is_authority)
+
 
 func check_health():
 	if health.value <= 0:
@@ -379,7 +382,7 @@ func on_displacement_update_timer():
 #region RPCs
 @rpc("any_peer","call_remote","reliable")
 func set_player_name(_name : String):
-	await get_tree().create_timer(2).timeout
+	print("Here is the name: %s" % _name)
 	character_name.text = _name
 
 @rpc("any_peer","call_local","reliable")
