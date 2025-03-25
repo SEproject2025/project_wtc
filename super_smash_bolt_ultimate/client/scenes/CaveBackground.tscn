@@ -248,7 +248,7 @@ motion_mirroring = Vector2(768, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Light"]
 modulate = Color(2.3, 2.3, 2.3, 1)
-position = Vector2(0, -68)
+position = Vector2(0, -70)
 texture = ExtResource("4_u6cto")
 centered = false
 
@@ -265,13 +265,13 @@ motion_mirroring = Vector2(766, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="MidLayer"]
 texture_filter = 1
-position = Vector2(0, -68)
+position = Vector2(0, -70)
 texture = ExtResource("3_erpws")
 centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="MidLayer"]
 texture_filter = 1
-position = Vector2(383, -68)
+position = Vector2(383, -70)
 texture = ExtResource("3_erpws")
 centered = false
 
@@ -288,6 +288,18 @@ centered = false
 [node name="Sprite2D2" type="Sprite2D" parent="TopLayer"]
 texture_filter = 1
 position = Vector2(384, -100)
+texture = ExtResource("5_w68fy")
+centered = false
+
+[node name="Sprite2D3" type="Sprite2D" parent="TopLayer"]
+texture_filter = 1
+position = Vector2(1, -433.375)
+texture = ExtResource("5_w68fy")
+centered = false
+
+[node name="Sprite2D4" type="Sprite2D" parent="TopLayer"]
+texture_filter = 1
+position = Vector2(385, -433.375)
 texture = ExtResource("5_w68fy")
 centered = false
 

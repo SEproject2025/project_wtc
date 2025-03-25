@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://vfihpfi4qlnq"]
-
-[ext_resource type="Texture2D" uid="uid://cyl03sbvk7p2f" path="res://assets/sprites/swamp_objects/Ridges/4.png" id="1_6h3ak"]
-
-[node name="Node2D" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -12.835)
-texture = ExtResource("1_6h3ak")

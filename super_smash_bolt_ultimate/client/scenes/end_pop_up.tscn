@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dm2gb0jre5tl6"]
+[gd_scene load_steps=5 format=3 uid="uid://dm2gb0jre5tl6"]
 
 [ext_resource type="Script" path="res://scripts/end_game_pop_up.gd" id="1_jneo6"]
+[ext_resource type="PackedScene" uid="uid://chn6e5lwuun4r" path="res://scenes/leaderboard.tscn" id="2_bob4a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v78n3"]
 bg_color = Color(0, 0, 0, 0.470588)
@@ -11,34 +12,36 @@ bg_color = Color(1, 1, 1, 0.470588)
 [node name="EndPopUp" type="CanvasLayer"]
 script = ExtResource("1_jneo6")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -100.0
-offset_right = 150.0
-offset_bottom = 100.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
 alignment = 1
 
-[node name="Message" type="Label" parent="VBoxContainer"]
+[node name="Message" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "You lost!
+text = "You Died!
 "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer"]
+[node name="LeaderboardContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_bob4a")]
+layout_mode = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 11
 alignment = 1
 
-[node name="PlayAgain" type="Button" parent="VBoxContainer/BoxContainer"]
+[node name="PlayAgain" type="Button" parent="MarginContainer/VBoxContainer/BoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
@@ -46,7 +49,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_v78n3")
 text = "Play Again"
 icon_alignment = 1
 
-[node name="Spectate" type="Button" parent="VBoxContainer/BoxContainer"]
+[node name="Spectate" type="Button" parent="MarginContainer/VBoxContainer/BoxContainer"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -56,5 +59,5 @@ text = "Spectate
 "
 icon_alignment = 1
 
-[connection signal="pressed" from="VBoxContainer/BoxContainer/PlayAgain" to="." method="_on_play_again_pressed"]
-[connection signal="pressed" from="VBoxContainer/BoxContainer/Spectate" to="." method="_on_spectate_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BoxContainer/PlayAgain" to="." method="_on_play_again_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BoxContainer/Spectate" to="." method="_on_spectate_pressed"]

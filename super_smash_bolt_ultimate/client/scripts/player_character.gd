@@ -3,6 +3,8 @@ extends CharacterBody2D
 
 const PLAYER = Constants.Player
 
+signal displacement_updated(player_id, displacement)
+
 var fall_rate = PLAYER.DECELERATE_ON_JUMP_RELEASE
 var bumped: bool = false
 var coyoteJump: bool = true
@@ -20,10 +22,12 @@ var isGrappling: bool = false
 var isBeingGrappled: bool = false
 var isSlipping: bool = false
 var displacement := 0.0
-var prev_x := 0.0
+var maxDisplacement := 0.0
+var prev_x := global_position.x
 var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 var ui_template = preload("res://scenes/UI.tscn")
 var ui
+var lasySyncedDisplacement := 0.0
 
 @onready var animated_sprite: Sprite2D = $Sprite2D
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
@@ -41,6 +45,7 @@ var ui
 @onready var stunTimer:Timer = $Timers/StunTimer
 @onready var hitFlashAnimationPlayer = $HitFlashAnimationPlayer
 @onready var displacement_hud = $Camera2D/Label
+@onready var displacementUpdateTimer: Timer = $Timers/DisplacementUpdateTimer
 @onready var death_explosion = preload("res://scenes/death_explosion.tscn")
 
 var yellow_bot_sprite    = preload("res://assets/sprites/character_sprites/mine_bot_mothersheet_complete.png")
@@ -237,6 +242,7 @@ func apply_movement(delta: float):
 	move_and_slide()
 	displacement += global_position.x - prev_x
 	displacement_hud.text = "%.1f m" % displacement
+	maxDisplacement = max(displacement, maxDisplacement)
 
 	#Execute buffered jump
 	if !wasOnFloor && is_on_floor():
@@ -284,7 +290,6 @@ func return_gravity():
 		bumped = false
 		fall_rate = PLAYER.DECELERATE_ON_JUMP_RELEASE
 	return gravity
-
 func die_explode():
 	var begin_death = death_explosion.instantiate()
 	add_child(begin_death)
@@ -367,6 +372,11 @@ func _on_dash_effect_timer_timeout():
 func stun_timer_timeout():
 	isStunned = false
 
+func on_displacement_update_timer():
+	if maxDisplacement > lasySyncedDisplacement:
+		lasySyncedDisplacement = maxDisplacement
+		sync_displacement.rpc()
+
 #endregion
 
 #region RPCs
@@ -402,22 +412,27 @@ func die(player_name: int):
 	print("Player %d died" %player_name)
 	#$AnimationTree.set_active(false)
 	#anim_player.play("dead")
-	die_explode()
+	call_deferred("die_explode")
 	set_physics_process(false)
 	set_process(false)
 	alive = false
 	$Sprite2D.visible = false
 	$Camera2D/Label.visible = false
 	$Control.visible = false
-	$Camera2D.enabled = false
+	await get_tree().create_timer(0.5).timeout
+	if get_tree().get_nodes_in_group("Players").filter(func(player): return player.alive).size() > 0:
+		$Camera2D.enabled = false
 	if get_multiplayer_authority() == (User.ID):
 		ui.set_visible(false)
-		var lost_pop_up = lost_pop_up_template.instantiate()
-		get_tree().get_root().add_child(lost_pop_up)
+		get_tree().get_root().get_node("game_scene").enable_death_pop_up()
 	User.client.player_died.emit(player_name)
 		
 
 	# reset()
+
+@rpc ("any_peer","call_local","reliable")
+func sync_displacement():
+	displacement_updated.emit(self.name, maxDisplacement)
 
 @rpc("any_peer","call_remote","reliable")
 func sync_animation(anim_name: StringName):
