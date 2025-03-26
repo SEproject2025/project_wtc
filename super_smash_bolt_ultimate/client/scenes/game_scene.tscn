@@ -1,8 +1,8 @@
-[gd_scene load_steps=41 format=3 uid="uid://chvj808e8555p"]
+[gd_scene load_steps=42 format=3 uid="uid://chvj808e8555p"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_e2uyo"]
-[ext_resource type="PackedScene" uid="uid://b8vfx3ae8fclc" path="res://scenes/swamp_decorations/ForestBackground.tscn" id="2_m6dii"]
 [ext_resource type="PackedScene" uid="uid://dm2gb0jre5tl6" path="res://scenes/end_pop_up.tscn" id="2_btewo"]
+[ext_resource type="PackedScene" uid="uid://b8vfx3ae8fclc" path="res://scenes/swamp_decorations/ForestBackground.tscn" id="2_m6dii"]
 [ext_resource type="PackedScene" uid="uid://dbvkq2bq688np" path="res://scenes/CaveBackground.tscn" id="3_e5nna"]
 [ext_resource type="PackedScene" uid="uid://darcjd1oqf1un" path="res://scenes/CloudParalax.tscn" id="4_kmxhs"]
 [ext_resource type="Script" path="res://scripts/level.gd" id="4_wgcnf"]
@@ -38,6 +38,7 @@
 [ext_resource type="AudioStream" uid="uid://br58myenyca41" path="res://assets/sounds/427400__imjeax__forest-ambient-loop.ogg" id="32_qda10"]
 [ext_resource type="Script" path="res://scripts/forest_ambience.gd" id="33_ch0mr"]
 [ext_resource type="Script" path="res://scripts/cave_ambience.gd" id="35_q62te"]
+[ext_resource type="PackedScene" uid="uid://dufupyn6x0rk2" path="res://scenes/tutorial_buttons.tscn" id="39_vyx2o"]
 
 [sub_resource type="Environment" id="Environment_1qvk7"]
 background_mode = 3
@@ -127,3 +128,6 @@ script = ExtResource("33_ch0mr")
 stream = ExtResource("31_87e3v")
 autoplay = true
 script = ExtResource("35_q62te")
+
+[node name="Tutorial Buttons" parent="." instance=ExtResource("39_vyx2o")]
+position = Vector2(0, -128)
