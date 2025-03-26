@@ -424,6 +424,7 @@ func die(player_name: int):
 		$Camera2D.enabled = false
 	if get_multiplayer_authority() == (User.ID):
 		ui.set_visible(false)
+		$PowerUpUI.visible = false
 		get_tree().get_root().get_node("game_scene").enable_death_pop_up()
 	User.client.player_died.emit(player_name)
 		

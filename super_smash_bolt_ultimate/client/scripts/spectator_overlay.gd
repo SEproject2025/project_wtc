@@ -43,7 +43,7 @@ func deactivate_current_camera(index: int):
 
 func update_dead_players(id: int):
 	var last_position
-	if other_players[current_player_index].name == str(id):
+	if other_players.size() > 0 && other_players[current_player_index].name == str(id):
 		last_position = other_players[current_player_index].global_position
 		deactivate_current_camera(current_player_index)
 	other_players = other_players.filter(func(player): return player.name != str(id))

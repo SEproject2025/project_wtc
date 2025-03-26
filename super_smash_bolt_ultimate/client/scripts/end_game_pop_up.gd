@@ -55,11 +55,9 @@ func _on_spectate_pressed() -> void:
 	spectator_overlay_instance = spectator_overlay.instantiate()
 	spectator_overlay_instance.other_players = other_players
 	spectator_overlay_instance.spectate_player(0)
+
 	get_tree().get_root().get_node("game_scene").add_child(spectator_overlay_instance)
 	
-	leaderboard_container.reparent(self)
-
-	for child in get_children():
-		if child != leaderboard_container and child != spectator_overlay_instance:
+	for child in $MarginContainer/VBoxContainer.get_children():
+		if child != leaderboard_container:
 			child.queue_free()
-	
