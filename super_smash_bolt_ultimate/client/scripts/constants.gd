@@ -44,3 +44,5 @@ const powerupIcons: Dictionary = {
 	"OILSPILL": preload("res://assets/powerups (placeholders)/oilspill_icon.png"),
 	"GRAPPLINGHOOK": preload("res://assets/powerups (placeholders)/grapplinghook_icon.png"),
 }
+
+enum LobbyState { NOT_STARTED, STARTED }

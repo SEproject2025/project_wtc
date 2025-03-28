@@ -45,8 +45,8 @@ func _on_play_again_pressed():
 	get_tree().get_root().add_child(load("res://scenes/lobby_menu.tscn").instantiate())
 	pop_up.queue_free()
 	var game_scene_node = get_tree().get_root().get_node("game_scene")
-	game_scene_node.queue_free()
 	game_scene_node.get_node(str(User.ID)).queue_free()
+	game_scene_node.queue_free()
 	queue_free()
 
 

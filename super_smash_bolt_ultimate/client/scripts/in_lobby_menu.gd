@@ -20,6 +20,15 @@ func _ready():
 	init_player_list()
 	User.init_connection()
 
+	if !User.is_host:
+		$Start.disabled = true
+		$Start.text = 'waiting for host...'
+	
+	if User.current_lobby_state == Constants.LobbyState.STARTED:
+		$Start.text = 'game started...'
+
+	print("current lobby state" + str(User.current_lobby_state))
+
 func _delete_in_lobby_menu():
 	queue_free()
 
@@ -96,7 +105,7 @@ func _on_return_pressed():
 	User.client.send_left_info(User.current_lobby_name)
 	await get_tree().create_timer(1).timeout
 	User.client.request_lobby_list()
-	get_tree().get_root().add_child(load("res://scenes/lobby_menu.tscn").instantiate())
+	get_parent().add_child(load("res://scenes/lobby_menu.tscn").instantiate())
 	pop_up.queue_free()
 	queue_free()
 
@@ -120,3 +129,7 @@ func _on_start_pressed():
 		add_child(pop_up)
 	else:
 		User.client.send_game_starting()
+
+
+func _on_spectate_pressed() -> void:
+	pass # Replace with function body.

@@ -4,6 +4,7 @@ var client : Client
 var user_name : String = ""
 var host_name : String = ""
 var current_lobby_name : String = ""
+var current_lobby_state : Constants.LobbyState = Constants.LobbyState.NOT_STARTED
 var current_lobby_list : String = ""
 var is_host : bool = false
 var ID = -1

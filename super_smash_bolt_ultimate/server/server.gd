@@ -4,6 +4,8 @@ enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_M
 START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS, AI_SEED, \
 GENERATE_SEED}
 
+enum LobbyState {NOT_STARTED, STARTED}
+
 var server = TCPServer.new()
 var hard_coded_port = 9999
 var peers : Dictionary = {}
@@ -38,6 +40,7 @@ class Lobby extends RefCounted:
 	var peers = []
 	var sealed : bool = false
 	var _name : String = ""
+	var state : LobbyState = LobbyState.NOT_STARTED
 
 	func _init(host_id : int, _lobby_name : String):
 		_name = _lobby_name
@@ -122,11 +125,11 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 				all_peer_ids += str(player.id) + "***"
 				spawn_positions_by_id[player.id] = spawn_positions.pop_front()
 
+			current_lobby.state = LobbyState.STARTED
 			for player in current_lobby.peers:
 				player.send_msg(Message.GAME_STARTING, 0 , all_peer_ids)
 				player.send_msg(Message.SPAWN_POSITIONS, 0 , var_to_str(spawn_positions_by_id))
 				player.send_msg(Message.AI_SEED, 0 , var_to_str(ai_seed))
-
 		return true
 
 	if type == Message.OFFER:
@@ -234,7 +237,7 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 		var lobby = find_lobby_by_name(data)
 		if lobby:
 			peer.send_msg(Message.HOST, lobby.peers[0].id, lobby.peers[0].user_name)
-			peer.send_msg(Message.JOIN_LOBBY, 0, "LOBBY_NAME" + lobby._name)
+			peer.send_msg(Message.JOIN_LOBBY, peer.id, "LOBBY_INFO" + lobby._name + "***" + str(lobby.state))
 
 			for lobby_player in lobby.peers:
 				lobby_player.send_msg(Message.JOIN_LOBBY, peer.id, "NEW_JOINED_USER_NAME" + peer.user_name)

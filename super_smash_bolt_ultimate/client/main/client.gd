@@ -8,8 +8,8 @@ GENERATE_SEED}
 
 var rtc_mp = WebRTCMultiplayerPeer.new()
 var ws = WebSocketPeer.new()
-# var url = "127.0.0.1:9999"
-var url = "wss://godot.silfsy.com"
+var url = "127.0.0.1:9999"
+# var url = "wss://godot.silfsy.com"
 var client_connected : bool = false
 var ai_seed: int = 0
 
@@ -158,7 +158,8 @@ func parse_msg():
 		if data.contains("INVALID"):
 			invalid_join_lobby_name.emit()
 			return
-		if data.contains("LOBBY_NAME"):
+		if data.contains("LOBBY_INFO"):
+			print(data)
 			join_lobby.emit(data.right(-10))
 			return
 		if data.contains("NEW_JOINED_USER_NAME"):
@@ -171,7 +172,6 @@ func parse_msg():
 			other_user_joined_lobby.emit(data.right(-18))
 			print("Peer name: %s with ID # %s added to the list." %[data.right(-18), id])
 			return
-		return
 	
 	if type == Message.LOBBY_LIST:
 		if data == "":
