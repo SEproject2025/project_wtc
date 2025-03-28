@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://5qvpopa1j300"]
+[gd_scene load_steps=18 format=4 uid="uid://5qvpopa1j300"]
 
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_6dd7e"]
 [ext_resource type="Texture2D" uid="uid://cccnylotwwlt1" path="res://assets/sprites/sprite_sheets/swamp_tileset.png" id="3_45gph"]
