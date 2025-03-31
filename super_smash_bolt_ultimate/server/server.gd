@@ -2,7 +2,7 @@ extends Node
 
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
 START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS, AI_SEED, \
-GENERATE_SEED}
+GENERATE_SEED, SPECTATOR}
 
 enum LobbyState {NOT_STARTED, STARTED}
 
@@ -20,6 +20,7 @@ class Peer extends RefCounted:
 	var ws = WebSocketPeer.new()
 	var user_name : String = ""
 	var is_host : bool = false
+	var is_spectator: bool = false
 
 	func _init(peer_id, tcp):
 		id = peer_id
@@ -173,7 +174,7 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 	if type == Message.LEFT_LOBBY or type == Message.LEFT_GAME:
 		var lobby = find_lobby_by_name(data)
 		if lobby:
-			if lobby.peers.size() == 1:
+			if lobby.peers.size() == 1 or lobby.peers.all(func(p): return p.is_spectator == true or p.id == peer.id):
 				to_remove_lobbys.push_back(lobby)
 				peer.is_host = false
 			elif  lobby.peers.size() > 1:
@@ -281,6 +282,10 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 				for j in i.peers:
 						j.send_msg(Message.GENERATE_SEED, 0, str(generated_seed))
 				return true
+				
+	if type == Message.SPECTATOR:
+		peer.is_spectator = true
+		return true
 
 
 	return false;

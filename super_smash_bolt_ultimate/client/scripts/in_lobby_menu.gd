@@ -140,7 +140,8 @@ func _on_spectate_pressed() -> void:
 		add_child(pop_up)
 		return
 		
-	User.is_spectator = true	
+	User.is_spectator = true
+	User.client.notify_spectating()
 
 	for peer_id in User.peers.keys():
 		User.connection_list.get(peer_id).create_offer()

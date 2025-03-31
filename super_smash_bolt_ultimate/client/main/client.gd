@@ -4,7 +4,7 @@ class_name Client
 # Enum representing the types of messages exchanged between client and server
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
 START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS, AI_SEED, \
-GENERATE_SEED}
+GENERATE_SEED, SPECTATOR}
 
 var rtc_mp = WebRTCMultiplayerPeer.new()
 var ws = WebSocketPeer.new()
@@ -281,3 +281,6 @@ func send_left_game(lobby_name: String):
 
 func request_seed():
 	send_msg(Message.GENERATE_SEED, 0, "")
+
+func notify_spectating():
+	send_msg(Message.SPECTATOR, 0, "")
