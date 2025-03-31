@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://bbkqm75x5qo4d"]
+[gd_scene load_steps=76 format=3 uid="uid://bbkqm75x5qo4d"]
 
 [ext_resource type="Script" path="res://scripts/player_character.gd" id="1_y2p1t"]
 [ext_resource type="PackedScene" uid="uid://ld0nfnklnql6" path="res://scenes/powerups/power_up_ui.tscn" id="2_hmeuy"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/multiplayer_input.gd" id="5_82x6r"]
 [ext_resource type="Shader" uid="uid://cix2p10kubhpy" path="res://assets/sprites/sprite_sheets/player_character_hit_flash.tres" id="5_ct6r3"]
 [ext_resource type="Texture2D" uid="uid://qhcwemdu5r50" path="res://assets/sprites/character_sprites/mine_bot_mothersheet_complete.png" id="6_t7umd"]
+[ext_resource type="PackedScene" uid="uid://dbvkq2bq688np" path="res://scenes/CaveBackground.tscn" id="7_apjvc"]
 
 [sub_resource type="Animation" id="Animation_bvmwo"]
 length = 0.001
@@ -489,7 +490,6 @@ collision_mask = 3
 safe_margin = 0.1
 script = ExtResource("1_y2p1t")
 player_input = NodePath("Input")
-player_id = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -7)
@@ -498,12 +498,6 @@ zoom = Vector2(2, 2)
 limit_bottom = 120
 limit_smoothed = true
 position_smoothing_enabled = true
-
-[node name="Label" type="Label" parent="Camera2D"]
-offset_left = -19.0
-offset_top = -80.0
-offset_right = 21.0
-offset_bottom = -57.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -674,6 +668,15 @@ frame = 16
 libraries = {
 "": SubResource("AnimationLibrary_28vel")
 }
+
+[node name="Displacement_Label" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -87.0
+offset_right = 21.0
+offset_bottom = -64.0
+
+[node name="CaveBackground" parent="." instance=ExtResource("7_apjvc")]
+visible = false
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="dash_timeout"]

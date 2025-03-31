@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://wj1b0bv77g6x" path="res://assets/sprites/Light.png" id="5_a3ccl"]
 [ext_resource type="Texture2D" uid="uid://did7xed6152vw" path="res://assets/sprites/TopLayer.png" id="6_fxg0u"]
 
-
 [sub_resource type="Animation" id="Animation_lfiib"]
 length = 0.001
 tracks/0/type = "value"

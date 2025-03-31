@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dbvkq2bq688np"]
+[gd_scene load_steps=12 format=3 uid="uid://dbvkq2bq688np"]
 
 [ext_resource type="Script" path="res://scripts/parallax_background.gd" id="1_85wkp"]
 [ext_resource type="Texture2D" uid="uid://7oap61xymarm" path="res://assets/sky.png" id="1_cjh26"]
@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://bfxw5llqpsg8j" path="res://assets/sprites/MiddleLayer.png" id="3_erpws"]
 [ext_resource type="Texture2D" uid="uid://wj1b0bv77g6x" path="res://assets/sprites/Light.png" id="4_u6cto"]
 [ext_resource type="Texture2D" uid="uid://did7xed6152vw" path="res://assets/sprites/TopLayer.png" id="5_w68fy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iw1kq"]
+atlas = ExtResource("3_erpws")
+region = Rect2(0, 191, 384, 1)
 
 [sub_resource type="Animation" id="Animation_lfiib"]
 length = 0.001
@@ -204,9 +208,11 @@ _data = {
 }
 
 [node name="CaveBackground" type="ParallaxBackground"]
-offset = Vector2(0, -273.625)
-transform = Transform2D(1, 0, 0, 1, 0, -273.625)
+offset = Vector2(0, -600)
+scale = Vector2(2.05, 2.05)
+transform = Transform2D(2.05, 0, 0, 2.05, 0, -600)
 follow_viewport_scale = 4.0
+scroll_ignore_camera_zoom = true
 script = ExtResource("1_85wkp")
 
 [node name="Sky" type="ParallaxLayer" parent="."]
@@ -302,6 +308,16 @@ texture_filter = 1
 position = Vector2(385, -433.375)
 texture = ExtResource("5_w68fy")
 centered = false
+
+[node name="bottom_filler" type="Sprite2D" parent="TopLayer"]
+position = Vector2(187, 190)
+scale = Vector2(1.02718, 138.055)
+texture = SubResource("AtlasTexture_iw1kq")
+
+[node name="bottom_filler2" type="Sprite2D" parent="TopLayer"]
+position = Vector2(573.756, 190)
+scale = Vector2(1.01169, 138.055)
+texture = SubResource("AtlasTexture_iw1kq")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

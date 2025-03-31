@@ -1,8 +1,8 @@
 [gd_scene load_steps=41 format=3 uid="uid://chvj808e8555p"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_e2uyo"]
-[ext_resource type="PackedScene" uid="uid://b8vfx3ae8fclc" path="res://scenes/swamp_decorations/ForestBackground.tscn" id="2_m6dii"]
 [ext_resource type="PackedScene" uid="uid://dm2gb0jre5tl6" path="res://scenes/end_pop_up.tscn" id="2_btewo"]
+[ext_resource type="PackedScene" uid="uid://b8vfx3ae8fclc" path="res://scenes/swamp_decorations/ForestBackground.tscn" id="2_m6dii"]
 [ext_resource type="PackedScene" uid="uid://dbvkq2bq688np" path="res://scenes/CaveBackground.tscn" id="3_e5nna"]
 [ext_resource type="PackedScene" uid="uid://darcjd1oqf1un" path="res://scenes/CloudParalax.tscn" id="4_kmxhs"]
 [ext_resource type="Script" path="res://scripts/level.gd" id="4_wgcnf"]
@@ -87,7 +87,9 @@ transform = Transform2D(1, 0, 0, 1, 0, -550)
 scroll_base_offset = Vector2(0, 90)
 
 [node name="CaveBackground" parent="." instance=ExtResource("3_e5nna")]
+visible = false
 offset = Vector2(0, -240)
+scale = Vector2(1, 1)
 transform = Transform2D(1, 0, 0, 1, 0, -240)
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("4_kmxhs")]
