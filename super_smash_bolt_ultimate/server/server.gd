@@ -41,8 +41,9 @@ class Lobby extends RefCounted:
 	var sealed : bool = false
 	var _name : String = ""
 	var state : LobbyState = LobbyState.NOT_STARTED
+	var seed : int = RandomNumberGenerator.new().randi()
 
-	func _init(host_id : int, _lobby_name : String):
+	func _init(_host_id : int, _lobby_name : String):
 		_name = _lobby_name
 
 
@@ -128,6 +129,7 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 			current_lobby.state = LobbyState.STARTED
 			for player in current_lobby.peers:
 				player.send_msg(Message.GAME_STARTING, 0 , all_peer_ids)
+				player.send_msg(Message.MAP_SEED, 0, str(current_lobby.seed))
 				player.send_msg(Message.SPAWN_POSITIONS, 0 , var_to_str(spawn_positions_by_id))
 				player.send_msg(Message.AI_SEED, 0 , var_to_str(ai_seed))
 		return true

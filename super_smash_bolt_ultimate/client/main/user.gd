@@ -5,6 +5,7 @@ var user_name : String = ""
 var host_name : String = ""
 var current_lobby_name : String = ""
 var current_lobby_state : Constants.LobbyState = Constants.LobbyState.NOT_STARTED
+var current_lobby_seed : int
 var current_lobby_list : String = ""
 var is_host : bool = false
 var ID = -1
@@ -12,7 +13,7 @@ var peers : Dictionary
 var game_scene_template = preload("res://scenes/game_scene.tscn")
 var player_character_template = preload("res://scenes/player_character.tscn")
 var spawn_positions : Dictionary = {}
-
+var is_spectator : bool = false
 
 var connection_list : Dictionary = {}
 var rtc_peer : WebRTCMultiplayerPeer
@@ -58,8 +59,6 @@ func init_connection():
 	rtc_peer.peer_disconnected.connect(_peer_disconnected)
 	get_tree().get_multiplayer().multiplayer_peer = rtc_peer
 
-
-
 func session_created(type: String, sdp: String, connection : WebRTCLibPeerConnection):
 		connection.set_local_description(type, sdp)
 		if type == "offer":
@@ -72,7 +71,6 @@ func session_created(type: String, sdp: String, connection : WebRTCLibPeerConnec
 func ice_created(media: String, index: int, _name: String, connection : WebRTCLibPeerConnection):
 		client.send_ice(media, index, _name, connection_list.find_key(connection))
 		print("sending ice")
-
 
 func _ice_received(media: String, index: int, _name: String, sender_id):
 	connection_list.get(sender_id).add_ice_candidate(media, index, _name)
@@ -103,6 +101,8 @@ func _peer_connected(id : int):
 		var player_character = player_character_template.instantiate()
 		player_character.set_multiplayer_authority(User.ID)
 		player_character.name = str(User.ID)
+		if is_spectator:
+			player_character.spectator = true
 		player_character.global_position = spawn_positions[User.ID]
 		game_scene_node.add_child(player_character)
 	
@@ -112,6 +112,7 @@ func _peer_connected(id : int):
 	player_character.global_position = spawn_positions[id]
 	game_scene_node.add_child(player_character)
 
+	User.client.other_user_joined_game.emit(id)
 
 	for connection in connection_list.values():
 		print("Peer connected with id %d" %connection_list.find_key(connection))
@@ -151,4 +152,5 @@ func reset_connection():
 	print("User reset!")
 	ID = -1
 	peers.clear()
+	is_spectator = false
 	reset.emit()

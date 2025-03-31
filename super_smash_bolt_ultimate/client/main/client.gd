@@ -22,6 +22,7 @@ signal new_lobby(lobby_name : String)
 signal lobby_list_received(lobby_list : PackedStringArray)
 signal lobby_messsage_received(message : String, user_name : String)
 signal other_user_joined_lobby(user_name : String)
+signal other_user_joined_game(id: int)
 signal host_name_received(host_name : String)
 signal some_one_left_lobby(player_name : String)
 signal offer_received(type: String, sdp: String)
@@ -207,7 +208,7 @@ func parse_msg():
 		return
 	
 	if type == Message.MAP_SEED:
-		map_seed_received.emit(data.to_int())
+		User.current_lobby_seed = data.to_int()
 		return false
 	
 	if type == Message.LEFT_GAME:

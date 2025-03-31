@@ -10,6 +10,7 @@ func _on_quit_pressed():
 	pop_up.is_button_visible(false)
 	add_child(pop_up)
 	User.is_host = false
+	User.is_spectator = false
 	User.host_name = ""
 	User.peers.clear()
 	User.connection_list.clear()

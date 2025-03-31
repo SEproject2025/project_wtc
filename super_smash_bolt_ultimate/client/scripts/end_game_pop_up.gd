@@ -36,6 +36,7 @@ func _on_play_again_pressed():
 	pop_up.is_button_visible(false)
 	add_child(pop_up)
 	User.is_host = false
+	User.is_spectator = false
 	User.host_name = ""
 	User.peers.clear()
 	User.connection_list.clear()
@@ -51,6 +52,8 @@ func _on_play_again_pressed():
 
 
 func _on_spectate_pressed() -> void:
+	if !other_players:
+		setup()
 	is_spectating = true
 	spectator_overlay_instance = spectator_overlay.instantiate()
 	spectator_overlay_instance.other_players = other_players

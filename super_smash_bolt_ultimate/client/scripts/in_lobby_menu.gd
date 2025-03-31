@@ -21,13 +21,15 @@ func _ready():
 	User.init_connection()
 
 	if !User.is_host:
-		$Start.disabled = true
-		$Start.text = 'waiting for host...'
+		$VBoxContainer/HBoxContainer/Start.visible = false
+		$VBoxContainer/GameStatus.visible = true
+	else:
+		User.current_lobby_state = Constants.LobbyState.NOT_STARTED
 	
 	if User.current_lobby_state == Constants.LobbyState.STARTED:
-		$Start.text = 'game started...'
+		$VBoxContainer/GameStatus.text = 'Game started...'
+		$VBoxContainer/HBoxContainer/Spectate.visible = true
 
-	print("current lobby state" + str(User.current_lobby_state))
 
 func _delete_in_lobby_menu():
 	queue_free()
@@ -132,4 +134,13 @@ func _on_start_pressed():
 
 
 func _on_spectate_pressed() -> void:
-	pass # Replace with function body.
+	if User.peers.size() == 0:
+		var pop_up = pop_up_template.instantiate()
+		pop_up.set_msg("no active games to spectate!")
+		add_child(pop_up)
+		return
+		
+	User.is_spectator = true	
+
+	for peer_id in User.peers.keys():
+		User.connection_list.get(peer_id).create_offer()
