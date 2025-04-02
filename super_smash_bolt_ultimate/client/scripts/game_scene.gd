@@ -70,4 +70,6 @@ func enable_death_pop_up() -> void:
 	end_vbox.get_node("BoxContainer").visible = true
 
 func _other_user_joined_game(_username: String):
-	User.init_connection()
+	for peer_id in User.peers.keys():
+		if !User.connection_list.has(peer_id):
+			User.connect_to_peer(peer_id)

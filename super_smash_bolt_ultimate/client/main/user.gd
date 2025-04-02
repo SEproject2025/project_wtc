@@ -36,20 +36,7 @@ func init_connection():
 	connection_list.clear()
 	
 	for peer_id in peers.keys():
-		var connection = WebRTCPeerConnection.new()
-		connection.initialize({"iceServers": [
-			{ "urls": ["stun:stun.l.google.com:19302"] },  # Keep the public STUN server
-			{
-				"urls": [
-					"turn:turn.silfsy.com:3478"
-				],
-				"username": "bolt",  # Your TURN username
-				"credential": "4w4y1011"  # Your TURN password (replace with actual credential!)
-			}
-		]})
-		connection.session_description_created.connect(session_created.bind(connection))
-		connection.ice_candidate_created.connect(ice_created.bind(connection))
-		connection_list[peer_id] = connection
+		var connection = set_up_connection(peer_id)
 		rtc_peer.add_peer(connection, peer_id)
 	
 	for peer_id in peers.keys():
@@ -154,3 +141,35 @@ func reset_connection():
 	peers.clear()
 	is_spectator = false
 	reset.emit()
+
+func connect_to_peer(peer_id: int):
+	if connection_list.has(peer_id):
+		return 
+		
+	var connection = set_up_connection(peer_id)
+	
+	if rtc_peer == null:
+		rtc_peer = WebRTCMultiplayerPeer.new()
+		rtc_peer.create_mesh(ID)
+		rtc_peer.peer_connected.connect(_peer_connected)
+		rtc_peer.peer_disconnected.connect(_peer_disconnected)
+		get_tree().get_multiplayer().multiplayer_peer = rtc_peer
+		
+	rtc_peer.add_peer(connection, peer_id)
+
+func set_up_connection(peer_id: int) -> WebRTCPeerConnection:
+	var connection = WebRTCPeerConnection.new()
+	connection.initialize({"iceServers": [
+			{ "urls": ["stun:stun.l.google.com:19302"] },  # Keep the public STUN server
+			{
+				"urls": [
+					"turn:turn.silfsy.com:3478"
+				],
+				"username": "bolt",  # Your TURN username
+				"credential": "4w4y1011"  # Your TURN password (replace with actual credential!)
+			}
+		]})
+	connection.session_description_created.connect(session_created.bind(connection))
+	connection.ice_candidate_created.connect(ice_created.bind(connection))
+	connection_list[peer_id] = connection
+	return connection

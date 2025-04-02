@@ -86,6 +86,7 @@ func _ready():
 			set_physics_process(false)
 			await get_tree().create_timer(.01).timeout
 			set_invisible.rpc()
+			_set_rpc_visiblity_off.rpc()
 			$Camera2D.enabled = false
 			position = get_tree().get_nodes_in_group("Players")[0].position
 			get_parent().get_node("EndPopUp")._on_spectate_pressed()
@@ -490,3 +491,10 @@ func _other_user_joined_game(_id: int):
 		await get_tree().create_timer(.01).timeout
 		set_sprite.rpc(player_id)
 		set_player_name.rpc(User.user_name)
+
+@rpc("any_peer", "call_local", "reliable")
+func _set_rpc_visiblity_off():
+	print("HERE + " + str(self.name))
+	# $MultiplayerSynchronizer.public_visibility = false
+	# $Input/InputSynchronizer.public_visibility = false
+	# $PlayerSynchronizer.public_visibility = false
