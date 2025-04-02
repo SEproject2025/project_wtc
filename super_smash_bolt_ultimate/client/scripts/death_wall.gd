@@ -14,8 +14,9 @@ func _process(delta: float) -> void:
 		var players = get_tree().get_nodes_in_group("Players")
 		var distance = 100000
 		for player in players:
-			if (player.position.x < distance):
-				distance = player.position.x
+			if player.alive:
+				if (player.position.x < distance):
+					distance = player.position.x
 		if(distance - position.x ) > WALL_MAX_DISTANCE :
 			position.x += (distance - position.x) - WALL_MAX_DISTANCE
 		#else:

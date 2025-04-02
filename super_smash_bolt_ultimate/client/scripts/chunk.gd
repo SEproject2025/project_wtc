@@ -35,10 +35,11 @@ func _physics_process(_delta):
 	var first_place = 0
 	var last_place  = 100000
 	for player in players:
-		if (player.position.x < last_place):
-				last_place = player.position.x
-		if(player.position.x > first_place):
-			first_place = player.position.x
+		if player.alive:
+			if (player.position.x < last_place):
+					last_place = player.position.x
+			if(player.position.x > first_place):
+				first_place = player.position.x
 	if global_position.x - first_place <= 1000 and first_place < global_position.x and !gave_birth:
 		
 		level.algorithm(position.x+(level.offset))
