@@ -3,7 +3,7 @@ extends Node2D
 const WALL_TERMINAL_VELOCITY := 150.0
 const WALL_INITIAL_VELOCITY  := 70.0
 const WALL_ACCELERATION      := 0.002
-const WALL_MAX_DISTANCE      := 400
+const WALL_MAX_DISTANCE      := 500
 
 var death_wall_start = false
 var   wall_velocity          = WALL_INITIAL_VELOCITY
