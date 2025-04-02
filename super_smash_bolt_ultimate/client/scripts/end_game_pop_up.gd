@@ -46,6 +46,9 @@ func _on_play_again_pressed():
 	get_tree().get_root().add_child(load("res://scenes/lobby_menu.tscn").instantiate())
 	pop_up.queue_free()
 	var game_scene_node = get_tree().get_root().get_node("game_scene")
+	for player in get_tree().get_nodes_in_group("Players").filter(func(player): return player.name != str(User.ID)):
+		player._set_rpc_visiblity_off()
+	await get_tree().create_timer(0.1).timeout
 	game_scene_node.get_node(str(User.ID)).queue_free()
 	game_scene_node.queue_free()
 	queue_free()

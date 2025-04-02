@@ -106,12 +106,21 @@ func _peer_connected(id : int):
 
 func _peer_disconnected(id : int):
 	print("Peer disconnected with id %d" %id)
-	connection_list.erase(id)
-
-	var peer_node = get_node_or_null("../game_scene/%s" %id)	
-	if peer_node:
-		peer_node.queue_free()
 	
+	if connection_list.has(id):
+		var connection = connection_list[id]
+		if rtc_peer and rtc_peer.has_peer(id):
+			rtc_peer.remove_peer(id)  # Remove from mesh network first
+		connection.close()  # Then close the connection
+		connection_list.erase(id)  # Finally remove from our list
+	
+	if peers.has(id):
+		peers.erase(id)
+
+	var peer_node = get_node_or_null("../game_scene/%s" %id)    
+	if peer_node:
+		await get_tree().create_timer(0.1).timeout
+		peer_node.queue_free()
 
 func _game_start_received(peer_ids : String):
 	var arr = peer_ids.split("***", false)

@@ -494,7 +494,6 @@ func _other_user_joined_game(_id: int):
 
 @rpc("any_peer", "call_local", "reliable")
 func _set_rpc_visiblity_off():
-	print("HERE + " + str(self.name))
-	# $MultiplayerSynchronizer.public_visibility = false
-	# $Input/InputSynchronizer.public_visibility = false
-	# $PlayerSynchronizer.public_visibility = false
+	$MultiplayerSynchronizer.public_visibility = false
+	$Input/InputSynchronizer.public_visibility = false
+	$PlayerSynchronizer.public_visibility = false
