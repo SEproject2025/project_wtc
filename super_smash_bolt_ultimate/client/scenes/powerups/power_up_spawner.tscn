@@ -7,6 +7,7 @@
 radius = 3.0
 
 [node name="PowerUpSpawner" type="Area2D"]
+scale = Vector2(2, 2)
 collision_mask = 2
 script = ExtResource("1_pl8qu")
 powerups = Array[int]([1, 2])
@@ -16,6 +17,7 @@ powerupProbabilities = Array[float]([0.5, 0.5])
 shape = SubResource("CircleShape2D_a6lfy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1.9, 0.79, 0, 1)
 position = Vector2(2.38419e-07, -5.96046e-08)
 scale = Vector2(0.130022, 0.112723)
 texture = ExtResource("4_chijt")

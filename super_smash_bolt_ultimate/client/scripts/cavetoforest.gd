@@ -18,13 +18,13 @@ func _physics_process(_delta):
 	var first_place = 0
 	var last_place  = 100000
 	for player in players:
-		if global_position.x - player.global_position.x > (0.5*level.offset) and player.is_in_cave: #.distance_to(player.global_position) < 500 and player.global_position.x < global_position.x and player_in_cave:
+		if global_position.x - player.global_position.x < 400 and player.is_in_cave: #.distance_to(player.global_position) < 500 and player.global_position.x < global_position.x and player_in_cave:
 			player.set_background("forest")
 			Cavesound.fading = true
 			Forestsound.play_sound = true
 			player.is_in_cave = false
 			print("animation instantiated!")
-		if player.alive:	
+		if player.alive:
 			if (player.position.x < last_place):
 					last_place = player.position.x
 			if(player.position.x > first_place):
