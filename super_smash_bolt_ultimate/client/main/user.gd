@@ -90,13 +90,13 @@ func _peer_connected(id : int):
 		player_character.name = str(User.ID)
 		if is_spectator:
 			player_character.spectator = true
-		player_character.global_position = spawn_positions[User.ID]
+		player_character.global_position = spawn_positions[User.ID] if spawn_positions.has(User.ID) else Vector2.ZERO
 		game_scene_node.add_child(player_character)
 	
 	var player_character = player_character_template.instantiate()
 	player_character.set_multiplayer_authority(id)
 	player_character.name = str(id)
-	player_character.global_position = spawn_positions[id]
+	player_character.global_position = spawn_positions[id] if spawn_positions.has(id) else Vector2.ZERO
 	game_scene_node.add_child(player_character)
 
 	User.client.other_user_joined_game.emit(id)
