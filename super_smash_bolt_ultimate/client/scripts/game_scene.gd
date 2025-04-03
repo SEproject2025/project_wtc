@@ -63,6 +63,7 @@ func _on_button_pressed():
 
 func player_left(other_player_id : int):
 	User.rtc_peer.peer_disconnected.emit(other_player_id)
+	# get_node(str(other_player_id)).queue_free()
 
 func enable_death_pop_up() -> void:
 	end_pop_up.setup()

@@ -4,7 +4,7 @@ class_name Client
 # Enum representing the types of messages exchanged between client and server
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
 START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS, AI_SEED, \
-GENERATE_SEED, SPECTATOR}
+GENERATE_SEED, SPECTATOR, RESTART_LOBBY}
 
 var rtc_mp = WebRTCMultiplayerPeer.new()
 var ws = WebSocketPeer.new()
@@ -37,7 +37,7 @@ signal some_one_left_game(id : int)
 signal spawn_positions_received(spawn_positions : Dictionary)
 signal player_died(id : int)
 signal generated_seed_received(seed: int)
-
+signal restart_lobby_received(seed: int, state: Constants.LobbyState)
 # Attempt to connect to the WebSocket server
 func _init():
 	var error = ws.connect_to_url(url)
@@ -114,7 +114,7 @@ func parse_msg():
 		return
 	
 	if type == Message.HOST:
-		if id == User.ID and data == User.user_name:
+		if id == User.ID and data == str(User.ID):
 			User.is_host = true
 		else:
 			User.is_host = false
@@ -212,10 +212,8 @@ func parse_msg():
 		return false
 	
 	if type == Message.LEFT_GAME:
-		if User.peers.has(id):
-			User.peers.erase(id)
-			some_one_left_game.emit(id)
-			print("Peer name: %s with ID # %s left the game" %[data, id])
+		some_one_left_game.emit(id)
+		print("Peer name: %s with ID # %s left the game" %[data, id])
 		return
 
 	if type == Message.SPAWN_POSITIONS:
@@ -229,6 +227,13 @@ func parse_msg():
 
 	if type == Message.GENERATE_SEED:
 		generated_seed_received.emit(data.to_int())
+		return
+
+	if type == Message.RESTART_LOBBY:
+		var arr = data.split("***", true, 2)
+		var seed = arr[0].to_int()
+		var state = arr[1].to_int() as Constants.LobbyState
+		restart_lobby_received.emit(seed, state)
 		return
 
 	return false
@@ -284,3 +289,6 @@ func request_seed():
 
 func notify_spectating():
 	send_msg(Message.SPECTATOR, 0, "")
+
+func restart_lobby(lobby_name: String):
+	send_msg(Message.RESTART_LOBBY, 0, lobby_name)

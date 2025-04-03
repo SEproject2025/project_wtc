@@ -110,23 +110,25 @@ func _peer_disconnected(id : int):
 	if connection_list.has(id):
 		var connection = connection_list[id]
 		if rtc_peer and rtc_peer.has_peer(id):
-			rtc_peer.remove_peer(id)  # Remove from mesh network first
-		connection.close()  # Then close the connection
-		connection_list.erase(id)  # Finally remove from our list
+			rtc_peer.remove_peer(id)
+		connection.close()
+		connection_list.erase(id)
 	
 	if peers.has(id):
 		peers.erase(id)
 
 	var peer_node = get_node_or_null("../game_scene/%s" %id)    
 	if peer_node:
-		await get_tree().create_timer(0.1).timeout
 		peer_node.queue_free()
 
 func _game_start_received(peer_ids : String):
 	var arr = peer_ids.split("***", false)
 	
 	for id_string in arr:
-		User.connection_list.get(id_string.to_int()).create_offer()
+		var connection = User.connection_list.get(id_string.to_int())
+		#if (connection.get_connection_state() != WebRTCPeerConnection.ConnectionState.STATE_NEW):
+		#	init_connection()
+		connection.create_offer()
 
 func _spawn_positions_received(spawnPositions : Dictionary):
 	spawn_positions = spawnPositions

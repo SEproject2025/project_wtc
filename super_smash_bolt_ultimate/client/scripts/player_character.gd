@@ -485,6 +485,7 @@ func set_invisible():
 	visible = false
 	alive = false
 	$CollisionShape2D.disabled = true
+	spectator = true
 	
 func _other_user_joined_game(_id: int):
 	if get_multiplayer_authority() == User.ID:

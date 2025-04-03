@@ -7,35 +7,46 @@ var player_character_template = preload("res://scenes/player_character.tscn")
 @onready var player_template = $Player_template
 @onready var player_list_container = $"Player List/Players/ScrollContainer/VBoxContainer"
 
+var init_connection = true
+
 func _ready():
+	User.client.join_lobby.connect(rejoin_lobby)
 	User.client.host_name_received.connect(_host_name_received)
 	User.client.lobby_messsage_received.connect(_lobby_message_received)
 	User.client.other_user_joined_lobby.connect(_other_user_joined_lobby)
 	User.client.some_one_left_lobby.connect(_some_one_left_lobby)
 	User.client.server_changed_host.connect(_server_changed_host)
 	User.delete_in_lobby_menu.connect(_delete_in_lobby_menu)
+	User.client.restart_lobby_received.connect(_restart_lobby_received)
 	User.init_connection()
 	
 	$"Lobby Name".text = User.current_lobby_name
 	init_player_list()
 	User.init_connection()
 
-	if !User.is_host:
-		$VBoxContainer/HBoxContainer/Start.visible = false
-		$VBoxContainer/GameStatus.visible = true
-	else:
-		User.current_lobby_state = Constants.LobbyState.NOT_STARTED
-	
-	if User.current_lobby_state == Constants.LobbyState.STARTED:
-		$VBoxContainer/GameStatus.text = 'Game started...'
-		$VBoxContainer/HBoxContainer/Spectate.visible = true
-
+	setup()
 
 func _delete_in_lobby_menu():
 	queue_free()
 
 func _server_changed_host():
 	init_player_list()
+	
+func setup():
+	if User.current_lobby_state == Constants.LobbyState.STARTED:
+		$VBoxContainer/HBoxContainer/Start.visible = false
+		$VBoxContainer/GameStatus.visible = true
+		$VBoxContainer/GameStatus.text = 'Game started...'
+		# $VBoxContainer/HBoxContainer/Spectate.visible = true
+	elif User.current_lobby_state == Constants.LobbyState.NOT_STARTED:
+		# $VBoxContainer/HBoxContainer/Spectate.visible = false
+		$VBoxContainer/HBoxContainer/Start.visible = User.is_host
+		if User.is_host:
+			$VBoxContainer/GameStatus.visible = false
+		else:
+			$VBoxContainer/GameStatus.visible = true
+			$VBoxContainer/GameStatus.text = "Waiting for host..."
+
 
 func init_player_list():
 	for child in player_list_container.get_children():
@@ -133,15 +144,33 @@ func _on_start_pressed():
 		User.client.send_game_starting()
 
 
-func _on_spectate_pressed() -> void:
-	if User.peers.size() == 0:
-		var pop_up = pop_up_template.instantiate()
-		pop_up.set_msg("no active games to spectate!")
-		add_child(pop_up)
-		return
+# func _on_spectate_pressed() -> void:
+# 	if User.peers.size() == 0:
+# 		var pop_up = pop_up_template.instantiate()
+# 		pop_up.set_msg("no active games to spectate!")
+# 		add_child(pop_up)
+# 		return
 		
-	User.is_spectator = true
-	User.client.notify_spectating()
+# 	User.is_spectator = true
+# 	User.client.notify_spectating()
 
-	for peer_id in User.peers.keys():
-		User.connection_list.get(peer_id).create_offer()
+# 	for peer_id in User.peers.keys():
+# 		User.connection_list.get(peer_id).create_offer()
+		
+func rejoin_lobby(lobby_info: String):
+	var arr = lobby_info.split("***")
+	var lobby_name = arr[0]
+	var pop_up = pop_up_template.instantiate()
+	pop_up.set_msg("   joining lobby...")
+	pop_up.is_button_visible(false)
+	add_child(pop_up)
+	User.current_lobby_name = lobby_name
+	User.current_lobby_state = arr[1].to_int() as Constants.LobbyState
+	print("joined lobby %s !" %lobby_name)
+	setup()
+	pop_up.queue_free()
+
+func _restart_lobby_received(seed: int, state: Constants.LobbyState):
+	User.current_lobby_state = state
+	User.current_lobby_seed = seed
+	setup()

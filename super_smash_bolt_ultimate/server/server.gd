@@ -2,7 +2,7 @@ extends Node
 
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
 START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS, AI_SEED, \
-GENERATE_SEED, SPECTATOR}
+GENERATE_SEED, SPECTATOR, RESTART_LOBBY}
 
 enum LobbyState {NOT_STARTED, STARTED}
 
@@ -43,10 +43,11 @@ class Lobby extends RefCounted:
 	var _name : String = ""
 	var state : LobbyState = LobbyState.NOT_STARTED
 	var seed : int = RandomNumberGenerator.new().randi()
+	var host_id: int
 
 	func _init(_host_id : int, _lobby_name : String):
 		_name = _lobby_name
-
+		host_id = _host_id
 
 
 func _init():
@@ -190,10 +191,12 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 								delete_after = lobby_peer
 
 					lobby.peers.erase(delete_after)
-					lobby.peers[0].is_host = true
+					if peer.id == lobby.host_id and type == Message.LEFT_LOBBY:
+						lobby.host_id = lobby.peers[0].id
+						lobby.peers[0].is_host = true
 
 					for player in lobby.peers:
-						player.send_msg(Message.HOST, lobby.peers[0].id, lobby.peers[0].user_name)
+						player.send_msg(Message.HOST, lobby.host_id, str(lobby.host_id))
 		return true
 
 	if type == Message.USER_INFO:
@@ -239,7 +242,7 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 
 		var lobby = find_lobby_by_name(data)
 		if lobby:
-			peer.send_msg(Message.HOST, lobby.peers[0].id, lobby.peers[0].user_name)
+			peer.send_msg(Message.HOST, lobby.host_id, str(lobby.host_id))
 			peer.send_msg(Message.JOIN_LOBBY, peer.id, "LOBBY_INFO" + lobby._name + "***" + str(lobby.state))
 
 			for lobby_player in lobby.peers:
@@ -286,9 +289,17 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 	if type == Message.SPECTATOR:
 		peer.is_spectator = true
 		return true
-
-
-	return false;
+	
+	if type == Message.RESTART_LOBBY:
+		var lobby = find_lobby_by_name(data)
+		if lobby:
+			lobby.state = LobbyState.NOT_STARTED
+			lobby.seed = RandomNumberGenerator.new().randi()
+			for lobby_peer in lobby.peers:
+				lobby_peer.send_msg(Message.RESTART_LOBBY, 0, str(lobby.seed) + "***" + str(lobby.state))
+			return true
+	
+	return false
 
 
 func clean_up():

@@ -6,6 +6,7 @@ extends CanvasLayer
 
 var pop_up_template = preload("res://scenes/pop_up.tscn")
 var spectator_overlay = preload("res://scenes/spectator_overlay.tscn")
+var in_lobby_menu_template= preload("res://scenes/in_lobby_menu.tscn")
 var leaderboard_enabled = true
 
 
@@ -32,24 +33,25 @@ func player_died(_player_name: int) -> void:
 
 func _on_play_again_pressed():
 	var pop_up = pop_up_template.instantiate()
-	pop_up.set_msg("   returning to the lobby menu...")
+	pop_up.set_msg("   returning to lobby...")
 	pop_up.is_button_visible(false)
 	add_child(pop_up)
-	User.is_host = false
+	
+	if get_tree().get_nodes_in_group("Players").size() <= 1:
+		User.client.restart_lobby(User.current_lobby_name)
+		await get_tree().create_timer(.2).timeout
+		
 	User.is_spectator = false
-	User.host_name = ""
-	User.peers.clear()
-	User.connection_list.clear()
 	User.client.send_left_game(User.current_lobby_name)
-	await get_tree().create_timer(1).timeout
-	User.client.request_lobby_list()
-	get_tree().get_root().add_child(load("res://scenes/lobby_menu.tscn").instantiate())
+	await get_tree().create_timer(.2).timeout
 	pop_up.queue_free()
+	var in_lobby_menu = in_lobby_menu_template.instantiate()
+	in_lobby_menu.init_connection = false
+	get_tree().get_root().get_node("main").add_child(in_lobby_menu)
+	
+	User.client.request_join_lobby(User.current_lobby_name)
+	
 	var game_scene_node = get_tree().get_root().get_node("game_scene")
-	for player in get_tree().get_nodes_in_group("Players").filter(func(player): return player.name != str(User.ID)):
-		player._set_rpc_visiblity_off()
-	await get_tree().create_timer(0.1).timeout
-	game_scene_node.get_node(str(User.ID)).queue_free()
 	game_scene_node.queue_free()
 	queue_free()
 
