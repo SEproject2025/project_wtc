@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhkli5ydhud0f"
-path="res://.godot/imported/Multiplayer_10.png-9f95a71f7cb9f589a57bdc562045bec2.ctex"
+uid="uid://ciegu7rj5nsu2"
+path="res://.godot/imported/Button_hovered.png-30e6de2b4c28a55afab93529003c877e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Menu_assets/Multiplayer_10.png"
-dest_files=["res://.godot/imported/Multiplayer_10.png-9f95a71f7cb9f589a57bdc562045bec2.ctex"]
+source_file="res://assets/Menu_assets/Button_hovered.png"
+dest_files=["res://.godot/imported/Button_hovered.png-30e6de2b4c28a55afab93529003c877e.ctex"]
 
 [params]
 
