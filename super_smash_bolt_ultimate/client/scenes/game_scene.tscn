@@ -28,8 +28,10 @@
 [ext_resource type="PackedScene" uid="uid://bb14xn300smfr" path="res://chunks/swampChunks/swamp_chunk5.tscn" id="19_3yab1"]
 [ext_resource type="PackedScene" uid="uid://bl3ilaqlbk7ph" path="res://chunks/caveChunks/chunk23.tscn" id="19_mscln"]
 [ext_resource type="PackedScene" uid="uid://dtf885yooq2y7" path="res://chunks/swampChunks/swamp_chunk6.tscn" id="20_kq3qp"]
+[ext_resource type="PackedScene" uid="uid://csd43q4w45e1i" path="res://chunks/caveChunks/chunk24.tscn" id="21_5tikt"]
 [ext_resource type="PackedScene" uid="uid://5qvpopa1j300" path="res://chunks/swampChunks/swamp_chunk7.tscn" id="21_jrobh"]
 [ext_resource type="PackedScene" uid="uid://dnupu6s160g2e" path="res://chunks/swampChunks/swamp_chunk8.tscn" id="22_76jny"]
+[ext_resource type="PackedScene" uid="uid://2vva7m255w3a" path="res://chunks/caveChunks/chunk25.tscn" id="22_nrche"]
 [ext_resource type="PackedScene" uid="uid://ckb0i27mt38xd" path="res://chunks/swampChunks/swamp_chunk9.tscn" id="23_2jvlf"]
 [ext_resource type="PackedScene" uid="uid://n63hwrfw8yds" path="res://chunks/swampChunks/swamp_chunk10.tscn" id="24_bnvly"]
 [ext_resource type="PackedScene" uid="uid://1py3dghwr4f1" path="res://chunks/swampChunks/swamp_chunk11.tscn" id="25_y5crl"]
@@ -101,7 +103,7 @@ position = Vector2(185, 87)
 [node name="level" type="Node2D" parent="."]
 position = Vector2(3, 0)
 script = ExtResource("4_wgcnf")
-chunks = Array[PackedScene]([ExtResource("5_nycr6"), ExtResource("6_iiat1"), ExtResource("7_ki8jc"), ExtResource("6_bwhrc"), ExtResource("7_1hrp0"), ExtResource("8_f2tdy"), ExtResource("9_nmqnn"), ExtResource("10_81in4"), ExtResource("11_tc2vt"), ExtResource("12_n8afa"), ExtResource("13_gjbj5"), ExtResource("17_61o71"), ExtResource("18_mfeid"), ExtResource("19_mscln")])
+chunks = Array[PackedScene]([ExtResource("5_nycr6"), ExtResource("6_iiat1"), ExtResource("7_ki8jc"), ExtResource("6_bwhrc"), ExtResource("7_1hrp0"), ExtResource("8_f2tdy"), ExtResource("9_nmqnn"), ExtResource("10_81in4"), ExtResource("11_tc2vt"), ExtResource("12_n8afa"), ExtResource("13_gjbj5"), ExtResource("17_61o71"), ExtResource("18_mfeid"), ExtResource("19_mscln"), ExtResource("21_5tikt"), ExtResource("22_nrche")])
 forestchunks = Array[PackedScene]([ExtResource("15_jvm00"), ExtResource("16_fefpi"), ExtResource("17_l70tk"), ExtResource("18_inw67"), ExtResource("19_3yab1"), ExtResource("20_kq3qp"), ExtResource("21_jrobh"), ExtResource("22_76jny"), ExtResource("23_2jvlf"), ExtResource("24_bnvly"), ExtResource("25_y5crl")])
 
 [node name="DeathWallNode" parent="." instance=ExtResource("15_5ci7t")]
