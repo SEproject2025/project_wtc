@@ -28,6 +28,7 @@ var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 var ui_template = preload("res://scenes/UI.tscn")
 var ui
 var lasySyncedDisplacement := 0.0
+var stay_zoomed_out = true
 
 @onready var animated_sprite: Sprite2D = $Sprite2D
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
@@ -44,9 +45,10 @@ var lasySyncedDisplacement := 0.0
 @onready var oilSpillTimer: Timer = $Timers/OilSpillTimer
 @onready var stunTimer:Timer = $Timers/StunTimer
 @onready var hitFlashAnimationPlayer = $HitFlashAnimationPlayer
-@onready var displacement_hud = $Camera2D/Label
+@onready var displacement_hud = $Label
 @onready var displacementUpdateTimer: Timer = $Timers/DisplacementUpdateTimer
 @onready var death_explosion = preload("res://scenes/death_explosion.tscn")
+@onready var zoom_timer: Timer = $Timers/ZoomTimer
 
 var yellow_bot_sprite    = preload("res://assets/sprites/character_sprites/mine_bot_mothersheet_complete.png")
 var red_bot_sprite       = preload("res://assets/sprites/character_sprites/red_bot_mothersheet.png")
@@ -84,6 +86,7 @@ func _ready():
 func _process(_delta):
 	check_health()
 	set_animation()
+	set_zoom()
 	if Input.is_action_just_pressed("use_powerup") and !powerupManager.is_jetpack_active and !powerupManager.is_dash_powerup_active:
 		powerupManager.use_powerup()
 	if ui.fuel.value != ui.fuel.max_value:
@@ -108,7 +111,7 @@ func reset():
 	if is_authority:
 		$Camera2D.enabled = true
 		$Camera2D.make_current()
-		$Camera2D/Label.show()
+		$Label.show()
 		character_name.text = User.user_name
 		set_sprite.rpc(player_id)
 		set_player_name.rpc(User.user_name)
@@ -117,7 +120,7 @@ func reset():
 		get_tree().get_root().add_child(ui)
 		ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
 	else:
-		$Camera2D/Label.hide()
+		$Label.hide()
 		displacement_hud.text = ""
 		character_name.text = "Other player"
 
@@ -131,6 +134,15 @@ func reset():
 func check_health():
 	if health.value <= 0:
 		die.rpc(name)
+
+func set_zoom():
+	if $Camera2D.global_position.y < PLAYER.CAMERA_ZOOM_ARBITRATOR and $Camera2D.zoom > PLAYER.MIN_CAMERA_ZOOM:
+		$Camera2D.zoom -= PLAYER.ZOOM_OUT_RATE
+		#stay_zoomed_out = true #This feature is not ready to be published. It needs more polish.
+		#zoom_timer.start()
+	elif  $Camera2D.global_position.y > PLAYER.CAMERA_ZOOM_ARBITRATOR and $Camera2D.zoom < PLAYER.MAX_CAMERA_ZOOM: #and !stay_zoomed_out
+		$Camera2D.zoom += PLAYER.ZOOM_IN_RATE
+		
 
 func set_animation():
 	if isDashing:
@@ -333,6 +345,10 @@ func handle_stunned_movement(delta: float):
 #endregion
 
 #region Timers
+func zoom_timer_timeout():
+	stay_zoomed_out = false
+	zoom_timer.stop()
+
 func coyote_timeout():
 	coyoteJump = false
 
@@ -417,7 +433,7 @@ func die(player_name: int):
 	set_process(false)
 	alive = false
 	$Sprite2D.visible = false
-	$Camera2D/Label.visible = false
+	$Label.visible = false
 	$Control.visible = false
 	await get_tree().create_timer(0.5).timeout
 	if get_tree().get_nodes_in_group("Players").filter(func(player): return player.alive).size() > 0:
