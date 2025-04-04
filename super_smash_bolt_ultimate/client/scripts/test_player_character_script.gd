@@ -62,6 +62,7 @@ func _ready():
 func _process(_delta):
 #	check_health()
 	set_animation()
+	set_zoom()
 	if Input.is_action_just_pressed("use_powerup") and !powerupManager.is_jetpack_active and !powerupManager.is_dash_powerup_active:
 		powerupManager.use_powerup()
 	if Input.is_action_just_pressed("reset"):
@@ -105,7 +106,13 @@ func die_explode():
 	add_child(begin_death)
 	begin_death.set_sprite(hostSprite)
 	begin_death.set_momentum(velocity)
-	
+
+func set_zoom():
+	if $Camera2D.global_position.y < PLAYER.CAMERA_ZOOM_ARBITRATOR and $Camera2D.zoom > PLAYER.MIN_CAMERA_ZOOM:
+		$Camera2D.zoom -= PLAYER.ZOOM_OUT_RATE
+	elif $Camera2D.global_position.y > PLAYER.CAMERA_ZOOM_ARBITRATOR and $Camera2D.zoom < PLAYER.MAX_CAMERA_ZOOM:
+		$Camera2D.zoom += PLAYER.ZOOM_IN_RATE
+
 func set_animation():
 	if Input.is_action_just_pressed("jump") :
 		anim_tree.travel("jump")

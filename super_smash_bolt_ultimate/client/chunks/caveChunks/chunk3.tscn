@@ -1,20 +1,9 @@
-[gd_scene load_steps=14 format=4 uid="uid://c8wtlv7s0jxwr"]
+[gd_scene load_steps=11 format=4 uid="uid://c8wtlv7s0jxwr"]
 
 [ext_resource type="Script" path="res://scripts/chunk.gd" id="1_bemx6"]
-[ext_resource type="Texture2D" uid="uid://dbxmhmrik75ch" path="res://assets/sprites/platform.png" id="2_68via"]
 [ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="3_4n8no"]
 [ext_resource type="Texture2D" uid="uid://cjv214hth048p" path="res://assets/sprites/SpriteSheetCave.png" id="3_8wwov"]
 [ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="4_at5aa"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5gddb"]
-texture = ExtResource("2_68via")
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ad2qm"]
-texture = ExtResource("2_68via")
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g8vh8"]
 texture = ExtResource("3_8wwov")
@@ -86,8 +75,6 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_ago5b"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_5gddb")
-sources/1 = SubResource("TileSetAtlasSource_ad2qm")
 sources/4 = SubResource("TileSetAtlasSource_380gc")
 sources/2 = SubResource("TileSetAtlasSource_g8vh8")
 

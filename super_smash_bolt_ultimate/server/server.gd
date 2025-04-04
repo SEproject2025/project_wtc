@@ -2,7 +2,9 @@ extends Node
 
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
 START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS, AI_SEED, \
-GENERATE_SEED}
+GENERATE_SEED, SPECTATOR, RESTART_LOBBY}
+
+enum LobbyState {NOT_STARTED, STARTED}
 
 var server = TCPServer.new()
 var hard_coded_port = 9999
@@ -18,6 +20,7 @@ class Peer extends RefCounted:
 	var ws = WebSocketPeer.new()
 	var user_name : String = ""
 	var is_host : bool = false
+	var is_spectator: bool = false
 
 	func _init(peer_id, tcp):
 		id = peer_id
@@ -38,10 +41,13 @@ class Lobby extends RefCounted:
 	var peers = []
 	var sealed : bool = false
 	var _name : String = ""
+	var state : LobbyState = LobbyState.NOT_STARTED
+	var seed : int = RandomNumberGenerator.new().randi()
+	var host_id: int
 
-	func _init(host_id : int, _lobby_name : String):
+	func _init(_host_id : int, _lobby_name : String):
 		_name = _lobby_name
-
+		host_id = _host_id
 
 
 func _init():
@@ -122,11 +128,12 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 				all_peer_ids += str(player.id) + "***"
 				spawn_positions_by_id[player.id] = spawn_positions.pop_front()
 
+			current_lobby.state = LobbyState.STARTED
 			for player in current_lobby.peers:
 				player.send_msg(Message.GAME_STARTING, 0 , all_peer_ids)
+				player.send_msg(Message.MAP_SEED, 0, str(current_lobby.seed))
 				player.send_msg(Message.SPAWN_POSITIONS, 0 , var_to_str(spawn_positions_by_id))
 				player.send_msg(Message.AI_SEED, 0 , var_to_str(ai_seed))
-
 		return true
 
 	if type == Message.OFFER:
@@ -168,7 +175,7 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 	if type == Message.LEFT_LOBBY or type == Message.LEFT_GAME:
 		var lobby = find_lobby_by_name(data)
 		if lobby:
-			if lobby.peers.size() == 1:
+			if lobby.peers.size() == 1 or lobby.peers.all(func(p): return p.is_spectator == true or p.id == peer.id):
 				to_remove_lobbys.push_back(lobby)
 				peer.is_host = false
 			elif  lobby.peers.size() > 1:
@@ -184,10 +191,12 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 								delete_after = lobby_peer
 
 					lobby.peers.erase(delete_after)
-					lobby.peers[0].is_host = true
+					if peer.id == lobby.host_id and type == Message.LEFT_LOBBY:
+						lobby.host_id = lobby.peers[0].id
+						lobby.peers[0].is_host = true
 
 					for player in lobby.peers:
-						player.send_msg(Message.HOST, lobby.peers[0].id, lobby.peers[0].user_name)
+						player.send_msg(Message.HOST, lobby.host_id, str(lobby.host_id))
 		return true
 
 	if type == Message.USER_INFO:
@@ -233,8 +242,8 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 
 		var lobby = find_lobby_by_name(data)
 		if lobby:
-			peer.send_msg(Message.HOST, lobby.peers[0].id, lobby.peers[0].user_name)
-			peer.send_msg(Message.JOIN_LOBBY, 0, "LOBBY_NAME" + lobby._name)
+			peer.send_msg(Message.HOST, lobby.host_id, str(lobby.host_id))
+			peer.send_msg(Message.JOIN_LOBBY, peer.id, "LOBBY_INFO" + lobby._name + "***" + str(lobby.state))
 
 			for lobby_player in lobby.peers:
 				lobby_player.send_msg(Message.JOIN_LOBBY, peer.id, "NEW_JOINED_USER_NAME" + peer.user_name)
@@ -276,9 +285,21 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 				for j in i.peers:
 						j.send_msg(Message.GENERATE_SEED, 0, str(generated_seed))
 				return true
-
-
-	return false;
+				
+	if type == Message.SPECTATOR:
+		peer.is_spectator = true
+		return true
+	
+	if type == Message.RESTART_LOBBY:
+		var lobby = find_lobby_by_name(data)
+		if lobby:
+			lobby.state = LobbyState.NOT_STARTED
+			lobby.seed = RandomNumberGenerator.new().randi()
+			for lobby_peer in lobby.peers:
+				lobby_peer.send_msg(Message.RESTART_LOBBY, 0, str(lobby.seed) + "***" + str(lobby.state))
+			return true
+	
+	return false
 
 
 func clean_up():

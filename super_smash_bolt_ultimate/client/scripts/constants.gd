@@ -23,6 +23,11 @@ class Player:
 	const STUN_SPEED = 0.5
 	const DASH_FUEL_CONSUMPTION = 25
 	const BUMP_FORCE = Vector2(485, -100)
+	const CAMERA_ZOOM_ARBITRATOR = -132 #Compared to a camera's global position, which is tied to the player
+	const MIN_CAMERA_ZOOM = Vector2(1.4, 1.4)
+	const MAX_CAMERA_ZOOM = Vector2(2.0, 2.0)
+	const ZOOM_OUT_RATE = Vector2(0.01, 0.01)
+	const ZOOM_IN_RATE = Vector2(0.003, 0.003)
 class DeathWall:
 	const WALL_TERMINAL_VELOCITY := 150.0
 	const WALL_INITIAL_VELOCITY  := 70.0
@@ -44,3 +49,5 @@ const powerupIcons: Dictionary = {
 	"OILSPILL": preload("res://assets/powerups (placeholders)/oilspill_icon.png"),
 	"GRAPPLINGHOOK": preload("res://assets/powerups (placeholders)/grapplinghook_icon.png"),
 }
+
+enum LobbyState { NOT_STARTED, STARTED }
