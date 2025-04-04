@@ -489,21 +489,15 @@ collision_mask = 3
 safe_margin = 0.1
 script = ExtResource("1_y2p1t")
 player_input = NodePath("Input")
-player_id = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -7)
 offset = Vector2(0, -50)
 zoom = Vector2(2, 2)
+limit_top = -350
 limit_bottom = 120
 limit_smoothed = true
 position_smoothing_enabled = true
-
-[node name="Label" type="Label" parent="Camera2D"]
-offset_left = -19.0
-offset_top = -80.0
-offset_right = 21.0
-offset_bottom = -57.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -651,6 +645,8 @@ one_shot = true
 [node name="DisplacementUpdateTimer" type="Timer" parent="Timers"]
 autostart = true
 
+[node name="ZoomTimer" type="Timer" parent="Timers"]
+
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_1i0gq")
 
@@ -675,6 +671,12 @@ libraries = {
 "": SubResource("AnimationLibrary_28vel")
 }
 
+[node name="Label" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -87.0
+offset_right = 21.0
+offset_bottom = -64.0
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="dash_timeout"]
 [connection signal="timeout" from="Timers/DashCooldown" to="." method="dash_cooldown_timeout"]
@@ -684,3 +686,4 @@ libraries = {
 [connection signal="timeout" from="Timers/DashEffectTimer" to="." method="_on_dash_effect_timer_timeout"]
 [connection signal="timeout" from="Timers/StunTimer" to="." method="stun_timer_timeout"]
 [connection signal="timeout" from="Timers/DisplacementUpdateTimer" to="." method="on_displacement_update_timer"]
+[connection signal="timeout" from="Timers/ZoomTimer" to="." method="zoom_timer_timeout"]
