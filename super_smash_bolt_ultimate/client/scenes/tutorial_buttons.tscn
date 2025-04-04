@@ -175,6 +175,8 @@ offset_left = 7.0
 offset_top = 20.0
 offset_right = 103.0
 offset_bottom = 33.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.00392157, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_x2g3j")
 text = "to move and jump"
 
@@ -184,6 +186,8 @@ offset_left = 169.0
 offset_top = 20.0
 offset_right = 265.0
 offset_bottom = 33.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_x2g3j")
 text = "can jump as well"
 
@@ -193,6 +197,8 @@ offset_left = 301.0
 offset_top = 20.0
 offset_right = 453.0
 offset_bottom = 49.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_x2g3j")
 text = "lets you dash
 Keep an eye on the cooldown"
@@ -205,6 +211,8 @@ offset_left = 498.0
 offset_top = 20.0
 offset_right = 630.0
 offset_bottom = 33.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_x2g3j")
 text = "lets you use any
 powerup you find"
@@ -216,6 +224,8 @@ offset_left = 657.0
 offset_top = 20.0
 offset_right = 795.0
 offset_bottom = 33.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_x2g3j")
 text = "Get powerups from these"
 

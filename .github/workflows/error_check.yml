@@ -39,14 +39,14 @@ jobs:
     # Import resources before running in headless mode
     - name: Import Resources
       run: |
-       ./godot-editor/Godot_v4.3-stable_linux.x86_64 --headless --no-window --editor --path bolt_away/ --quit
+       ./godot-editor/Godot_v4.3-stable_linux.x86_64 --headless --no-window --editor --path super_smash_bolt_ultimate/ --quit
 
 
     # Run the game in headless mode to check for fatal errors
     - name: Run Godot in Headless Mode and Check for Fatal Errors
       run: |
         set -e  # Fail the job if any command fails
-        ./godot-editor/Godot_v4.3-stable_linux.x86_64 --headless --no-window --path bolt_away/ --quit > stdout.log 2>&1 || (cat stdout.log && exit 1)
+        ./godot-editor/Godot_v4.3-stable_linux.x86_64 --headless --no-window --path super_smash_bolt_ultimate/ --quit > stdout.log 2>&1 || (cat stdout.log && exit 1)
       continue-on-error: false  # Stop the workflow if any error occurs
 
     - name: Show Godot Logs
