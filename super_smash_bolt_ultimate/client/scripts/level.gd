@@ -16,7 +16,7 @@ var start_offset = -200
 var rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
-	User.client.map_seed_received.connect(set_map_seed)
+	rng.seed = User.current_lobby_seed
 	spawn_starting_chunks()
 
 func algorithm(n):
@@ -41,7 +41,6 @@ func spawn_starting_chunks():
 		add_child(instance)
 
 func add_chunk(num, chunkPosition):
-	
 	if (count < 5):
 		var instance = chunks[num].instantiate()
 		instance.position.x = chunkPosition
@@ -64,6 +63,3 @@ func add_chunk(num, chunkPosition):
 		print("heeheehoohoo")
 	count = count + 1
 	print(count)
-
-func set_map_seed(map_seed: int):	
-	rng.seed = map_seed

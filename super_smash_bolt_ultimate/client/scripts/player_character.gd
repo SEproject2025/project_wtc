@@ -28,6 +28,7 @@ var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 var ui_template = preload("res://scenes/UI.tscn")
 var ui
 var lasySyncedDisplacement := 0.0
+var spectator: bool = false
 var stay_zoomed_out = true
 
 @onready var animated_sprite: Sprite2D = $Sprite2D
@@ -60,7 +61,6 @@ var pink_bot_sprite      = preload("res://assets/sprites/character_sprites/pink_
 var zorro_bot_sprite     = preload("res://assets/sprites/character_sprites/zorrobot_mothersheet.png")
 var vermilion_bot_sprite = preload("res://assets/sprites/character_sprites/vermilion_bot_mothersheet.png")
 
-
 @export var player_input: PlayerInput
 @export var player_id := 1:
 	set(id):
@@ -78,10 +78,23 @@ var attack_timer : int = 0
 @onready var character_name = $Control/VBoxContainer/Control2/Label
 
 func _ready():
+	User.client.other_user_joined_game.connect(_other_user_joined_game)
 	player_id = randi_range(1,7)
 	if User.user_name.to_upper() == "ZORRO":
 		player_id = 8
+	
+	if spectator:
+			set_process(false)
+			set_physics_process(false)
+			await get_tree().create_timer(.01).timeout
+			set_invisible.rpc()
+			_set_rpc_visiblity_off.rpc()
+			$Camera2D.enabled = false
+			position = get_tree().get_nodes_in_group("Players")[0].position
+			get_parent().get_node("EndPopUp")._on_spectate_pressed()
+			return
 	reset()
+	
 
 func _process(_delta):
 	check_health()
@@ -113,27 +126,25 @@ func reset():
 		$Camera2D.make_current()
 		$Label.show()
 		character_name.text = User.user_name
-		set_sprite.rpc(player_id)
-		set_player_name.rpc(User.user_name)
 		
 		ui = ui_template.instantiate()
-		get_tree().get_root().add_child(ui)
+		get_tree().get_root().get_node("game_scene").add_child(ui)
 		ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
 	else:
 		$Label.hide()
 		displacement_hud.text = ""
-		character_name.text = "Other player"
+		character_name.text = "Other player" if character_name.text == 'Player Name' else character_name.text
 
-	await get_tree().create_timer(5.0).timeout
-	
-	set_physics_process(is_authority)
-	set_process_input(is_authority)
-	set_process(is_authority)
+	if !User.is_spectator:
+		await get_tree().create_timer(5.0).timeout
+		set_physics_process(is_authority)
+		set_process_input(is_authority)
+		set_process(is_authority)
 
 
 func check_health():
 	if health.value <= 0:
-		die.rpc(name)
+		die.rpc(self.name.to_int())
 
 func set_zoom():
 	if $Camera2D.global_position.y < PLAYER.CAMERA_ZOOM_ARBITRATOR and $Camera2D.zoom > PLAYER.MIN_CAMERA_ZOOM:
@@ -440,6 +451,7 @@ func die(player_name: int):
 		$Camera2D.enabled = false
 	if get_multiplayer_authority() == (User.ID):
 		ui.set_visible(false)
+		$PowerUpUI.visible = false
 		get_tree().get_root().get_node("game_scene").enable_death_pop_up()
 	User.client.player_died.emit(player_name)
 		
@@ -460,7 +472,7 @@ func sync_flip(dir : int):
 
 @rpc("any_peer","call_local","reliable")
 func hit_received():
-	anim_tree.start("Hurt", true)
+	# anim_tree.start("Hurt", true)
 	health.value -= 5
 
 @rpc("any_peer")
@@ -483,3 +495,22 @@ func get_bumped(direction: int):
 
 func format_displacement(value: float) -> String:
 	return "Displacement: %.2fm" % value
+
+@rpc("any_peer", "call_local", "reliable")
+func set_invisible():
+	visible = false
+	alive = false
+	$CollisionShape2D.disabled = true
+	spectator = true
+	
+func _other_user_joined_game(_id: int):
+	if get_multiplayer_authority() == User.ID:
+		await get_tree().create_timer(.01).timeout
+		set_sprite.rpc(player_id)
+		set_player_name.rpc(User.user_name)
+
+@rpc("any_peer", "call_local", "reliable")
+func _set_rpc_visiblity_off():
+	$MultiplayerSynchronizer.public_visibility = false
+	$Input/InputSynchronizer.public_visibility = false
+	$PlayerSynchronizer.public_visibility = false

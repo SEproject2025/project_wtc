@@ -4,7 +4,7 @@ class_name Client
 # Enum representing the types of messages exchanged between client and server
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
 START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS, AI_SEED, \
-GENERATE_SEED}
+GENERATE_SEED, SPECTATOR, RESTART_LOBBY}
 
 var rtc_mp = WebRTCMultiplayerPeer.new()
 var ws = WebSocketPeer.new()
@@ -22,6 +22,7 @@ signal new_lobby(lobby_name : String)
 signal lobby_list_received(lobby_list : PackedStringArray)
 signal lobby_messsage_received(message : String, user_name : String)
 signal other_user_joined_lobby(user_name : String)
+signal other_user_joined_game(id: int)
 signal host_name_received(host_name : String)
 signal some_one_left_lobby(player_name : String)
 signal offer_received(type: String, sdp: String)
@@ -36,7 +37,7 @@ signal some_one_left_game(id : int)
 signal spawn_positions_received(spawn_positions : Dictionary)
 signal player_died(id : int)
 signal generated_seed_received(seed: int)
-
+signal restart_lobby_received(seed: int, state: Constants.LobbyState)
 # Attempt to connect to the WebSocket server
 func _init():
 	var error = ws.connect_to_url(url)
@@ -113,7 +114,7 @@ func parse_msg():
 		return
 	
 	if type == Message.HOST:
-		if id == User.ID and data == User.user_name:
+		if id == User.ID and data == str(User.ID):
 			User.is_host = true
 		else:
 			User.is_host = false
@@ -158,7 +159,8 @@ func parse_msg():
 		if data.contains("INVALID"):
 			invalid_join_lobby_name.emit()
 			return
-		if data.contains("LOBBY_NAME"):
+		if data.contains("LOBBY_INFO"):
+			print(data)
 			join_lobby.emit(data.right(-10))
 			return
 		if data.contains("NEW_JOINED_USER_NAME"):
@@ -171,7 +173,6 @@ func parse_msg():
 			other_user_joined_lobby.emit(data.right(-18))
 			print("Peer name: %s with ID # %s added to the list." %[data.right(-18), id])
 			return
-		return
 	
 	if type == Message.LOBBY_LIST:
 		if data == "":
@@ -207,14 +208,12 @@ func parse_msg():
 		return
 	
 	if type == Message.MAP_SEED:
-		map_seed_received.emit(data.to_int())
+		User.current_lobby_seed = data.to_int()
 		return false
 	
 	if type == Message.LEFT_GAME:
-		if User.peers.has(id):
-			User.peers.erase(id)
-			some_one_left_game.emit(id)
-			print("Peer name: %s with ID # %s left the game" %[data, id])
+		some_one_left_game.emit(id)
+		print("Peer name: %s with ID # %s left the game" %[data, id])
 		return
 
 	if type == Message.SPAWN_POSITIONS:
@@ -228,6 +227,13 @@ func parse_msg():
 
 	if type == Message.GENERATE_SEED:
 		generated_seed_received.emit(data.to_int())
+		return
+
+	if type == Message.RESTART_LOBBY:
+		var arr = data.split("***", true, 2)
+		var seed = arr[0].to_int()
+		var state = arr[1].to_int() as Constants.LobbyState
+		restart_lobby_received.emit(seed, state)
 		return
 
 	return false
@@ -280,3 +286,9 @@ func send_left_game(lobby_name: String):
 
 func request_seed():
 	send_msg(Message.GENERATE_SEED, 0, "")
+
+func notify_spectating():
+	send_msg(Message.SPECTATOR, 0, "")
+
+func restart_lobby(lobby_name: String):
+	send_msg(Message.RESTART_LOBBY, 0, lobby_name)
