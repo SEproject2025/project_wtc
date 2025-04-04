@@ -15,6 +15,7 @@ func _ready():
 	User.client.lobby_messsage_received.connect(_lobby_message_received)
 	User.client.other_user_joined_lobby.connect(_other_user_joined_lobby)
 	User.client.some_one_left_lobby.connect(_some_one_left_lobby)
+	User.client.some_one_left_game.connect(_some_one_left_game)
 	User.client.server_changed_host.connect(_server_changed_host)
 	User.delete_in_lobby_menu.connect(_delete_in_lobby_menu)
 	User.client.restart_lobby_received.connect(_restart_lobby_received)
@@ -88,6 +89,9 @@ func _some_one_left_lobby(other_player_name : String):
 	
 	init_player_list()
 	User.init_connection()
+
+func _some_one_left_game(_other_player_id):
+	_some_one_left_lobby("")
 
 func _other_user_joined_lobby(username : String):
 	var container = $Chat/ScrollContainer/VBoxContainer

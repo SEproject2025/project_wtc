@@ -141,7 +141,7 @@ func reset():
 
 func check_health():
 	if health.value <= 0:
-		die.rpc(name)
+		die.rpc(self.name.to_int())
 
 func set_animation():
 	if isDashing:
@@ -456,7 +456,7 @@ func sync_flip(dir : int):
 
 @rpc("any_peer","call_local","reliable")
 func hit_received():
-	anim_tree.start("Hurt", true)
+	# anim_tree.start("Hurt", true)
 	health.value -= 5
 
 @rpc("any_peer")
