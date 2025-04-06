@@ -4,29 +4,33 @@ extends Node2D
 @export  var forestchunks: Array[PackedScene] = []
 @export  var labchunks:    Array[PackedScene] = []
 @onready var parallax_background = $"../CaveBackground"
-var startingChunk: PackedScene = preload("res://chunks/starting_chunk.tscn")
-var cavetoforest:  PackedScene = preload("res://chunks/Cavetoforest.tscn")
-var foresttocave:  PackedScene = preload("res://chunks/Foresttocave.tscn")
-var deathWall:     PackedScene = preload("res://scenes/death_wall.tscn")
+var startingChunk:  PackedScene = preload("res://chunks/starting_chunk.tscn")
+var startingChunk2: PackedScene = preload("res://chunks/starting_chunk_2.tscn")
+var cavetoforest:   PackedScene = preload("res://chunks/Cavetoforest.tscn")
+var foresttocave:   PackedScene = preload("res://chunks/Foresttocave.tscn")
+var deathWall:      PackedScene = preload("res://scenes/death_wall.tscn")
 
 var amnt = 3
+var chunks_per_biome = 5
+var number_of_starting_chunks = 5
 var count = 0
-var offset = 512 
+var offset = 512 #* 3
 var start_offset = -200
 var rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
-	rng.seed = User.current_lobby_seed
-	spawn_starting_chunks()
+	User.client.map_seed_received.connect(set_map_seed)
+	
 
 func algorithm(n):
-	if (count < 5):
+	print("rng: ", rng.seed, "USER ID: ", str(User.ID))
+	if (count < chunks_per_biome):
 		var num = rng.randi_range(0, chunks.size()-1)
 		add_chunk(num, n)
-	elif (count == 5):
+	elif (count == chunks_per_biome):
 		var num = rng.randi_range(0, forestchunks.size()-1)
 		add_chunk(num, n)
-	elif (count < 10):
+	elif (count < chunks_per_biome * 2):
 		var num = rng.randi_range(0, forestchunks.size()-1)
 		add_chunk(num, n)
 	else:
@@ -35,31 +39,36 @@ func algorithm(n):
 		count = 0
 
 func spawn_starting_chunks():
-	for n in amnt:
-		var instance = startingChunk.instantiate()
-		instance.position.x = n*offset + start_offset
-		add_child(instance)
+	for n in number_of_starting_chunks:
+		if n != number_of_starting_chunks - 1:
+			var instance = startingChunk.instantiate()
+			instance.position.x = n*offset + start_offset
+			add_child(instance)
+		else:
+			var instance = startingChunk2.instantiate()
+			instance.position.x = n*offset + start_offset
+			add_child(instance)
 
 func add_chunk(num, chunkPosition):
-	if (count < 5):
+	if (count < chunks_per_biome):
 		var instance = chunks[num].instantiate()
 		instance.position.x = chunkPosition
 		add_child(instance)
-		print("yeet")
-	elif (count == 5):
+	elif (count == chunks_per_biome):
 		var instance = cavetoforest.instantiate()
 		instance.position.x = chunkPosition
 		add_child(instance)
-		print("forest")
-	elif (count < 10):
+	elif (count < chunks_per_biome * 2):
 		var instance = forestchunks[num].instantiate()
 		instance.position.x = chunkPosition
 		add_child(instance)
-		print("yote")
 	else:
 		var instance = foresttocave.instantiate()
 		instance.position.x = chunkPosition
 		add_child(instance)
-		print("heeheehoohoo")
 	count = count + 1
-	print(count)
+	print("chunk ", count, " instantiated!")
+
+func set_map_seed(map_seed: int):	
+	rng.seed = map_seed
+	spawn_starting_chunks()

@@ -30,6 +30,11 @@ var ui
 var lasySyncedDisplacement := 0.0
 var spectator: bool = false
 var stay_zoomed_out = true
+var zoom_snap_back: bool = false
+var is_in_cave = true
+var cave_background_preloaded = preload("res://scenes/CaveBackground.tscn")
+var cave_background
+var background_transition_activate = false
 
 @onready var animated_sprite: Sprite2D = $Sprite2D
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
@@ -46,10 +51,11 @@ var stay_zoomed_out = true
 @onready var oilSpillTimer: Timer = $Timers/OilSpillTimer
 @onready var stunTimer:Timer = $Timers/StunTimer
 @onready var hitFlashAnimationPlayer = $HitFlashAnimationPlayer
-@onready var displacement_hud = $Label
+@onready var zoom_timer: Timer = $Timers/ZoomTimer
+@onready var displacement_hud = $Displacement_Label
 @onready var displacementUpdateTimer: Timer = $Timers/DisplacementUpdateTimer
 @onready var death_explosion = preload("res://scenes/death_explosion.tscn")
-@onready var zoom_timer: Timer = $Timers/ZoomTimer
+@onready var background_manager = $CaveBackground
 
 var yellow_bot_sprite    = preload("res://assets/sprites/character_sprites/mine_bot_mothersheet_complete.png")
 var red_bot_sprite       = preload("res://assets/sprites/character_sprites/red_bot_mothersheet.png")
@@ -106,6 +112,12 @@ func _process(_delta):
 		ui.fuel.value = ui.fuel.max_value - (dashCooldown.time_left * 10)
 	if powerupManager.is_jetpack_active or powerupManager.is_dash_powerup_active:
 		ui.power_fuel.value = powerupManager.fuel
+	if zoom_snap_back and !Input.is_action_pressed("look_down"):
+		if $Camera2D.zoom < Vector2(2.0, 2.0):
+			$Camera2D.zoom += Vector2(0.01, 0.01)
+		else:
+			zoom_snap_back = false
+			$Camera2D.limit_bottom = 120
 
 func _physics_process(delta):
 	apply_movement(delta)
@@ -124,14 +136,17 @@ func reset():
 	if is_authority:
 		$Camera2D.enabled = true
 		$Camera2D.make_current()
-		$Label.show()
+		displacement_hud.show()
 		character_name.text = User.user_name
 		
 		ui = ui_template.instantiate()
 		get_tree().get_root().get_node("game_scene").add_child(ui)
 		ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
+		
+		cave_background = cave_background_preloaded.instantiate()
+		get_tree().get_root().add_child(cave_background)
 	else:
-		$Label.hide()
+		displacement_hud.hide()
 		displacement_hud.text = ""
 		character_name.text = "Other player" if character_name.text == 'Player Name' else character_name.text
 
@@ -141,6 +156,13 @@ func reset():
 		set_process_input(is_authority)
 		set_process(is_authority)
 
+func set_background(background_type: String):
+	if cave_background:
+		match background_type:
+			"cave":
+				cave_background.foresttocave()
+			"forest":
+				cave_background.cavetoforest()
 
 func check_health():
 	if health.value <= 0:
@@ -261,6 +283,16 @@ func apply_movement(delta: float):
 		if !isDashing:
 			start_dash()
 
+	if Input.is_action_pressed("look_down"):
+		$Camera2D.position.y  += PLAYER.DOWNWARD_CAMERA_SPEED
+		$Camera2D.limit_bottom = PLAYER.EXTENDED_CAMERA_BOTTOM_LIMIT
+		if $Camera2D.zoom >= PLAYER.MINIMUM_CAMERA_ZOOM:
+			$Camera2D.zoom += PLAYER.CAMERA_ZOOM_OUT_INCREMENT
+
+	if Input.is_action_just_released("look_down"):
+		$Camera2D.position.y = 0
+		zoom_snap_back = true
+
 	var wasOnFloor = is_on_floor()
 	move_and_slide()
 	displacement += global_position.x - prev_x
@@ -313,6 +345,7 @@ func return_gravity():
 		bumped = false
 		fall_rate = PLAYER.DECELERATE_ON_JUMP_RELEASE
 	return gravity
+
 func die_explode():
 	var begin_death = death_explosion.instantiate()
 	add_child(begin_death)
@@ -444,7 +477,7 @@ func die(player_name: int):
 	set_process(false)
 	alive = false
 	$Sprite2D.visible = false
-	$Label.visible = false
+	displacement_hud.visible = false
 	$Control.visible = false
 	await get_tree().create_timer(0.5).timeout
 	if get_tree().get_nodes_in_group("Players").filter(func(player): return player.alive).size() > 0:

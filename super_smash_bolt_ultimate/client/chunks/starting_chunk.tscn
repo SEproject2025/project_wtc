@@ -1,11 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://mn7s2brx2fws"]
+[gd_scene load_steps=5 format=4 uid="uid://mn7s2brx2fws"]
 
-[ext_resource type="Script" path="res://scripts/chunk.gd" id="1_6xa0p"]
 [ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="3_r74tu"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="4_1vrcv"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kn3qu"]
-resource_name = "<null>"
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x8cx2"]
 texture = ExtResource("3_r74tu")
 texture_region_size = Vector2i(32, 32)
 1:0/0 = 0
@@ -43,10 +41,9 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_fghnj"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
-sources/4 = SubResource("TileSetAtlasSource_kn3qu")
+sources/4 = SubResource("TileSetAtlasSource_x8cx2")
 
 [node name="StartingChunk" type="Node2D"]
-script = ExtResource("1_6xa0p")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 visibility_layer = 7

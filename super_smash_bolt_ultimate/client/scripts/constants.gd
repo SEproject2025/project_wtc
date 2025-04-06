@@ -28,6 +28,15 @@ class Player:
 	const MAX_CAMERA_ZOOM = Vector2(2.0, 2.0)
 	const ZOOM_OUT_RATE = Vector2(0.01, 0.01)
 	const ZOOM_IN_RATE = Vector2(0.003, 0.003)
+	const DEFAULT_CAMERA_BOTTOM_LIMIT = 120.0
+	const DEFAULT_CAMERA_ZOOM = Vector2(2.0, 2.0)
+	const DOWNWARD_CAMERA_SPEED = 7.0
+	const CAMERA_ZOOM_IN_INCREMENT = Vector2(0.01, 0.01)
+	const CAMERA_ZOOM_OUT_INCREMENT = Vector2(-0.05, -0.05)
+	const EXTENDED_CAMERA_BOTTOM_LIMIT = 180.0
+	const MINIMUM_CAMERA_ZOOM = Vector2(1.7, 1.7)
+	
+	
 class DeathWall:
 	const WALL_TERMINAL_VELOCITY := 150.0
 	const WALL_INITIAL_VELOCITY  := 70.0

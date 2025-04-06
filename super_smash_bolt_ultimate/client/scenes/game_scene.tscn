@@ -90,7 +90,9 @@ transform = Transform2D(1, 0, 0, 1, 0, -550)
 scroll_base_offset = Vector2(0, 90)
 
 [node name="CaveBackground" parent="." instance=ExtResource("3_e5nna")]
+visible = false
 offset = Vector2(0, -240)
+scale = Vector2(1, 1)
 transform = Transform2D(1, 0, 0, 1, 0, -240)
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("4_kmxhs")]

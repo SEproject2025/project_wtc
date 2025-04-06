@@ -3,12 +3,14 @@ extends Area2D
 
 @export var powerups:Array[Constants.PowerUpType]
 @export var powerupProbabilities: Array[float]
+@onready var animation_player = $AnimationPlayer
 
 func _ready() -> void:
 	var sum = 0.0
 	for i in range(powerups.size()):
 		sum += powerupProbabilities[i]
 	assert(sum == 1.0)
+	animation_player.play("idle")
 
 func _on_body_entered(body):
 	if body.is_in_group("Players"):

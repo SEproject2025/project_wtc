@@ -18,6 +18,7 @@ var pullTargetPosition: Vector2
 var isGrappling: bool = false
 var isBeingGrappled: bool = false
 var isSlipping: bool = false
+var zoom_snap_back: bool = false
 var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 
 @onready var animated_sprite: Sprite2D = $Sprite2D
@@ -67,6 +68,12 @@ func _process(_delta):
 		powerupManager.use_powerup()
 	if Input.is_action_just_pressed("reset"):
 		reset()
+	if zoom_snap_back and !Input.is_action_pressed("look_down"):
+		if $Camera2D.zoom < Vector2(2.0, 2.0):
+			$Camera2D.zoom += Vector2(0.01, 0.01)
+		else:
+			zoom_snap_back = false
+			$Camera2D.limit_bottom = 160
 
 func _physics_process(delta):
 	apply_movement(delta)
@@ -186,7 +193,17 @@ func apply_movement(delta: float):
 	if !Input.is_action_pressed("jump") and velocity.y < 0:
 		velocity.y *= fall_rate
 
-	if is_on_wall_only() and Input.get_axis("move_left", "move_right"):
+	if Input.is_action_pressed("look_down"):
+		$Camera2D.position.y += 7
+		$Camera2D.limit_bottom = 200
+		if $Camera2D.zoom >= Vector2(1.5, 1.5):
+			$Camera2D.zoom += Vector2(-0.05, -0.05)
+
+	if Input.is_action_just_released("look_down"):
+		$Camera2D.position.y = 0
+		zoom_snap_back = true
+
+	if is_on_wall_only():
 		wall_slide()
 
 	if isSlipping:
