@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://ssnxjecv0xkf"]
+[gd_scene load_steps=7 format=3 uid="uid://ssnxjecv0xkf"]
 
 [ext_resource type="Script" path="res://scripts/powerups/powerup_spawner.gd" id="1_pl8qu"]
 [ext_resource type="Texture2D" uid="uid://c644jhkdq338h" path="res://assets/powerups (placeholders)/Question.png" id="4_chijt"]
@@ -6,7 +6,45 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_a6lfy"]
 radius = 3.0
 
+[sub_resource type="Animation" id="Animation_as1tl"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.5, 0.766667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(2.38419e-07, -5.96046e-08), Vector2(0, -1.25), Vector2(0, 0), Vector2(0, 1.25), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_illy2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.38419e-07, -5.96046e-08)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xabdn"]
+_data = {
+"RESET": SubResource("Animation_illy2"),
+"idle": SubResource("Animation_as1tl")
+}
+
 [node name="PowerUpSpawner" type="Area2D"]
+scale = Vector2(2, 2)
 collision_mask = 2
 script = ExtResource("1_pl8qu")
 powerups = Array[int]([1, 2])
@@ -16,8 +54,14 @@ powerupProbabilities = Array[float]([0.5, 0.5])
 shape = SubResource("CircleShape2D_a6lfy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1.9, 0.79, 0, 1)
 position = Vector2(2.38419e-07, -5.96046e-08)
-scale = Vector2(0.130022, 0.112723)
+scale = Vector2(0.118582, 0.112723)
 texture = ExtResource("4_chijt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xabdn")
+}
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

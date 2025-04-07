@@ -14,3 +14,7 @@
 **/data_*/
 **/mono_crash.*.json
 *.dll
+super_smash_bolt_ultimate/client/addons/limboai/bin/~liblimboai.windows.editor.x86_64.dll
+super_smash_bolt_ultimate/client/webrtc/lib/~libwebrtc_native.windows.template_debug.x86_64.dll
+super_smash_bolt_ultimate/client/addons/limboai/bin/~liblimboai.windows.editor.x86_64.dll
+/super_smash_bolt_ultimate/client/addons/limboai/bin

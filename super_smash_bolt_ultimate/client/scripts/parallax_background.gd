@@ -8,6 +8,7 @@ func _ready():
 
 func cavetoforest():
 	animation_player.play("Scene transition")
-	
+	print("cavetoforest!")
 func foresttocave():
 	animation_player.play("foresttocave")
+	print("foresttocave!")

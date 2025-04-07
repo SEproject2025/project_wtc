@@ -1,6 +1,5 @@
 extends AudioStreamPlayer
 
-
 var fading = false
 var play_sound = true
 

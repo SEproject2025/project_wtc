@@ -1,10 +1,11 @@
-[gd_scene load_steps=63 format=3 uid="uid://bqiu1wtam800"]
+[gd_scene load_steps=64 format=3 uid="uid://bqiu1wtam800"]
 
 [ext_resource type="Script" path="res://scripts/test_player_character_script.gd" id="1_636bd"]
 [ext_resource type="Script" path="res://scripts/powerups/powerup_manager.gd" id="2_eolm8"]
 [ext_resource type="PackedScene" uid="uid://ld0nfnklnql6" path="res://scenes/powerups/power_up_ui.tscn" id="2_xukkd"]
 [ext_resource type="Script" path="res://scripts/multiplayer_input.gd" id="4_dhsi6"]
 [ext_resource type="Texture2D" uid="uid://bmuq3tb85fm8d" path="res://assets/sprites/character_sprites/orange_bot_mothersheet.png" id="5_isygt"]
+[ext_resource type="PackedScene" uid="uid://dbvkq2bq688np" path="res://scenes/CaveBackground.tscn" id="6_lye8l"]
 
 [sub_resource type="Animation" id="Animation_bvmwo"]
 length = 0.001
@@ -561,6 +562,12 @@ frame = 16
 metadata/_edit_lock_ = true
 
 [node name="Death_Explosion" type="Node2D" parent="."]
+
+[node name="CaveBackground" parent="." instance=ExtResource("6_lye8l")]
+offset = Vector2(0, -500)
+scale = Vector2(2.05, 2.05)
+transform = Transform2D(2.05, 0, 0, 2.05, 0, -500)
+scroll_ignore_camera_zoom = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timers/DashTimer" to="." method="dash_timeout"]
