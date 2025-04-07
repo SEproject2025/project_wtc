@@ -5,7 +5,6 @@ extends CanvasLayer
 
 func update_active_icon(powerup_type: Constants.PowerUpType):
 	if Constants.powerupIcons.has(Constants.PowerUpType.keys()[powerup_type]):
-		print("HERE")
 		active.get_node("Icon").texture = Constants.powerupIcons[Constants.PowerUpType.keys()[powerup_type]]
 	else:
 		active.get_node("Icon").texture = null

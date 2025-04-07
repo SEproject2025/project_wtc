@@ -1,0 +1,99 @@
+[gd_scene load_steps=9 format=3 uid="uid://dcucscyxyq0xi"]
+
+[ext_resource type="Texture2D" uid="uid://cdvvnmp4bgfxp" path="res://assets/Menu_assets/Logo_10.png" id="2_uw60c"]
+[ext_resource type="Script" path="res://scripts/menu_buttons.gd" id="3_f7fcp"]
+[ext_resource type="Texture2D" uid="uid://bhkli5ydhud0f" path="res://assets/Menu_assets/Multiplayer_10.png" id="3_giwt4"]
+[ext_resource type="Texture2D" uid="uid://bu8sxlu4isyjv" path="res://assets/Menu_assets/singleplayer_10.png" id="4_13b3g"]
+[ext_resource type="Texture2D" uid="uid://c5ymtjosfisq4" path="res://assets/Menu_assets/Multiplayer_hovered_10.png" id="4_wy57e"]
+[ext_resource type="Texture2D" uid="uid://12yqccx886lb" path="res://assets/Menu_assets/singleplayer_hovered_10.png" id="5_uw0rn"]
+[ext_resource type="Texture2D" uid="uid://ynwhe8u7qvi8" path="res://assets/Menu_assets/settings_10.png" id="8_4rfpj"]
+[ext_resource type="Texture2D" uid="uid://bocfno6y2q5gi" path="res://assets/Menu_assets/settings_hovered_10.png" id="9_alecc"]
+
+[node name="Title Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo11" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(630, 160)
+texture = ExtResource("2_uw60c")
+
+[node name="Logo10" type="Sprite2D" parent="."]
+modulate = Color(0.925354, 0.925352, 0.925353, 1)
+position = Vector2(635, 155)
+texture = ExtResource("2_uw60c")
+
+[node name="Title_Screen_box" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -299.0
+offset_top = -55.0
+offset_right = 299.0
+offset_bottom = 262.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 35
+script = ExtResource("3_f7fcp")
+
+[node name="Singleplayer" type="Button" parent="Title_Screen_box"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 103)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Multiplayer")
+
+[node name="Singleplayer10" type="Sprite2D" parent="Title_Screen_box"]
+position = Vector2(297, 55)
+texture = ExtResource("4_13b3g")
+
+[node name="SingleplayerHovered10" type="Sprite2D" parent="Title_Screen_box"]
+visible = false
+position = Vector2(277, 48)
+texture = ExtResource("5_uw0rn")
+
+[node name="Multiplayer" type="Button" parent="Title_Screen_box"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 103)
+layout_mode = 2
+focus_neighbor_top = NodePath("../Singleplayer")
+focus_neighbor_bottom = NodePath("../Leaderboard")
+
+[node name="Multiplayer10" type="Sprite2D" parent="Title_Screen_box"]
+position = Vector2(298, 193)
+texture = ExtResource("3_giwt4")
+
+[node name="MultiplayerHovered10" type="Sprite2D" parent="Title_Screen_box"]
+visible = false
+position = Vector2(298, 193)
+texture = ExtResource("4_wy57e")
+
+[node name="Leaderboard" type="Button" parent="Title_Screen_box"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 103)
+layout_mode = 2
+focus_neighbor_top = NodePath("../Multiplayer")
+
+[node name="Leaderboard10" type="Sprite2D" parent="Title_Screen_box"]
+position = Vector2(298, 330)
+texture = ExtResource("8_4rfpj")
+
+[node name="LeaderboardHovered10" type="Sprite2D" parent="Title_Screen_box"]
+visible = false
+position = Vector2(277, 323)
+texture = ExtResource("9_alecc")
+
+[connection signal="mouse_entered" from="Title_Screen_box/Singleplayer" to="Title_Screen_box" method="_on_singleplayer_button_entered"]
+[connection signal="mouse_exited" from="Title_Screen_box/Singleplayer" to="Title_Screen_box" method="_on_singleplayer_button_exited"]
+[connection signal="mouse_entered" from="Title_Screen_box/Multiplayer" to="Title_Screen_box" method="_on_multiplayer_button_entered"]
+[connection signal="mouse_exited" from="Title_Screen_box/Multiplayer" to="Title_Screen_box" method="_on_multiplayer_button_exited"]
+[connection signal="mouse_entered" from="Title_Screen_box/Leaderboard" to="Title_Screen_box" method="_on_leaderboard_button_entered"]
+[connection signal="mouse_exited" from="Title_Screen_box/Leaderboard" to="Title_Screen_box" method="_on_leaderboard_button_exited"]

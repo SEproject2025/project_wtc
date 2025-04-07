@@ -1,26 +1,31 @@
 extends CanvasLayer
 
 var pop_up_template = preload("res://scenes/pop_up.tscn")
+var in_lobby_menu_template = preload("res://scenes/in_lobby_menu.tscn")
+
 func _on_continue_pressed():
-	queue_free()
+	visible = false
 
 func _on_quit_pressed():
 	var pop_up = pop_up_template.instantiate()
-	pop_up.set_msg("   returning to the lobby menu...")
+	pop_up.set_msg("   returning to lobby...")
 	pop_up.is_button_visible(false)
 	add_child(pop_up)
-	User.is_host = false
-	User.host_name = ""
-	User.peers.clear()
-	User.connection_list.clear()
+	
+	if get_tree().get_nodes_in_group("Players"):
+		User.client.restart_lobby(User.current_lobby_name)
+		await get_tree().create_timer(.2).timeout
+		
+	User.is_spectator = false
 	User.client.send_left_game(User.current_lobby_name)
-	await get_tree().create_timer(1).timeout
-	User.client.request_lobby_list()
-	get_tree().get_root().add_child(load("res://scenes/lobby_menu.tscn").instantiate())
+	await get_tree().create_timer(.2).timeout
 	pop_up.queue_free()
+	var in_lobby_menu = in_lobby_menu_template.instantiate()
+	in_lobby_menu.init_connection = false
+	get_tree().get_root().get_node("main").add_child(in_lobby_menu)
+	
+	User.client.request_join_lobby(User.current_lobby_name)
+	
 	var game_scene_node = get_tree().get_root().get_node("game_scene")
-	var spectator_overlay_node = get_tree().get_root().get_node("SpectatorOverlay")
-	spectator_overlay_node.queue_free()
-	game_scene_node.get_node(str(User.ID)).queue_free()
 	game_scene_node.queue_free()
 	queue_free()

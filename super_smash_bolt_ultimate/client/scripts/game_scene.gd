@@ -13,22 +13,26 @@ var pop_up
 
 func _ready():
 	User.client.some_one_left_game.connect(player_left)
-	pop_up = pop_up_template.instantiate()
-	pop_up.name = "pop_up"
-	pop_up.set_msg("5")
-	pop_up.is_button_visible(false)
-	pop_up.set_background_color(Color(0, 0, 0, 0))
-	pop_up.position.x = POP_UP_START_POSITION_X
-	pop_up.position.y = POP_UP_START_POSITION_Y
-	pop_up.z_index = 10
-	add_child(pop_up)
+	User.client.other_user_joined_lobby.connect(_other_user_joined_game)
+	if !User.is_spectator:
+		pop_up = pop_up_template.instantiate()
+		pop_up.name = "pop_up"
+		pop_up.set_msg("5")
+		pop_up.is_button_visible(false)
+		pop_up.set_background_color(Color(0, 0, 0, 0))
+		pop_up.position.x = POP_UP_START_POSITION_X
+		pop_up.position.y = POP_UP_START_POSITION_Y
+		pop_up.z_index = 10
+		add_child(pop_up)
+	else:
+		set_process(false)
 	
 	end_vbox.get_node("Message").visible = false
 	end_vbox.get_node("BoxContainer").visible = false
 	end_vbox.get_node("LeaderboardContainer").visible = false
 	
-	if User.is_host:
-		User.client.send_map_seed(RandomNumberGenerator.new().randi())
+	#if User.is_host:
+		#User.client.send_map_seed(RandomNumberGenerator.new().randi())
 	
 
 
@@ -59,8 +63,14 @@ func _on_button_pressed():
 
 func player_left(other_player_id : int):
 	User.rtc_peer.peer_disconnected.emit(other_player_id)
+	# get_node(str(other_player_id)).queue_free()
 
 func enable_death_pop_up() -> void:
 	end_pop_up.setup()
 	end_vbox.get_node("Message").visible = true
 	end_vbox.get_node("BoxContainer").visible = true
+
+func _other_user_joined_game(_username: String):
+	for peer_id in User.peers.keys():
+		if !User.connection_list.has(peer_id):
+			User.connect_to_peer(peer_id)

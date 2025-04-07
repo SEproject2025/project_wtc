@@ -28,6 +28,8 @@ var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 var ui_template = preload("res://scenes/UI.tscn")
 var ui
 var lasySyncedDisplacement := 0.0
+var spectator: bool = false
+var stay_zoomed_out = true
 var zoom_snap_back: bool = false
 var is_in_cave = true
 var cave_background_preloaded = preload("res://scenes/CaveBackground.tscn")
@@ -49,9 +51,11 @@ var background_transition_activate = false
 @onready var oilSpillTimer: Timer = $Timers/OilSpillTimer
 @onready var stunTimer:Timer = $Timers/StunTimer
 @onready var hitFlashAnimationPlayer = $HitFlashAnimationPlayer
+@onready var displacement_hud = $Label
 @onready var displacement_hud = $Displacement_Label
 @onready var displacementUpdateTimer: Timer = $Timers/DisplacementUpdateTimer
 @onready var death_explosion = preload("res://scenes/death_explosion.tscn")
+@onready var zoom_timer: Timer = $Timers/ZoomTimer
 @onready var background_manager = $CaveBackground
 
 var yellow_bot_sprite    = preload("res://assets/sprites/character_sprites/mine_bot_mothersheet_complete.png")
@@ -63,7 +67,6 @@ var green_bot_sprite     = preload("res://assets/sprites/character_sprites/lime_
 var pink_bot_sprite      = preload("res://assets/sprites/character_sprites/pink_bot_mothersheet.png")
 var zorro_bot_sprite     = preload("res://assets/sprites/character_sprites/zorrobot_mothersheet.png")
 var vermilion_bot_sprite = preload("res://assets/sprites/character_sprites/vermilion_bot_mothersheet.png")
-
 
 @export var player_input: PlayerInput
 @export var player_id := 1:
@@ -82,14 +85,28 @@ var attack_timer : int = 0
 @onready var character_name = $Control/VBoxContainer/Control2/Label
 
 func _ready():
+	User.client.other_user_joined_game.connect(_other_user_joined_game)
 	player_id = randi_range(1,7)
 	if User.user_name.to_upper() == "ZORRO":
 		player_id = 8
+	
+	if spectator:
+			set_process(false)
+			set_physics_process(false)
+			await get_tree().create_timer(.01).timeout
+			set_invisible.rpc()
+			_set_rpc_visiblity_off.rpc()
+			$Camera2D.enabled = false
+			position = get_tree().get_nodes_in_group("Players")[0].position
+			get_parent().get_node("EndPopUp")._on_spectate_pressed()
+			return
 	reset()
+	
 
 func _process(_delta):
 	check_health()
 	set_animation()
+	set_zoom()
 	if Input.is_action_just_pressed("use_powerup") and !powerupManager.is_jetpack_active and !powerupManager.is_dash_powerup_active:
 		powerupManager.use_powerup()
 	if ui.fuel.value != ui.fuel.max_value:
@@ -120,13 +137,11 @@ func reset():
 	if is_authority:
 		$Camera2D.enabled = true
 		$Camera2D.make_current()
-		displacement_hud.show()
+		$Label.show()
 		character_name.text = User.user_name
-		set_sprite.rpc(player_id)
-		set_player_name.rpc(User.user_name)
 		
 		ui = ui_template.instantiate()
-		get_tree().get_root().add_child(ui)
+		get_tree().get_root().get_node("game_scene").add_child(ui)
 		ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
 		
 		cave_background = cave_background_preloaded.instantiate()
@@ -134,13 +149,13 @@ func reset():
 	else:
 		displacement_hud.hide()
 		displacement_hud.text = ""
-		character_name.text = "Other player"
+		character_name.text = "Other player" if character_name.text == 'Player Name' else character_name.text
 
-	await get_tree().create_timer(5.0).timeout
-	
-	set_physics_process(is_authority)
-	set_process_input(is_authority)
-	set_process(is_authority)
+	if !User.is_spectator:
+		await get_tree().create_timer(5.0).timeout
+		set_physics_process(is_authority)
+		set_process_input(is_authority)
+		set_process(is_authority)
 
 func set_background(background_type: String):
 	if cave_background:
@@ -152,7 +167,16 @@ func set_background(background_type: String):
 
 func check_health():
 	if health.value <= 0:
-		die.rpc(name)
+		die.rpc(self.name.to_int())
+
+func set_zoom():
+	if $Camera2D.global_position.y < PLAYER.CAMERA_ZOOM_ARBITRATOR and $Camera2D.zoom > PLAYER.MIN_CAMERA_ZOOM:
+		$Camera2D.zoom -= PLAYER.ZOOM_OUT_RATE
+		#stay_zoomed_out = true #This feature is not ready to be published. It needs more polish.
+		#zoom_timer.start()
+	elif  $Camera2D.global_position.y > PLAYER.CAMERA_ZOOM_ARBITRATOR and $Camera2D.zoom < PLAYER.MAX_CAMERA_ZOOM: #and !stay_zoomed_out
+		$Camera2D.zoom += PLAYER.ZOOM_IN_RATE
+		
 
 func set_animation():
 	if isDashing:
@@ -366,6 +390,10 @@ func handle_stunned_movement(delta: float):
 #endregion
 
 #region Timers
+func zoom_timer_timeout():
+	stay_zoomed_out = false
+	zoom_timer.stop()
+
 func coyote_timeout():
 	coyoteJump = false
 
@@ -450,6 +478,7 @@ func die(player_name: int):
 	set_process(false)
 	alive = false
 	$Sprite2D.visible = false
+	$Label.visible = false
 	displacement_hud.visible = false
 	$Control.visible = false
 	await get_tree().create_timer(0.5).timeout
@@ -457,6 +486,7 @@ func die(player_name: int):
 		$Camera2D.enabled = false
 	if get_multiplayer_authority() == (User.ID):
 		ui.set_visible(false)
+		$PowerUpUI.visible = false
 		get_tree().get_root().get_node("game_scene").enable_death_pop_up()
 	User.client.player_died.emit(player_name)
 		
@@ -477,7 +507,7 @@ func sync_flip(dir : int):
 
 @rpc("any_peer","call_local","reliable")
 func hit_received():
-	anim_tree.start("Hurt", true)
+	# anim_tree.start("Hurt", true)
 	health.value -= 5
 
 @rpc("any_peer")
@@ -500,3 +530,22 @@ func get_bumped(direction: int):
 
 func format_displacement(value: float) -> String:
 	return "Displacement: %.2fm" % value
+
+@rpc("any_peer", "call_local", "reliable")
+func set_invisible():
+	visible = false
+	alive = false
+	$CollisionShape2D.disabled = true
+	spectator = true
+	
+func _other_user_joined_game(_id: int):
+	if get_multiplayer_authority() == User.ID:
+		await get_tree().create_timer(.01).timeout
+		set_sprite.rpc(player_id)
+		set_player_name.rpc(User.user_name)
+
+@rpc("any_peer", "call_local", "reliable")
+func _set_rpc_visiblity_off():
+	$MultiplayerSynchronizer.public_visibility = false
+	$Input/InputSynchronizer.public_visibility = false
+	$PlayerSynchronizer.public_visibility = false

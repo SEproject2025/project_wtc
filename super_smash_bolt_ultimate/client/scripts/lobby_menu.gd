@@ -20,12 +20,15 @@ func invalid_join_lobby_name():
 	await get_tree().create_timer(1).timeout
 	pop_up.queue_free()
 
-func _join_lobby(lobby_name : String):
+func _join_lobby(lobby_info : String):
+	var arr = lobby_info.split("***")
+	var lobby_name = arr[0]
 	var pop_up = pop_up_template.instantiate()
 	pop_up.set_msg("   joining lobby...")
 	pop_up.is_button_visible(false)
 	add_child(pop_up)
 	User.current_lobby_name = lobby_name
+	User.current_lobby_state = arr[1].to_int() as Constants.LobbyState
 	print("joined lobby %s !" %lobby_name)
 	get_parent().add_child(in_lobby_menu_template.instantiate())
 	queue_free()
