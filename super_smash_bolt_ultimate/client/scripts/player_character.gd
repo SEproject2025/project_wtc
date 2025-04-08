@@ -147,11 +147,11 @@ func check_health():
 		die.rpc(self.name.to_int())
 
 func set_zoom():
-	if $Camera2D.global_position.y < PLAYER.CAMERA_ZOOM_ARBITRATOR and $Camera2D.zoom > PLAYER.MIN_CAMERA_ZOOM:
+	if $Camera2D.global_position.y < PLAYER.CAMERA_ZOOM_UPPER_ARBITRATOR and $Camera2D.zoom > PLAYER.MIN_CAMERA_ZOOM:
 		$Camera2D.zoom -= PLAYER.ZOOM_OUT_RATE
 		#stay_zoomed_out = true #This feature is not ready to be published. It needs more polish.
 		#zoom_timer.start()
-	elif  $Camera2D.global_position.y > PLAYER.CAMERA_ZOOM_ARBITRATOR and $Camera2D.zoom < PLAYER.MAX_CAMERA_ZOOM: #and !stay_zoomed_out
+	elif  $Camera2D.global_position.y > PLAYER.CAMERA_ZOOM_LOWER_ARBITRATOR and $Camera2D.zoom < PLAYER.MAX_CAMERA_ZOOM:
 		$Camera2D.zoom += PLAYER.ZOOM_IN_RATE
 		
 
