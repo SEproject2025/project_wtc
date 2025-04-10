@@ -3,8 +3,10 @@ extends Control
 var lobby_menu_template = preload("res://scenes/lobby_menu.tscn")
 var pop_up_template = preload("res://scenes/pop_up.tscn")
 var main_menu_template = preload("res://scenes/main_menu.tscn")
+var tutorial_template = preload("res://scenes/tutorial.tscn")
 var control_flag : bool = false
 var lobby_menu
+var tutorial
 
 func _ready() -> void:
 	name = "main_menu"
@@ -84,4 +86,9 @@ func _on_multiplayer_pressed():
 	$Title_Screen/Username.set_visible(true)
 	await get_tree().create_timer(0.02).timeout
 	$Title_Screen/Title_Screen_box/Multiplayer10.set_visible(false)
+	pass # Replace with function body.
+
+
+func _on_singleplayer_pressed():
+	get_tree().change_scene_to_file("res://scenes/tutorial.tscn")
 	pass # Replace with function body.
