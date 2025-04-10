@@ -186,6 +186,7 @@ text = "   Failed to Connect!.."
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="pressed" from="Title_Screen/Title_Screen_box/Singleplayer" to="." method="_on_singleplayer_pressed"]
 [connection signal="pressed" from="Title_Screen/Title_Screen_box/Multiplayer" to="." method="_on_multiplayer_pressed"]
 [connection signal="text_submitted" from="Title_Screen/Username" to="." method="_on_username_text_submitted"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

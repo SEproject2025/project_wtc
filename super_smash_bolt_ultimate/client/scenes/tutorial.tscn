@@ -1,16 +1,17 @@
-[gd_scene load_steps=37 format=4 uid="uid://cx70wiev7jjpw"]
+[gd_scene load_steps=39 format=4 uid="uid://cx70wiev7jjpw"]
 
 [ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="1_j1y22"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="2_a4rxe"]
 [ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="3_wlpk0"]
 [ext_resource type="PackedScene" uid="uid://b3wgrdt3g8ekv" path="res://scenes/platform.tscn" id="4_ru3j6"]
 [ext_resource type="Texture2D" uid="uid://cjv214hth048p" path="res://assets/sprites/SpriteSheetCave.png" id="5_3vefo"]
-[ext_resource type="PackedScene" uid="uid://c58usve2vv3gi" path="res://scenes/flying_enemy.tscn" id="6_1v580"]
 [ext_resource type="PackedScene" uid="uid://cpoe72xuywwkb" path="res://scenes/transient_wall.tscn" id="7_vcrbr"]
 [ext_resource type="PackedScene" uid="uid://dv2bl2xbwn1pe" path="res://scenes/transient_platform.tscn" id="8_36r8o"]
 [ext_resource type="PackedScene" uid="uid://bf1cwlaflxa5e" path="res://scenes/obstacles/desert_spikes.tscn" id="9_q3ixy"]
 [ext_resource type="PackedScene" uid="uid://dufupyn6x0rk2" path="res://scenes/tutorial_buttons.tscn" id="10_uvjcp"]
+[ext_resource type="PackedScene" uid="uid://bqiu1wtam800" path="res://scenes/test_player_character.tscn" id="11_ovi1i"]
 [ext_resource type="Texture2D" uid="uid://db85brbhvqcnj" path="res://assets/fonts/arrow.png" id="11_xbvdl"]
+[ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="12_rlbhc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4dmx1"]
 texture = ExtResource("3_wlpk0")
@@ -540,6 +541,9 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_s3ucs")
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_63kyn"]
+distance = -683.0
+
 [node name="Node2D" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -610,9 +614,6 @@ tile_set = SubResource("TileSet_yaaqm")
 position = Vector2(1614, -79)
 powerups = Array[int]([2, 3, 1, 4])
 powerupProbabilities = Array[float]([0.1, 0.3, 0.4, 0.2])
-
-[node name="FlyingEnemy" parent="." instance=ExtResource("6_1v580")]
-position = Vector2(1488, -115)
 
 [node name="TileMapLayer4" type="TileMapLayer" parent="."]
 visibility_layer = 7
@@ -701,3 +702,11 @@ position = Vector2(2593, -143)
 rotation = 1.5708
 scale = Vector2(0.169442, 0.202037)
 texture = ExtResource("11_xbvdl")
+
+[node name="Test Player Character" parent="." instance=ExtResource("11_ovi1i")]
+position = Vector2(-517, -77)
+
+[node name="Killzone" parent="." instance=ExtResource("12_rlbhc")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+shape = SubResource("WorldBoundaryShape2D_63kyn")
