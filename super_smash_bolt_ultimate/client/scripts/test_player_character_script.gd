@@ -19,6 +19,8 @@ var isGrappling: bool = false
 var isBeingGrappled: bool = false
 var isSlipping: bool = false
 var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
+var pause_menu_template = preload("res://scenes/pause_menu_tutorial.tscn")
+var pause_menu = pause_menu_template.instantiate()
 
 @onready var animated_sprite: Sprite2D = $Sprite2D
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
@@ -66,6 +68,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("use_powerup") and !powerupManager.is_jetpack_active and !powerupManager.is_dash_powerup_active:
 		powerupManager.use_powerup()
 	if Input.is_action_just_pressed("reset"):
+		remove_child(pause_menu)
 		reset()
 
 func _physics_process(delta):
@@ -89,6 +92,7 @@ func reset():
 	set_physics_process(true)
 	set_process_input(true)
 	set_process(true)
+	add_child(pause_menu)
 #		set_player_name.rpc(User.user_name)	
 #		if User.is_host:
 #			set_sprite.rpc()

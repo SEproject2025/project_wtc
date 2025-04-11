@@ -9,6 +9,7 @@ var death_wall_start = false
 var   wall_velocity          = WALL_INITIAL_VELOCITY
 
 func _process(delta: float) -> void:
+	pass
 	if death_wall_start:
 		var players = get_tree().get_nodes_in_group("Players")
 		var distance = 100000
@@ -23,6 +24,7 @@ func _process(delta: float) -> void:
 		position.x += (wall_velocity * delta)
 
 func singleplayer_algorithm():
+	pass
 	var player = get_parent().get_node("Player")
 	if((player.position.x - position.x ) > WALL_MAX_DISTANCE):
 		position.x += (player.position.x - position.x) - WALL_MAX_DISTANCE

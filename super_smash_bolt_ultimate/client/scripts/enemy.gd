@@ -54,4 +54,3 @@ func die():
 	await get_tree().create_timer(0.2).timeout
 	alive = false
 	queue_free()
-
