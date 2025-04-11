@@ -20,7 +20,7 @@ var is_spectating = false
 
 func _ready() -> void:
 	setup()
-	User.client.connect("player_died", player_died)
+	#User.client.connect("player_died", player_died)
 
 func setup() -> void:
 	all_players = get_tree().get_nodes_in_group("Players")
@@ -59,10 +59,12 @@ func _on_play_again_pressed():
 		if get_tree().get_nodes_in_group("Players").size() <= 1:
 			User.client.restart_lobby(User.current_lobby_name)
 			await get_tree().create_timer(.2).timeout
+		else:
+			User.client.send_left_game(User.current_lobby_name)
+			await get_tree().create_timer(.2).timeout
 
 		User.is_spectator = false
-		User.client.send_left_game(User.current_lobby_name)
-		await get_tree().create_timer(.2).timeout
+		
 		pop_up.queue_free()
 		var in_lobby_menu = in_lobby_menu_template.instantiate()
 		in_lobby_menu.init_connection = false
@@ -86,3 +88,24 @@ func _on_spectate_pressed() -> void:
 	for child in $MarginContainer/VBoxContainer.get_children():
 		if child != leaderboard_container:
 			child.queue_free()
+
+
+func _on_back_to_menu_pressed() -> void:
+	var pop_up = pop_up_template.instantiate()
+	pop_up.set_msg("   returning to the lobby menu...")
+	pop_up.is_button_visible(false)
+	add_child(pop_up)
+	User.is_host = false
+	User.host_name = ""
+	User.peers.clear()
+	User.connection_list.clear()
+	User.client.send_left_game(User.current_lobby_name)
+	if get_tree().get_nodes_in_group("Players").size() <= 1:
+			User.client.restart_lobby(User.current_lobby_name)
+			await get_tree().create_timer(.2).timeout
+	await get_tree().create_timer(1).timeout
+	User.client.request_lobby_list()
+	get_tree().get_root().get_node("main").add_child(load("res://scenes/lobby_menu.tscn").instantiate())
+	pop_up.queue_free()
+	get_tree().get_root().get_node("game_scene").queue_free()
+	queue_free()

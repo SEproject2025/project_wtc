@@ -32,6 +32,7 @@ func _delete_in_lobby_menu():
 
 func _server_changed_host():
 	init_player_list()
+	setup()
 	
 func setup():
 	if User.current_lobby_state == Constants.LobbyState.STARTED:
@@ -87,8 +88,9 @@ func _some_one_left_lobby(other_player_name : String):
 		msg_node.text = "SYSTEM: " + " You are Host now!"
 		container.add_child(msg_node)
 	
-	init_player_list()
 	User.init_connection()
+	init_player_list()
+	
 
 func _some_one_left_game(_other_player_id):
 	_some_one_left_lobby("")
@@ -119,6 +121,7 @@ func _on_return_pressed():
 	User.host_name = ""
 	User.peers.clear()
 	User.connection_list.clear()
+	User.current_lobby_state = Constants.LobbyState.NOT_STARTED
 	User.client.send_left_info(User.current_lobby_name)
 	await get_tree().create_timer(1).timeout
 	User.client.request_lobby_list()

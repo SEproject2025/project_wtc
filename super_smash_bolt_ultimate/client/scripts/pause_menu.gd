@@ -12,7 +12,7 @@ func _on_quit_pressed():
 	pop_up.is_button_visible(false)
 	add_child(pop_up)
 	
-	if get_tree().get_nodes_in_group("Players"):
+	if get_tree().get_nodes_in_group("Players").size() <= 1:
 		User.client.restart_lobby(User.current_lobby_name)
 		await get_tree().create_timer(.2).timeout
 		
