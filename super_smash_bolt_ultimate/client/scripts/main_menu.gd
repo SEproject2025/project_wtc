@@ -5,6 +5,7 @@ var pop_up_template = preload("res://scenes/pop_up.tscn")
 var main_menu_template = preload("res://scenes/main_menu.tscn")
 var control_flag : bool = false
 var lobby_menu
+var bot_color = 1
 
 func _ready() -> void:
 	name = "main_menu"
@@ -45,6 +46,7 @@ func _on_username_text_submitted(_new_text:):
 			lobby_menu = lobby_menu_template.instantiate()
 			User.client.request_lobby_list()
 			User.client.send_user_name($Title_Screen/Username.text)
+			User.player_color = bot_color
 	
 	check_if_connected()
 	pass
@@ -84,4 +86,10 @@ func _on_multiplayer_pressed():
 	$Title_Screen/Username.set_visible(true)
 	await get_tree().create_timer(0.02).timeout
 	$Title_Screen/Title_Screen_box/Multiplayer10.set_visible(false)
-	pass # Replace with function body.
+
+func _on_color_changer_pressed() -> void:
+	$Background/AnimatedBot/AnimationTree.get("parameters/playback").travel("fall_end")
+	bot_color += 1
+	if bot_color > 8:
+		bot_color = 1
+	$Background/AnimatedBot.set_color(bot_color)

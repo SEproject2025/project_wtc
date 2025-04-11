@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://c5rkwg5eys0i7"]
+[gd_scene load_steps=14 format=3 uid="uid://c5rkwg5eys0i7"]
 
 [ext_resource type="Script" path="res://scripts/in_lobby_menu.gd" id="1_1jabt"]
-[ext_resource type="Texture2D" uid="uid://bls1g11tx37i3" path="res://assets/sprites/mine_bot_idle_sheet_5.png" id="2_20vhh"]
+[ext_resource type="Texture2D" uid="uid://qhcwemdu5r50" path="res://assets/sprites/character_sprites/mine_bot_mothersheet_complete.png" id="2_hxxea"]
 [ext_resource type="Texture2D" uid="uid://ns3yo3xcmqji" path="res://assets/sprites/mine_bot_idle_sheet_4.png" id="3_co20k"]
+[ext_resource type="PackedScene" uid="uid://dm5hb3i7heepu" path="res://scenes/animated_bot.tscn" id="4_t6118"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1e8h8"]
 bg_color = Color(0.905882, 0.117647, 0.137255, 1)
@@ -17,8 +18,8 @@ bg_color = Color(0.905882, 0.117647, 0.137255, 1)
 bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_54f62"]
-atlas = ExtResource("2_20vhh")
-region = Rect2(0, 32, 16, 32)
+atlas = ExtResource("2_hxxea")
+region = Rect2(19, 0, 16, 18)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r4331"]
 bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
@@ -144,7 +145,6 @@ size_flags_horizontal = 3
 text = "Spectate"
 
 [node name="Host_template" type="HBoxContainer" parent="."]
-visible = false
 layout_mode = 2
 offset_top = 393.0
 offset_right = 118.0
@@ -163,11 +163,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Icon" type="TextureRect" parent="Host_template"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 texture = SubResource("AtlasTexture_54f62")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="AnimatedBot" parent="Host_template" instance=ExtResource("4_t6118")]
+visible = false
+position = Vector2(438, 138)
 
 [node name="Player_template" type="HBoxContainer" parent="."]
 visible = false
@@ -188,11 +193,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Icon" type="TextureRect" parent="Player_template"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 texture = SubResource("AtlasTexture_33c4x")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="AnimatedBot" parent="Player_template" instance=ExtResource("4_t6118")]
+visible = false
+position = Vector2(438, 138)
 
 [node name="Player List" type="Control" parent="."]
 layout_mode = 1

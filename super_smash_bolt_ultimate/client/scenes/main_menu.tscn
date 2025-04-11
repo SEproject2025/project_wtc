@@ -186,8 +186,19 @@ text = "   Failed to Connect!.."
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ColorChanger" type="Button" parent="."]
+z_index = 4
+layout_mode = 0
+offset_left = 42.0
+offset_top = 608.0
+offset_right = 182.0
+offset_bottom = 657.0
+text = "Change Color
+"
+
 [connection signal="pressed" from="Title_Screen/Title_Screen_box/Multiplayer" to="." method="_on_multiplayer_pressed"]
 [connection signal="text_submitted" from="Title_Screen/Username" to="." method="_on_username_text_submitted"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="ColorChanger" to="." method="_on_color_changer_pressed"]
 
 [editable path="Title_Screen"]
