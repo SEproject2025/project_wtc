@@ -4,6 +4,8 @@ extends CanvasLayer
 @onready var box_container = $MarginContainer/VBoxContainer/BoxContainer
 @onready var leaderboard_container = $MarginContainer/VBoxContainer/LeaderboardContainer
 
+var game_scene_template = preload("res://scenes/game_scene.tscn")
+var player_character_template = preload("res://scenes/player_character.tscn")
 var pop_up_template = preload("res://scenes/pop_up.tscn")
 var spectator_overlay = preload("res://scenes/spectator_overlay.tscn")
 var in_lobby_menu_template= preload("res://scenes/in_lobby_menu.tscn")
@@ -32,29 +34,44 @@ func player_died(_player_name: int) -> void:
 
 
 func _on_play_again_pressed():
-	var pop_up = pop_up_template.instantiate()
-	pop_up.set_msg("   returning to lobby...")
-	pop_up.is_button_visible(false)
-	add_child(pop_up)
-	
-	if get_tree().get_nodes_in_group("Players").size() <= 1:
-		User.client.restart_lobby(User.current_lobby_name)
-		await get_tree().create_timer(.2).timeout
-		
-	User.is_spectator = false
-	User.client.send_left_game(User.current_lobby_name)
-	await get_tree().create_timer(.2).timeout
-	pop_up.queue_free()
-	var in_lobby_menu = in_lobby_menu_template.instantiate()
-	in_lobby_menu.init_connection = false
-	get_tree().get_root().get_node("main").add_child(in_lobby_menu)
-	
-	User.client.request_join_lobby(User.current_lobby_name)
-	
 	var game_scene_node = get_tree().get_root().get_node("game_scene")
-	game_scene_node.queue_free()
-	queue_free()
 
+	if User.ID == MultiplayerPeer.TARGET_PEER_SERVER:
+		self.reparent(get_tree().get_root())
+		game_scene_node.free()
+		User.current_lobby_seed = RandomNumberGenerator.new().randi()
+		var game_scene = load("res://scenes/game_scene.tscn").instantiate()
+		game_scene.set_multiplayer_authority(User.ID)
+		game_scene.name = "game_scene"
+		get_tree().get_root().add_child(game_scene)
+
+		var player_character = player_character_template.instantiate()
+		player_character.set_multiplayer_authority(User.ID)
+		player_character.global_position = Vector2(0, -6)
+		player_character.get_node("Control/VBoxContainer/Control2").visible = false
+		get_tree().get_root().get_node("game_scene").add_child(player_character)
+	else:
+		var pop_up = pop_up_template.instantiate()
+		pop_up.set_msg("   returning to lobby...")
+		pop_up.is_button_visible(false)
+		add_child(pop_up)
+
+		if get_tree().get_nodes_in_group("Players").size() <= 1:
+			User.client.restart_lobby(User.current_lobby_name)
+			await get_tree().create_timer(.2).timeout
+
+		User.is_spectator = false
+		User.client.send_left_game(User.current_lobby_name)
+		await get_tree().create_timer(.2).timeout
+		pop_up.queue_free()
+		var in_lobby_menu = in_lobby_menu_template.instantiate()
+		in_lobby_menu.init_connection = false
+		get_tree().get_root().get_node("main").add_child(in_lobby_menu)
+
+		User.client.request_join_lobby(User.current_lobby_name)
+		game_scene_node.queue_free()
+
+	queue_free()
 
 func _on_spectate_pressed() -> void:
 	if !other_players:
