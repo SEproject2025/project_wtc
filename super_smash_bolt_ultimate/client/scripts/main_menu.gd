@@ -104,6 +104,9 @@ func _on_singleplayer_pressed():
 	player_character.set_multiplayer_authority(User.ID)
 	player_character.global_position = Vector2(0, -6)
 	player_character.get_node("Control/VBoxContainer/Control2").visible = false
+	player_character.get_node("Control/VBoxContainer/Control/TextureProgressBar").position = Vector2(0, 19)
+	player_character.get_node("Label").position = Vector2(-19, -68)
+
 	get_node("../../game_scene").add_child(player_character)
 
 	queue_free()

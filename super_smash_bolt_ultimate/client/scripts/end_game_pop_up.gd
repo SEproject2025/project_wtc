@@ -4,7 +4,6 @@ extends CanvasLayer
 @onready var box_container = $MarginContainer/VBoxContainer/BoxContainer
 @onready var leaderboard_container = $MarginContainer/VBoxContainer/LeaderboardContainer
 
-var game_scene_template = preload("res://scenes/game_scene.tscn")
 var player_character_template = preload("res://scenes/player_character.tscn")
 var pop_up_template = preload("res://scenes/pop_up.tscn")
 var spectator_overlay = preload("res://scenes/spectator_overlay.tscn")
@@ -91,21 +90,28 @@ func _on_spectate_pressed() -> void:
 
 
 func _on_back_to_menu_pressed() -> void:
-	var pop_up = pop_up_template.instantiate()
-	pop_up.set_msg("   returning to the lobby menu...")
-	pop_up.is_button_visible(false)
-	add_child(pop_up)
-	User.is_host = false
-	User.host_name = ""
-	User.peers.clear()
-	User.connection_list.clear()
-	User.client.send_left_game(User.current_lobby_name)
-	if get_tree().get_nodes_in_group("Players").size() <= 1:
-			User.client.restart_lobby(User.current_lobby_name)
-			await get_tree().create_timer(.2).timeout
-	await get_tree().create_timer(1).timeout
-	User.client.request_lobby_list()
-	get_tree().get_root().get_node("main").add_child(load("res://scenes/lobby_menu.tscn").instantiate())
-	pop_up.queue_free()
-	get_tree().get_root().get_node("game_scene").queue_free()
+	if User.ID == MultiplayerPeer.TARGET_PEER_SERVER:
+		self.reparent(get_tree().get_root())
+		get_tree().get_root().get_node("game_scene").queue_free()
+		var main_menu = load("res://scenes/main_menu.tscn").instantiate()
+		get_tree().get_root().get_node("main").add_child(main_menu)
+
+	else:
+		var pop_up = pop_up_template.instantiate()
+		pop_up.set_msg("   returning to the lobby menu...")
+		pop_up.is_button_visible(false)
+		add_child(pop_up)
+		User.is_host = false
+		User.host_name = ""
+		User.peers.clear()
+		User.connection_list.clear()
+		User.client.send_left_game(User.current_lobby_name)
+		if get_tree().get_nodes_in_group("Players").size() <= 1:
+				User.client.restart_lobby(User.current_lobby_name)
+				await get_tree().create_timer(.2).timeout
+		await get_tree().create_timer(1).timeout
+		User.client.request_lobby_list()
+		get_tree().get_root().get_node("main").add_child(load("res://scenes/lobby_menu.tscn").instantiate())
+		pop_up.queue_free()
+		get_tree().get_root().get_node("game_scene").queue_free()
 	queue_free()
