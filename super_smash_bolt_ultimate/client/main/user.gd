@@ -14,6 +14,7 @@ var game_scene_template = preload("res://scenes/game_scene.tscn")
 var player_character_template = preload("res://scenes/player_character.tscn")
 var spawn_positions : Dictionary = {}
 var is_spectator : bool = false
+var player_color = -1
 
 var connection_list : Dictionary = {}
 var rtc_peer : WebRTCMultiplayerPeer

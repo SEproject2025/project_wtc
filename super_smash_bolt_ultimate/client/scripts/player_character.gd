@@ -30,6 +30,7 @@ var ui
 var lasySyncedDisplacement := 0.0
 var spectator: bool = false
 var stay_zoomed_out = true
+var player_color = 1
 
 @onready var animated_sprite: Sprite2D = $Sprite2D
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
@@ -79,9 +80,6 @@ var attack_timer : int = 0
 
 func _ready():
 	User.client.other_user_joined_game.connect(_other_user_joined_game)
-	player_id = randi_range(1,7)
-	if User.user_name.to_upper() == "ZORRO":
-		player_id = 8
 	
 	if spectator:
 			set_process(false)
@@ -94,7 +92,6 @@ func _ready():
 			get_parent().get_node("EndPopUp")._on_spectate_pressed()
 			return
 	reset()
-	
 
 func _process(_delta):
 	check_health()
@@ -413,8 +410,8 @@ func set_player_name(_name : String):
 	character_name.text = _name
 
 @rpc("any_peer","call_local","reliable")
-func set_sprite(player_id):
-	match player_id:
+func set_sprite(player_color):
+	match player_color:
 		1:
 			animated_sprite.texture = yellow_bot_sprite
 		2:
@@ -506,7 +503,7 @@ func set_invisible():
 func _other_user_joined_game(_id: int):
 	if get_multiplayer_authority() == User.ID:
 		await get_tree().create_timer(.01).timeout
-		set_sprite.rpc(player_id)
+		set_sprite.rpc(User.player_color)
 		set_player_name.rpc(User.user_name)
 
 @rpc("any_peer", "call_local", "reliable")
