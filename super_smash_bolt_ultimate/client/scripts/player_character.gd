@@ -136,7 +136,7 @@ func reset():
 		character_name.text = "Other player" if character_name.text == 'Player Name' else character_name.text
 
 	if !User.is_spectator:
-		await get_tree().create_timer(5.0).timeout
+		await get_tree().create_timer(5.0, false).timeout
 		set_physics_process(is_authority)
 		set_process_input(is_authority)
 		set_process(is_authority)

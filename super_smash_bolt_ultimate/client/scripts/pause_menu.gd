@@ -79,3 +79,4 @@ func _on_pause_pressed() -> void:
 	$Pause.visible = !$Pause.visible
 	$ColorRect.visible = !$ColorRect.visible
 	$VBoxContainer.visible = !$VBoxContainer.visible
+	$VBoxContainer/ContinueContainer/ContinueButton.grab_focus()
