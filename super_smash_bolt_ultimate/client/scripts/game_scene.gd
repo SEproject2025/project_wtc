@@ -66,9 +66,10 @@ func player_left(other_player_id : int):
 	# get_node(str(other_player_id)).queue_free()
 
 func enable_death_pop_up() -> void:
-	end_pop_up.setup()
+	end_pop_up._ready()
 	end_vbox.get_node("Message").visible = true
 	end_vbox.get_node("BoxContainer").visible = true
+	get_node("Pause Menu").queue_free()
 
 func _other_user_joined_game(_username: String):
 	for peer_id in User.peers.keys():

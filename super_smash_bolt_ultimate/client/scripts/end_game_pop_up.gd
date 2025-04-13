@@ -19,6 +19,7 @@ var is_spectating = false
 
 func _ready() -> void:
 	setup()
+	$MarginContainer/VBoxContainer/BoxContainer/PlayAgain.grab_focus()
 	#User.client.connect("player_died", player_died)
 
 func setup() -> void:
