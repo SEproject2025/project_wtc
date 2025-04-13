@@ -8,6 +8,7 @@ var player_character_template = preload("res://scenes/player_character.tscn")
 func _ready():
 	if User.ID == MultiplayerPeer.TARGET_PEER_SERVER:
 		$VBoxContainer/RestartContainer.visible = true
+		self.process_mode = Node.PROCESS_MODE_ALWAYS
 		$VBoxContainer/ContinueContainer/ContinueButton.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 		$VBoxContainer/RestartContainer/RestartButton.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 		$VBoxContainer/QuitContainer/QuitButton.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
@@ -74,7 +75,7 @@ func _on_quit_pressed():
 
 func _on_pause_pressed() -> void:
 	if User.ID == MultiplayerPeer.TARGET_PEER_SERVER:
-		get_tree().paused = true
-	$Pause.visible = false
-	$ColorRect.visible = true
-	$VBoxContainer.visible = true
+		get_tree().paused = !get_tree().paused
+	$Pause.visible = !$Pause.visible
+	$ColorRect.visible = !$ColorRect.visible
+	$VBoxContainer.visible = !$VBoxContainer.visible
