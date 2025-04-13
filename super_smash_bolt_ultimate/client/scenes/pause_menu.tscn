@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://d4a3u2tbbv4qf"]
+[gd_scene load_steps=8 format=3 uid="uid://d4a3u2tbbv4qf"]
 
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_d8icw"]
 [ext_resource type="Texture2D" uid="uid://cj2rakmrivimv" path="res://assets/sprites/sprite_sheets/UI ICONS_WHITE_pixel art_Sprite Sheet.png" id="1_w0tul"]
@@ -8,67 +8,102 @@
 atlas = ExtResource("1_w0tul")
 region = Rect2(264, 8, 112, 112)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4ggs"]
+atlas = ExtResource("1_w0tul")
+region = Rect2(768, 128, 128, 128)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_l4nlc"]
 atlas = ExtResource("2_212im")
-region = Rect2(768, 888, 128, 136)
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_854sl"]
+atlas = ExtResource("1_w0tul")
+region = Rect2(136, 8, 112, 112)
 
 [node name="Pause Menu" type="CanvasLayer"]
 script = ExtResource("1_d8icw")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 offset_right = 1304.0
 offset_bottom = 697.0
 color = Color(0, 0, 0, 0.380392)
 metadata/_edit_lock_ = true
 
-[node name="ContinueButton" type="Button" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -237.0
-offset_top = -136.0
-offset_right = -117.0
-offset_bottom = -16.0
+offset_left = -238.0
+offset_top = -200.0
+offset_right = 238.0
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
+
+[node name="ContinueContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="ContinueButton" type="Button" parent="VBoxContainer/ContinueContainer"]
+layout_mode = 2
 icon = SubResource("AtlasTexture_cjvkl")
 flat = true
 
-[node name="Contiue" type="Label" parent="."]
-offset_left = 554.0
-offset_top = 212.0
-offset_right = 906.0
-offset_bottom = 322.0
+[node name="Contiue" type="Label" parent="VBoxContainer/ContinueContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 80
 text = "Continue
 "
 
-[node name="QuitButton" type="Button" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -231.0
-offset_top = 22.0
-offset_right = -95.0
-offset_bottom = 166.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.8, 0.8)
+[node name="RestartContainer" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="RestartButton" type="Button" parent="VBoxContainer/RestartContainer"]
+layout_mode = 2
+icon = SubResource("AtlasTexture_a4ggs")
+flat = true
+
+[node name="Restart" type="Label" parent="VBoxContainer/RestartContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "Restart"
+
+[node name="QuitContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/QuitContainer"]
+layout_mode = 2
 icon = SubResource("AtlasTexture_l4nlc")
 flat = true
 
-[node name="Quit" type="Label" parent="."]
-offset_left = 554.0
-offset_top = 366.0
-offset_right = 907.0
-offset_bottom = 477.0
+[node name="Quit" type="Label" parent="VBoxContainer/QuitContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 80
 text = "Quit
 "
 
-[connection signal="pressed" from="ContinueButton" to="." method="_on_continue_pressed"]
-[connection signal="pressed" from="QuitButton" to="." method="_on_quit_pressed"]
+[node name="Pause" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -76.0
+offset_top = 9.0
+offset_right = 44.0
+offset_bottom = 145.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+mouse_filter = 1
+icon = SubResource("AtlasTexture_854sl")
+flat = true
+
+[connection signal="pressed" from="VBoxContainer/ContinueContainer/ContinueButton" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="VBoxContainer/RestartContainer/RestartButton" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitContainer/QuitButton" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Pause" to="." method="_on_pause_pressed"]

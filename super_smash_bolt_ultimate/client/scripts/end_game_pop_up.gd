@@ -90,11 +90,13 @@ func _on_spectate_pressed() -> void:
 
 
 func _on_back_to_menu_pressed() -> void:
+	var game_scene_node = get_tree().get_root().get_node("game_scene")
+	var main_node = get_tree().get_root().get_node("main")
 	if User.ID == MultiplayerPeer.TARGET_PEER_SERVER:
 		self.reparent(get_tree().get_root())
-		get_tree().get_root().get_node("game_scene").queue_free()
+		game_scene_node.queue_free()
 		var main_menu = load("res://scenes/main_menu.tscn").instantiate()
-		get_tree().get_root().get_node("main").add_child(main_menu)
+		main_node.add_child(main_menu)
 
 	else:
 		var pop_up = pop_up_template.instantiate()
@@ -111,7 +113,7 @@ func _on_back_to_menu_pressed() -> void:
 				await get_tree().create_timer(.2).timeout
 		await get_tree().create_timer(1).timeout
 		User.client.request_lobby_list()
-		get_tree().get_root().get_node("main").add_child(load("res://scenes/lobby_menu.tscn").instantiate())
+		main_node.add_child(load("res://scenes/lobby_menu.tscn").instantiate())
 		pop_up.queue_free()
-		get_tree().get_root().get_node("game_scene").queue_free()
+		game_scene_node.queue_free()
 	queue_free()
