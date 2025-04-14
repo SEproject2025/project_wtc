@@ -112,9 +112,9 @@ func die_explode():
 	begin_death.set_momentum(velocity)
 
 func set_zoom():
-	if $Camera2D.global_position.y < PLAYER.CAMERA_ZOOM_ARBITRATOR and $Camera2D.zoom > PLAYER.MIN_CAMERA_ZOOM:
+	if $Camera2D.global_position.y < PLAYER.CAMERA_ZOOM_UPPER_ARBITRATOR and $Camera2D.zoom > PLAYER.MIN_CAMERA_ZOOM:
 		$Camera2D.zoom -= PLAYER.ZOOM_OUT_RATE
-	elif $Camera2D.global_position.y > PLAYER.CAMERA_ZOOM_ARBITRATOR and $Camera2D.zoom < PLAYER.MAX_CAMERA_ZOOM:
+	elif  $Camera2D.global_position.y > PLAYER.CAMERA_ZOOM_LOWER_ARBITRATOR and $Camera2D.zoom < PLAYER.MAX_CAMERA_ZOOM:
 		$Camera2D.zoom += PLAYER.ZOOM_IN_RATE
 
 func set_animation():
