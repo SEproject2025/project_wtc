@@ -29,7 +29,6 @@ var ui_template = preload("res://scenes/UI.tscn")
 var ui
 var lasySyncedDisplacement := 0.0
 var spectator: bool = false
-var stay_zoomed_out = true
 var player_color = 1
 
 @onready var animated_sprite: Sprite2D = $Sprite2D
