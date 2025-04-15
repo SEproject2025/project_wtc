@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://c58usve2vv3gi"]
 
 [ext_resource type="Script" path="res://scripts/flying_enemy.gd" id="1_8igmr"]
-[ext_resource type="Texture2D" uid="uid://dwbvg2o0lcdl0" path="res://assets/sprites/animated_objects_sprite_sheets/Giant Fly Sprite Sheet.png" id="2_rbh1h"]
+[ext_resource type="Texture2D" uid="uid://dwbvg2o0lcdl0" path="res://assets/sprites/swamp_objects/animated_swamp_objects_sprite_sheets/Giant Fly Sprite Sheet.png" id="2_rbh1h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ukkus"]
 atlas = ExtResource("2_rbh1h")
