@@ -18,5 +18,4 @@ func connection_reset():
 	add_child(main_menu.instantiate())
 	var pop_up = pop_up_template.instantiate()
 	pop_up.set_msg("connection lost!", Color(255, 255, 255))
-	pop_up.z_index = 3
 	add_child(pop_up)
