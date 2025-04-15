@@ -80,7 +80,7 @@ func _on_new_lobby_pressed():
 		User.client.request_new_lobby(lobby_name)
 
 func _on_return_pressed():
-	get_parent().add_child(main_menu_template.instantiate())
+	get_parent().add_child(load("res://scenes/main_menu.tscn").instantiate())
 	User.reset_connection()
 	queue_free()
 

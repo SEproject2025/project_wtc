@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+var main_menu_template = preload("res://scenes/main_menu.tscn")
 
 func _on_pause_pressed():
 	if $QuitButton.is_visible():
@@ -13,5 +14,5 @@ func _on_pause_pressed():
 
 
 func _on_quit_button_pressed():
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
-	pass # Replace with function body.
+	get_tree().get_root().get_node("main").add_child(load("res://scenes/main_menu.tscn").instantiate())
+	get_tree().get_root().get_node("tutorial").queue_free()

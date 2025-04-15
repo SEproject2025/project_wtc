@@ -6,6 +6,8 @@ var player_character_template = preload("res://scenes/player_character.tscn")
 @onready var host_template = $Host_template
 @onready var player_template = $Player_template
 @onready var player_list_container = $"Player List/Players/ScrollContainer/VBoxContainer"
+@onready var scroll_container = $Chat/ScrollContainer
+@onready var scroll = scroll_container.get_v_scroll_bar()
 
 var init_connection = true
 
@@ -20,12 +22,15 @@ func _ready():
 	User.delete_in_lobby_menu.connect(_delete_in_lobby_menu)
 	User.client.restart_lobby_received.connect(_restart_lobby_received)
 	User.init_connection()
+	scroll.connect("changed", handle_scrollbar_change)
+	
 	
 	$"Lobby Name".text = User.current_lobby_name
 	init_player_list()
 	User.init_connection()
 
 	setup()
+
 
 func _delete_in_lobby_menu():
 	queue_free()
@@ -178,3 +183,6 @@ func _restart_lobby_received(seed: int, state: Constants.LobbyState):
 	User.current_lobby_state = state
 	User.current_lobby_seed = seed
 	setup()
+	
+func handle_scrollbar_change():
+	scroll_container.scroll_vertical = scroll.max_value
