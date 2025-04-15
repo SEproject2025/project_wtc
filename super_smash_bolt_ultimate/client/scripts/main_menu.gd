@@ -7,7 +7,6 @@ var tutorial_template = preload("res://scenes/tutorial.tscn")
 var control_flag : bool = false
 var lobby_menu
 var bot_color = 1
-var tutorial
 
 func _ready() -> void:
 	name = "main_menu"
@@ -97,4 +96,6 @@ func _on_color_changer_pressed() -> void:
 	$Background/AnimatedBot.set_color(bot_color)
 
 func _on_singleplayer_pressed():
-	get_tree().change_scene_to_file("res://scenes/tutorial.tscn")
+	var tutorial = tutorial_template.instantiate()
+	get_tree().get_root().add_child(tutorial)
+	queue_free()

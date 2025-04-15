@@ -544,7 +544,7 @@ sources/0 = SubResource("TileSetAtlasSource_s3ucs")
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_63kyn"]
 distance = -683.0
 
-[node name="Node2D" type="Node2D"]
+[node name="tutorial" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 visibility_layer = 7

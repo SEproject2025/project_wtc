@@ -49,6 +49,7 @@ icon = SubResource("AtlasTexture_l4nlc")
 flat = true
 
 [node name="Quit" type="Label" parent="QuitButton"]
+layout_mode = 0
 offset_left = 168.75
 offset_top = -7.5
 offset_right = 521.75
