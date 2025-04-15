@@ -123,4 +123,7 @@ func _on_singleplayer_pressed():
 
 	get_node("../../game_scene").add_child(player_character)
 
+	player_character.set_sprite(bot_color)
+
+
 	queue_free()
