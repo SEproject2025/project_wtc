@@ -646,8 +646,6 @@ one_shot = true
 [node name="DisplacementUpdateTimer" type="Timer" parent="Timers"]
 autostart = true
 
-[node name="ZoomTimer" type="Timer" parent="Timers"]
-
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_1i0gq")
 
@@ -687,4 +685,3 @@ offset_bottom = -64.0
 [connection signal="timeout" from="Timers/DashEffectTimer" to="." method="_on_dash_effect_timer_timeout"]
 [connection signal="timeout" from="Timers/StunTimer" to="." method="stun_timer_timeout"]
 [connection signal="timeout" from="Timers/DisplacementUpdateTimer" to="." method="on_displacement_update_timer"]
-[connection signal="timeout" from="Timers/ZoomTimer" to="." method="zoom_timer_timeout"]
