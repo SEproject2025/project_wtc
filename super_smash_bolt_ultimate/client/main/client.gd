@@ -4,12 +4,12 @@ class_name Client
 # Enum representing the types of messages exchanged between client and server
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
 START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS, AI_SEED, \
-GENERATE_SEED, SPECTATOR, RESTART_LOBBY}
+GENERATE_SEED, SPECTATOR, RESTART_LOBBY, REJOINING_LOBBY}
 
 var rtc_mp = WebRTCMultiplayerPeer.new()
 var ws = WebSocketPeer.new()
-# var url = "127.0.0.1:9999"
-var url = "wss://godot.silfsy.com"
+var url = "127.0.0.1:9999"
+#var url = "wss://godot.silfsy.com"
 var client_connected : bool = false
 var ai_seed: int = 0
 
@@ -212,6 +212,8 @@ func parse_msg():
 		return false
 	
 	if type == Message.LEFT_GAME:
+		if User.peers.has(id):
+			User.peers.erase(id)
 		some_one_left_game.emit(id)
 		print("Peer name: %s with ID # %s left the game" %[data, id])
 		return
@@ -234,6 +236,15 @@ func parse_msg():
 		var seed = arr[0].to_int()
 		var state = arr[1].to_int() as Constants.LobbyState
 		restart_lobby_received.emit(seed, state)
+		return
+	
+	if type == Message.REJOINING_LOBBY:
+		if User.ID != id:
+			if !User.peers.has(id):
+				User.peers[id] = data
+			other_user_joined_lobby.emit(data)
+		return
+			
 		return
 
 	return false

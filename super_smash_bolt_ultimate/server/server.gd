@@ -2,7 +2,7 @@ extends Node
 
 enum Message {USER_INFO, LOBBY_LIST , NEW_LOBBY, JOIN_LOBBY, LEFT_LOBBY, LOBBY_MESSAGE, \
 START_GAME, OFFER, ANSWER, ICE, GAME_STARTING, HOST, MAP_SEED, LEFT_GAME, SPAWN_POSITIONS, AI_SEED, \
-GENERATE_SEED, SPECTATOR, RESTART_LOBBY}
+GENERATE_SEED, SPECTATOR, RESTART_LOBBY, REJOINING_LOBBY}
 
 enum LobbyState {NOT_STARTED, STARTED}
 
@@ -246,10 +246,14 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 			peer.send_msg(Message.JOIN_LOBBY, peer.id, "LOBBY_INFO" + lobby._name + "***" + str(lobby.state))
 
 			for lobby_player in lobby.peers:
-				lobby_player.send_msg(Message.JOIN_LOBBY, peer.id, "NEW_JOINED_USER_NAME" + peer.user_name)
-				peer.send_msg(Message.JOIN_LOBBY, lobby_player.id, "EXISTING_USER_NAME" + lobby_player.user_name)
-
-			lobby.peers.push_back(peer)
+				if peer.id != lobby_player.id:
+					lobby_player.send_msg(Message.JOIN_LOBBY, peer.id, "NEW_JOINED_USER_NAME" + peer.user_name)
+					peer.send_msg(Message.JOIN_LOBBY, lobby_player.id, "EXISTING_USER_NAME" + lobby_player.user_name)
+				else:
+					lobby_player.send_msg(Message.REJOINING_LOBBY, peer.id, peer.user_name)
+					peer.send_msg(Message.REJOINING_LOBBY, lobby_player.id, lobby_player.user_name)
+			if !lobby.peers.any(func(p): return p.id == peer.id):
+				lobby.peers.push_back(peer)
 			print("Join lobby request received! Requested name: %s" %data)
 			return true
 		else:
@@ -297,6 +301,12 @@ func parse_msg(peer : Peer) -> bool: # REMOVED: async keyword from function def
 			lobby.seed = RandomNumberGenerator.new().randi()
 			for lobby_peer in lobby.peers:
 				lobby_peer.send_msg(Message.RESTART_LOBBY, 0, str(lobby.seed) + "***" + str(lobby.state))
+			if !lobby.peers.any(func(p): return p.is_host):
+				lobby.host_id = lobby.peers[0].id
+				lobby.peers[0].is_host = true
+				for lobby_peers in lobby.peers:
+					lobby_peers.send_msg(Message.HOST, lobby.host_id, str(lobby.host_id))
+				
 			return true
 	
 	return false

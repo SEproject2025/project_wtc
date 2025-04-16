@@ -17,7 +17,6 @@ var   timer_iteration       = 1 #Humans never count from zero!
 func _on_area_2d_left_body_entered(body: Node2D) -> void:
 	if(body.get_class() == "CharacterBody2D" and body.isDashing == true):
 		crumblings()
-		synchronized_crumblings.rpc()
 
 func crumblings():
 	$SolidBlock.queue_free()

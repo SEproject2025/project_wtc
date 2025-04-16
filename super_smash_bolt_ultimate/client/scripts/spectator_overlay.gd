@@ -4,7 +4,6 @@ var other_players = []
 
 @onready var previousButton = $Previous
 @onready var nextButton = $Next
-@onready var pauseMenu = $PauseMenu
 
 var ghost_camera
 
@@ -14,11 +13,6 @@ func _ready() -> void:
 		previousButton.visible = false
 		nextButton.visible = false
 	ghost_camera = get_tree().get_root().get_node("game_scene/GhostCamera")
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if event.pressed and event.keycode == KEY_ESCAPE:
-			pause_pressed()
 
 func set_msg(_msg: String):
 	$Container/CharacterName.text = _msg
@@ -58,8 +52,3 @@ func update_dead_players(id: int):
 	else:
 		ghost_camera.global_position = last_position
 		ghost_camera.enabled = true
-
-
-
-func pause_pressed():
-	pauseMenu.visible = !pauseMenu.visible

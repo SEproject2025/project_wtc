@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=4 uid="uid://2vva7m255w3a"]
+[gd_scene load_steps=17 format=4 uid="uid://2vva7m255w3a"]
 
 [ext_resource type="PackedScene" uid="uid://cpoe72xuywwkb" path="res://scenes/transient_wall.tscn" id="1_4kwws"]
+[ext_resource type="Script" path="res://scripts/chunk.gd" id="1_q3804"]
 [ext_resource type="PackedScene" uid="uid://dv2bl2xbwn1pe" path="res://scenes/transient_platform.tscn" id="2_fxofl"]
 [ext_resource type="Texture2D" uid="uid://cjv214hth048p" path="res://assets/sprites/SpriteSheetCave.png" id="3_o15sh"]
 [ext_resource type="Texture2D" uid="uid://b4bugdpsnk7nr" path="res://assets/sprites/SpriteSheetMine1.png" id="4_af3t5"]
@@ -136,6 +137,7 @@ tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_p03jj")
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_q3804")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 visibility_layer = 7
