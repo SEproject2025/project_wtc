@@ -231,7 +231,7 @@ func apply_movement(delta: float):
 	if !Input.is_action_pressed("jump") and velocity.y < 0:
 		velocity.y *= fall_rate
 
-	if is_on_wall_only() and Input.get_axis("move_left", "move_right"):
+	if !is_on_floor() and (rayCastRight.is_colliding() or rayCastLeft.is_colliding()):
 		wall_slide()
 
 	if isSlipping:
@@ -250,7 +250,8 @@ func apply_movement(delta: float):
 		handle_grappling_movement(delta)
 	elif direction:
 		velocity.x = move_toward(velocity.x, direction * PLAYER.SPEED, PLAYER.SPEED * PLAYER.ACCELERATION)
-		animated_sprite.flip_h = direction < 0
+		if (is_on_floor() or (!rayCastRight.is_colliding() and !rayCastLeft.is_colliding())): #if not wall sliding
+			animated_sprite.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, PLAYER.SPEED * PLAYER.DECELERATION)
 
@@ -279,16 +280,26 @@ func jump():
 			jumpBuffered = true
 			jumpBufferTimer.start(PLAYER.JUMP_BUFFER_TIME_LENGTH)
 
-	if is_on_wall_only():
+	if !is_on_floor() and (rayCastRight.is_colliding() or rayCastLeft.is_colliding()):
 		wall_jump()
 
 func wall_jump():
-	velocity = Vector2(get_wall_normal().x * PLAYER.WALL_JUMP_PUSHBACK, PLAYER.JUMP_VELOCITY)
+	var wall_jump_direction = 1
+	if rayCastRight.is_colliding():
+		wall_jump_direction = -1
+	velocity = Vector2(wall_jump_direction * PLAYER.WALL_JUMP_PUSHBACK, PLAYER.JUMP_VELOCITY)
 	animated_sprite.flip_h = true
 	anim_tree.travel("jump")
 	sync_animation.rpc("jump")
 
 func wall_slide():
+	if !is_on_wall_only():
+		if rayCastRight.is_colliding():
+			position.x += PLAYER.WALL_MAGNETISM
+			animated_sprite.flip_h = false
+		else:
+			position.x -= PLAYER.WALL_MAGNETISM
+			animated_sprite.flip_h = true
 	velocity.y = min(velocity.y, PLAYER.WALL_SLIDE_GRAVITY)
 	anim_tree.travel("wall_slide")
 	sync_animation.rpc("wall_slide")
