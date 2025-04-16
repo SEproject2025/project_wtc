@@ -47,6 +47,7 @@ text = "Continue"
 flat = true
 
 [node name="RestartContainer" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="RestartButton" type="Button" parent="VBoxContainer/RestartContainer"]

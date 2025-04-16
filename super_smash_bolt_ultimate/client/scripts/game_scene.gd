@@ -69,9 +69,6 @@ func enable_death_pop_up() -> void:
 	end_pop_up._ready()
 	end_vbox.get_node("Message").visible = true
 	end_vbox.get_node("BoxContainer").visible = true
-	var pause_menu = get_node_or_null("Pause Menu")
-	if pause_menu:
-		pause_menu.queue_free()
 
 func _other_user_joined_game(_username: String):
 	for peer_id in User.peers.keys():
