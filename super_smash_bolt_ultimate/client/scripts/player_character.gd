@@ -119,19 +119,19 @@ func reset():
 	if is_authority:
 		$Camera2D.enabled = true
 		$Camera2D.make_current()
-		$Label.show()
+		displacement_hud.show()
 		character_name.text = User.user_name
 		
 		ui = ui_template.instantiate()
 		get_tree().get_root().get_node("game_scene").add_child(ui)
 		ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
 	else:
-		$Label.hide()
+		displacement_hud.hide()
 		displacement_hud.text = ""
 		character_name.text = "Other player" if character_name.text == 'Player Name' else character_name.text
 
 	if !User.is_spectator:
-		await get_tree().create_timer(5.0).timeout
+		await get_tree().create_timer(5.0, false).timeout
 		set_physics_process(is_authority)
 		set_process_input(is_authority)
 		set_process(is_authority)
@@ -444,7 +444,7 @@ func die(player_name: int):
 	set_process(false)
 	alive = false
 	$Sprite2D.visible = false
-	$Label.visible = false
+	displacement_hud.visible = false
 	$Control.visible = false
 	await get_tree().create_timer(0.5).timeout
 	if get_tree().get_nodes_in_group("Players").filter(func(player): return player.alive).size() > 0:
