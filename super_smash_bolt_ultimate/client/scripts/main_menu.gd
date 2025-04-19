@@ -1,5 +1,7 @@
 extends Control
 
+var game_scene_template = preload("res://scenes/game_scene.tscn")
+var player_character_template = preload("res://scenes/player_character.tscn")
 var lobby_menu_template = preload("res://scenes/lobby_menu.tscn")
 var pop_up_template = preload("res://scenes/pop_up.tscn")
 var main_menu_template = preload("res://scenes/main_menu.tscn")
@@ -50,7 +52,6 @@ func _on_username_text_submitted(_new_text:):
 			User.player_color = bot_color
 	
 	check_if_connected()
-	pass
 	
 func check_if_connected():
 	await get_tree().create_timer(2).timeout
@@ -74,7 +75,6 @@ func _on_quit_pressed():
 	get_tree().quit(0)
 
 func invalid_name():
-	print("here")
 	var new_main_menu = main_menu_template.instantiate()
 	get_parent().add_child(new_main_menu)
 	var pop_up = pop_up_template.instantiate()
@@ -95,7 +95,32 @@ func _on_color_changer_pressed() -> void:
 		bot_color = 1
 	$Background/AnimatedBot.set_color(bot_color)
 
+# func _on_singleplayer_pressed():
+# 	get_tree().change_scene_to_file("res://scenes/tutorial.tscn")
+
 func _on_singleplayer_pressed():
-	var tutorial = tutorial_template.instantiate()
-	get_tree().get_root().add_child(tutorial)
+	var peer = OfflineMultiplayerPeer.new()
+	User.ID = peer.get_unique_id()
+	if User.client:
+		User.client.queue_free()
+	User.client = Client.new()
+	User.client.ws.close()
+	get_parent().add_child(User.client)
+		
+	User.current_lobby_seed = RandomNumberGenerator.new().randi()
+	var game_scene = game_scene_template.instantiate()
+	game_scene.set_multiplayer_authority(User.ID)
+	game_scene.name = "game_scene"
+	get_parent().get_parent().add_child(game_scene)
+
+	var player_character = player_character_template.instantiate()
+	player_character.set_multiplayer_authority(User.ID)
+	player_character.global_position = Vector2(0, -6)
+	player_character.get_node("Control/VBoxContainer/Control2").visible = false
+	player_character.get_node("Control/VBoxContainer/Control/TextureProgressBar").position = Vector2(0, 19)
+	player_character.get_node("Label").position = Vector2(-19, -68)
+
+	get_node("../../game_scene").add_child(player_character)
+
+	player_character.set_sprite(bot_color)
 	queue_free()
