@@ -276,6 +276,7 @@ layout_mode = 2
 size_flags_vertical = 10
 
 [node name="Message" type="LineEdit" parent="Chat/Submit"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -296,6 +297,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 30
 text = "SEND"
+
+[node name="ChatMessageOptionButton" type="OptionButton" parent="Chat/Submit"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 2.0
+offset_right = 596.0
+offset_bottom = 49.0
 
 [connection signal="pressed" from="Return" to="." method="_on_return_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Start" to="." method="_on_start_pressed"]

@@ -26,13 +26,27 @@ func _on_username_text_submitted(_new_text:):
 		pass
 	if control_flag:
 		return
-	
+
 	var user_text = $Title_Screen/Username.text
-	
-	if user_text == "" or user_text.contains(" "):
+
+	var regex = RegEx.new()
+	var error = regex.compile("^[A-Za-z0-9]{1,2}$") # Compile the pattern
+
+	if error != OK:
+		printerr("Regex compilation failed!")
 		var pop_up = pop_up_template.instantiate()
-		pop_up.set_msg("Enter a name!\nNo spaces are allowed!")
+		pop_up.set_msg("An internal error occurred.\nPlease try again.")
 		add_child(pop_up)
+		return
+
+	var match = regex.search(user_text)
+
+	if match == null:
+		var pop_up = pop_up_template.instantiate()
+		pop_up.set_msg("Invalid Name!\nMust be 1 or 2 letters/numbers.\nNo spaces or symbols.")
+		add_child(pop_up)
+		$Title_Screen/Username.select_all()
+		$Title_Screen/Username.grab_focus()
 		return
 	else:
 		if User.client:
