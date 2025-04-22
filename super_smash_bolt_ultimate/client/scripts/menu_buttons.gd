@@ -40,3 +40,15 @@ func _on_leaderboard_button_exited():
 	$Leaderboard10.set_visible(true)
 	$LeaderboardHovered10.set_visible(false)
 	pass # Replace with function body.
+
+
+func _on_color_changer_mouse_entered():
+	$ChangeColorHover10.set_visible(true)
+	$ChangeColor10.set_visible(false)
+	pass # Replace with function body.
+
+
+func _on_color_changer_mouse_exited():
+	$ChangeColor10.set_visible(true)
+	$ChangeColorHover10.set_visible(false)
+	pass # Replace with function body.

@@ -85,8 +85,9 @@ func invalid_name():
 
 func _on_multiplayer_pressed():
 	$Title_Screen/Username.set_visible(true)
-	await get_tree().create_timer(0.02).timeout
+	await get_tree().create_timer(0.1).timeout
 	$Title_Screen/Title_Screen_box/Multiplayer10.set_visible(false)
+	$Title_Screen/Enter.set_visible(true)
 
 func _on_color_changer_pressed() -> void:
 	$Background/AnimatedBot/AnimationTree.get("parameters/playback").travel("fall_end")
@@ -124,3 +125,7 @@ func _on_singleplayer_pressed():
 
 	player_character.set_sprite(bot_color)
 	queue_free()
+
+
+func _on_leaderboard_pressed():
+	get_tree().change_scene_to_file("res://scenes/tutorial.tscn")
