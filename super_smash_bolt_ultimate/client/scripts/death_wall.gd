@@ -22,12 +22,3 @@ func _process(delta: float) -> void:
 			if(wall_velocity <= WALL_TERMINAL_VELOCITY):
 				wall_velocity += WALL_ACCELERATION
 		position.x += (wall_velocity * delta)
-
-func singleplayer_algorithm():
-	pass
-	var player = get_parent().get_node("Player")
-	if((player.position.x - position.x ) > WALL_MAX_DISTANCE):
-		position.x += (player.position.x - position.x) - WALL_MAX_DISTANCE
-	else:
-		if (wall_velocity <= WALL_TERMINAL_VELOCITY):
-			wall_velocity += WALL_ACCELERATION
