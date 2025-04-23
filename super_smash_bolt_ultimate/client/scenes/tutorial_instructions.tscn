@@ -206,6 +206,32 @@ Keep an eye on the cooldown"
 horizontal_alignment = 1
 autowrap_mode = 2
 
+[node name="leftmouse" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = -181.0
+offset_top = -20.0
+offset_right = -29.0
+offset_bottom = -3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "left mouse click or"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="rightmouse" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 287.0
+offset_top = -18.0
+offset_right = 439.0
+offset_bottom = -1.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "right mouse click or"
+horizontal_alignment = 1
+autowrap_mode = 2
+
 [node name="use powerups instructions" type="Label" parent="Control"]
 layout_mode = 0
 offset_left = 296.0
