@@ -90,4 +90,5 @@ flat = true
 [connection signal="pressed" from="VBoxContainer/ContinueContainer/ContinueButton" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="VBoxContainer/RestartContainer/RestartButton" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitContainer/QuitButton" to="." method="_on_quit_pressed"]
+[connection signal="focus_entered" from="Pause" to="." method="_on_pause_focus_entered"]
 [connection signal="pressed" from="Pause" to="." method="_on_pause_pressed"]
