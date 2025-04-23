@@ -123,7 +123,7 @@ func reset():
 	ui = ui_template.instantiate()
 	#get_tree().get_root().get_node("tutorial").
 	add_child(ui)
-	#ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
+	ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
 	#else:
 		#displacement_hud.hide()
 		#displacement_hud.text = ""
