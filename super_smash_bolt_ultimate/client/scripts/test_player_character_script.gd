@@ -21,6 +21,8 @@ var isSlipping: bool = false
 var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 var pause_menu_template = preload("res://scenes/pause_menu_tutorial.tscn")
 var pause_menu = pause_menu_template.instantiate()
+var ui_template = preload("res://scenes/UI.tscn")
+var ui
 
 @onready var animated_sprite: Sprite2D = $Sprite2D
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
@@ -68,43 +70,35 @@ func _process(_delta):
 	if Input.is_action_just_pressed("use_powerup") and !powerupManager.is_jetpack_active and !powerupManager.is_dash_powerup_active:
 		powerupManager.use_powerup()
 	if Input.is_action_just_pressed("reset"):
-		remove_child(pause_menu)
 		reset()
+	if ui.fuel.value != ui.fuel.max_value:
+		ui.fuel.value = ui.fuel.max_value - (dashCooldown.time_left * 10)
+	if powerupManager.is_jetpack_active or powerupManager.is_dash_powerup_active:
+		ui.power_fuel.value = powerupManager.fuel
 
 func _physics_process(delta):
 	apply_movement(delta)
 
 func reset():
-	#set_physics_process(false)
-	#set_process(false)
-	#set_process_input(false)
 	position.x = player_spawn_x
 	position.y = player_spawn_y
 	$Sprite2D.visible = true
-	#await get_tree().create_timer(5).timeout
 
 	$AnimationTree.set_active(true)
 	health.value = 100
-#	if get_multiplayer_authority() == (User.ID):
 	$AnimationTree.set_active(true)
 	$Camera2D.enabled = true
 	character_name.text = "Doug"
 	set_physics_process(true)
 	set_process_input(true)
 	set_process(true)
+	if self.has_node("Tutorial Pause Menu"):
+		remove_child(pause_menu)
 	add_child(pause_menu)
-#		set_player_name.rpc(User.user_name)	
-#		if User.is_host:
-#			set_sprite.rpc()
-	#else:
-		#character_name.text = "Other player"
-		#set_physics_process(false)
-		#set_process(false)
-		#set_process_input(false)
-
-#func check_health():
-#	if health.value <= 0:
-#		die.rpc()
+	ui = ui_template.instantiate()
+	add_child(ui)
+	ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
+	
 func die_explode():
 	var begin_death = death_explosion.instantiate()
 	add_child(begin_death)
@@ -263,6 +257,7 @@ func start_dash():
 	isDashing = true
 	canDash = false
 	dashTimer.start()
+	ui.fuel.value = 0
 	dashCooldown.start()
 	dashEffectTimer.start()
 
