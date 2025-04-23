@@ -21,7 +21,7 @@ func _ready():
 		pop_up.is_button_visible(false)
 		pop_up.set_background_color(Color(0, 0, 0, 0))
 		pop_up.position.x = POP_UP_START_POSITION_X
-		pop_up.position.y = POP_UP_START_POSITION_Y
+		pop_up.position.y = POP_UP_START_POSITION_Y - 50
 		pop_up.z_index = 10
 		add_child(pop_up)
 	else:
