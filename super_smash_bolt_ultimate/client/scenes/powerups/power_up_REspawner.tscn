@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhjkfupa357kf"]
+
+[ext_resource type="Script" path="res://scripts/powerups/powerup_REspawner.gd" id="1_8xn7k"]
+[ext_resource type="Texture2D" uid="uid://c644jhkdq338h" path="res://assets/powerups (placeholders)/Question.png" id="2_b3t7n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a6lfy"]
+radius = 3.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_gqwfr"]
+
+[node name="PowerUpReSpawner" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_8xn7k")
+powerups = Array[int]([1, 2])
+powerupProbabilities = Array[float]([0.5, 0.5])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_a6lfy")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(0.156863, 0.164706, 0.45098, 1)
+position = Vector2(2.68221e-07, -1.19209e-07)
+scale = Vector2(10, 10)
+texture = SubResource("PlaceholderTexture2D_gqwfr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.38419e-07, -5.96046e-08)
+scale = Vector2(0.130022, 0.112723)
+texture = ExtResource("2_b3t7n")
+
+[node name="Respawn_Timer" type="Timer" parent="."]
+wait_time = 4.521
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Respawn_Timer" to="." method="_on_respawn_timer_timeout"]
