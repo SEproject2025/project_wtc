@@ -105,11 +105,11 @@ func _on_multiplayer_pressed():
 	$Title_Screen/Enter.set_visible(true)
 
 func _on_color_changer_pressed() -> void:
-	$Background/AnimatedBot/AnimationTree.get("parameters/playback").travel("fall_end")
+	$"Main Menu Background"/AnimatedBot/AnimationTree.get("parameters/playback").travel("fall_end")
 	bot_color += 1
 	if bot_color > 8:
 		bot_color = 1
-	$Background/AnimatedBot.set_color(bot_color)
+	$"Main Menu Background"/AnimatedBot.set_color(bot_color)
 
 func _on_singleplayer_pressed():
 	var peer = OfflineMultiplayerPeer.new()
