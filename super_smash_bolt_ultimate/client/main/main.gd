@@ -1,7 +1,7 @@
 extends Node
 
 var pop_up_template = preload("res://scenes/pop_up.tscn")
-var intro_template = preload("res://scenes/intro.tscn")
+var intro_template = preload("res://scenes/main_menu.tscn")
 var main_menu = preload("res://scenes/main_menu.tscn")
 
 func _ready():
