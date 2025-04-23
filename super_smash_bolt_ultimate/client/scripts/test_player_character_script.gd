@@ -68,24 +68,18 @@ func _process(_delta):
 	if Input.is_action_just_pressed("use_powerup") and !powerupManager.is_jetpack_active and !powerupManager.is_dash_powerup_active:
 		powerupManager.use_powerup()
 	if Input.is_action_just_pressed("reset"):
-		
 		reset()
 
 func _physics_process(delta):
 	apply_movement(delta)
 
 func reset():
-	#set_physics_process(false)
-	#set_process(false)
-	#set_process_input(false)
 	position.x = player_spawn_x
 	position.y = player_spawn_y
 	$Sprite2D.visible = true
-	#await get_tree().create_timer(5).timeout
 
 	$AnimationTree.set_active(true)
 	health.value = 100
-#	if get_multiplayer_authority() == (User.ID):
 	$AnimationTree.set_active(true)
 	$Camera2D.enabled = true
 	character_name.text = "Doug"
@@ -95,18 +89,7 @@ func reset():
 	if self.has_node("Tutorial Pause Menu"):
 		remove_child(pause_menu)
 	add_child(pause_menu)
-#		set_player_name.rpc(User.user_name)	
-#		if User.is_host:
-#			set_sprite.rpc()
-	#else:
-		#character_name.text = "Other player"
-		#set_physics_process(false)
-		#set_process(false)
-		#set_process_input(false)
-
-#func check_health():
-#	if health.value <= 0:
-#		die.rpc()
+	
 func die_explode():
 	var begin_death = death_explosion.instantiate()
 	add_child(begin_death)

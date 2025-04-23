@@ -384,7 +384,7 @@ properties/2/path = NodePath(".:input_dash")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="Test Player Character" type="CharacterBody2D" node_paths=PackedStringArray("player_input") groups=["Players"]]
+[node name="Test Player Character" type="CharacterBody2D" node_paths=PackedStringArray("player_input") groups=["Players", "Tutorial"]]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_636bd")
