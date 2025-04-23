@@ -1,9 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://31ktsjhg7516"]
+[gd_scene load_steps=13 format=3 uid="uid://31ktsjhg7516"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_3dltl"]
 [ext_resource type="PackedScene" uid="uid://do2fulce5536c" path="res://scenes/background.tscn" id="2_fvg6k"]
 [ext_resource type="PackedScene" uid="uid://dcucscyxyq0xi" path="res://scenes/title_screen.tscn" id="2_lc2yu"]
 [ext_resource type="FontFile" uid="uid://b6g0oju3qagi0" path="res://assets/fonts/monogram.ttf" id="3_rkgfg"]
+[ext_resource type="Texture2D" uid="uid://diwy37u0h66o4" path="res://assets/Menu_assets/tutorial_10.png" id="4_ujikx"]
+[ext_resource type="Texture2D" uid="uid://dlk6cid5beqw8" path="res://assets/Menu_assets/tutorial_hover_10.png" id="5_8l5fv"]
+[ext_resource type="Texture2D" uid="uid://d3xd1y3ab1vfu" path="res://assets/Menu_assets/change_color_10.png" id="6_hvk6a"]
+[ext_resource type="Texture2D" uid="uid://cqy0brf7vk1fo" path="res://assets/Menu_assets/change_color_hover_10.png" id="7_gylec"]
 
 [sub_resource type="Theme" id="Theme_j7gqp"]
 default_font_size = 30
@@ -32,19 +36,75 @@ script = ExtResource("1_3dltl")
 z_index = 2
 layout_mode = 1
 
+[node name="Logo11" parent="Title_Screen" index="0"]
+position = Vector2(630, 105)
+
+[node name="Logo10" parent="Title_Screen" index="1"]
+position = Vector2(635, 100)
+
+[node name="Title_Screen_box" parent="Title_Screen" index="2"]
+offset_top = -163.0
+offset_bottom = 354.0
+scale = Vector2(1, 0.95)
+theme_override_constants/separation = 30
+
+[node name="Multiplayer" parent="Title_Screen/Title_Screen_box" index="3"]
+focus_neighbor_right = NodePath("../../Enter")
+
+[node name="Multiplayer10" parent="Title_Screen/Title_Screen_box" index="4"]
+position = Vector2(298, 188)
+
+[node name="MultiplayerHovered10" parent="Title_Screen/Title_Screen_box" index="5"]
+position = Vector2(298, 188)
+
+[node name="Leaderboard10" parent="Title_Screen/Title_Screen_box" index="7"]
+position = Vector2(298, 315)
+texture = ExtResource("4_ujikx")
+
+[node name="LeaderboardHovered10" parent="Title_Screen/Title_Screen_box" index="8"]
+position = Vector2(277, 315)
+texture = ExtResource("5_8l5fv")
+
+[node name="ColorChanger" type="Button" parent="Title_Screen/Title_Screen_box" index="9"]
+modulate = Color(1, 1, 1, 0)
+z_index = 2
+custom_minimum_size = Vector2(0, 103)
+layout_mode = 2
+text = "Change Color"
+
+[node name="ChangeColor10" type="Sprite2D" parent="Title_Screen/Title_Screen_box" index="10"]
+position = Vector2(299, 449)
+texture = ExtResource("6_hvk6a")
+
+[node name="ChangeColorHover10" type="Sprite2D" parent="Title_Screen/Title_Screen_box" index="11"]
+visible = false
+position = Vector2(278, 449)
+texture = ExtResource("7_gylec")
+
+[node name="Enter" type="Button" parent="Title_Screen"]
+visible = false
+layout_mode = 2
+offset_left = 1015.0
+offset_top = 315.0
+offset_right = 1267.0
+offset_bottom = 415.0
+disabled = true
+button_mask = 0
+text = "Press Enter to Confirm"
+
 [node name="Username" type="LineEdit" parent="Title_Screen"]
 visible = false
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 offset_left = 351.0
-offset_top = 402.0
+offset_top = 312.0
 offset_right = 950.0
-offset_bottom = 506.0
+offset_bottom = 416.0
 theme_override_fonts/font = ExtResource("3_rkgfg")
 theme_override_font_sizes/font_size = 45
-placeholder_text = "Type your name here"
+placeholder_text = "Enter your initials here"
 alignment = 1
-max_length = 15
+max_length = 3
 caret_blink = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -186,19 +246,13 @@ text = "   Failed to Connect!.."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ColorChanger" type="Button" parent="."]
-z_index = 2
-layout_mode = 0
-offset_left = 42.0
-offset_top = 608.0
-offset_right = 182.0
-offset_bottom = 657.0
-text = "Change Color"
-
 [connection signal="pressed" from="Title_Screen/Title_Screen_box/Singleplayer" to="." method="_on_singleplayer_pressed"]
 [connection signal="pressed" from="Title_Screen/Title_Screen_box/Multiplayer" to="." method="_on_multiplayer_pressed"]
+[connection signal="pressed" from="Title_Screen/Title_Screen_box/Leaderboard" to="." method="_on_leaderboard_pressed"]
+[connection signal="mouse_entered" from="Title_Screen/Title_Screen_box/ColorChanger" to="Title_Screen/Title_Screen_box" method="_on_color_changer_mouse_entered"]
+[connection signal="mouse_exited" from="Title_Screen/Title_Screen_box/ColorChanger" to="Title_Screen/Title_Screen_box" method="_on_color_changer_mouse_exited"]
+[connection signal="pressed" from="Title_Screen/Title_Screen_box/ColorChanger" to="." method="_on_color_changer_pressed"]
 [connection signal="text_submitted" from="Title_Screen/Username" to="." method="_on_username_text_submitted"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="ColorChanger" to="." method="_on_color_changer_pressed"]
 
 [editable path="Title_Screen"]
