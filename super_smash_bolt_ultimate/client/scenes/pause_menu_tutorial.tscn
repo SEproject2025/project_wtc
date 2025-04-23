@@ -1,62 +1,69 @@
-[gd_scene load_steps=6 format=3 uid="uid://gv62m5k0evcu"]
+[gd_scene load_steps=5 format=3 uid="uid://gv62m5k0evcu"]
 
 [ext_resource type="Script" path="res://scripts/pause_menu_tutorial.gd" id="1_pbq4q"]
 [ext_resource type="Texture2D" uid="uid://cj2rakmrivimv" path="res://assets/sprites/sprite_sheets/UI ICONS_WHITE_pixel art_Sprite Sheet.png" id="2_hr13u"]
-[ext_resource type="Texture2D" uid="uid://sr5exg0bswg4" path="res://assets/sprites/sprite_sheets/ui.png" id="3_fq3lq"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l4nlc"]
-atlas = ExtResource("3_fq3lq")
-region = Rect2(768, 888, 128, 136)
+[ext_resource type="FontFile" uid="uid://basjvt4sps6yj" path="res://assets/fonts/KeaniaOne-Regular.ttf" id="2_qd286"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8m6iv"]
 atlas = ExtResource("2_hr13u")
 region = Rect2(136, 8, 112, 112)
 
-[node name="Pause Menu" type="CanvasLayer"]
+[node name="Tutorial Pause Menu" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_pbq4q")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 1304.0
-offset_bottom = 697.0
-color = Color(0, 0, 0, 0.380392)
-metadata/_edit_lock_ = true
-
-[node name="ContinueButton" type="Label" parent="."]
 visible = false
-offset_left = 355.0
-offset_top = 253.0
-offset_right = 922.0
-offset_bottom = 364.0
-theme_override_font_sizes/font_size = 70
-text = "Press r to restart
-"
-
-[node name="QuitButton" type="Button" parent="."]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -231.0
-offset_top = 22.0
-offset_right = -95.0
-offset_bottom = 166.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.8, 0.8)
-icon = SubResource("AtlasTexture_l4nlc")
+color = Color(0, 0, 0, 0.756863)
+metadata/_edit_lock_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+visible = false
+anchors_preset = -1
+anchor_left = 0.317
+anchor_top = 0.5
+anchor_right = 0.683
+anchor_bottom = 0.786
+offset_left = -0.100006
+offset_top = -200.0
+offset_right = 0.0999756
+offset_bottom = -0.200012
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="RestartContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="RestartButton" type="Button" parent="VBoxContainer/RestartContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.697578, 0.697577, 0.697578, 1)
+theme_override_fonts/font = ExtResource("2_qd286")
+theme_override_font_sizes/font_size = 40
+text = "Restart"
 flat = true
 
-[node name="Quit" type="Label" parent="QuitButton"]
-layout_mode = 0
-offset_left = 168.75
-offset_top = -7.5
-offset_right = 521.75
-offset_bottom = 103.5
-theme_override_font_sizes/font_size = 80
-text = "Quit
-"
+[node name="QuitContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/QuitContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.698039, 0.698039, 0.698039, 1)
+theme_override_fonts/font = ExtResource("2_qd286")
+theme_override_font_sizes/font_size = 40
+text = "Quit"
+flat = true
 
 [node name="Pause" type="Button" parent="."]
 anchors_preset = 1
@@ -72,5 +79,6 @@ mouse_filter = 1
 icon = SubResource("AtlasTexture_8m6iv")
 flat = true
 
-[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/RestartContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Pause" to="." method="_on_pause_pressed"]
