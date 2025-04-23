@@ -8,8 +8,8 @@ GENERATE_SEED, SPECTATOR, RESTART_LOBBY, REJOINING_LOBBY}
 
 var rtc_mp = WebRTCMultiplayerPeer.new()
 var ws = WebSocketPeer.new()
-var url = "127.0.0.1:9999"
-#var url = "wss://godot.silfsy.com"
+#var url = "127.0.0.1:9999"
+var url = "wss://godot.silfsy.com"
 var client_connected : bool = false
 var ai_seed: int = 0
 
