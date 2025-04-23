@@ -684,6 +684,15 @@ tile_set = SubResource("TileSet_rejb8")
 z_index = 2
 position = Vector2(0, -128)
 
+[node name="TileMapLayer" parent="Tutorial Buttons" index="0"]
+tile_map_data = PackedByteArray("AAANAAAAAQACAAIAAAAXAAAAAAABAAMAAAAjAAAAAAACAAMAAACjAAQAAQACAAYAAACgAAcAAQACAAIAAAChAAAAAQACAAIAAADCAAMAAAABAAoAAADk/wAAAAAGAAQAAADj/wEAAAAAAAIAAADl/wEAAAADAAIAAADk/wEAAAACAAQAAADp/wAAAAAAAAAAAADp/wEAAAABAAAAAADo/wEAAAACAAAAAADq/wEAAAADAAAAAAA=")
+
+[node name="Label2" parent="Tutorial Buttons/Control" index="0"]
+offset_left = -460.0
+offset_top = 37.0
+offset_right = -364.0
+offset_bottom = 50.0
+
 [node name="Arrow" type="Sprite2D" parent="."]
 position = Vector2(2594.5, -80)
 rotation = -1.5708
@@ -710,3 +719,5 @@ position = Vector2(-517, -77)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("WorldBoundaryShape2D_63kyn")
+
+[editable path="Tutorial Buttons"]

@@ -145,3 +145,8 @@ func _on_leaderboard_pressed():
 	var tutorial = tutorial_template.instantiate()
 	get_tree().get_root().add_child(tutorial)
 	queue_free()
+
+
+func _on_enter_pressed():
+	_on_username_text_submitted($Title_Screen/Username.text)
+	pass # Replace with function body.

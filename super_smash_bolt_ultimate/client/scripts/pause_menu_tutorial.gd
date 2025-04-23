@@ -19,6 +19,10 @@ func _on_quit_button_pressed():
 	get_tree().get_root().get_node("main").add_child(load("res://scenes/main_menu.tscn").instantiate())
 	get_tree().get_root().get_node("tutorial").queue_free()
 
+
+func _on_pause_focus_entered():
+	$Pause.release_focus()
+
 func _on_restart_button_pressed() -> void:
 	get_tree().paused = false
 	$Pause.visible = !$Pause.visible

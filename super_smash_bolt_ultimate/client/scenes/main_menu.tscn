@@ -88,8 +88,6 @@ offset_left = 1015.0
 offset_top = 315.0
 offset_right = 1267.0
 offset_bottom = 415.0
-disabled = true
-button_mask = 0
 text = "Press Enter to Confirm"
 
 [node name="Username" type="LineEdit" parent="Title_Screen"]
@@ -252,6 +250,7 @@ vertical_alignment = 1
 [connection signal="mouse_entered" from="Title_Screen/Title_Screen_box/ColorChanger" to="Title_Screen/Title_Screen_box" method="_on_color_changer_mouse_entered"]
 [connection signal="mouse_exited" from="Title_Screen/Title_Screen_box/ColorChanger" to="Title_Screen/Title_Screen_box" method="_on_color_changer_mouse_exited"]
 [connection signal="pressed" from="Title_Screen/Title_Screen_box/ColorChanger" to="." method="_on_color_changer_pressed"]
+[connection signal="pressed" from="Title_Screen/Enter" to="." method="_on_enter_pressed"]
 [connection signal="text_submitted" from="Title_Screen/Username" to="." method="_on_username_text_submitted"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 
