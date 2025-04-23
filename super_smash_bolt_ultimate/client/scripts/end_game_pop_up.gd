@@ -20,7 +20,7 @@ var is_spectating = false
 func _ready() -> void:
 	setup()
 	$MarginContainer/VBoxContainer/BoxContainer/PlayAgain.grab_focus()
-	#User.client.connect("player_died", player_died)
+	User.client.connect("player_died", player_died)
 
 func setup() -> void:
 	all_players = get_tree().get_nodes_in_group("Players")
