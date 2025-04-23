@@ -73,4 +73,5 @@ icon = SubResource("AtlasTexture_8m6iv")
 flat = true
 
 [connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="focus_entered" from="Pause" to="." method="_on_pause_focus_entered"]
 [connection signal="pressed" from="Pause" to="." method="_on_pause_pressed"]

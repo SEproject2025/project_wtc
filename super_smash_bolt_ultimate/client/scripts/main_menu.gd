@@ -143,3 +143,8 @@ func _on_singleplayer_pressed():
 
 func _on_leaderboard_pressed():
 	get_tree().change_scene_to_file("res://scenes/tutorial.tscn")
+
+
+func _on_enter_pressed():
+	_on_username_text_submitted($Title_Screen/Username.text)
+	pass # Replace with function body.
