@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://31ktsjhg7516"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_3dltl"]
-[ext_resource type="PackedScene" uid="uid://bfccdrcyub5u3" path="res://main_menu_background.tscn" id="2_emnhd"]
+[ext_resource type="PackedScene" uid="uid://do2fulce5536c" path="res://scenes/background.tscn" id="2_fvg6k"]
 [ext_resource type="PackedScene" uid="uid://dcucscyxyq0xi" path="res://scenes/title_screen.tscn" id="2_lc2yu"]
 [ext_resource type="FontFile" uid="uid://b6g0oju3qagi0" path="res://assets/fonts/monogram.ttf" id="3_rkgfg"]
 [ext_resource type="Texture2D" uid="uid://diwy37u0h66o4" path="res://assets/Menu_assets/tutorial_10.png" id="4_ujikx"]
@@ -30,7 +30,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3dltl")
 
-[node name="Main Menu Background" parent="." instance=ExtResource("2_emnhd")]
+[node name="Background" parent="." instance=ExtResource("2_fvg6k")]
 
 [node name="Title_Screen" parent="." instance=ExtResource("2_lc2yu")]
 z_index = 2
