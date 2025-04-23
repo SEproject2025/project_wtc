@@ -21,6 +21,8 @@ var isSlipping: bool = false
 var lost_pop_up_template = preload("res://scenes/end_pop_up.tscn")
 var pause_menu_template = preload("res://scenes/pause_menu_tutorial.tscn")
 var pause_menu = pause_menu_template.instantiate()
+var ui_template = preload("res://scenes/UI.tscn")
+var ui
 
 @onready var animated_sprite: Sprite2D = $Sprite2D
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
@@ -69,6 +71,10 @@ func _process(_delta):
 		powerupManager.use_powerup()
 	if Input.is_action_just_pressed("reset"):
 		reset()
+	if ui.fuel.value != ui.fuel.max_value:
+		ui.fuel.value = ui.fuel.max_value - (dashCooldown.time_left * 10)
+	if powerupManager.is_jetpack_active or powerupManager.is_dash_powerup_active:
+		ui.power_fuel.value = powerupManager.fuel
 
 func _physics_process(delta):
 	apply_movement(delta)
@@ -89,6 +95,9 @@ func reset():
 	if self.has_node("Tutorial Pause Menu"):
 		remove_child(pause_menu)
 	add_child(pause_menu)
+	ui = ui_template.instantiate()
+	add_child(ui)
+	ui.fuel.set_max(dashCooldown.get_wait_time() * 10)
 	
 func die_explode():
 	var begin_death = death_explosion.instantiate()
@@ -248,6 +257,7 @@ func start_dash():
 	isDashing = true
 	canDash = false
 	dashTimer.start()
+	ui.fuel.value = 0
 	dashCooldown.start()
 	dashEffectTimer.start()
 
