@@ -195,6 +195,7 @@ popup/item_5/text = "Fixed"
 popup/item_5/id = 5
 
 [node name="Adjective2OptionButton" type="OptionButton" parent="."]
+layout_mode = 0
 offset_left = 687.0
 offset_top = 202.0
 offset_right = 864.0
@@ -213,6 +214,7 @@ popup/item_5/text = "Brass"
 popup/item_5/id = 5
 
 [node name="NounOptionButton" type="OptionButton" parent="."]
+layout_mode = 0
 offset_left = 865.0
 offset_top = 202.0
 offset_right = 1042.0

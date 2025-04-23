@@ -142,4 +142,6 @@ func _on_singleplayer_pressed():
 
 
 func _on_leaderboard_pressed():
-	get_tree().change_scene_to_file("res://scenes/tutorial.tscn")
+	var tutorial = tutorial_template.instantiate()
+	get_tree().get_root().add_child(tutorial)
+	queue_free()
