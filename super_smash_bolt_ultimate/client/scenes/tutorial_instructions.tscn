@@ -1,0 +1,368 @@
+[gd_scene load_steps=8 format=4 uid="uid://bv7jtarlk3c8k"]
+
+[ext_resource type="Texture2D" uid="uid://d24k0auyknfdh" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="1_xmma4"]
+[ext_resource type="Texture2D" uid="uid://difbjxwugrxgg" path="res://assets/sprites/Keyboard Extras.png" id="2_305y5"]
+[ext_resource type="FontFile" uid="uid://b6g0oju3qagi0" path="res://assets/fonts/monogram.ttf" id="3_ou74j"]
+[ext_resource type="Texture2D" uid="uid://c644jhkdq338h" path="res://assets/powerups (placeholders)/Question.png" id="4_ssfxr"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t7q36"]
+texture = ExtResource("1_xmma4")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+0:8/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+3:8/0 = 0
+4:8/0 = 0
+5:8/0 = 0
+6:8/0 = 0
+7:8/0 = 0
+0:9/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+3:9/0 = 0
+4:9/0 = 0
+5:9/0 = 0
+6:9/0 = 0
+7:9/0 = 0
+0:10/0 = 0
+1:10/0 = 0
+2:10/0 = 0
+3:10/0 = 0
+4:10/0 = 0
+5:10/0 = 0
+6:10/0 = 0
+7:10/0 = 0
+0:11/0 = 0
+1:11/0 = 0
+2:11/0 = 0
+3:11/0 = 0
+4:11/0 = 0
+5:11/0 = 0
+6:11/0 = 0
+7:11/0 = 0
+0:12/0 = 0
+1:12/0 = 0
+2:12/0 = 0
+3:12/0 = 0
+4:12/0 = 0
+5:12/0 = 0
+6:12/0 = 0
+7:12/0 = 0
+0:13/0 = 0
+1:13/0 = 0
+2:13/0 = 0
+3:13/0 = 0
+4:13/0 = 0
+5:13/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m5ixo"]
+texture = ExtResource("2_305y5")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_hg5id"]
+sources/0 = SubResource("TileSetAtlasSource_t7q36")
+sources/1 = SubResource("TileSetAtlasSource_m5ixo")
+
+[node name="Tutorial Instructions" type="Node2D"]
+z_index = 6
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+visibility_layer = 524288
+tile_map_data = PackedByteArray("AACjAAQAAQACAAYAAACgAAcAAQACAAIAAAChAAAAAQACAAIAAADCAAMAAAABAAoAAADe/wAAAAAAAAIAAADr/wEAAQACAAIAAADf/wAAAAACAAQAAADg/wAAAAADAAIAAADf////AAAGAAQAAAD5/wAAAAABAAMAAAAWAAAAAAACAAMAAAA=")
+tile_set = SubResource("TileSet_hg5id")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="move instructions" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = -565.0
+offset_top = 18.0
+offset_right = -469.0
+offset_bottom = 31.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.00392157, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "to move and jump"
+
+[node name="alt jump instructions" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = -374.0
+offset_top = 37.0
+offset_right = -278.0
+offset_bottom = 50.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "can jump as well"
+
+[node name="dash instructions" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = -180.0
+offset_top = 19.0
+offset_right = -28.0
+offset_bottom = 64.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "lets you dash
+Keep an eye on the cooldown"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="leftmouse" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = -181.0
+offset_top = -20.0
+offset_right = -29.0
+offset_bottom = -3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "left mouse click or"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="rightmouse" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 287.0
+offset_top = -18.0
+offset_right = 439.0
+offset_bottom = -1.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "right mouse click or"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="use powerups instructions" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 296.0
+offset_top = 22.0
+offset_right = 428.0
+offset_bottom = 51.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "lets you use any
+powerup you find"
+horizontal_alignment = 1
+
+[node name="Get powerups from" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 22.0
+offset_right = 171.0
+offset_bottom = 35.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "Get powerups from these"
+
+[node name="WELcOME!" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = -577.0
+offset_top = -50.0
+offset_right = -451.0
+offset_bottom = -37.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.00392157, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "WELCOME TO BOLT AWAY!"
+
+[node name="Question" type="Sprite2D" parent="."]
+position = Vector2(97, 3)
+scale = Vector2(0.3, 0.275)
+texture = ExtResource("4_ssfxr")
+
+[node name="Control2" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label8" type="Label" parent="Control2"]
+layout_mode = 0
+offset_left = 1234.0
+offset_top = 20.0
+offset_right = 1414.0
+offset_bottom = 33.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "Dash into enemies to kill them"
+
+[node name="Label9" type="Label" parent="Control2"]
+layout_mode = 0
+offset_left = 2428.0
+offset_top = 68.0
+offset_right = 2644.0
+offset_bottom = 97.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "To wall jump you
+first jump onto a wall"
+
+[node name="Label10" type="Label" parent="Control2"]
+layout_mode = 0
+offset_left = 2494.0
+offset_top = -23.0
+offset_right = 2572.0
+offset_bottom = 22.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "then jump off
+that wall 
+to get higher"
+horizontal_alignment = 1
+
+[node name="Label11" type="Label" parent="Control2"]
+layout_mode = 0
+offset_left = 2803.0
+offset_top = 2.0
+offset_right = 2935.0
+offset_bottom = 47.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "Some paths are easier,
+but others have
+better rewards"
+horizontal_alignment = 1
+
+[node name="Label12" type="Label" parent="Control2"]
+layout_mode = 0
+offset_left = 3017.0
+offset_top = 36.0
+offset_right = 3203.0
+offset_bottom = 81.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "Dash through broken rock with "
+horizontal_alignment = 1
+
+[node name="Label13" type="Label" parent="Control2"]
+layout_mode = 0
+offset_left = 3021.0
+offset_top = -109.0
+offset_right = 3207.0
+offset_bottom = -64.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "Higher risk, higher reward"
+horizontal_alignment = 1
+
+[node name="Label14" type="Label" parent="Control2"]
+layout_mode = 0
+offset_left = 3520.0
+offset_top = -48.0
+offset_right = 3706.0
+offset_bottom = -3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ou74j")
+text = "Now you can play your friends.
+Last bot standing wins!
+Have a blast!"
+horizontal_alignment = 1

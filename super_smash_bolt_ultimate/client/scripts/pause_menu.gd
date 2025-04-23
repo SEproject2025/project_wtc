@@ -4,6 +4,7 @@ var pop_up_template = preload("res://scenes/pop_up.tscn")
 var in_lobby_menu_template = preload("res://scenes/in_lobby_menu.tscn")
 var player_character_template = preload("res://scenes/player_character.tscn")
 
+signal restart_pressed()
 
 func _ready():
 	if User.ID == MultiplayerPeer.TARGET_PEER_SERVER:
@@ -28,18 +29,26 @@ func _on_continue_pressed():
 
 func _on_restart_pressed():
 	self.reparent(get_tree().get_root())
-	get_tree().get_root().get_node("game_scene").free()
-	User.current_lobby_seed = RandomNumberGenerator.new().randi()
-	var game_scene = load("res://scenes/game_scene.tscn").instantiate()
-	game_scene.set_multiplayer_authority(User.ID)
-	game_scene.name = "game_scene"
-	get_tree().get_root().add_child(game_scene)
+	if get_tree().get_root().get_node("game_scene"):
+		get_tree().get_root().get_node("game_scene").free()
+		User.current_lobby_seed = RandomNumberGenerator.new().randi()
+		var game_scene = load("res://scenes/game_scene.tscn").instantiate()
+		game_scene.set_multiplayer_authority(User.ID)
+		game_scene.name = "game_scene"
+		get_tree().get_root().add_child(game_scene)
 
-	var player_character = player_character_template.instantiate()
-	player_character.set_multiplayer_authority(User.ID)
-	player_character.global_position = Vector2(0, -6)
-	player_character.get_node("Control/VBoxContainer/Control2").visible = false
-	get_tree().get_root().get_node("game_scene").add_child(player_character)
+		var player_character = player_character_template.instantiate()
+		player_character.set_multiplayer_authority(User.ID)
+		player_character.global_position = Vector2(0, -6)
+		player_character.get_node("Control/VBoxContainer/Control2").visible = false
+		get_tree().get_root().get_node("game_scene").add_child(player_character)
+	
+	else:
+		#get_tree().get_root().get_node("tutorial").free()
+		#var game_scene = load("res://scenes/tutorial.tscn").instantiate()
+		#game_scene.set_multiplayer_authority(User.ID)
+		#get_tree().get_root().add_child(game_scene)
+		restart_pressed.emit()
 
 	get_tree().paused = false
 	queue_free()
@@ -47,8 +56,11 @@ func _on_restart_pressed():
 func _on_quit_pressed():
 	var game_scene_node = get_tree().get_root().get_node("game_scene")
 	var main_node = get_tree().get_root().get_node("main")
+	if get_tree().get_root().get_node("game_scene") == null:
+		game_scene_node = get_tree().get_root().get_node("tutorial")
 	if User.ID == MultiplayerPeer.TARGET_PEER_SERVER:
 		self.reparent(get_tree().get_root())
+		
 		game_scene_node.queue_free()
 		var main_menu = load("res://scenes/main_menu.tscn").instantiate()
 		main_node.add_child(main_menu)
