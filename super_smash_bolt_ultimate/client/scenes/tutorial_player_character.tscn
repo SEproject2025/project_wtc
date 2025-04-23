@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://dkeplxuxc3cjo"]
+[gd_scene load_steps=75 format=3 uid="uid://c10a1h8k7h68c"]
 
 [ext_resource type="Script" path="res://scripts/tutorial_player_character.gd" id="1_xewqa"]
 [ext_resource type="PackedScene" uid="uid://ld0nfnklnql6" path="res://scenes/powerups/power_up_ui.tscn" id="2_3ekdy"]

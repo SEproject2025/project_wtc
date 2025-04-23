@@ -6,6 +6,7 @@ var lobby_menu_template = preload("res://scenes/lobby_menu.tscn")
 var pop_up_template = preload("res://scenes/pop_up.tscn")
 var main_menu_template = preload("res://scenes/main_menu.tscn")
 var tutorial_template = preload("res://scenes/tutorial.tscn")
+var tutorial_player_template = preload("res://scenes/tutorial_player_character.tscn")
 var control_flag : bool = false
 var lobby_menu
 var bot_color = 1
@@ -110,9 +111,6 @@ func _on_color_changer_pressed() -> void:
 		bot_color = 1
 	$Background/AnimatedBot.set_color(bot_color)
 
-# func _on_singleplayer_pressed():
-# 	get_tree().change_scene_to_file("res://scenes/tutorial.tscn")
-
 func _on_singleplayer_pressed():
 	var peer = OfflineMultiplayerPeer.new()
 	User.ID = peer.get_unique_id()
@@ -142,4 +140,22 @@ func _on_singleplayer_pressed():
 
 
 func _on_leaderboard_pressed():
-	get_tree().change_scene_to_file("res://scenes/tutorial.tscn")
+	var peer = OfflineMultiplayerPeer.new()
+	User.ID = peer.get_unique_id()
+	if User.client:
+		User.client.queue_free()
+	User.client = Client.new()
+	User.client.ws.close()
+	get_parent().add_child(User.client)
+		
+	var tutorial_scene = tutorial_template.instantiate()
+	get_parent().get_parent().add_child(tutorial_scene)
+
+	var tutorial_player_character = tutorial_player_template.instantiate()
+	tutorial_player_character.set_multiplayer_authority(User.ID)
+	tutorial_player_character.global_position = Vector2(-520, -90)
+
+	get_node("../../tutorial").add_child(tutorial_player_character)
+	
+	tutorial_player_character.set_sprite(bot_color)
+	queue_free()

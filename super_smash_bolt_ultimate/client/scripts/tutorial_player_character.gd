@@ -30,8 +30,7 @@ var ui
 #var lasySyncedDisplacement := 0.0
 var spectator: bool = false
 var player_color = 6
-var pause_menu_template = preload("res://scenes/pause_menu_tutorial.tscn")
-var pause_menu = pause_menu_template.instantiate()
+var pause_menu_template = preload("res://scenes/pause_menu.tscn")
 
 @onready var animated_sprite: Sprite2D = $Sprite2D
 @onready var coyoteTimer: Timer = $Timers/CoyoteTimer
@@ -105,7 +104,9 @@ func reset():
 	
 	position.x = player_spawn_x
 	position.y = player_spawn_y
-
+	var pause_menu = pause_menu_template.instantiate()
+	add_child(pause_menu)
+	pause_menu.restart_pressed.connect(_on_reset_pressed)
 	$AnimationTree.set_active(true)
 	health.value = 100
 
@@ -172,6 +173,9 @@ func set_animation():
 func _on_area_2d_body_entered(body):
 	if body != self:
 		body.hit_received.rpc()
+		
+func _on_reset_pressed():
+	reset()
 
 func apply_movement(delta: float):
 	prev_x = global_position.x

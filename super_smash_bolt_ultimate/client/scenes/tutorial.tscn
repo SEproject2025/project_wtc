@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=4 uid="uid://cx70wiev7jjpw"]
+[gd_scene load_steps=44 format=4 uid="uid://cx70wiev7jjpw"]
 
 [ext_resource type="Texture2D" uid="uid://d2evj4xtt87v4" path="res://assets/sprites/SpriteSheetWasteland2.png" id="1_j1y22"]
 [ext_resource type="PackedScene" uid="uid://ssnxjecv0xkf" path="res://scenes/powerups/power_up_spawner.tscn" id="2_a4rxe"]
@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://bv7jtarlk3c8k" path="res://scenes/tutorial_instructions.tscn" id="12_1l3o7"]
 [ext_resource type="PackedScene" uid="uid://dtrbka1ef726o" path="res://scenes/killzone.tscn" id="12_rlbhc"]
 [ext_resource type="PackedScene" uid="uid://dbvkq2bq688np" path="res://scenes/CaveBackground.tscn" id="13_dpqi4"]
-[ext_resource type="PackedScene" uid="uid://dkeplxuxc3cjo" path="res://scenes/tutorial_player_character.tscn" id="14_kfqug"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4dmx1"]
 texture = ExtResource("3_wlpk0")
@@ -779,9 +778,6 @@ z_index = 2
 position = Vector2(0, -159)
 
 [node name="CaveBackground" parent="." instance=ExtResource("13_dpqi4")]
-
-[node name="Tutorial Player Character" parent="." instance=ExtResource("14_kfqug")]
-position = Vector2(-528, -79)
 
 [node name="Arrow4" type="Sprite2D" parent="."]
 position = Vector2(200.5, -124.5)
