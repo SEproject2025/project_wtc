@@ -16,7 +16,7 @@ var   body_in_area
 @onready var gracious_delay: Timer = $CRUMBLE
 
 func _process(delta: float) -> void:
-	if is_body_in_area and body_in_area.isDashing:
+	if is_body_in_area and (body_in_area.isDashing or body_in_area.isPowerUpDashing):
 		crumblings()
 		
 
@@ -24,7 +24,7 @@ func _on_area_2d_left_body_entered(body: Node2D) -> void:
 	if body.get_class() == "CharacterBody2D": 
 		is_body_in_area = true
 		body_in_area = body
-		if body.isDashing:
+		if body.isDashing or body.isPowerUpDashing:
 			crumblings()
 			
 
