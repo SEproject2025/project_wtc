@@ -37,15 +37,17 @@ z_index = 2
 layout_mode = 1
 
 [node name="Logo11" parent="Title_Screen" index="0"]
-position = Vector2(630, 105)
+position = Vector2(630, 135)
 
 [node name="Logo10" parent="Title_Screen" index="1"]
 modulate = Color(1, 1, 1, 1)
-position = Vector2(635, 100)
+position = Vector2(635, 130)
 
 [node name="Title_Screen_box" parent="Title_Screen" index="2"]
-offset_top = -163.0
-offset_bottom = 354.0
+offset_left = -295.0
+offset_top = -124.0
+offset_right = 303.0
+offset_bottom = 393.0
 scale = Vector2(1, 0.95)
 theme_override_constants/separation = 30
 
@@ -66,45 +68,51 @@ texture = ExtResource("4_ujikx")
 position = Vector2(277, 315)
 texture = ExtResource("5_8l5fv")
 
-[node name="ColorChanger" type="Button" parent="Title_Screen/Title_Screen_box" index="9"]
-modulate = Color(1, 1, 1, 0)
-z_index = 2
-custom_minimum_size = Vector2(0, 103)
-layout_mode = 2
-text = "Change Color"
-
-[node name="ChangeColor10" type="Sprite2D" parent="Title_Screen/Title_Screen_box" index="10"]
-position = Vector2(299, 449)
+[node name="ChangeColor10" type="Sprite2D" parent="Title_Screen/Title_Screen_box" index="9"]
+position = Vector2(-183, 444)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_hvk6a")
 
-[node name="ChangeColorHover10" type="Sprite2D" parent="Title_Screen/Title_Screen_box" index="11"]
+[node name="ChangeColorHover10" type="Sprite2D" parent="Title_Screen/Title_Screen_box" index="10"]
 visible = false
-position = Vector2(278, 449)
+position = Vector2(-172, 444)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_gylec")
 
 [node name="Enter" type="Button" parent="Title_Screen"]
 visible = false
 layout_mode = 2
-offset_left = 1015.0
-offset_top = 315.0
-offset_right = 1267.0
-offset_bottom = 415.0
+offset_left = 988.0
+offset_top = 351.0
+offset_right = 1235.0
+offset_bottom = 454.0
 text = "Press Enter to Confirm"
 
 [node name="Username" type="LineEdit" parent="Title_Screen"]
 visible = false
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-offset_left = 351.0
-offset_top = 312.0
-offset_right = 950.0
-offset_bottom = 416.0
+offset_left = 353.0
+offset_top = 348.0
+offset_right = 955.0
+offset_bottom = 454.0
 theme_override_fonts/font = ExtResource("3_rkgfg")
 theme_override_font_sizes/font_size = 45
 placeholder_text = "Enter your initials here"
 alignment = 1
 max_length = 2
 caret_blink = true
+
+[node name="ColorChanger" type="Button" parent="Title_Screen"]
+modulate = Color(1, 1, 1, 0)
+z_index = 2
+custom_minimum_size = Vector2(0, 103)
+layout_mode = 2
+offset_left = 8.0
+offset_top = 576.0
+offset_right = 348.0
+offset_bottom = 679.0
+text = "Change Color"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 visible = false
@@ -248,11 +256,11 @@ vertical_alignment = 1
 [connection signal="pressed" from="Title_Screen/Title_Screen_box/Singleplayer" to="." method="_on_singleplayer_pressed"]
 [connection signal="pressed" from="Title_Screen/Title_Screen_box/Multiplayer" to="." method="_on_multiplayer_pressed"]
 [connection signal="pressed" from="Title_Screen/Title_Screen_box/Leaderboard" to="." method="_on_leaderboard_pressed"]
-[connection signal="mouse_entered" from="Title_Screen/Title_Screen_box/ColorChanger" to="Title_Screen/Title_Screen_box" method="_on_color_changer_mouse_entered"]
-[connection signal="mouse_exited" from="Title_Screen/Title_Screen_box/ColorChanger" to="Title_Screen/Title_Screen_box" method="_on_color_changer_mouse_exited"]
-[connection signal="pressed" from="Title_Screen/Title_Screen_box/ColorChanger" to="." method="_on_color_changer_pressed"]
 [connection signal="pressed" from="Title_Screen/Enter" to="." method="_on_enter_pressed"]
 [connection signal="text_submitted" from="Title_Screen/Username" to="." method="_on_username_text_submitted"]
+[connection signal="mouse_entered" from="Title_Screen/ColorChanger" to="Title_Screen/Title_Screen_box" method="_on_color_changer_mouse_entered"]
+[connection signal="mouse_exited" from="Title_Screen/ColorChanger" to="Title_Screen/Title_Screen_box" method="_on_color_changer_mouse_exited"]
+[connection signal="pressed" from="Title_Screen/ColorChanger" to="." method="_on_color_changer_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 
 [editable path="Title_Screen"]
