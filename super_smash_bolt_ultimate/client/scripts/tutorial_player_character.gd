@@ -448,7 +448,7 @@ func die(player_name: int):
 	#$Sprite2D.visible = false
 	#displacement_hud.visible = false
 	#$Control.visible = false
-	
+	$"Pause Menu".queue_free()
 	reset()
 	#await get_tree().create_timer(0.5).timeout
 	#if get_tree().get_nodes_in_group("Players").filter(func(player): return player.alive).size() > 0:
