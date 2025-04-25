@@ -20,7 +20,8 @@ var is_spectating = false
 func _ready() -> void:
 	setup()
 	$MarginContainer/VBoxContainer/BoxContainer/PlayAgain.grab_focus()
-	User.client.connect("player_died", player_died)
+	if !User.client.player_died.is_connected(player_died):
+		User.client.connect("player_died", player_died)
 
 func setup() -> void:
 	all_players = get_tree().get_nodes_in_group("Players")
@@ -50,6 +51,7 @@ func _on_play_again_pressed():
 		player_character.global_position = Vector2(0, -6)
 		player_character.get_node("Control/VBoxContainer/Control2").visible = false
 		get_tree().get_root().get_node("game_scene").add_child(player_character)
+		player_character.set_sprite(User.player_color)
 	else:
 		var pop_up = pop_up_template.instantiate()
 		pop_up.set_msg("   returning to lobby...")

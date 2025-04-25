@@ -86,5 +86,6 @@ shape = SubResource("RectangleShape2D_kytge")
 [connection signal="body_entered" from="RigidBodyUpperLeft" to="RigidBodyUpperLeft" method="_on_body_entered"]
 [connection signal="timeout" from="CRUMBLE" to="." method="_on_squeeeek_timeout"]
 [connection signal="area_entered" from="Area2DLeft" to="." method="_on_area_2d_area_entered"]
-[connection signal="body_entered" from="Area2DLeft" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Area2DLeft" to="." method="_on_area_2d_left_body_entered"]
+[connection signal="body_entered" from="Area2DLeft" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2DLeft" to="." method="_on_area_2d_left_body_exited"]

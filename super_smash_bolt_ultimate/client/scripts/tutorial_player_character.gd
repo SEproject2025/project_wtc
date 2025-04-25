@@ -47,7 +47,7 @@ var pause_menu_template = preload("res://scenes/pause_menu.tscn")
 @onready var oilSpillTimer: Timer = $Timers/OilSpillTimer
 @onready var stunTimer:Timer = $Timers/StunTimer
 @onready var hitFlashAnimationPlayer = $HitFlashAnimationPlayer
-##@onready var displacement_hud = $Label
+#@onready var displacement_hud = $Label
 #@onready var displacementUpdateTimer: Timer = $Timers/DisplacementUpdateTimer
 @onready var death_explosion = preload("res://scenes/death_explosion.tscn")
 @onready var player_spawn_x = position.x
@@ -77,7 +77,7 @@ var attack_timer : int = 0
 @onready var original_anim_tree = $AnimationTree
 @onready var anim_tree = $AnimationTree.get("parameters/playback")
 @onready var anim_player = $AnimationPlayer
-@onready var character_name = $Control/VBoxContainer/Control2/Label
+#@onready var character_name = $Control/VBoxContainer/Control2/Label
 
 func _ready():
 	reset()
@@ -412,7 +412,7 @@ func stun_timer_timeout():
 @rpc("any_peer","call_remote","reliable")
 func set_player_name(_name : String):
 	print("Here is the name: %s" % _name)
-	character_name.text = _name
+	#character_name.text = _name
 
 @rpc("any_peer","call_local","reliable")
 func set_sprite(player_color):

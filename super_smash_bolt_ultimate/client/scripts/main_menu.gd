@@ -110,6 +110,7 @@ func _on_color_changer_pressed() -> void:
 	if bot_color > 8:
 		bot_color = 1
 	$Background/AnimatedBot.set_color(bot_color)
+	User.player_color = bot_color
 
 func _on_singleplayer_pressed():
 	var peer = OfflineMultiplayerPeer.new()
