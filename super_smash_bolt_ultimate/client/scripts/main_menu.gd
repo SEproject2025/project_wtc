@@ -13,6 +13,9 @@ var bot_color = 1
 
 func _ready() -> void:
 	name = "main_menu"
+	$Background/AnimatedBot/AnimationTree.get("parameters/playback").travel("fall_end")
+	$Background/AnimatedBot.set_color(User.player_color)
+	bot_color = User.player_color
 
 func go_to_lobby_menu():
 	User.after_main_menu_init()
@@ -110,6 +113,7 @@ func _on_color_changer_pressed() -> void:
 	if bot_color > 8:
 		bot_color = 1
 	$Background/AnimatedBot.set_color(bot_color)
+	User.player_color = bot_color
 
 func _on_singleplayer_pressed():
 	var peer = OfflineMultiplayerPeer.new()

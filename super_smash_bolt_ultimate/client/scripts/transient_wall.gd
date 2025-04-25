@@ -10,13 +10,24 @@ const MAX_TIMER_ITERATION   = 9
 const IDEAL_TIMER_ITERATION = 3
 
 var   timer_iteration       = 1 #Humans never count from zero!
+var   is_body_in_area          = false
+var   body_in_area
 
 @onready var gracious_delay: Timer = $CRUMBLE
 
+func _process(delta: float) -> void:
+	if is_body_in_area and (body_in_area.isDashing or body_in_area.isPowerUpDashing):
+		crumblings()
+		
 
 func _on_area_2d_left_body_entered(body: Node2D) -> void:
-	if(body.get_class() == "CharacterBody2D" and body.isDashing == true):
-		crumblings()
+	if body.get_class() == "CharacterBody2D": 
+		is_body_in_area = true
+		body_in_area = body
+		if body.isDashing or body.isPowerUpDashing:
+			crumblings()
+			
+
 
 func crumblings():
 	$SolidBlock.queue_free()
@@ -49,3 +60,7 @@ func _on_squeeeek_timeout() -> void:
 @rpc("any_peer", "call_remote")
 func synchronized_crumblings():
 	crumblings()
+
+
+func _on_area_2d_left_body_exited(body: Node2D) -> void:
+	is_body_in_area = false
