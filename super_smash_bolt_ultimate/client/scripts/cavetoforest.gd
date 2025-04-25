@@ -29,9 +29,11 @@ func _physics_process(_delta):
 					last_place = player.position.x
 			if(player.position.x > first_place):
 				first_place = player.position.x
+	for player in players:
+		if player.alive:
 			if global_position.x - first_place <= (level.offset*2) and first_place < global_position.x and !gave_birth:
 			
 				level.algorithm(position.x+(level.offset))
-			g	ave_birth = true
+				gave_birth = true
 			if  last_place - global_position.x >= (level.offset*2) and last_place > global_position.x  and gave_birth:
 				queue_free()
