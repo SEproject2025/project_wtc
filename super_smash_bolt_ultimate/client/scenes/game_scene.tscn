@@ -85,13 +85,13 @@ zoom = Vector2(2, 2)
 environment = SubResource("Environment_1qvk7")
 
 [node name="ForestBackground" parent="." instance=ExtResource("2_m6dii")]
-offset = Vector2(0, -550)
-transform = Transform2D(1, 0, 0, 1, 0, -550)
+offset = Vector2(0, -509)
+transform = Transform2D(1, 0, 0, 1, 0, -509)
 scroll_base_offset = Vector2(0, 90)
 
 [node name="CaveBackground" parent="." instance=ExtResource("3_e5nna")]
-offset = Vector2(0, -240)
-transform = Transform2D(1, 0, 0, 1, 0, -240)
+offset = Vector2(0, -205)
+transform = Transform2D(1, 0, 0, 1, 0, -205)
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("4_kmxhs")]
 offset = Vector2(0, -390)
