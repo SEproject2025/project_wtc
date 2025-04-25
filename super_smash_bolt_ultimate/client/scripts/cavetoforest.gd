@@ -32,6 +32,6 @@ func _physics_process(_delta):
 			if global_position.x - first_place <= (level.offset*2) and first_place < global_position.x and !gave_birth:
 			
 				level.algorithm(position.x+(level.offset))
-			gave_birth = true
+				gave_birth = true
 			if  last_place - global_position.x >= (level.offset*2) and last_place > global_position.x  and gave_birth:
 				queue_free()
