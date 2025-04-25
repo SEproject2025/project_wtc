@@ -40,6 +40,7 @@ layout_mode = 1
 position = Vector2(630, 105)
 
 [node name="Logo10" parent="Title_Screen" index="1"]
+modulate = Color(1, 1, 1, 1)
 position = Vector2(635, 100)
 
 [node name="Title_Screen_box" parent="Title_Screen" index="2"]
